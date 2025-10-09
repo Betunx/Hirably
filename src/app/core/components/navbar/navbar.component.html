@@ -1,0 +1,9 @@
+<nav class="navbar">
+  <div class="logo">Hirably</div>
+  <ul class="nav-links">
+    <li *ngFor="let link of navLinks">
+      <a (click)="scrollToSection(link.anchor)">{{ link.label }}</a>
+    </li>
+  </ul>
+  <a (click)="scrollToSection('contact')" class="cta-button">Start Hiring Today</a>
+</nav>
