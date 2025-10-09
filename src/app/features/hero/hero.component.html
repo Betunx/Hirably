@@ -1,0 +1,27 @@
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="hero-tagline">Smart. Simple. Hire.</div>
+    <h1>
+      <span class="rotating-word">{{ currentWord }}</span>
+    </h1>
+    <p class="hero-subtitle">for U.S. & Canadian companies hiring in Mexico</p>
+    <p class="hero-description">
+      Hirably makes hiring in Mexico simple, transparent, and risk free. We source, pre-vet, and screen candidates so you only meet top talent, and you don't pay until you hire. From recruitment to payroll, benefits, and compliance, every step is managed through our all-inclusive platform.
+    </p>
+    <div class="hero-ctas">
+      <a (click)="scrollToSection('contact')" class="cta-button">Book a Free Consultation</a>
+      <a (click)="scrollToSection('how-it-works')" class="secondary-button">See How It Works</a>
+    </div>
+    <p class="trust-badge">Trusted by U.S. & Canadian companies building remote teams in Mexico.</p>
+  </div>
+
+  <div class="dashboard-mockup">
+    <div class="dashboard-header">Your Hiring Dashboard</div>
+    <div class="dashboard-stats">
+      <div class="stat-card" *ngFor="let stat of dashboardStats">
+        <div class="stat-number">{{ stat.number }}</div>
+        <div class="stat-label">{{ stat.label }}</div>
+      </div>
+    </div>
+  </div>
+</section>

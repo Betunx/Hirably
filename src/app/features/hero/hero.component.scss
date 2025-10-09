@@ -1,0 +1,159 @@
+.hero {
+  margin-top: 80px;
+  padding: 5rem 5% 4rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  min-height: 85vh;
+
+  .hero-content {
+    h1 {
+      font-size: 3.5rem;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+
+      .rotating-word {
+        display: inline-block;
+        background: linear-gradient(135deg, #4a90e2, #2196F3);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 700;
+        animation: fadeIn 0.5s ease-in;
+      }
+    }
+
+    .hero-tagline {
+      font-size: 1.5rem;
+      color: #4a90e2;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1.3rem;
+      color: #4a90e2;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-description {
+      font-size: 1.15rem;
+      line-height: 1.7;
+      color: #555;
+      margin-bottom: 2rem;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+
+      .cta-button, .secondary-button {
+        padding: 0.8rem 1.8rem;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s;
+        cursor: pointer;
+        border: none;
+      }
+
+      .cta-button {
+        background: linear-gradient(135deg, #4a90e2, #2196F3);
+        color: white;
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 10px 25px rgba(74, 144, 226, 0.3);
+        }
+      }
+
+      .secondary-button {
+        background: white;
+        color: #4a90e2;
+        border: 2px solid #4a90e2;
+
+        &:hover {
+          background: #4a90e2;
+          color: white;
+        }
+      }
+    }
+
+    .trust-badge {
+      color: #666;
+      font-size: 0.95rem;
+      font-style: italic;
+    }
+  }
+
+  .dashboard-mockup {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    animation: float 6s ease-in-out infinite;
+
+    .dashboard-header {
+      text-align: center;
+      font-weight: 600;
+      color: #4a90e2;
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+    }
+
+    .dashboard-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+
+      .stat-card {
+        background: linear-gradient(135deg, #f8f9fa, #e8f4f8);
+        padding: 1.5rem;
+        border-radius: 12px;
+        text-align: center;
+
+        .stat-number {
+          font-size: 2.5rem;
+          font-weight: 700;
+          color: #4a90e2;
+          margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+          color: #666;
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+
+    .hero-content h1 {
+      font-size: 2.5rem;
+    }
+  }
+}
