@@ -1,0 +1,34 @@
+<section class="pricing">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Transparent, All-Inclusive Pricing</h2>
+      <p class="section-description">
+        Only pay when you hire. No upfront fees. Everything included: payroll,
+        compliance, HR, and benefits in Mexico.
+      </p>
+    </div>
+
+    <div class="pricing-cards">
+      <div
+        class="pricing-card"
+        *ngFor="let plan of plans"
+        [class.featured]="plan.featured">
+
+        <div class="pricing-badge" *ngIf="plan.badge">{{ plan.badge }}</div>
+        <div class="pricing-name">{{ plan.name }}</div>
+        <div class="pricing-range">{{ plan.range }}</div>
+        <div class="pricing-price">
+          {{ plan.price }}
+          <span class="price-suffix" *ngIf="plan.price.includes('$')">/hr</span>
+        </div>
+        <div class="pricing-period">{{ plan.period }}</div>
+
+        <ul class="pricing-features">
+          <li *ngFor="let feature of plan.features">{{ feature }}</li>
+        </ul>
+
+        <a href="#" [class]="'btn ' + plan.buttonClass">{{ plan.buttonText }}</a>
+      </div>
+    </div>
+  </div>
+</section>
