@@ -1,0 +1,117 @@
+<!-- ====================================
+     HERO SECTION COMPONENT - HTML Template
+     hero-section.component.html
+     ==================================== -->
+
+<section class="relative bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 pt-20 pb-32 overflow-hidden">
+  
+  <!-- Background Pattern -->
+  <div class="absolute inset-0 opacity-10">
+    <div class="absolute inset-0 bg-pattern"></div>
+  </div>
+
+  <div class="container mx-auto px-4 relative z-10">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      
+      <!-- Left Column - Copy -->
+      <div class="text-white">
+        
+        <!-- Trust Badge -->
+        <div class="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
+          <span class="text-green-400">✓</span>
+          <span class="text-sm">Trusted by 50+ US & Canadian companies</span>
+        </div>
+
+        <!-- Main Headline -->
+        <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+          Hire Elite Mexican Talent in 
+          <span class="text-blue-300"> Days, Not Weeks</span>
+        </h1>
+
+        <!-- Sub-headline -->
+        <p class="text-xl md:text-2xl text-blue-100 mb-8">
+          Save 60% on costs. Zero upfront fees. Lifetime guarantee. 
+          Over 200+ successful placements.
+        </p>
+
+        <!-- Trust Elements -->
+        <div class="flex flex-wrap gap-4 mb-8">
+          <div *ngFor="let badge of trustBadges" class="flex items-center space-x-2 text-sm">
+            <span class="text-green-400">✓</span>
+            <span>{{ badge }}</span>
+          </div>
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4">
+          <button 
+            (click)="onBookConsultation()"
+            class="bg-blue-500 hover:bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+            Book Free Consultation →
+          </button>
+          <button 
+            (click)="onSeeHowItWorks()"
+            class="border-2 border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 rounded-lg font-semibold text-lg transition">
+            See How It Works
+          </button>
+        </div>
+
+        <!-- Secondary CTA -->
+        <p class="text-sm text-blue-200 mt-4">
+          No commitment • 15-minute call • Get instant pricing
+        </p>
+      </div>
+
+      <!-- Right Column - Visual -->
+      <div class="relative">
+        <div class="relative w-full h-96 lg:h-[500px]">
+          
+          <!-- Network Visualization -->
+          <svg viewBox="0 0 400 400" class="w-full h-full">
+            
+            <!-- Connection Lines -->
+            <line x1="200" y1="200" x2="100" y2="100" stroke="rgba(96, 165, 250, 0.3)" stroke-width="2"/>
+            <line x1="200" y1="200" x2="300" y2="100" stroke="rgba(96, 165, 250, 0.3)" stroke-width="2"/>
+            <line x1="200" y1="200" x2="100" y2="300" stroke="rgba(96, 165, 250, 0.3)" stroke-width="2"/>
+            <line x1="200" y1="200" x2="300" y2="300" stroke="rgba(96, 165, 250, 0.3)" stroke-width="2"/>
+            <line x1="200" y1="200" x2="200" y2="80" stroke="rgba(96, 165, 250, 0.3)" stroke-width="2"/>
+            
+            <!-- Center Node - Company -->
+            <g>
+              <circle cx="200" cy="200" r="40" fill="white" />
+              <text x="200" y="208" text-anchor="middle" font-size="24">🏢</text>
+            </g>
+
+            <!-- Candidate Nodes (circles for now, can be replaced with images) -->
+            <circle cx="200" cy="80" r="25" fill="#3B82F6" />
+            <circle cx="300" cy="100" r="25" fill="#3B82F6" />
+            <circle cx="100" cy="100" r="25" fill="#3B82F6" />
+            <circle cx="300" cy="300" r="25" fill="#3B82F6" />
+            <circle cx="100" cy="300" r="25" fill="#3B82F6" />
+            
+          </svg>
+
+          <!-- Floating Stats -->
+          <div class="absolute top-10 right-10 bg-white rounded-lg shadow-xl p-4 animate-float">
+            <div class="text-3xl font-bold text-blue-600">200+</div>
+            <div class="text-sm text-gray-600">Placements</div>
+          </div>
+
+          <div class="absolute bottom-10 left-10 bg-white rounded-lg shadow-xl p-4 animate-float-delayed">
+            <div class="text-3xl font-bold text-green-600">60%</div>
+            <div class="text-sm text-gray-600">Cost Savings</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Wave Divider -->
+  <div class="absolute bottom-0 left-0 right-0">
+    <svg viewBox="0 0 1440 120" class="w-full">
+      <path fill="white" d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"></path>
+    </svg>
+  </div>
+
+</section>

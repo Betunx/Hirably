@@ -1,0 +1,29 @@
+/* ====================================
+   TESTIMONIALS CAROUSEL COMPONENT - CSS
+   testimonials-carousel.component.css
+   ==================================== */
+
+button {
+  cursor: pointer;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .absolute.left-0,
+  .absolute.right-0 {
+    display: none;
+  }
+}

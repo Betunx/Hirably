@@ -1,0 +1,20 @@
+<!-- ====================================
+     STATS BAR COMPONENT - HTML Template
+     stats-bar.component.html
+     ==================================== -->
+
+<section class="bg-gradient-to-r from-blue-900 to-blue-800 py-12">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-8">
+      <div *ngFor="let stat of stats" class="text-center transform hover:scale-105 transition-transform">
+        <div class="text-4xl mb-2">{{ stat.icon }}</div>
+        <div class="text-4xl md:text-5xl font-bold text-white mb-2 counter">
+          {{ stat.number }}
+        </div>
+        <div class="text-blue-200 text-sm md:text-base">
+          {{ stat.label }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
