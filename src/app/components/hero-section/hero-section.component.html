@@ -3,8 +3,9 @@
      hero-section.component.html
      ==================================== -->
 
-<section class="relative bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 pt-20 pb-32 overflow-hidden">
-  
+<section id="home"
+  class="relative bg-gradient-to-br from-blue-500 via-blue-600 to-blue-500 pt-20 pb-32 overflow-hidden">
+
   <!-- Background Pattern -->
   <div class="absolute inset-0 opacity-10">
     <div class="absolute inset-0 bg-pattern"></div>
@@ -12,27 +13,29 @@
 
   <div class="container mx-auto px-4 relative z-10">
     <div class="grid lg:grid-cols-2 gap-12 items-center">
-      
+
       <!-- Left Column - Copy -->
       <div class="text-white">
-        
-        <!-- Trust Badge -->
-        <div class="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
-          <span class="text-green-400">✓</span>
-          <span class="text-sm">Trusted by 50+ US & Canadian companies</span>
-        </div>
 
         <!-- Main Headline -->
-        <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-          Hire Elite Mexican Talent in 
-          <span class="text-blue-300"> Days, Not Weeks</span>
+        <h1 class="text-5xl md:text-6xl mb-6 leading-tight">
+          <span class="font-bold">Hire</span> Elite <span class="font-bold">Mexican</span><br>
+          Talent <span class="font-bold">Today</span>
         </h1>
 
-        <!-- Sub-headline -->
-        <p class="text-xl md:text-2xl text-blue-100 mb-8">
-          Save 60% on costs. Zero upfront fees. Lifetime guarantee. 
-          Over 200+ successful placements.
-        </p>
+        <!-- Animated Text - In Days/Not Weeks -->
+        <div class="text-3xl md:text-4xl font-bold text-white/90 mb-8">
+          <div class="relative h-12 overflow-hidden">
+            <div class="absolute w-full transition-all duration-1000 ease-in-out"
+                 [ngClass]="showInDays ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full'">
+              In Days
+            </div>
+            <div class="absolute w-full transition-all duration-1000 ease-in-out"
+                 [ngClass]="!showInDays ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-full'">
+              Not Weeks
+            </div>
+          </div>
+        </div>
 
         <!-- Trust Elements -->
         <div class="flex flex-wrap gap-4 mb-8">
@@ -44,15 +47,9 @@
 
         <!-- CTA Buttons - Usando componentes compartidos -->
         <div class="flex flex-col sm:flex-row gap-4">
-          <app-cta-button
-            text="Book Free Consultation →"
-            variant="primary"
-            (buttonClick)="onBookConsultation()">
+          <app-cta-button text="Book Free Consultation →" variant="primary" (buttonClick)="onBookConsultation()">
           </app-cta-button>
-          <app-cta-button
-            text="See How It Works"
-            variant="outline"
-            (buttonClick)="onSeeHowItWorks()">
+          <app-cta-button text="See How It Works" variant="outline" (buttonClick)="onSeeHowItWorks()">
           </app-cta-button>
         </div>
 
@@ -68,14 +65,14 @@
 
           <!-- Network Visualization -->
           <svg viewBox="0 0 400 400" class="w-full h-full max-h-80">
-            
+
             <!-- Connection Lines -->
-            <line x1="200" y1="200" x2="100" y2="100" stroke="rgba(96, 165, 250, 0.3)" stroke-width="2"/>
-            <line x1="200" y1="200" x2="300" y2="100" stroke="rgba(96, 165, 250, 0.3)" stroke-width="2"/>
-            <line x1="200" y1="200" x2="100" y2="300" stroke="rgba(96, 165, 250, 0.3)" stroke-width="2"/>
-            <line x1="200" y1="200" x2="300" y2="300" stroke="rgba(96, 165, 250, 0.3)" stroke-width="2"/>
-            <line x1="200" y1="200" x2="200" y2="80" stroke="rgba(96, 165, 250, 0.3)" stroke-width="2"/>
-            
+            <line x1="200" y1="200" x2="100" y2="100" stroke="rgba(96, 165, 250, 0.3)" stroke-width="2" />
+            <line x1="200" y1="200" x2="300" y2="100" stroke="rgba(96, 165, 250, 0.3)" stroke-width="2" />
+            <line x1="200" y1="200" x2="100" y2="300" stroke="rgba(96, 165, 250, 0.3)" stroke-width="2" />
+            <line x1="200" y1="200" x2="300" y2="300" stroke="rgba(96, 165, 250, 0.3)" stroke-width="2" />
+            <line x1="200" y1="200" x2="200" y2="80" stroke="rgba(96, 165, 250, 0.3)" stroke-width="2" />
+
             <!-- Center Node - Company -->
             <g>
               <circle cx="200" cy="200" r="40" fill="white" />
@@ -88,7 +85,7 @@
             <circle cx="100" cy="100" r="25" fill="#3B82F6" />
             <circle cx="300" cy="300" r="25" fill="#3B82F6" />
             <circle cx="100" cy="300" r="25" fill="#3B82F6" />
-            
+
           </svg>
 
           <!-- Floating Stats -->
@@ -101,6 +98,16 @@
             <div class="text-3xl font-bold text-green-600">60%</div>
             <div class="text-sm text-gray-600">Cost Savings</div>
           </div>
+
+          <div class="absolute top-10 left-5 bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-lg shadow-xl p-4 animate-float max-w-[140px]">
+            <div class="text-2xl font-bold mb-1">✓</div>
+            <div class="text-xs font-semibold">Lifetime Guarantee</div>
+          </div>
+
+          <div class="absolute bottom-10 right-5 bg-gradient-to-br from-teal-500 to-teal-600 text-white rounded-lg shadow-xl p-4 animate-float-delayed max-w-[140px]">
+            <div class="text-2xl font-bold mb-1">$0</div>
+            <div class="text-xs font-semibold">Zero Upfront Fees</div>
+          </div>
         </div>
       </div>
 
@@ -110,7 +117,9 @@
   <!-- Wave Divider -->
   <div class="absolute bottom-0 left-0 right-0">
     <svg viewBox="0 0 1440 120" class="w-full">
-      <path fill="white" d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z"></path>
+      <path fill="white"
+        d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z">
+      </path>
     </svg>
   </div>
 

@@ -3,23 +3,37 @@
 // hero-section.component.ts
 // ====================================
 
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ScrollService } from '../../shared/services/scroll.service';
 
 @Component({
   selector: 'app-hero-section',
-  templateUrl: './hero-section.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  templateUrl: './hero-section.component.html'
 })
-export class HeroSectionComponent {
+export class HeroSectionComponent implements OnInit, OnDestroy {
 
   trustBadges = [
-    'No upfront fees',
-    'Lifetime guarantee',
+    'Trusted by 50+ US & Canadian companies',
     '7-day hiring'
   ];
 
+  showInDays = true;
+  private intervalId?: number;
+
   constructor(private scrollService: ScrollService) {}
+
+  ngOnInit(): void {
+    // Alternate text every 3 seconds
+    this.intervalId = window.setInterval(() => {
+      this.showInDays = !this.showInDays;
+    }, 3000);
+  }
+
+  ngOnDestroy(): void {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+  }
 
   onBookConsultation(): void {
     // Navigate to booking page or open modal
@@ -27,6 +41,6 @@ export class HeroSectionComponent {
   }
 
   onSeeHowItWorks(): void {
-    this.scrollService.scrollToId('howitworks');
+    this.scrollService.scrollToId('how-it-works');
   }
 }
