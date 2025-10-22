@@ -1,0 +1,126 @@
+<!-- ====================================
+     WHY HIRABLY COMPONENT - HTML Template
+     why-hirably.component.html
+     ==================================== -->
+
+<section class="py-20 bg-white">
+  <div class="container mx-auto px-4">
+
+    <!-- Header - Usando componente compartido -->
+    <app-section-header
+      tag="WHY MEXICO"
+      title="Why Companies Choose Mexico"
+      description="Expand your team in real time, at a fraction of the costs. Work with bilingual professionals who understand North American standards and deliver results from day one.">
+    </app-section-header>
+
+    <!-- Map Visual (from legacy) -->
+    <div class="max-w-4xl mx-auto mb-16 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl shadow-lg p-8 md:p-12">
+      <div class="text-center mb-8">
+        <div class="inline-block bg-white px-6 py-3 rounded-full shadow-md">
+          <span class="text-lg font-bold text-gray-900">Your Company</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 mb-6 text-center">
+        <div class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-sm font-medium">
+          ↑ Deliverables, Reports, Live Collaboration
+        </div>
+        <div class="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-lg text-sm font-medium">
+          ↓ Job Requests, Feedback, Approvals
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-white rounded-xl p-4 shadow-md text-center hover:shadow-lg transition-shadow">
+          <div class="text-3xl mb-2">🧮</div>
+          <div class="font-semibold text-gray-900">Your Accountant</div>
+        </div>
+        <div class="bg-white rounded-xl p-4 shadow-md text-center hover:shadow-lg transition-shadow">
+          <div class="text-3xl mb-2">⚙️</div>
+          <div class="font-semibold text-gray-900">Your Engineer</div>
+        </div>
+        <div class="bg-white rounded-xl p-4 shadow-md text-center hover:shadow-lg transition-shadow">
+          <div class="text-3xl mb-2">🎧</div>
+          <div class="font-semibold text-gray-900">Your Support Rep</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Why Mexico Benefits Grid (4 benefits from legacy) -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto mb-16">
+      <div
+        *ngFor="let benefit of mexicoBenefits"
+        class="bg-gradient-to-br from-gray-50 to-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all hover:-translate-y-2 text-center">
+
+        <!-- Icon -->
+        <div class="text-4xl mb-4">{{ benefit.icon }}</div>
+
+        <!-- Title -->
+        <h3 class="text-lg font-bold text-gray-900 mb-2">
+          {{ benefit.title }}
+        </h3>
+
+        <!-- Description -->
+        <p class="text-gray-600 text-sm">
+          {{ benefit.description }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Hirably Advantages Section - Usando componente compartido -->
+    <div class="mt-20">
+      <app-section-header
+        tag="THE HIRABLY ADVANTAGE"
+        title="Why Companies Choose Hirably"
+        description="We combine the best of technology and personal service to deliver an unmatched hiring experience">
+      </app-section-header>
+    </div>
+
+    <!-- Advantages Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+
+      <div
+        *ngFor="let advantage of advantages"
+        class="bg-gradient-to-br from-gray-50 to-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all hover:-translate-y-2">
+
+        <!-- Icon -->
+        <div class="text-3xl md:text-4xl mb-4">{{ advantage.icon }}</div>
+
+        <!-- Title -->
+        <h3 class="text-xl font-bold text-gray-900 mb-3">
+          {{ advantage.title }}
+        </h3>
+
+        <!-- Description -->
+        <p class="text-gray-600 mb-4">
+          {{ advantage.description }}
+        </p>
+
+        <!-- Items List (if available) -->
+        <ul *ngIf="advantage.items && advantage.items.length > 0" class="space-y-2">
+          <li *ngFor="let item of advantage.items" class="flex items-start text-sm">
+            <span class="text-green-500 mr-2 mt-0.5">✓</span>
+            <span class="text-gray-700">{{ item }}</span>
+          </li>
+        </ul>
+
+      </div>
+
+    </div>
+
+    <!-- CTA Below -->
+    <div class="text-center mt-16">
+      <p class="text-lg text-gray-700 mb-6">
+        Ready to experience the Hirably difference?
+      </p>
+      <app-cta-button
+        text="Book Your Free Consultation →"
+        variant="primary">
+      </app-cta-button>
+      <p class="text-sm text-gray-500 mt-4">
+        No commitment required • Talk to an expert in 15 minutes
+      </p>
+    </div>
+
+  </div>
+</section>

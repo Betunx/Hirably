@@ -1,0 +1,45 @@
+<section id="whoweare" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+
+        <!-- Header - Usando componente compartido -->
+        <app-section-header
+            tag="WHO WE ARE"
+            title="Your Fast Track to Hiring in Mexico"
+            [description]="description">
+        </app-section-header>
+
+        <!-- Services Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+            <div *ngFor="let service of services"
+                class="group p-8 rounded-2xl border-2 border-gray-200 hover:border-blue-500 hover:shadow-xl transition-all duration-300">
+
+                <!-- Icon -->
+                <div
+                    class="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-500 transition-colors">
+                    <svg class="w-6 h-6 text-blue-600 group-hover:text-white" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">
+                    {{ service.title }}
+                </h3>
+
+                <p class="text-gray-600 leading-relaxed">
+                    {{ service.description }}
+                </p>
+            </div>
+        </div>
+
+        <!-- CTA - Usando componente compartido -->
+        <div class="text-center mt-12">
+            <app-cta-button
+                text="Book a Free Consultation"
+                variant="primary">
+            </app-cta-button>
+        </div>
+
+    </div>
+</section>

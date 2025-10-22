@@ -1,0 +1,71 @@
+<section id="pricing" class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+
+        <!-- Header - Usando componente compartido -->
+        <app-section-header
+            tag="OUR PRICES"
+            title="Transparent, All-Inclusive Pricing"
+            description="Choose the plan that fits your hiring needs. All plans include full recruitment, payroll, compliance, and HR support.">
+        </app-section-header>
+
+        <!-- Pricing Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+
+            <div *ngFor="let plan of plans" [class.ring-4]="plan.recommended" [class.ring-blue-500]="plan.recommended"
+                [class.scale-105]="plan.recommended"
+                class="relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden">
+
+                <!-- Recommended Badge -->
+                <div *ngIf="plan.recommended"
+                    class="absolute top-0 right-0 bg-blue-500 text-white px-6 py-2 text-sm font-bold rounded-bl-lg">
+                    RECOMMENDED
+                </div>
+
+                <!-- Card Content -->
+                <div class="p-8">
+
+                    <!-- Plan Name -->
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">
+                        {{ plan.name }}
+                    </h3>
+
+                    <!-- Price -->
+                    <div class="mb-6">
+                        <span class="text-4xl font-bold text-gray-900">{{ plan.price }}</span>
+                    </div>
+
+                    <!-- Features List -->
+                    <ul class="space-y-4 mb-8">
+                        <li *ngFor="let feature of plan.features" class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span class="text-gray-600">{{ feature }}</span>
+                        </li>
+                    </ul>
+
+                    <!-- CTA Button -->
+                    <button (click)="onSelectPlan(plan)" [class.bg-blue-600]="plan.recommended"
+                        [class.hover:bg-blue-700]="plan.recommended" [class.bg-gray-800]="!plan.recommended"
+                        [class.hover:bg-gray-900]="!plan.recommended"
+                        class="w-full text-white py-4 rounded-lg font-semibold text-lg transition shadow-lg hover:shadow-xl">
+                        {{ plan.cta }}
+                    </button>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Additional Info -->
+        <div class="text-center mt-12 text-gray-600">
+            <p>All plans include a <strong class="text-gray-900">lifetime guarantee</strong> and <strong
+                    class="text-gray-900">no commitment</strong>.</p>
+            <p class="mt-2">Questions? <a href="#" class="text-blue-600 hover:text-blue-700 font-semibold">Contact our
+                    sales team →</a></p>
+        </div>
+
+    </div>
+</section>

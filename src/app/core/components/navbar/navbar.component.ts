@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
+import { ScrollService } from '../../../shared/services/scroll.service';
 
 @Component({
   selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
+  templateUrl: './navbar.component.html'
 })
 export class NavbarComponent {
+  isMenuOpen = false;
+
   navLinks = [
     { label: 'Home', anchor: 'home' },
     { label: 'How It Works', anchor: 'how-it-works' },
@@ -13,10 +15,18 @@ export class NavbarComponent {
     { label: 'Pricing', anchor: 'pricing' }
   ];
 
+  constructor(private scrollService: ScrollService) {}
+
+  toggleMenu(): void {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  closeMenu(): void {
+    this.isMenuOpen = false;
+  }
+
   scrollToSection(anchor: string): void {
-    const element = document.getElementById(anchor);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    this.scrollService.scrollToId(anchor, 'start');
+    this.closeMenu();
   }
 }

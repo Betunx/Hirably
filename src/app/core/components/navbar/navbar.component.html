@@ -1,9 +1,45 @@
-<nav class="navbar">
-  <div class="logo">Hirably</div>
-  <ul class="nav-links">
-    <li *ngFor="let link of navLinks">
-      <a (click)="scrollToSection(link.anchor)">{{ link.label }}</a>
-    </li>
-  </ul>
-  <a (click)="scrollToSection('contact')" class="cta-button">Start Hiring Today</a>
+<nav class="fixed top-0 w-full bg-white/95 backdrop-blur-md py-5 px-[5%] flex justify-between items-center z-[1000] shadow-sm">
+  <!-- Logo -->
+  <div class="text-3xl font-bold bg-gradient-to-r from-blue-500 to-blue-600 bg-clip-text text-transparent cursor-pointer z-[1001]">
+    Hirably
+  </div>
+
+  <!-- Hamburger Menu (Mobile Only) -->
+  <button
+    class="flex flex-col gap-1.5 bg-transparent border-none cursor-pointer p-1.5 z-[1001] md:hidden"
+    (click)="toggleMenu()">
+    <span
+      class="w-6 h-0.5 bg-blue-500 rounded transition-all duration-300"
+      [ngClass]="{'rotate-45 translate-x-2 translate-y-2': isMenuOpen}"></span>
+    <span
+      class="w-6 h-0.5 bg-blue-500 rounded transition-all duration-300"
+      [ngClass]="{'opacity-0': isMenuOpen}"></span>
+    <span
+      class="w-6 h-0.5 bg-blue-500 rounded transition-all duration-300"
+      [ngClass]="{'-rotate-45 translate-x-2 -translate-y-2': isMenuOpen}"></span>
+  </button>
+
+  <!-- Navigation Menu - Desktop: always visible, Mobile: toggle -->
+  <div
+    class="hidden md:flex items-center gap-8 max-md:fixed max-md:left-0 max-md:top-[70px] max-md:flex-col max-md:bg-white/98 max-md:w-full max-md:text-center max-md:shadow-md max-md:py-8 max-md:gap-6 transition-all duration-300"
+    [ngClass]="{'max-md:flex': isMenuOpen, 'max-md:hidden': !isMenuOpen}">
+
+    <!-- Nav Links -->
+    <ul class="flex gap-8 list-none max-md:flex-col max-md:gap-6 max-md:w-full">
+      <li *ngFor="let link of navLinks">
+        <a
+          (click)="scrollToSection(link.anchor); closeMenu()"
+          class="text-gray-800 font-medium cursor-pointer transition-colors duration-300 hover:text-blue-500 max-md:block max-md:py-3 max-md:text-lg">
+          {{ link.label }}
+        </a>
+      </li>
+    </ul>
+
+    <!-- CTA Button -->
+    <a
+      (click)="scrollToSection('contact'); closeMenu()"
+      class="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-7 py-3 rounded-full font-semibold cursor-pointer transition-all duration-300 inline-block hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-500/30 max-md:w-4/5 max-md:mx-auto max-md:text-center">
+      Start Hiring Today
+    </a>
+  </div>
 </nav>

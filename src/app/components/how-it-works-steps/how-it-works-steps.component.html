@@ -1,0 +1,87 @@
+<section id="howitworks" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+
+        <!-- Header - Usando componente compartido -->
+        <app-section-header
+            tag="HOW IT WORKS"
+            title="Hiring in Mexico Made Simple"
+            description="From role sharing to payroll management, we make hiring in Mexico seamless. Our simple process ensures you get qualified, pre-vetted candidates quickly and efficiently.">
+        </app-section-header>
+
+        <!-- Steps Timeline -->
+        <div class="max-w-5xl mx-auto">
+            <div *ngFor="let step of steps; let i = index" class="relative mb-12 last:mb-0">
+
+                <!-- Connector Line (except last) -->
+                <div *ngIf="i < steps.length - 1"
+                    class="absolute left-8 top-20 w-0.5 h-full bg-blue-200 -z-10 hidden md:block">
+                </div>
+
+                <!-- Step Card -->
+                <div class="flex flex-col md:flex-row items-center gap-8" [class.md:flex-row-reverse]="i % 2 === 1">
+
+                    <!-- Step Number & Icon -->
+                    <div class="flex-shrink-0">
+                        <div
+                            class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-lg">
+                            {{ step.number }}
+                        </div>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="flex-1 bg-gray-50 p-8 rounded-2xl hover:shadow-lg transition-shadow">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">
+                            {{ step.title }}
+                        </h3>
+                        <p class="text-gray-600 text-lg">
+                            {{ step.description }}
+                        </p>
+                    </div>
+
+                    <!-- Image -->
+                    <div class="flex-shrink-0 w-full md:w-64">
+                        <img [src]="step.image" [alt]="step.title" class="w-full h-auto rounded-xl shadow-md"
+                            loading="lazy">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Sample Candidate Card (from legacy) -->
+        <div class="max-w-2xl mx-auto mt-16 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl shadow-lg p-8">
+            <div class="text-center mb-6">
+                <p class="text-blue-600 font-semibold uppercase tracking-wide text-sm">SAMPLE CANDIDATE</p>
+                <h3 class="text-2xl font-bold text-gray-900 mt-2">Meet Your Next Team Member</h3>
+            </div>
+
+            <div class="bg-white rounded-xl p-6 shadow-md">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <div class="text-xl font-bold text-gray-900">Juan C.</div>
+                        <div class="text-blue-600 font-medium">Senior Engineer</div>
+                    </div>
+                    <div class="text-2xl font-bold text-green-600">$21/hr</div>
+                </div>
+
+                <p class="text-gray-600 mb-4">6+ years experience | Bilingual | Remote</p>
+
+                <div class="flex flex-wrap gap-2">
+                    <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">AutoCAD</span>
+                    <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">SolidWorks</span>
+                    <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">3D Modeling</span>
+                    <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">Project Management</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA - Usando componente compartido -->
+        <div class="text-center mt-16">
+            <app-cta-button
+                text="Start Hiring Today"
+                variant="primary">
+            </app-cta-button>
+        </div>
+
+    </div>
+</section>

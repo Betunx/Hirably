@@ -1,0 +1,262 @@
+/**
+ * ====================================
+ * CHATBOT COMPONENT - CUSTOM ANIMATIONS
+ * Solo animaciones que no se pueden hacer con Tailwind
+ * ====================================
+ */
+
+/* ============================================
+   ANIMACIÓN DE ENTRADA DE LA VENTANA DE CHAT
+   ============================================ */
+.chat-window-animation {
+  animation: slideInUp 0.3s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ============================================
+   ANIMACIÓN DE FLOTACIÓN DEL BOTÓN
+   ============================================ */
+.button-float-animation {
+  animation: floatButton 3s ease-in-out infinite;
+}
+
+@keyframes floatButton {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* ============================================
+   ANIMACIÓN DE PULSACIÓN (Badge de notificación)
+   ============================================ */
+.pulse-animation {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* ============================================
+   ANIMACIÓN DE ENTRADA DE MENSAJES
+   ============================================ */
+.message-fade-in {
+  animation: fadeInMessage 0.3s ease-out;
+}
+
+@keyframes fadeInMessage {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   ANIMACIÓN DE ERROR
+   ============================================ */
+.error-fade-in {
+  animation: fadeInError 0.3s ease-out;
+}
+
+@keyframes fadeInError {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ============================================
+   ANIMACIÓN DE INDICADOR "ESCRIBIENDO..."
+   ============================================ */
+.typing-fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Animación de los puntos del indicador de escritura */
+.typing-dot-animation {
+  animation: typingDot 1.4s ease-in-out infinite;
+}
+
+@keyframes typingDot {
+  0%, 60%, 100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-10px);
+  }
+}
+
+/* ============================================
+   SCROLLBAR PERSONALIZADO
+   ============================================ */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 6px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 10px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ============================================
+   HOVER EFFECTS SUAVES
+   ============================================ */
+button:not(:disabled):hover {
+  transform: translateY(-1px);
+}
+
+button:not(:disabled):active {
+  transform: translateY(0);
+}
+
+/* ============================================
+   FOCUS STATES MEJORADOS
+   ============================================ */
+textarea:focus {
+  box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.1);
+}
+
+/* ============================================
+   ANIMACIÓN DE RESPLANDOR EN EL BOTÓN
+   ============================================ */
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* Efecto de resplandor cuando se pasa el mouse sobre el botón flotante */
+.button-float-animation::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  background-size: 200% 100%;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.button-float-animation:hover::before {
+  animation: shimmer 2s infinite;
+  opacity: 1;
+}
+
+/* ============================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================ */
+@media (max-width: 640px) {
+  /* En móviles, hacer la ventana de chat más pequeña */
+  .chat-window-animation {
+    width: calc(100vw - 2rem) !important;
+    max-width: 384px;
+    height: 500px !important;
+  }
+
+  /* Hacer el botón flotante un poco más pequeño */
+  .button-float-animation {
+    width: 56px;
+    height: 56px;
+  }
+
+  .button-float-animation svg {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+/* ============================================
+   MEJORAS DE ACCESIBILIDAD
+   ============================================ */
+/* Resaltar focus para navegación por teclado */
+button:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #9333ea;
+  outline-offset: 2px;
+}
+
+/* Mejorar contraste para texto pequeño */
+.text-xs {
+  font-weight: 500;
+}
+
+/* ============================================
+   ANIMACIÓN DE SHAKE PARA ERRORES
+   ============================================ */
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-5px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(5px);
+  }
+}
+
+.error-fade-in {
+  animation: fadeInError 0.3s ease-out, shake 0.5s ease-out 0.3s;
+}
+
+/* ============================================
+   MEJORA DE TRANSICIONES
+   ============================================ */
+* {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
