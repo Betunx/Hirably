@@ -44,38 +44,38 @@ export class HowItWorksStepsComponent extends BaseDataComponent implements After
     // Set up intersection observer for step visibility
     const options = {
       root: null,
-      rootMargin: '-20% 0px -20% 0px',
-      threshold: [0, 0.25, 0.5, 0.75, 1]
+      rootMargin: '-15% 0px -15% 0px',
+      threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
     };
 
     this.observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         const stepElement = entry.target as HTMLElement;
         const nodeIcon = stepElement.querySelector('.node-icon');
-        const nodeContent = stepElement.querySelector('.node-content');
+        const nodeContents = stepElement.querySelectorAll('.node-content');
 
-        if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
+        if (entry.isIntersecting && entry.intersectionRatio > 0.2) {
           // Activate node icon
           if (nodeIcon) {
             nodeIcon.classList.add('active');
           }
 
-          // Fade in content
-          if (nodeContent) {
-            nodeContent.classList.remove('translate-y-4');
-            nodeContent.classList.add('opacity-100');
-          }
-        } else if (!entry.isIntersecting || entry.intersectionRatio < 0.2) {
+          // Fade in all content boxes (left and right)
+          nodeContents.forEach((nodeContent) => {
+            nodeContent.classList.remove('translate-y-4', 'opacity-0');
+            nodeContent.classList.add('opacity-100', 'translate-y-0');
+          });
+        } else {
           // Deactivate when out of view
           if (nodeIcon) {
             nodeIcon.classList.remove('active');
           }
 
-          // Reset content (optional - remove if you want persistent state)
-          if (nodeContent) {
-            nodeContent.classList.add('translate-y-4');
-            nodeContent.classList.remove('opacity-100');
-          }
+          // Reset content - fade out when scrolling away
+          nodeContents.forEach((nodeContent) => {
+            nodeContent.classList.remove('opacity-100', 'translate-y-0');
+            nodeContent.classList.add('translate-y-4', 'opacity-0');
+          });
         }
       });
     }, options);

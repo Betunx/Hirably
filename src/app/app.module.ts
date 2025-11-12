@@ -7,6 +7,9 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './core/components/navbar/navbar.component';
 import { FooterComponent } from './core/components/footer/footer.component';
 
+// Pages
+import { HomeComponent } from './pages/home/home.component';
+
 // Reusable UI components
 import { HeroSectionComponent } from './components/hero-section/hero-section.component';
 import { FeatureCarouselComponent } from './components/feature-carousel/feature-carousel.component';
@@ -20,12 +23,17 @@ import { WhyHirablyComponent } from './components/why-hirably/why-hirably.compon
 import { ChatbotComponent } from './components/chatbot/chatbot.component';
 import { SectionHeaderComponent } from './shared/components/section-header/section-header.component';
 import { CtaButtonComponent } from './shared/components/cta-button/cta-button.component';
+import { MeetUsComponent } from './components/meet-us/meet-us.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     FooterComponent,
+
+    // Pages
+    HomeComponent,
 
     // Reusable UI Components
     HeroSectionComponent,
@@ -43,7 +51,9 @@ import { CtaButtonComponent } from './shared/components/cta-button/cta-button.co
     // Standalone components compartidos
     ChatbotComponent,
     SectionHeaderComponent,
-    CtaButtonComponent
+    CtaButtonComponent,
+    MeetUsComponent,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

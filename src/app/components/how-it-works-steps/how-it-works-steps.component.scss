@@ -16,7 +16,7 @@
   width: 4px;
   background-color: #e7e3df; // Soft beige line
   top: 0;
-  bottom: 0;
+  height: calc(100% - 8rem); // End before the bottom padding
   transform: translateX(-50%);
   z-index: 1;
 
@@ -33,6 +33,7 @@
   background-color: #93c5fd; // Muted Blue for progress
   top: 0;
   height: 0;
+  max-height: calc(100% - 8rem); // Don't exceed the static line
   transform: translateX(-50%);
   z-index: 2;
   transition: height 0.5s ease-out; // Smooth animation on scroll

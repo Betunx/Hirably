@@ -5,7 +5,7 @@
         <p class="text-lg text-gray-600 max-w-4xl mx-auto">Every step is connected through one seamless, transparent process managed inside your Hirably platform. Watch the journey unfold.</p>
     </div>
 
-    <div class="process-container max-w-5xl mx-auto">
+    <div class="process-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Timeline Line - Static -->
         <div class="timeline-line"></div>
         <!-- Timeline Progress - Animated -->
@@ -13,73 +13,56 @@
 
         <!-- Content for each step -->
         <div *ngFor="let step of steps; let i = index"
-             class="grid grid-cols-1 md:grid-cols-2 gap-12 py-16 process-step"
+             class="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-6 md:gap-12 py-12 md:py-16 process-step"
              [attr.data-step]="step.number"
              [attr.data-color]="step.color"
              #processStep>
 
-            <!-- Content (Steps 1 & 3 on left, Steps 2 & 4 on right) -->
-            <div [class.md:text-right]="step.number === 1 || step.number === 3"
-                 [class.md:pr-16]="step.number === 1 || step.number === 3"
-                 [class.md:pl-16]="step.number === 2 || step.number === 4"
-                 [class.order-2]="step.number === 1 || step.number === 3"
-                 [class.md:order-1]="step.number === 1 || step.number === 3"
-                 [class.order-1]="step.number === 2 || step.number === 4"
-                 [class.md:order-2]="step.number === 2 || step.number === 4">
-                <div class="node-content transition duration-500 transform translate-y-4">
-                    <span [class]="'font-bold text-sm uppercase tracking-wider text-' + getCategoryColorClass(step.category)">
-                        Step {{ step.number }}: {{ step.category }}
-                    </span>
-                    <h3 class="text-3xl font-extrabold text-taupe-dark mt-2 mb-4">{{ step.title }}</h3>
-                    <p class="text-gray-600 mb-4 text-justify">{{ step.description }}</p>
-
-                    <!-- Items list -->
-                    <ul *ngIf="step.items && step.items.length > 0"
-                        class="space-y-2 text-gray-700 font-medium"
-                        [class.text-left]="step.number === 2 || step.number === 4"
-                        [class.text-right]="step.number === 1 || step.number === 3"
-                        [class.md:text-right]="step.number === 1 || step.number === 3"
-                        [class.md:text-left]="step.number === 2 || step.number === 4">
-                        <li *ngFor="let item of step.items"
-                            class="flex items-center"
-                            [class.md:justify-end]="step.number === 1 || step.number === 3">
-                            <svg class="w-5 h-5 mr-2 flex-shrink-0" [class]="'text-' + getCategoryColorClass(step.category)" fill="currentColor" viewBox="0 0 20 20">
-                                <path [attr.d]="getIconPath(item.icon)"/>
-                            </svg>
-                            <span class="text-justify">{{ item.text }}</span>
-                        </li>
-                    </ul>
-
-                    <!-- Special footer for last step -->
-                    <div *ngIf="i === steps.length - 1" class="mt-8">
-                        <h4 class="text-xl font-extrabold text-taupe-dark text-justify">Your Employee - Fully Managed.</h4>
+            <!-- Left Side: Title, Subtitle, Description -->
+            <div class="order-2 md:order-1">
+                <div class="node-content transition-all duration-700 ease-out transform translate-y-4 opacity-0 bg-white/50 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-sm">
+                    <div class="md:text-right">
+                        <span [class]="'font-bold text-sm uppercase tracking-wider text-' + getCategoryColorClass(step.category)">
+                            Step {{ step.number }}: {{ step.category }}
+                        </span>
+                        <h3 class="text-2xl md:text-3xl font-extrabold text-taupe-dark mt-2 mb-4">{{ step.title }}</h3>
+                        <p class="text-gray-700 leading-relaxed text-justify">{{ step.description }}</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Node Icon (Steps 1 & 3 on right of icon, Steps 2 & 4 on left of icon) -->
-            <div class="flex items-center"
-                 [class.justify-end]="step.number === 1 || step.number === 3"
-                 [class.order-2]="step.number === 1 || step.number === 3"
-                 [class.md:order-1]="step.number === 1 || step.number === 3"
-                 [class.justify-start]="step.number === 2 || step.number === 4"
-                 [class.order-2]="step.number === 2 || step.number === 4"
-                 [class.md:order-2]="step.number === 2 || step.number === 4">
+            <!-- Center: Node Icon -->
+            <div class="flex items-center justify-center order-1 md:order-2">
                 <div class="node">
-                    <div class="node-icon" [attr.data-step-icon]="step.number">
+                    <div class="node-icon transition-all duration-500" [attr.data-step-icon]="step.number">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="step.icon"/>
                         </svg>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- CTA Button -->
-        <div class="flex justify-center pt-16">
-            <a href="#pricing" class="cta-button bg-muted-blue text-taupe-dark font-bold py-3 px-10 rounded-xl text-lg transition duration-300 hover:bg-taupe-dark hover:text-white">
-                Explore the Platform &rarr;
-            </a>
+            <!-- Right Side: Items List -->
+            <div class="order-3">
+                <div class="node-content transition-all duration-700 ease-out transform translate-y-4 opacity-0 bg-white/50 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-sm">
+                    <!-- Items list -->
+                    <ul *ngIf="step.items && step.items.length > 0"
+                        class="space-y-4 text-gray-700">
+                        <li *ngFor="let item of step.items"
+                            class="flex items-start">
+                            <svg class="w-5 h-5 mr-3 mt-1 flex-shrink-0" [class]="'text-' + getCategoryColorClass(step.category)" fill="currentColor" viewBox="0 0 20 20">
+                                <path [attr.d]="getIconPath(item.icon)"/>
+                            </svg>
+                            <span class="leading-relaxed text-justify font-medium">{{ item.text }}</span>
+                        </li>
+                    </ul>
+
+                    <!-- Special footer for last step -->
+                    <div *ngIf="i === steps.length - 1" class="mt-6 pt-4 border-t border-gray-200">
+                        <h4 class="text-base md:text-lg font-extrabold text-taupe-dark text-center md:text-left">Your Employee - Fully Managed.</h4>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
