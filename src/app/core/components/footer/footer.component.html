@@ -10,10 +10,11 @@
           Your trusted partner for nearshore hiring in Mexico. From recruitment to payroll, we handle everything.
         </p>
         <div class="flex gap-3 mt-4">
-          <a href="https://linkedin.com/company/hirably" target="_blank"
-             class="text-gray-400 hover:text-muted-blue transition-colors">
+          <a href="https://www.linkedin.com/company/hirably-staffing/about/?viewAsMember=true" target="_blank"
+            class="text-gray-400 hover:text-muted-blue transition-colors">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+              <path
+                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
             </svg>
           </a>
         </div>
@@ -33,9 +34,8 @@
       <div>
         <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-3">Quick Links</h3>
         <nav class="space-y-2">
-          <a *ngFor="let link of siteLinks"
-             [href]="link.url"
-             class="block text-sm text-gray-400 no-underline transition-colors duration-300 hover:text-muted-blue">
+          <a *ngFor="let link of siteLinks" [href]="link.url"
+            class="block text-sm text-gray-400 no-underline transition-colors duration-300 hover:text-muted-blue">
             {{ link.label }}
           </a>
         </nav>
@@ -45,12 +45,11 @@
       <div>
         <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-3">Contact Us</h3>
         <div class="space-y-2 text-sm">
-          <a *ngFor="let contact of contactInfo"
-             [href]="contact.link || '#'"
-             [target]="contact.link && contact.link.startsWith('http') ? '_blank' : '_self'"
-             [class.pointer-events-none]="!contact.link"
-             class="flex items-start gap-2 text-gray-400 no-underline transition-colors duration-300"
-             [class.hover:text-muted-blue]="contact.link">
+          <a *ngFor="let contact of contactInfo" [href]="contact.link || '#'"
+            [target]="contact.link && contact.link.startsWith('http') ? '_blank' : '_self'"
+            [class.pointer-events-none]="!contact.link"
+            class="flex items-start gap-2 text-gray-400 no-underline transition-colors duration-300"
+            [class.hover:text-muted-blue]="contact.link">
             <span class="mt-0.5">{{ contact.icon }}</span>
             <span class="break-words">{{ contact.text }}</span>
           </a>
