@@ -14,11 +14,11 @@ import { Directive, OnInit } from '@angular/core';
  *
  * Uso:
  * @example
- * export class StatsBarComponent extends BaseDataComponent {
- *   stats: Stat[] = [];
+ * export class RolesCarouselComponent extends BaseDataComponent {
+ *   roles: Role[] = [];
  *
  *   protected override loadData(): void {
- *     this.stats = this.dataService.getStats();
+ *     this.roles = this.dataService.getRoles();
  *   }
  * }
  */

@@ -16,9 +16,9 @@ import { CommonModule } from '@angular/common';
       (click)="handleClick()"
       [disabled]="disabled"
       [ngClass]="{
-        'bg-blue-600 hover:bg-blue-700 text-white': variant === 'primary',
-        'bg-white text-blue-600 border-2 border-blue-600 hover:bg-blue-50': variant === 'secondary',
-        'border-2 border-white text-white hover:bg-white hover:text-blue-900': variant === 'outline',
+        'bg-muted-blue hover:bg-taupe-dark text-white': variant === 'primary',
+        'bg-white text-muted-blue border-2 border-muted-blue hover:bg-blue-50': variant === 'secondary',
+        'border-2 border-white text-white hover:bg-white hover:text-taupe-dark': variant === 'outline',
         'opacity-50 cursor-not-allowed': disabled
       }"
       class="px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl disabled:hover:shadow-lg">

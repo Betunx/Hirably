@@ -3,48 +3,92 @@
      feature-carousel.component.html
      ==================================== -->
 
-<section class="py-16 bg-white">
-  <div class="container mx-auto px-4">
-    
+<section class="py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
+
+  <!-- Mexico Map Background Image -->
+  <div class="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
+    <img src="assets/img/DJV JUL 2377-18 (1).jpg" alt="Mexico" class="w-full h-full object-cover" loading="lazy">
+  </div>
+
+  <div class="container mx-auto px-4 relative z-10">
+
+    <!-- Section Header -->
+    <app-section-header tag="WHY MEXICO" title="Why Top Companies Choose Mexico"
+      description="Expand your team in real time, at a fraction of the cost. Work with bilingual professionals who understand North American standards.">
+    </app-section-header>
+
+    <!-- Why Mexico Benefits Grid (4 benefits - destacados primero) -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto mb-20">
+      <div *ngFor="let benefit of mexicoBenefits"
+        class="bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all hover:-translate-y-2 text-center border border-gray-100">
+
+        <!-- Icon -->
+        <div class="text-5xl mb-4">{{ benefit.icon }}</div>
+
+        <!-- Title -->
+        <h3 class="text-lg font-bold text-gray-900 mb-3">
+          {{ benefit.title }}
+        </h3>
+
+        <!-- Description -->
+        <p class="text-gray-600 text-sm leading-relaxed">
+          {{ benefit.description }}
+        </p>
+      </div>
+    </div>
+
+
+
+    <!-- Feature Carousel Header -->
+    <div class="text-center mb-12">
+      <p class="text-muted-blue font-semibold uppercase tracking-wide mb-2">
+        KEY BENEFITS
+      </p>
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+        The Hirably Advantage
+      </h2>
+    </div>
+
     <!-- Carousel Container -->
-    <div class="relative">
-      
+    <div class="relative max-w-5xl mx-auto">
+
       <!-- Features Grid -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div *ngFor="let feature of getVisibleItems()"
-             class="p-8 rounded-2xl border-2 border-gray-200 hover:border-blue-500 hover:shadow-xl transition-all duration-300 text-center">
-          
-          <!-- Icon placeholder -->
-          <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          class="p-8 rounded-2xl bg-white border-2 border-gray-200 hover:border-muted-blue hover:shadow-2xl transition-all duration-300">
+
+          <!-- Icon -->
+          <div
+            class="w-16 h-16 bg-gradient-to-br from-muted-blue to-pastel-purple rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
             </svg>
           </div>
 
-          <h3 class="text-xl font-bold text-gray-900 mb-3">
+          <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">
             {{ feature.title }}
           </h3>
-          
-          <p *ngIf="feature.description" class="text-gray-600">
+
+          <p *ngIf="feature.description" class="text-gray-600 text-center text-sm leading-relaxed">
             {{ feature.description }}
           </p>
         </div>
       </div>
 
-      <!-- Navigation Arrows - usando clases globales -->
-      <button
-        (click)="prev()"
-        class="carousel-nav-btn-left hidden md:block">
-        <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      <!-- Navigation Arrows -->
+      <button (click)="prev()"
+        class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 w-12 h-12 bg-white rounded-full shadow-lg hover:shadow-xl transition-all hover:bg-muted-blue hover:text-white hidden lg:flex items-center justify-center group">
+        <svg class="w-6 h-6 text-gray-800 group-hover:text-white transition-colors" fill="none" stroke="currentColor"
+          viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>
       </button>
 
-      <button
-        (click)="next()"
-        class="carousel-nav-btn-right hidden md:block">
-        <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+      <button (click)="next()"
+        class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 w-12 h-12 bg-white rounded-full shadow-lg hover:shadow-xl transition-all hover:bg-muted-blue hover:text-white hidden lg:flex items-center justify-center group">
+        <svg class="w-6 h-6 text-gray-800 group-hover:text-white transition-colors" fill="none" stroke="currentColor"
+          viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
         </svg>
       </button>
 
@@ -52,12 +96,10 @@
 
     <!-- Dots Indicator -->
     <div class="flex justify-center mt-8 gap-2">
-      <button 
-        *ngFor="let feature of features; let i = index"
-        (click)="goToSlide(i)"
-        [class.bg-blue-600]="i === currentIndex"
-        [class.bg-gray-300]="i !== currentIndex"
-        class="w-3 h-3 rounded-full transition-all duration-300">
+      <button *ngFor="let feature of features; let i = index" (click)="goToSlide(i)"
+        [class.bg-muted-blue]="i === currentIndex" [class.w-8]="i === currentIndex"
+        [class.bg-gray-300]="i !== currentIndex" [class.w-3]="i !== currentIndex"
+        class="h-3 rounded-full transition-all duration-300 hover:bg-muted-blue/70">
       </button>
     </div>
 

@@ -1,87 +1,85 @@
-<section id="how-it-works" class="py-20 bg-white">
-    <div class="container mx-auto px-4">
+<!-- HOW IT WORKS - SCROLLING PROCESS MAP -->
+<section id="how-it-works" class="py-24 bg-beige-offwhite">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16">
+        <h2 class="text-4xl font-extrabold text-taupe-dark mb-4">How It Works — From Discovery to Payroll</h2>
+        <p class="text-lg text-gray-600 max-w-4xl mx-auto">Every step is connected through one seamless, transparent process managed inside your Hirably platform. Watch the journey unfold.</p>
+    </div>
 
-        <!-- Header - Usando componente compartido -->
-        <app-section-header
-            tag="HOW IT WORKS"
-            title="Hiring in Mexico Made Simple"
-            description="From role sharing to payroll management, we make hiring in Mexico seamless. Our simple process ensures you get qualified, pre-vetted candidates quickly and efficiently.">
-        </app-section-header>
+    <div class="process-container max-w-5xl mx-auto">
+        <!-- Timeline Line - Static -->
+        <div class="timeline-line"></div>
+        <!-- Timeline Progress - Animated -->
+        <div class="timeline-progress" #timelineProgress></div>
 
-        <!-- Steps Timeline -->
-        <div class="max-w-5xl mx-auto">
-            <div *ngFor="let step of steps; let i = index" class="relative mb-12 last:mb-0">
+        <!-- Content for each step -->
+        <div *ngFor="let step of steps; let i = index"
+             class="grid grid-cols-1 md:grid-cols-2 gap-12 py-16 process-step"
+             [attr.data-step]="step.number"
+             [attr.data-color]="step.color"
+             #processStep>
 
-                <!-- Connector Line (except last) -->
-                <div *ngIf="i < steps.length - 1"
-                    class="absolute left-8 top-20 w-0.5 h-full bg-blue-200 -z-10 hidden md:block">
+            <!-- Content (Steps 1 & 3 on left, Steps 2 & 4 on right) -->
+            <div [class.md:text-right]="step.number === 1 || step.number === 3"
+                 [class.md:pr-16]="step.number === 1 || step.number === 3"
+                 [class.md:pl-16]="step.number === 2 || step.number === 4"
+                 [class.order-2]="step.number === 1 || step.number === 3"
+                 [class.md:order-1]="step.number === 1 || step.number === 3"
+                 [class.order-1]="step.number === 2 || step.number === 4"
+                 [class.md:order-2]="step.number === 2 || step.number === 4">
+                <div class="node-content transition duration-500 transform translate-y-4">
+                    <span [class]="'font-bold text-sm uppercase tracking-wider text-' + getCategoryColorClass(step.category)">
+                        Step {{ step.number }}: {{ step.category }}
+                    </span>
+                    <h3 class="text-3xl font-extrabold text-taupe-dark mt-2 mb-4">{{ step.title }}</h3>
+                    <p class="text-gray-600 mb-4 text-justify">{{ step.description }}</p>
+
+                    <!-- Items list -->
+                    <ul *ngIf="step.items && step.items.length > 0"
+                        class="space-y-2 text-gray-700 font-medium"
+                        [class.text-left]="step.number === 2 || step.number === 4"
+                        [class.text-right]="step.number === 1 || step.number === 3"
+                        [class.md:text-right]="step.number === 1 || step.number === 3"
+                        [class.md:text-left]="step.number === 2 || step.number === 4">
+                        <li *ngFor="let item of step.items"
+                            class="flex items-center"
+                            [class.md:justify-end]="step.number === 1 || step.number === 3">
+                            <svg class="w-5 h-5 mr-2 flex-shrink-0" [class]="'text-' + getCategoryColorClass(step.category)" fill="currentColor" viewBox="0 0 20 20">
+                                <path [attr.d]="getIconPath(item.icon)"/>
+                            </svg>
+                            <span class="text-justify">{{ item.text }}</span>
+                        </li>
+                    </ul>
+
+                    <!-- Special footer for last step -->
+                    <div *ngIf="i === steps.length - 1" class="mt-8">
+                        <h4 class="text-xl font-extrabold text-taupe-dark text-justify">Your Employee - Fully Managed.</h4>
+                    </div>
                 </div>
+            </div>
 
-                <!-- Step Card -->
-                <div class="flex flex-col md:flex-row items-center gap-8" [class.md:flex-row-reverse]="i % 2 === 1">
-
-                    <!-- Step Number & Icon -->
-                    <div class="flex-shrink-0">
-                        <div
-                            class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-lg">
-                            {{ step.number }}
-                        </div>
+            <!-- Node Icon (Steps 1 & 3 on right of icon, Steps 2 & 4 on left of icon) -->
+            <div class="flex items-center"
+                 [class.justify-end]="step.number === 1 || step.number === 3"
+                 [class.order-2]="step.number === 1 || step.number === 3"
+                 [class.md:order-1]="step.number === 1 || step.number === 3"
+                 [class.justify-start]="step.number === 2 || step.number === 4"
+                 [class.order-2]="step.number === 2 || step.number === 4"
+                 [class.md:order-2]="step.number === 2 || step.number === 4">
+                <div class="node">
+                    <div class="node-icon" [attr.data-step-icon]="step.number">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="step.icon"/>
+                        </svg>
                     </div>
-
-                    <!-- Content -->
-                    <div class="flex-1 bg-gray-50 p-8 rounded-2xl hover:shadow-lg transition-shadow">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-3">
-                            {{ step.title }}
-                        </h3>
-                        <p class="text-gray-600 text-lg">
-                            {{ step.description }}
-                        </p>
-                    </div>
-
-                    <!-- Image -->
-                    <div class="flex-shrink-0 w-full md:w-64">
-                        <img [src]="step.image" [alt]="step.title" class="w-full h-auto rounded-xl shadow-md"
-                            loading="lazy">
-                    </div>
-
                 </div>
             </div>
         </div>
 
-        <!-- Sample Candidate Card (from legacy) -->
-        <div class="max-w-2xl mx-auto mt-16 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl shadow-lg p-8">
-            <div class="text-center mb-6">
-                <p class="text-blue-600 font-semibold uppercase tracking-wide text-sm">SAMPLE CANDIDATE</p>
-                <h3 class="text-2xl font-bold text-gray-900 mt-2">Meet Your Next Team Member</h3>
-            </div>
-
-            <div class="bg-white rounded-xl p-6 shadow-md">
-                <div class="flex justify-between items-start mb-4">
-                    <div>
-                        <div class="text-xl font-bold text-gray-900">Juan C.</div>
-                        <div class="text-blue-600 font-medium">Senior Engineer</div>
-                    </div>
-                    <div class="text-2xl font-bold text-green-600">$21/hr</div>
-                </div>
-
-                <p class="text-gray-600 mb-4">6+ years experience | Bilingual | Remote</p>
-
-                <div class="flex flex-wrap gap-2">
-                    <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">AutoCAD</span>
-                    <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">SolidWorks</span>
-                    <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">3D Modeling</span>
-                    <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">Project Management</span>
-                </div>
-            </div>
+        <!-- CTA Button -->
+        <div class="flex justify-center pt-16">
+            <a href="#pricing" class="cta-button bg-muted-blue text-taupe-dark font-bold py-3 px-10 rounded-xl text-lg transition duration-300 hover:bg-taupe-dark hover:text-white">
+                Explore the Platform &rarr;
+            </a>
         </div>
-
-        <!-- CTA - Usando componente compartido -->
-        <div class="text-center mt-16">
-            <app-cta-button
-                text="Start Hiring Today"
-                variant="primary">
-            </app-cta-button>
-        </div>
-
     </div>
 </section>

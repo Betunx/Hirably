@@ -5,7 +5,7 @@
 
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { DataService } from '../../services/data.service';
-import { Feature } from '../../models';
+import { Feature, Benefit } from '../../models';
 import { BaseCarouselComponent } from '../shared/base-carousel.component';
 
 @Component({
@@ -16,6 +16,7 @@ import { BaseCarouselComponent } from '../shared/base-carousel.component';
 export class FeatureCarouselComponent extends BaseCarouselComponent<Feature> {
 
   features: Feature[] = [];
+  mexicoBenefits: Benefit[] = [];
 
   constructor(
     private dataService: DataService,
@@ -27,6 +28,7 @@ export class FeatureCarouselComponent extends BaseCarouselComponent<Feature> {
 
   protected override loadItems(): void {
     this.features = this.dataService.getMainFeatures();
+    this.mexicoBenefits = this.dataService.getBenefits();
     this.items = this.features;
   }
 

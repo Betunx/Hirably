@@ -16,7 +16,7 @@ import { CommonModule } from '@angular/common';
       <!-- Tag opcional (ej: "NUESTROS SERVICIOS") -->
       <p
         *ngIf="tag"
-        class="text-blue-600 font-semibold uppercase tracking-wide mb-2">
+        class="text-muted-blue font-semibold uppercase tracking-wide mb-2">
         {{ tag }}
       </p>
 

@@ -1,0 +1,166 @@
+// HOW IT WORKS - PROCESS TIMELINE STYLES
+// Custom styles for the timeline effect and node animation (matching original design)
+
+// ====================================
+// PROCESS CONTAINER & TIMELINE
+// ====================================
+
+.process-container {
+  position: relative;
+}
+
+// Static Timeline Line (Soft beige background)
+.timeline-line {
+  position: absolute;
+  left: 50%;
+  width: 4px;
+  background-color: #e7e3df; // Soft beige line
+  top: 0;
+  bottom: 0;
+  transform: translateX(-50%);
+  z-index: 1;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+// Animated Timeline Progress (Uses Muted Blue - draws as user scrolls)
+.timeline-progress {
+  position: absolute;
+  left: 50%;
+  width: 4px;
+  background-color: #93c5fd; // Muted Blue for progress
+  top: 0;
+  height: 0;
+  transform: translateX(-50%);
+  z-index: 2;
+  transition: height 0.5s ease-out; // Smooth animation on scroll
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+// ====================================
+// PROCESS STEPS
+// ====================================
+
+.process-step {
+  position: relative;
+}
+
+// ====================================
+// NODE ICONS (Circular Timeline Nodes)
+// ====================================
+
+.node {
+  position: relative;
+  z-index: 10;
+}
+
+// Node appearance - exactly matching original design
+.node-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #93c5fd; // Default Muted Blue
+  color: #4c4a47; // Dark icon inside light node (taupe-dark)
+  box-shadow: 0 0 0 6px #fcfcfc, 0 0 0 8px rgba(147, 197, 253, 0.5);
+  transition: all 0.3s ease-in-out;
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  // Active node style - with color glow effect
+  &.active {
+    box-shadow: 0 0 0 8px #fcfcfc, 0 0 0 12px var(--node-color), 0 0 20px 4px var(--node-color);
+  }
+
+  // Color assignments based on data-step-icon attribute
+  &[data-step-icon="1"] {
+    background-color: #93c5fd;
+    color: #4c4a47;
+    --node-color: #93c5fd;
+  }
+
+  &[data-step-icon="2"] {
+    background-color: #c4b5fd;
+    color: #4c4a47;
+    --node-color: #c4b5fd;
+  }
+
+  &[data-step-icon="3"] {
+    background-color: #fde047;
+    color: #4c4a47;
+    --node-color: #fde047;
+  }
+
+  &[data-step-icon="4"] {
+    background-color: #a7f3d0;
+    color: #4c4a47;
+    --node-color: #a7f3d0;
+  }
+}
+
+// ====================================
+// NODE CONTENT (Text & Items)
+// ====================================
+
+.node-content {
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+// ====================================
+// CTA BUTTON
+// ====================================
+
+.cta-button {
+  transition: background-color 0.3s, transform 0.1s;
+  box-shadow: 0 4px 15px rgba(147, 197, 253, 0.4);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(147, 197, 253, 0.6);
+  }
+}
+
+// ====================================
+// RESPONSIVE ADJUSTMENTS
+// ====================================
+
+@media (max-width: 768px) {
+  .process-step {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  .node-icon {
+    width: 40px;
+    height: 40px;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+// ====================================
+// ACCESSIBILITY & ANIMATIONS
+// ====================================
+
+@media (prefers-reduced-motion: reduce) {
+  .process-step,
+  .node-content,
+  .node-icon,
+  .timeline-progress {
+    transition: none !important;
+    animation: none !important;
+  }
+}

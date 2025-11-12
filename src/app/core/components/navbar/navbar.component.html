@@ -1,47 +1,67 @@
-<nav class="fixed top-0 w-full bg-white/95 backdrop-blur-md py-3 px-6 md:px-12 flex justify-between items-center z-[1000] shadow-sm">
-  <!-- Logo -->
-  <div
-    (click)="scrollToSection('home')"
-    class="text-3xl font-bold bg-gradient-to-r from-blue-500 to-blue-600 bg-clip-text text-transparent cursor-pointer z-[1001]">
-    Hirably
-  </div>
+<nav class="fixed top-0 w-full bg-white/95 backdrop-blur-md py-4 px-6 md:px-12 z-[1000] shadow-sm">
+  <div class="flex justify-between items-center max-w-[87.5rem] mx-auto">
+    <!-- Logo (Left) -->
+    <div
+      (click)="scrollToSection('home')"
+      class="text-2xl font-bold text-black cursor-pointer z-[1001] flex-shrink-0">
+      Hirably
+    </div>
 
-  <!-- Hamburger Menu (Mobile Only) -->
-  <button
-    class="flex flex-col gap-1.5 bg-transparent border-none cursor-pointer p-1.5 z-[1001] md:hidden"
-    (click)="toggleMenu()">
-    <span
-      class="w-6 h-0.5 bg-blue-500 rounded transition-all duration-300"
-      [ngClass]="{'rotate-45 translate-x-2 translate-y-2': isMenuOpen}"></span>
-    <span
-      class="w-6 h-0.5 bg-blue-500 rounded transition-all duration-300"
-      [ngClass]="{'opacity-0': isMenuOpen}"></span>
-    <span
-      class="w-6 h-0.5 bg-blue-500 rounded transition-all duration-300"
-      [ngClass]="{'-rotate-45 translate-x-2 -translate-y-2': isMenuOpen}"></span>
-  </button>
+    <!-- Hamburger Menu (Mobile Only) -->
+    <button
+      class="flex flex-col gap-1.5 bg-transparent border-none cursor-pointer p-1.5 z-[1001] md:hidden"
+      (click)="toggleMenu()">
+      <span
+        class="w-6 h-0.5 bg-muted-blue rounded transition-all duration-300"
+        [ngClass]="{'rotate-45 translate-x-2 translate-y-2': isMenuOpen}"></span>
+      <span
+        class="w-6 h-0.5 bg-muted-blue rounded transition-all duration-300"
+        [ngClass]="{'opacity-0': isMenuOpen}"></span>
+      <span
+        class="w-6 h-0.5 bg-muted-blue rounded transition-all duration-300"
+        [ngClass]="{'-rotate-45 translate-x-2 -translate-y-2': isMenuOpen}"></span>
+    </button>
 
-  <!-- Navigation Menu - Desktop: always visible, Mobile: toggle -->
-  <div
-    class="hidden md:flex items-center gap-8 max-md:fixed max-md:left-0 max-md:top-[70px] max-md:flex-col max-md:bg-white/98 max-md:w-full max-md:text-center max-md:shadow-md max-md:py-8 max-md:gap-6 transition-all duration-300"
-    [ngClass]="{'max-md:flex': isMenuOpen, 'max-md:hidden': !isMenuOpen}">
-
-    <!-- Nav Links -->
-    <ul class="flex gap-8 list-none max-md:flex-col max-md:gap-6 max-md:w-full">
+    <!-- Nav Links (Center) - Desktop only -->
+    <ul class="hidden md:flex gap-6 list-none absolute left-1/2 -translate-x-1/2">
       <li *ngFor="let link of navLinks">
         <a
-          (click)="scrollToSection(link.anchor); closeMenu()"
-          class="text-gray-800 font-medium cursor-pointer transition-colors duration-300 hover:text-blue-500 max-md:block max-md:py-3 max-md:text-lg">
+          (click)="scrollToSection(link.anchor)"
+          class="text-gray-700 text-sm font-normal cursor-pointer transition-colors duration-300 hover:text-muted-blue">
           {{ link.label }}
         </a>
       </li>
     </ul>
 
-    <!-- CTA Button -->
+    <!-- CTA Button (Right) - Desktop only -->
     <a
-      (click)="scrollToSection('contact'); closeMenu()"
-      class="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-7 py-3 rounded-full font-semibold cursor-pointer transition-all duration-300 inline-block hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-500/30 max-md:w-4/5 max-md:mx-auto max-md:text-center">
+      (click)="scrollToSection('contact')"
+      class="hidden md:inline-block bg-muted-blue text-taupe-dark font-bold py-2.5 px-7 rounded-xl text-base cursor-pointer transition duration-300 hover:bg-taupe-dark hover:text-white shadow-lg flex-shrink-0">
       Start Hiring Today
     </a>
+
+    <!-- Mobile Menu (Full width dropdown) -->
+    <div
+      class="md:hidden fixed left-0 top-[60px] flex-col bg-white/98 w-full text-center shadow-md py-8 gap-6 transition-all duration-300"
+      [ngClass]="{'flex': isMenuOpen, 'hidden': !isMenuOpen}">
+
+      <!-- Mobile Nav Links -->
+      <ul class="flex flex-col gap-6 w-full list-none">
+        <li *ngFor="let link of navLinks">
+          <a
+            (click)="scrollToSection(link.anchor); closeMenu()"
+            class="text-gray-700 block py-3 text-base cursor-pointer transition-colors duration-300 hover:text-muted-blue">
+            {{ link.label }}
+          </a>
+        </li>
+      </ul>
+
+      <!-- Mobile CTA Button -->
+      <a
+        (click)="scrollToSection('contact'); closeMenu()"
+        class="bg-muted-blue text-taupe-dark font-bold py-2.5 px-7 rounded-xl text-base cursor-pointer transition duration-300 hover:bg-taupe-dark hover:text-white shadow-lg w-4/5 mx-auto text-center inline-block">
+        Start Hiring Today
+      </a>
+    </div>
   </div>
 </nav>

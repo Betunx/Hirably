@@ -5,10 +5,7 @@
 
 import { Injectable } from '@angular/core';
 import {
-  Person,
   Role,
-  Testimonial,
-  Stat,
   TimelineStep,
   Benefit,
   Feature,
@@ -23,85 +20,6 @@ import {
 export class DataService {
 
   // ====================================
-  // PEOPLE DATA
-  // ====================================
-
-  private peopleData: { [key: string]: Person } = {
-    mariaPerez: {
-      id: 'maria-perez',
-      name: 'Maria Perez',
-      photo: '/assets/images/people/maria-perez.jpg',
-      role: 'Marketing & Creative',
-      country: '🇲🇽 Mexico',
-      location: 'Hermosillo, Mexico',
-      description: 'Result-driven Marketing Specialist with 5+ years creating digital strategies for US startups.',
-      skills: ['SEO & Content Strategy', 'Email Marketing', 'Marketing Automation'],
-      certifications: ['HubSpot Certified', 'Google Analytics Expert'],
-      rating: 4.9
-    },
-    juanContreras: {
-      id: 'juan-contreras',
-      name: 'Juan Contreras',
-      photo: '/assets/images/people/juan-contreras.jpg',
-      role: 'Engineering',
-      country: '🇲🇽 Mexico',
-      location: 'Monterrey, Mexico',
-      description: 'Full-stack developer specialized in React and Node.js with experience building scalable applications.',
-      skills: ['React', 'Node.js', 'AWS', 'TypeScript'],
-      certifications: ['AWS Certified', 'React Expert'],
-      rating: 5.0
-    },
-    blondeWoman: {
-      id: 'sarah-johnson',
-      name: 'Sarah Johnson',
-      photo: '/assets/images/people/blonde-woman.jpg',
-      role: 'Operations & Admin',
-      country: '🇲🇽 Mexico',
-      location: 'Mexico City, Mexico',
-      description: 'Operations specialist with proven track record in process optimization and team coordination.',
-      skills: ['Project Management', 'Process Optimization', 'Team Leadership'],
-      certifications: ['PMP Certified', 'Six Sigma'],
-      rating: 4.8
-    },
-    tabletWoman: {
-      id: 'ana-rodriguez',
-      name: 'Ana Rodriguez',
-      photo: '/assets/images/people/tablet-woman.jpg',
-      role: 'Customer Support & Sales',
-      country: '🇲🇽 Mexico',
-      location: 'Guadalajara, Mexico',
-      description: 'Bilingual customer success specialist with expertise in SaaS support and client relationships.',
-      skills: ['Customer Success', 'Salesforce', 'Bilingual Support'],
-      certifications: ['Salesforce Certified', 'Customer Success'],
-      rating: 4.9
-    },
-    blueShirtMan: {
-      id: 'diego-martinez',
-      name: 'Diego Martinez',
-      photo: '/assets/images/people/blue-shirt-man.jpg',
-      role: 'Finance & Accounting',
-      country: '🇲🇽 Mexico',
-      location: 'Querétaro, Mexico',
-      description: 'CPA with 7+ years experience in financial analysis and reporting for international companies.',
-      skills: ['Financial Analysis', 'QuickBooks', 'Tax Compliance'],
-      certifications: ['CPA', 'QuickBooks Expert'],
-      rating: 5.0
-    },
-    carlosRamirez: {
-      id: 'carlos-ramirez',
-      name: 'Carlos Ramirez',
-      photo: '/assets/images/people/carlos-ramirez.jpg',
-      role: 'Accounting',
-      country: '🇲🇽 Mexico',
-      location: 'Tijuana, Mexico',
-      description: 'Detail-oriented accountant specializing in payroll and compliance for US-based companies.',
-      skills: ['Payroll Management', 'Tax Compliance', 'Financial Reporting'],
-      certifications: ['Certified Accountant', 'Payroll Specialist'],
-      rating: 4.9
-    }
-  };
-
-  // ====================================
   // ROLES DATA
   // ====================================
 
@@ -109,133 +27,43 @@ export class DataService {
     {
       id: 'operations',
       title: 'Operations & Admin',
-      image: '/assets/images/people/blonde-woman.jpg',
-      personId: 'blondeWoman',
+      image: '',
       icon: '📊',
       roles: ['Virtual Assistants', 'Project Managers', 'HR Specialists', 'Supply Chain Coordinators'],
-      color: 'from-blue-600 to-blue-800'
+      color: 'from-muted-blue to-pastel-purple'
     },
     {
       id: 'support',
       title: 'Customer Support & Sales',
-      image: '/assets/images/people/tablet-woman.jpg',
-      personId: 'tabletWoman',
+      image: '',
       icon: '💬',
       roles: ['Bilingual CSRs', 'SDRs', 'BDRs', 'Account Managers', 'Billing Specialists'],
-      color: 'from-blue-500 to-blue-700'
+      color: 'from-pastel-purple to-pastel-yellow'
     },
     {
       id: 'finance',
       title: 'Finance & Accounting',
-      image: '/assets/images/people/blue-shirt-man.jpg',
-      personId: 'blueShirtMan',
+      image: '',
       icon: '💼',
       roles: ['Accountants', 'Bookkeepers', 'FP&A Analysts', 'Payroll Specialists', 'Controllers'],
-      color: 'from-indigo-600 to-indigo-800'
+      color: 'from-pastel-yellow to-pastel-green-soft'
     },
     {
       id: 'tech',
       title: 'Technology & Engineering',
-      image: '/assets/images/people/juan-contreras.jpg',
-      personId: 'juanContreras',
+      image: '',
       icon: '💻',
       roles: ['Full-Stack Developers', 'QA Engineers', 'DevOps', 'UI/UX Designers', 'Data Analysts'],
-      color: 'from-blue-700 to-blue-900'
+      color: 'from-muted-blue to-pastel-green-soft'
     },
     {
       id: 'marketing',
       title: 'Marketing & Creative',
-      image: '/assets/images/people/maria-perez.jpg',
-      personId: 'mariaPerez',
+      image: '',
       icon: '🎨',
       roles: ['Digital Marketers', 'Content Writers', 'Graphic Designers', 'SEO Specialists', 'Social Media Managers'],
-      color: 'from-blue-600 to-purple-700'
+      color: 'from-pastel-purple to-muted-blue'
     }
-  ];
-
-  // ====================================
-  // TESTIMONIALS DATA
-  // ====================================
-
-  private testimonialsData: Testimonial[] = [
-    {
-      id: 1,
-      name: 'Diego Parra',
-      role: 'Manager',
-      company: 'TechCorp Inc.',
-      industry: 'SaaS',
-      photo: '/assets/images/testimonials/diego-parra.jpg',
-      rating: 5,
-      text: 'Hirably helped me secure top talent for our US-based team in record time. Everything from sourcing to compliance was handled efficiently. The quality of candidates exceeded our expectations, and the onboarding process was seamless.',
-      linkedin: 'https://linkedin.com/in/diegoparra'
-    },
-    {
-      id: 2,
-      name: 'Laura Martinez',
-      role: 'HR Director',
-      company: 'Growth Solutions',
-      industry: 'E-commerce',
-      photo: '/assets/images/testimonials/laura-martinez.jpg',
-      rating: 5,
-      text: 'We needed to scale our customer support team quickly, and Hirably delivered. Within a week, we had three excellent bilingual representatives onboarded and trained. The cost savings have been incredible – we\'re paying 60% less than US-based equivalents.',
-      linkedin: 'https://linkedin.com/in/lauramartinez'
-    },
-    {
-      id: 3,
-      name: 'Carlos Ramirez',
-      role: 'Accountant',
-      company: 'Finance Plus',
-      industry: 'Financial Services',
-      photo: '/assets/images/people/carlos-ramirez.jpg',
-      rating: 5,
-      text: 'Hirably helped me land a finance position in Canada. They handled all contracts and compliance, making it easy to start my new role confidently. The support team was always available to answer questions and guide me through the process.',
-      linkedin: 'https://linkedin.com/in/carlosramirez'
-    },
-    {
-      id: 4,
-      name: 'Maria Lopez',
-      role: 'Digital Marketing Specialist',
-      company: 'Marketing Hub',
-      industry: 'Marketing Agency',
-      photo: '/assets/images/testimonials/maria-lopez.jpg',
-      rating: 5,
-      text: 'Thanks to Hirably, I landed my dream US marketing role in just two weeks. They guided me through each step and prepared me for success from day one. The team truly cares about finding the right fit for both parties.',
-      linkedin: 'https://linkedin.com/in/marialopez'
-    },
-    {
-      id: 5,
-      name: 'Ana Torres',
-      role: 'Front-End Developer',
-      company: 'DevStart',
-      industry: 'Technology',
-      photo: '/assets/images/testimonials/ana-torres.jpg',
-      rating: 5,
-      text: 'I joined a tech company in the US through Hirably. Their pre-vetting and guidance made the entire hiring process simple and stress-free. Now I\'m working on exciting projects with an amazing team, all from Mexico.',
-      linkedin: 'https://linkedin.com/in/anatorres'
-    },
-    {
-      id: 6,
-      name: 'Juan Sanchez',
-      role: 'Customer Service Representative',
-      company: 'Support Pro',
-      industry: 'Customer Support',
-      photo: '/assets/images/testimonials/juan-sanchez.jpg',
-      rating: 5,
-      text: 'The onboarding support from Hirably was exceptional. They made the transition smooth and I was able to start contributing to my new team immediately. Highly recommend their services!',
-      linkedin: 'https://linkedin.com/in/juansanchez'
-    }
-  ];
-
-  // ====================================
-  // STATS DATA
-  // ====================================
-
-  private statsData: Stat[] = [
-    { number: '200+', label: 'Employees Placed', icon: '👥' },
-    { number: '50+', label: 'Companies Served', icon: '🏢' },
-    { number: '60%', label: 'Cost Savings', icon: '💰' },
-    { number: '97%', label: 'Success Rate', icon: '⭐' },
-    { number: '7', label: 'Days to Hire', icon: '⚡' }
   ];
 
   // ====================================
@@ -466,33 +294,55 @@ export class DataService {
   private howItWorksStepsData: Step[] = [
     {
       number: 1,
-      title: 'Share Your Role',
-      description: 'Upload your job description or fill a quick form.',
-      image: '/assets/images/legacy/Step-1.webp'
+      category: 'Recruitment',
+      title: 'Speed & Quality in 5 Days',
+      description: 'We find and pre-vet top bilingual talent in under 5 days. Our deep experience in the Mexican market means you only meet candidates who are a perfect cultural and technical fit.',
+      color: '#93c5fd',
+      icon: 'M21 13.255A23.864 23.864 0 0112 15c-3.18 0-6.301-.563-9-1.745M16.5 7.5l-3 3-3-3m3 3V1',
+      items: [
+        { icon: 'discovery', text: 'Discovery Call: Tell us exactly what you need.' },
+        { icon: 'shortlist', text: 'Candidate Shortlist: Receive 2-3 pre-vetted professionals.' },
+        { icon: 'interviews', text: 'Interviews: We coordinate everything—you just meet the finalists.' }
+      ]
     },
     {
       number: 2,
-      title: 'Get Instant Estimates',
-      description: 'See hourly cost ranges in minutes.',
-      image: '/assets/images/legacy/Step-2.webp'
+      category: 'Onboarding',
+      title: 'Hassle-Free Compliance',
+      description: 'Digital contracts, legal registration, and benefits setup are handled in days. Your new hire is fully registered under Hirably\'s Mexican legal entity, mitigating your risk.',
+      color: '#c4b5fd',
+      icon: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V17a2 2 0 01-2 2z',
+      items: [
+        { icon: 'contracts', text: 'Contracts: Digital employment contracts signed via platform.' },
+        { icon: 'compliance', text: 'Compliance: Full legal and tax registration (IMSS).' },
+        { icon: 'equipment', text: 'Equipment (Optional): Hardware/software setup ready on day one.' }
+      ]
     },
     {
       number: 3,
-      title: 'Access Pre-Vetted Candidates',
-      description: 'Profiles of top talent ready for interviews in 3 days.',
-      image: '/assets/images/legacy/Step-3.webp'
+      category: 'HR & Support',
+      title: 'Dedicated Employee Experience',
+      description: 'We manage the entire employee lifecycle. Our dedicated, bilingual HR team is available to support both your US/Canadian managers and the employee in Mexico.',
+      color: '#fde047',
+      icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20v-2c0-.663-.134-1.296-.38-1.875M17 20h-2m2 0H9m4-12v1m0-2V6m0 4v1m0 0v-2m0 2h-1m1 0h1m-1 0v-1m0 1v1m0 0v-2m0 2h-1m1 0h1M7 9a4 4 0 018 0v7H7V9z',
+      items: [
+        { icon: 'hr', text: 'HR Management: Dedicated HR support to keep your team engaged.' },
+        { icon: 'pto', text: 'PTO & Holidays: Automated time-off tracking with full visibility.' },
+        { icon: 'portal', text: 'Employee Portal: Self-service access to payroll and HR docs.' }
+      ]
     },
     {
       number: 4,
-      title: 'Interview & Decide',
-      description: 'You choose who to hire.',
-      image: '/assets/images/legacy/Step-4.webp'
-    },
-    {
-      number: 5,
-      title: 'We Handle Everything Else',
-      description: 'Payroll, compliance, HR, benefits + lifetime guarantee.',
-      image: '/assets/images/legacy/Step-5.webp'
+      category: 'Finance & Reporting',
+      title: 'One Transparent Invoice',
+      description: 'We handle all financial, tax, and compliance obligations. Pay your entire Mexican workforce via a single, consolidated USD invoice with real-time reporting on all costs and savings.',
+      color: '#a7f3d0',
+      icon: 'M5 3v4M3 5h4M6 17v4M4 19h4m5-16l2 2m0 0v4m0 4l2 2m-4-2H5a2 2 0 00-2 2v5a2 2 0 002 2h14a2 2 0 002-2v-5a2 2 0 00-2-2h-3M13 3l2 2m0 0v4m0 4l2 2m-4-2H5a2 2 0 00-2 2v5a2 2 0 002 2h14a2 2 0 002-2v-5a2 2 0 00-2-2h-3',
+      items: [
+        { icon: 'payroll', text: 'Payroll: Automated salary distribution in MXN.' },
+        { icon: 'billing', text: 'Billing: Transparent, all-included USD invoice.' },
+        { icon: 'reporting', text: 'Reporting: Real-time visibility into costs and savings.' }
+      ]
     }
   ];
 
@@ -502,24 +352,8 @@ export class DataService {
   // GETTER METHODS
   // ====================================
 
-  getPerson(personId: string): Person | undefined {
-    return this.peopleData[personId];
-  }
-
-  getAllPeople(): Person[] {
-    return Object.values(this.peopleData);
-  }
-
   getRoles(): Role[] {
     return this.rolesData;
-  }
-
-  getTestimonials(): Testimonial[] {
-    return this.testimonialsData;
-  }
-
-  getStats(): Stat[] {
-    return this.statsData;
   }
 
   getTimeline(): TimelineStep[] {

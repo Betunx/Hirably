@@ -4,52 +4,16 @@
 // ====================================
 
 // ====================================
-// PERSON & ROLE INTERFACES
+// ROLE INTERFACE
 // ====================================
-
-export interface Person {
-  id: string;
-  name: string;
-  photo: string;
-  role: string;
-  country: string;
-  location: string;
-  description: string;
-  skills: string[];
-  certifications: string[];
-  rating: number;
-}
 
 export interface Role {
   id: string;
   title: string;
   image: string;
-  personId: string;
   icon: string;
   roles: string[];
   color: string;
-}
-
-// ====================================
-// TESTIMONIAL & STATS INTERFACES
-// ====================================
-
-export interface Testimonial {
-  id: number;
-  name: string;
-  role: string;
-  company: string;
-  industry: string;
-  photo: string;
-  rating: number;
-  text: string;
-  linkedin: string;
-}
-
-export interface Stat {
-  number: string;
-  label: string;
-  icon: string;
 }
 
 // ====================================
@@ -110,4 +74,13 @@ export interface Step {
   title: string;
   description: string;
   image?: string;
+  category?: string;
+  color?: string;
+  icon?: string;
+  items?: StepItem[];
+}
+
+export interface StepItem {
+  icon: string;
+  text: string;
 }

@@ -10,13 +10,11 @@ Landing page moderna y completamente funcional para **Hirably**, plataforma de c
 
 ### Componentes Implementados:
 1. **Hero Section** - Sección principal con CTA dual y animaciones
-2. **Stats Bar** - Barra de estadísticas destacadas
-3. **Why Hirably** - Grid de ventajas y beneficios
-4. **How It Works** - Timeline interactivo (desktop y mobile)
-5. **Roles Carousel** - Carrusel automático de roles
-6. **Testimonials Carousel** - Carrusel de testimonios con ratings
-7. **Final CTA** - Llamado a la acción final
-8. **Footer Completo** - Footer con 4 columnas
+2. **Why Hirably** - Grid de ventajas y beneficios
+3. **How It Works** - Timeline interactivo (desktop y mobile)
+4. **Roles Carousel** - Carrusel automático de roles
+5. **Pricing Section** - Sección de precios con planes
+6. **Footer Completo** - Footer con 4 columnas
 
 ### Funcionalidades:
 - ✅ Carruseles automáticos con controles manuales
@@ -40,18 +38,10 @@ angular-hirably/
 │   │   │   │   ├── hero-section.component.ts
 │   │   │   │   ├── hero-section.component.html
 │   │   │   │   └── hero-section.component.css
-│   │   │   ├── stats-bar/
-│   │   │   │   ├── stats-bar.component.ts
-│   │   │   │   ├── stats-bar.component.html
-│   │   │   │   └── stats-bar.component.css
 │   │   │   ├── roles-carousel/
 │   │   │   │   ├── roles-carousel.component.ts
 │   │   │   │   ├── roles-carousel.component.html
 │   │   │   │   └── roles-carousel.component.css
-│   │   │   ├── testimonials-carousel/
-│   │   │   │   ├── testimonials-carousel.component.ts
-│   │   │   │   ├── testimonials-carousel.component.html
-│   │   │   │   └── testimonials-carousel.component.css
 │   │   │   ├── how-it-works/
 │   │   │   │   ├── how-it-works.component.ts
 │   │   │   │   ├── how-it-works.component.html
@@ -141,7 +131,7 @@ colors: {
   'hirably-blue': {
     // Personaliza tus colores aquí
     500: '#3b82f6',
-    600: '#2563eb',
+    600: '#93c5fd', // Changed to muted-blue
     // ...
   }
 }
@@ -152,13 +142,11 @@ colors: {
 Edita `src/app/services/data.service.ts`:
 ```typescript
 // Actualiza:
-- peopleData (información de candidatos)
 - rolesData (roles disponibles)
-- testimonialsData (testimonios de clientes)
-- statsData (estadísticas)
-- timelineData (pasos del proceso)
+- howItWorksStepsData (pasos del proceso)
 - benefitsData (beneficios de Why Mexico)
 - advantageData (ventajas de Hirably)
+- pricingData (planes de precios)
 ```
 
 ### Agregar Nuevos Componentes:
@@ -200,25 +188,7 @@ xl: 1280px  (Desktops)
 
 ---
 
-### 2. Stats Bar
-**Archivo:** `components/stats-bar/`
-
-**Características:**
-- 5 estadísticas destacadas
-- Iconos personalizados
-- Hover effects
-- Responsive grid (2 cols mobile, 5 desktop)
-
-**Datos mostrados:**
-- Empleados colocados
-- Compañías servidas
-- Ahorro de costos
-- Tasa de éxito
-- Días para contratar
-
----
-
-### 3. Roles Carousel
+### 2. Roles Carousel
 **Archivo:** `components/roles-carousel/`
 
 **Características:**
@@ -239,27 +209,7 @@ xl: 1280px  (Desktops)
 
 ---
 
-### 4. Testimonials Carousel
-**Archivo:** `components/testimonials-carousel/`
-
-**Características:**
-- Carrusel automático (5 segundos)
-- 3 tarjetas visibles (desktop)
-- Responsive (1-3 cards según pantalla)
-- Ratings con estrellas
-- Industry badges
-- LinkedIn verification
-- Avatar circular con ring
-- Navegación completa
-
-**Métodos:**
-- `getVisibleTestimonials()` - Cards visibles
-- `updateVisibleCards()` - Ajusta por pantalla
-- `getStarArray(rating)` - Array de estrellas
-
----
-
-### 5. How It Works Timeline
+### 3. How It Works Timeline
 **Archivo:** `components/how-it-works/`
 
 **Características:**
@@ -279,7 +229,7 @@ xl: 1280px  (Desktops)
 
 ---
 
-### 6. Why Hirably
+### 4. Why Hirably
 **Archivo:** `components/why-hirably/`
 
 **Características:**
@@ -306,14 +256,11 @@ El `DataService` centraliza todos los datos de la aplicación:
 
 ```typescript
 // Métodos disponibles:
-getPerson(personId: string): Person
-getAllPeople(): Person[]
 getRoles(): Role[]
-getTestimonials(): Testimonial[]
-getStats(): Stat[]
-getTimeline(): TimelineStep[]
+getHowItWorksSteps(): Step[]
 getBenefits(): Benefit[]
 getAdvantages(): Benefit[]
+getPricing(): PricingPlan[]
 ```
 
 ---
@@ -331,25 +278,9 @@ Gray Scale: #F3F4F6, #E5E7EB, #9CA3AF, #6B7280
 
 ---
 
-## 📸 IMÁGENES NECESARIAS
+## 📸 IMÁGENES
 
-Coloca estas imágenes en `/assets/images/`:
-
-### People (6 imágenes):
-1. `people/maria-perez.jpg` - Marketing & Creative
-2. `people/juan-contreras.jpg` - Engineering
-3. `people/blonde-woman.jpg` - Operations & Admin
-4. `people/tablet-woman.jpg` - Customer Support
-5. `people/blue-shirt-man.jpg` - Finance & Accounting
-6. `people/carlos-ramirez.jpg` - Accounting
-
-### Testimonials (6 imágenes):
-1. `testimonials/diego-parra.jpg`
-2. `testimonials/laura-martinez.jpg`
-3. `testimonials/maria-lopez.jpg`
-4. `testimonials/ana-torres.jpg`
-5. `testimonials/juan-sanchez.jpg`
-6. (Puedes reutilizar carlos-ramirez de people/)
+Las imágenes actualmente utilizan placeholders con gradientes de color. Puedes agregar imágenes reales en el futuro colocándolas en `/assets/images/` y actualizando las rutas en el DataService.
 
 ---
 
