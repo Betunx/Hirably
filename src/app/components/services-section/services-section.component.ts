@@ -10,7 +10,6 @@ import { BaseDataComponent } from '../../shared/base/base-data.component';
 })
 export class ServicesSectionComponent extends BaseDataComponent {
   services: Service[] = [];
-  description: string = '';
 
   constructor(private dataService: DataService) {
     super();
@@ -18,6 +17,5 @@ export class ServicesSectionComponent extends BaseDataComponent {
 
   protected override loadData(): void {
     this.services = this.dataService.getServices();
-    this.description = this.dataService.getHeroDescription();
   }
 }

@@ -50,14 +50,6 @@ import { ScrollService } from '../../shared/services/scroll.service';
 })
 export class HeroSectionComponent implements OnInit, OnDestroy {
 
-  trustBadges = [
-    'Trusted by 50+ US & Canadian companies',
-    '7-day hiring'
-  ];
-
-  showInDays = true;
-  private intervalId?: number;
-
   // Service words animation
   serviceWords = ['Recruitment', 'Compliance', 'HR', 'Payroll'];
   currentServiceIndex = 0;
@@ -71,11 +63,6 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
   constructor(private scrollService: ScrollService) {}
 
   ngOnInit(): void {
-    // Alternate text every 3 seconds
-    this.intervalId = window.setInterval(() => {
-      this.showInDays = !this.showInDays;
-    }, 3000);
-
     // Start service words animation
     this.serviceIntervalId = window.setInterval(() => {
       this.isAnimating = true;
@@ -89,9 +76,6 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.intervalId) {
-      clearInterval(this.intervalId);
-    }
     if (this.serviceIntervalId) {
       clearInterval(this.serviceIntervalId);
     }

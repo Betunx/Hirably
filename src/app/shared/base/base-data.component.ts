@@ -26,17 +26,10 @@ import { Directive, OnInit } from '@angular/core';
 export abstract class BaseDataComponent implements OnInit {
 
   /**
-   * Flag para indicar si los datos están cargando
-   */
-  protected isLoading = false;
-
-  /**
    * Lifecycle hook que ejecuta la carga de datos
    */
   ngOnInit(): void {
-    this.isLoading = true;
     this.loadData();
-    this.isLoading = false;
   }
 
   /**

@@ -2,6 +2,44 @@
 // Custom styles for the timeline effect and node animation (matching original design)
 
 // ====================================
+// FLOATING TITLE ANIMATION
+// ====================================
+
+.floating-title {
+  text-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 8px 16px rgba(0, 0, 0, 0.2),
+    0 12px 24px rgba(0, 0, 0, 0.15),
+    0 0 40px rgba(255, 255, 255, 0.3);
+  animation: float 3s ease-in-out infinite;
+  letter-spacing: 0.05em;
+  position: relative;
+  display: inline-block;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+    border-radius: 2px;
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.5);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+// ====================================
 // PROCESS CONTAINER & TIMELINE
 // ====================================
 
@@ -118,16 +156,31 @@
 }
 
 // ====================================
-// CTA BUTTON
+// STEP CARDS - Consistent sizing and styling
 // ====================================
 
-.cta-button {
-  transition: background-color 0.3s, transform 0.1s;
-  box-shadow: 0 4px 15px rgba(147, 197, 253, 0.4);
+.step-card {
+  min-height: 280px; // Minimum height for all cards
+  height: 100%; // Fill available space
+  display: flex;
+  flex-direction: column;
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.15),
+    0 6px 12px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease-in-out;
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(147, 197, 253, 0.6);
+    transform: translateY(-4px);
+    box-shadow:
+      0 15px 35px rgba(0, 0, 0, 0.2),
+      0 8px 16px rgba(0, 0, 0, 0.12),
+      0 0 0 1px rgba(0, 0, 0, 0.08);
+    border-color: rgba(147, 197, 253, 0.4);
+  }
+
+  @media (max-width: 768px) {
+    min-height: auto; // Remove min-height on mobile for flexibility
   }
 }
 
@@ -160,7 +213,8 @@
   .process-step,
   .node-content,
   .node-icon,
-  .timeline-progress {
+  .timeline-progress,
+  .floating-title {
     transition: none !important;
     animation: none !important;
   }

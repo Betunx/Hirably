@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { ViewportScroller } from '@angular/common';
 import { filter } from 'rxjs/operators';
 
 interface NavLink {
@@ -18,6 +17,7 @@ interface NavLink {
     .logo-container {
       position: relative;
       display: inline-block;
+      height: 2rem; /* Mantiene la altura del texto original (text-2xl) */
     }
 
     .logo-text,
@@ -34,6 +34,8 @@ interface NavLink {
       top: 0;
       left: 0;
       opacity: 0;
+      height: 2rem; /* Igual altura que el texto */
+      width: auto; /* Mantiene la proporción del logo */
     }
 
     .logo-container:hover .logo-text {
@@ -65,8 +67,7 @@ export class NavbarComponent {
   ];
 
   constructor(
-    private router: Router,
-    private viewportScroller: ViewportScroller
+    private router: Router
   ) {
     // Listen to navigation events to handle scrolling
     this.router.events.pipe(

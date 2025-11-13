@@ -107,13 +107,6 @@ export class HowItWorksStepsComponent extends BaseDataComponent implements After
     this.timelineProgress.nativeElement.style.height = `${progressPercentage}%`;
   }
 
-  private updateTimelineProgress(stepNumber: number, color: string): void {
-    if (this.timelineProgress && this.timelineProgress.nativeElement) {
-      const progressPercentage = (stepNumber / this.steps.length) * 100;
-      this.timelineProgress.nativeElement.style.height = `${progressPercentage}%`;
-    }
-  }
-
   getCategoryColorClass(category?: string): string {
     const colorMap: { [key: string]: string } = {
       'Recruitment': 'muted-blue',

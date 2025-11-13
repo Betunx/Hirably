@@ -11,7 +11,7 @@
 
       <!-- Main Headline -->
       <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-taupe-dark leading-tight mb-6 max-w-5xl mx-auto">
-        The All-in-One Platform for <span class="text-muted-blue">Hiring in Mexico</span>
+        The All-in-One Platform for <span class="text-muted-blue">Hiring in México</span>
       </h1>
 
       <!-- Subtitle -->
@@ -24,7 +24,7 @@
       <div class="mb-6 h-12 flex items-center justify-center">
         <div class="service-word-container">
           <em class="text-2xl sm:text-3xl font-bold text-muted-blue animated-service-word"
-              [class.animating]="isAnimating">
+            [class.animating]="isAnimating">
             {{ currentService }}
           </em>
         </div>
@@ -33,7 +33,10 @@
       <!-- CTA Buttons -->
       <div class="flex flex-col sm:flex-row justify-center gap-4 mb-8">
         <button (click)="onBookConsultation()"
-          class="bg-muted-blue text-taupe-dark font-bold py-3 px-8 rounded-xl text-lg transition duration-300 hover:bg-taupe-dark hover:text-white shadow-lg">
+          class="bg-muted-blue text-white font-bold py-3 px-8 rounded-xl text-lg transition duration-300 hover:bg-taupe-dark hover:text-white shadow-lg"
+          style="background-color: #0d1659;" onmouseover="this.style.backgroundColor='#2b3573'"
+          onmouseout="this.style.backgroundColor='#111f78'">
+
           Book a Free Consultation
         </button>
         <button (click)="onSeeHowItWorks()"

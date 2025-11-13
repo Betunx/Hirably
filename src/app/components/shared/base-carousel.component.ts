@@ -108,9 +108,4 @@ export abstract class BaseCarouselComponent<T> implements OnInit, OnDestroy {
   getTransform(): string {
     return `translateX(-${this.currentIndex * 100}%)`;
   }
-
-  // Verificar si es el slide activo (para indicadores)
-  isActive(index: number): boolean {
-    return this.currentIndex === index;
-  }
 }

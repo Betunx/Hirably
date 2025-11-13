@@ -1,25 +1,20 @@
 <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-md py-4 px-6 md:px-12 z-[1000] shadow-sm">
   <div class="flex justify-between items-center max-w-[87.5rem] mx-auto">
     <!-- Logo (Left) -->
-    <div
-      (click)="navigateToHome()"
+    <div (click)="navigateToHome()"
       class="logo-container text-2xl font-bold text-black cursor-pointer z-[1001] flex-shrink-0 relative">
       <span class="logo-text">Hirably</span>
-      <span class="logo-hover">Home</span>
+      <img src="assets/logos/logo 2.svg" alt="Hirably Logo" class="logo-hover" />
     </div>
 
     <!-- Hamburger Menu (Mobile Only) -->
-    <button
-      class="flex flex-col gap-1.5 bg-transparent border-none cursor-pointer p-1.5 z-[1001] md:hidden"
+    <button class="flex flex-col gap-1.5 bg-transparent border-none cursor-pointer p-1.5 z-[1001] md:hidden"
       (click)="toggleMenu()">
-      <span
-        class="w-6 h-0.5 bg-muted-blue rounded transition-all duration-300"
+      <span class="w-6 h-0.5 bg-muted-blue rounded transition-all duration-300"
         [ngClass]="{'rotate-45 translate-x-2 translate-y-2': isMenuOpen}"></span>
-      <span
-        class="w-6 h-0.5 bg-muted-blue rounded transition-all duration-300"
+      <span class="w-6 h-0.5 bg-muted-blue rounded transition-all duration-300"
         [ngClass]="{'opacity-0': isMenuOpen}"></span>
-      <span
-        class="w-6 h-0.5 bg-muted-blue rounded transition-all duration-300"
+      <span class="w-6 h-0.5 bg-muted-blue rounded transition-all duration-300"
         [ngClass]="{'-rotate-45 translate-x-2 -translate-y-2': isMenuOpen}"></span>
     </button>
 
@@ -27,31 +22,28 @@
     <ul class="hidden md:flex gap-6 list-none absolute left-1/2 -translate-x-1/2 items-center">
       <li *ngFor="let link of navLinks" class="relative">
         <!-- Regular Link -->
-        <a
-          *ngIf="!link.hasDropdown"
-          (click)="navigateToSection(link.route!, link.fragment)"
+        <a *ngIf="!link.hasDropdown" (click)="navigateToSection(link.route!, link.fragment)"
           class="text-gray-700 text-sm font-normal cursor-pointer transition-colors duration-300 hover:text-muted-blue">
           {{ link.label }}
         </a>
 
         <!-- Dropdown Link -->
         <div *ngIf="link.hasDropdown" class="relative">
-          <button
-            (click)="toggleMeetUsDropdown()"
+          <button (click)="toggleMeetUsDropdown()"
             class="flex items-center gap-1 text-gray-700 text-sm font-normal cursor-pointer transition-colors duration-300 hover:text-muted-blue">
             {{ link.label }}
-            <svg class="w-4 h-4 transition-transform duration-300" [class.rotate-180]="isMeetUsDropdownOpen" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+            <svg class="w-4 h-4 transition-transform duration-300" [class.rotate-180]="isMeetUsDropdownOpen"
+              fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd"
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                clip-rule="evenodd" />
             </svg>
           </button>
 
           <!-- Dropdown Menu -->
-          <div
-            *ngIf="isMeetUsDropdownOpen"
+          <div *ngIf="isMeetUsDropdownOpen"
             class="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-100 py-2 z-[1100]">
-            <a
-              *ngFor="let item of link.dropdownItems"
-              (click)="navigateToMeetUs(item.route, item.fragment)"
+            <a *ngFor="let item of link.dropdownItems" (click)="navigateToMeetUs(item.route, item.fragment)"
               class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-muted-blue cursor-pointer transition-colors duration-200">
               {{ item.label }}
             </a>
@@ -61,8 +53,7 @@
     </ul>
 
     <!-- CTA Button (Right) - Desktop only -->
-    <a
-      (click)="navigateToSection('/meet-us', 'contact')"
+    <a (click)="navigateToSection('/meet-us', 'contact')"
       class="hidden md:inline-block bg-muted-blue text-taupe-dark font-bold py-2.5 px-7 rounded-xl text-base cursor-pointer transition duration-300 hover:bg-taupe-dark hover:text-white shadow-lg flex-shrink-0">
       Start Hiring Today
     </a>
@@ -76,29 +67,27 @@
       <ul class="flex flex-col gap-6 w-full list-none">
         <li *ngFor="let link of navLinks">
           <!-- Regular Link -->
-          <a
-            *ngIf="!link.hasDropdown"
-            (click)="navigateToSection(link.route!, link.fragment)"
+          <a *ngIf="!link.hasDropdown" (click)="navigateToSection(link.route!, link.fragment)"
             class="text-gray-700 block py-3 text-base cursor-pointer transition-colors duration-300 hover:text-muted-blue">
             {{ link.label }}
           </a>
 
           <!-- Dropdown for Mobile -->
           <div *ngIf="link.hasDropdown" class="flex flex-col">
-            <button
-              (click)="toggleMeetUsDropdown()"
+            <button (click)="toggleMeetUsDropdown()"
               class="flex items-center justify-center gap-2 text-gray-700 py-3 text-base cursor-pointer transition-colors duration-300 hover:text-muted-blue">
               {{ link.label }}
-              <svg class="w-4 h-4 transition-transform duration-300" [class.rotate-180]="isMeetUsDropdownOpen" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+              <svg class="w-4 h-4 transition-transform duration-300" [class.rotate-180]="isMeetUsDropdownOpen"
+                fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                  clip-rule="evenodd" />
               </svg>
             </button>
 
             <!-- Dropdown Items -->
             <div *ngIf="isMeetUsDropdownOpen" class="flex flex-col gap-2 mt-2 bg-gray-50 py-3 rounded-lg">
-              <a
-                *ngFor="let item of link.dropdownItems"
-                (click)="navigateToMeetUs(item.route, item.fragment)"
+              <a *ngFor="let item of link.dropdownItems" (click)="navigateToMeetUs(item.route, item.fragment)"
                 class="text-gray-600 text-sm py-2 cursor-pointer hover:text-muted-blue transition-colors duration-200">
                 {{ item.label }}
               </a>
@@ -108,8 +97,7 @@
       </ul>
 
       <!-- Mobile CTA Button -->
-      <a
-        (click)="navigateToSection('/meet-us', 'contact')"
+      <a (click)="navigateToSection('/meet-us', 'contact')"
         class="bg-muted-blue text-taupe-dark font-bold py-2.5 px-7 rounded-xl text-base cursor-pointer transition duration-300 hover:bg-taupe-dark hover:text-white shadow-lg w-4/5 mx-auto text-center inline-block">
         Start Hiring Today
       </a>

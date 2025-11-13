@@ -13,7 +13,7 @@ import { Component } from '@angular/core';
     <!-- Chatbot flotante (disponible en toda la aplicación) -->
     <app-chatbot></app-chatbot>
   `,
-  styles: []
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   title = 'hirably';
