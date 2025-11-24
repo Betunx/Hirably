@@ -16,7 +16,7 @@ export class FooterComponent {
 
   siteLinks = [
     { label: 'Home', url: '#home' },
-    { label: 'How It Works', url: '#how-it-works' },
+    { label: 'How Hirably Works', url: '#how-it-works' },
     { label: 'Why Mexico?', url: '#why-mexico' },
     { label: 'Contact Us', url: '#contact' },
     { label: 'Pricing', url: '#pricing' }

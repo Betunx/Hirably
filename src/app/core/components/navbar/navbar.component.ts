@@ -52,7 +52,7 @@ export class NavbarComponent {
   isMeetUsDropdownOpen = false;
 
   navLinks: NavLink[] = [
-    { label: 'How It Works', route: '/', fragment: 'how-it-works' },
+    { label: 'How Hirably Works', route: '/', fragment: 'how-it-works' },
     { label: 'Why México', route: '/', fragment: 'why-mexico' },
     { label: 'Pricing', route: '/', fragment: 'pricing' },
     {

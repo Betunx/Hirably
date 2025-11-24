@@ -1,13 +1,13 @@
-<!-- HOW IT WORKS - SCROLLING PROCESS MAP -->
-<section id="how-it-works" class="py-24"
-    style="background: linear-gradient(135deg, #b89574 0%, #a78560 50%, #96754c 100%);">
+<!-- HOW HIRABLY WORKS - SCROLLING PROCESS MAP -->
+<section id="how-it-works" class="py-24 bg-bright-amber/50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16">
-        <h1 class="text-4xl md:text-5xl font-extrabold text-black mb-4 floating-title">
-            How It Works
+        <h1 class="text-4xl md:text-5xl font-bold text-black-carbon mb-4 floating-title">
+            HOW HIRABLY WORKS
         </h1>
-        <h2 class="text-3xl font-bold text-white mb-4">From Discovery to Payroll</h2>
-        <p class="text-lg text-white/90 max-w-4xl mx-auto">Every step is connected through one seamless, transparent
-            process managed inside your Hirably platform. Watch the journey unfold.</p>
+        <h2 class="text-3xl font-extrabold text-bright-amber mb-4">From Discovery to Payroll</h2>
+        <p class="text-lg font-bold text-black max-w-4xl mx-auto">Every step is connected through one seamless,
+            transparent
+            process managed inside your Hirably platform. Watch your journey unfold.</p>
     </div>
 
     <div class="process-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -17,65 +17,62 @@
         <div class="timeline-progress" #timelineProgress></div>
 
         <!-- Content for each step -->
-        <div *ngFor="let step of steps; let i = index"
-            class="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-6 md:gap-8 py-8 md:py-12 process-step"
-            [attr.data-step]="step.number" [attr.data-color]="step.color" #processStep>
+        <div *ngFor="let step of steps; let i = index" class="process-step py-8 md:py-12" [attr.data-step]="step.number"
+            [attr.data-color]="step.color" #processStep>
 
-            <!-- Left Side: Title, Subtitle, Description -->
-            <div class="order-2 md:order-1 flex">
-                <div
-                    class="step-card node-content transition-all duration-700 ease-out transform translate-y-4 opacity-0 bg-white/95 backdrop-blur-sm rounded-2xl p-6 md:p-8 border-2 border-gray-200/50 w-full">
-                    <div class="text-left flex flex-col justify-between h-full">
-                        <div>
-                            <span
-                                [class]="'font-bold text-sm uppercase tracking-wider text-' + getCategoryColorClass(step.category)">
-                                Step {{ step.number }}: {{ step.category }}
-                            </span>
-                            <h3 class="text-2xl md:text-3xl font-extrabold text-taupe-dark mt-2 mb-4">{{ step.title }}</h3>
-                            <p class="text-gray-700 leading-relaxed">{{ step.description }}</p>
+            <!-- Step Number - Centered -->
+            <div class="text-center mb-6 relative z-20">
+                <h2 class="text-5xl md:text-6xl font-extrabold text-carbon-black">
+                    Step {{ step.number }}
+                </h2>
+            </div>
+
+            <!-- Main Content Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-6 md:gap-8 items-center">
+
+                <!-- Left Side: Category Title & Subtitle -->
+                <div class="order-2 md:order-1 flex">
+                    <div
+                        class="node-content transition-all duration-700 ease-out transform translate-y-4 opacity-0 w-full">
+                        <div class="flex flex-col justify-center h-full">
+                            <h3 class="text-2xl md:text-3xl font-extrabold text-carbon-black mb-3 text-left">
+                                {{ step.category }}
+                            </h3>
+                            <p class="text-lg md:text-xl font-semibold text-carbon-black/90 text-center">
+                                {{ step.title }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Center: Node Icon -->
+                <div class="flex items-center justify-center order-1 md:order-2">
+                    <div class="node">
+                        <div class="node-icon transition-all duration-500" [attr.data-step-icon]="step.number">
+                            <span class="text-xl font-extrabold">{{ step.number }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side: Description -->
+                <div class="order-3 flex">
+                    <div
+                        class="step-card node-content transition-all duration-700 ease-out transform translate-y-4 opacity-0 bg-bright-amber/95 backdrop-blur-sm rounded-2xl p-6 md:p-8 border-2 border-bright-amber/50 w-full">
+                        <div class="flex flex-col justify-center h-full">
+                            <p class="text-base md:text-lg text-carbon-black leading-relaxed">
+                                {{ step.description }}
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Center: Node Icon -->
-            <div class="flex items-center justify-center order-1 md:order-2">
-                <div class="node">
-                    <div class="node-icon transition-all duration-500" [attr.data-step-icon]="step.number">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                [attr.d]="step.icon" />
-                        </svg>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Side: Items List -->
-            <div class="order-3 flex">
-                <div
-                    class="step-card node-content transition-all duration-700 ease-out transform translate-y-4 opacity-0 bg-white/95 backdrop-blur-sm rounded-2xl p-6 md:p-8 border-2 border-gray-200/50 w-full">
-                    <div class="flex flex-col justify-between h-full">
-                        <!-- Items list -->
-                        <ul *ngIf="step.items && step.items.length > 0" class="space-y-4 text-gray-700">
-                            <li *ngFor="let item of step.items" class="flex items-start">
-                                <svg class="w-5 h-5 mr-3 mt-1 flex-shrink-0"
-                                    [class]="'text-' + getCategoryColorClass(step.category)" fill="currentColor"
-                                    viewBox="0 0 20 20">
-                                    <path [attr.d]="getIconPath(item.icon)" />
-                                </svg>
-                                <span class="leading-relaxed font-medium">{{ item.text }}</span>
-                            </li>
-                        </ul>
-
-                        <!-- Special footer for last step -->
-                        <div *ngIf="i === steps.length - 1" class="mt-6 pt-4 border-t border-gray-200">
-                            <h4 class="text-base md:text-lg font-extrabold text-taupe-dark text-left">Your
-                                Employee - Fully Managed.</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- Closing Line -->
+        <div class="text-center mt-12 mb-8">
+            <p class="text-xl md:text-2xl font-bold text-carbon-black max-w-4xl mx-auto">
+                Your team runs smoother, your hiring gets easier and your back office stays simple with Hirably.
+            </p>
         </div>
     </div>
 </section>

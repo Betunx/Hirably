@@ -3,15 +3,16 @@
      hero-section.component.html
      ==================================== -->
 
-<section id="home" class="pt-28 pb-24 bg-beige-offwhite">
+<section id="home" class="pt-28 pb-24 bg-floral-white">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
     <!-- Hero Content - Centered -->
     <div class="text-center px-8 md:px-16 lg:px-24">
 
       <!-- Main Headline -->
-      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-taupe-dark leading-tight mb-6 max-w-5xl mx-auto">
-        The All-in-One Platform for <span class="text-muted-blue">Hiring in México</span>
+      <h1
+        class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-carbon-black leading-tight mb-6 max-w-5xl mx-auto">
+        The All-in-One Platform for <span class="text-icy-blue">Hiring in México</span>
       </h1>
 
       <!-- Subtitle -->
@@ -23,7 +24,7 @@
       <!-- Animated Service Words -->
       <div class="mb-6 h-12 flex items-center justify-center">
         <div class="service-word-container">
-          <em class="text-2xl sm:text-3xl font-bold text-muted-blue animated-service-word"
+          <em class="text-2xl sm:text-3xl font-bold text-icy-blue animated-service-word"
             [class.animating]="isAnimating">
             {{ currentService }}
           </em>
@@ -32,23 +33,21 @@
 
       <!-- CTA Buttons -->
       <div class="flex flex-col sm:flex-row justify-center gap-4 mb-8">
-        <button (click)="onBookConsultation()"
-          class="bg-muted-blue text-white font-bold py-3 px-8 rounded-xl text-lg transition duration-300 hover:bg-taupe-dark hover:text-white shadow-lg"
-          style="background-color: #0d1659;" onmouseover="this.style.backgroundColor='#2b3573'"
-          onmouseout="this.style.backgroundColor='#111f78'">
-
-          Book a Free Consultation
-        </button>
         <button (click)="onSeeHowItWorks()"
-          class="bg-white border-2 border-muted-blue text-taupe-dark font-bold py-3 px-8 rounded-xl text-lg transition duration-300 hover:bg-muted-blue hover:text-white shadow-lg">
-          See How It Works
+          class="bg-dark-amethyst text-white font-bold py-3 px-8 rounded-xl text-lg transition duration-300 hover:bg-icy-blue hover:text-carbon-black shadow-lg">
+          Start Hiring Today
+        </button>
+        <button (click)="onBookConsultation()"
+          class="bg-white text-black font-bold py-3 px-8 rounded-xl text-lg transition duration-300 hover:bg-icy-blue hover:text-carbon-black shadow-lg">
+          Book a Free Consultation
         </button>
       </div>
 
       <!-- Social Proof Badge -->
       <div
-        class="inline-flex items-center space-x-2 px-6 py-3 bg-cream-soft text-sm font-small text-taupe-dark rounded-full shadow-sm">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-muted-blue" viewBox="0 0 20 20" fill="currentColor">
+        class="inline-flex items-center space-x-2 px-6 py-3 bg-white text-sm font-small text-carbon-black rounded-full shadow-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-bright-amber" viewBox="0 0 20 20"
+          fill="currentColor">
           <path fill-rule="evenodd"
             d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
             clip-rule="evenodd" />
@@ -57,7 +56,7 @@
       </div>
 
       <!-- Dashboard Mockup -->
-      <div class="mt-16 bg-taupe-dark p-8 rounded-3xl shadow-2xl">
+      <div class="mt-16 bg-dark-amethyst p-8 rounded-3xl shadow-2xl">
 
         <!-- Browser Header -->
         <div class="bg-gray-700 p-4 rounded-t-2xl flex justify-between items-center">
@@ -74,11 +73,11 @@
 
           <!-- Dashboard Header -->
           <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-bold text-taupe-dark">Active Employees</h2>
+            <h2 class="text-2xl font-bold text-carbon-black">Active Employees</h2>
             <div class="flex gap-3">
-              <div class="px-4 py-2 bg-muted-blue/20 rounded-lg">
+              <div class="px-4 py-2 bg-icy-blue/20 rounded-lg">
                 <div class="text-xs text-gray-600">Total Employees</div>
-                <div class="text-xl font-bold text-muted-blue">24</div>
+                <div class="text-xl font-bold text-icy-blue">24</div>
               </div>
               <div class="px-4 py-2 bg-green-100 rounded-lg">
                 <div class="text-xs text-gray-600">Monthly Savings</div>
@@ -94,11 +93,11 @@
             <div class="bg-white border-2 border-gray-200 rounded-xl p-4 hover:shadow-lg transition-shadow">
               <div class="flex items-center gap-3 mb-3">
                 <div
-                  class="w-12 h-12 bg-gradient-to-br from-muted-blue to-light-blue-bg rounded-full flex items-center justify-center text-xl">
+                  class="w-12 h-12 bg-gradient-to-br from-icy-blue to-periwinkle rounded-full flex items-center justify-center text-xl">
                   👨‍💻
                 </div>
                 <div>
-                  <div class="font-bold text-taupe-dark">Software Engineer</div>
+                  <div class="font-bold text-carbon-black">Software Engineer</div>
                   <div class="text-xs text-gray-500">Full Stack Developer</div>
                 </div>
               </div>
@@ -112,11 +111,11 @@
             <div class="bg-white border-2 border-gray-200 rounded-xl p-4 hover:shadow-lg transition-shadow">
               <div class="flex items-center gap-3 mb-3">
                 <div
-                  class="w-12 h-12 bg-gradient-to-br from-pastel-purple to-purple-300 rounded-full flex items-center justify-center text-xl">
+                  class="w-12 h-12 bg-gradient-to-br from-periwinkle to-icy-blue rounded-full flex items-center justify-center text-xl">
                   👩‍💼
                 </div>
                 <div>
-                  <div class="font-bold text-taupe-dark">Project Manager</div>
+                  <div class="font-bold text-carbon-black">Project Manager</div>
                   <div class="text-xs text-gray-500">Operations Lead</div>
                 </div>
               </div>
@@ -130,11 +129,11 @@
             <div class="bg-white border-2 border-gray-200 rounded-xl p-4 hover:shadow-lg transition-shadow">
               <div class="flex items-center gap-3 mb-3">
                 <div
-                  class="w-12 h-12 bg-gradient-to-br from-pastel-yellow to-yellow-300 rounded-full flex items-center justify-center text-xl">
+                  class="w-12 h-12 bg-gradient-to-br from-bright-amber to-periwinkle rounded-full flex items-center justify-center text-xl">
                   💬
                 </div>
                 <div>
-                  <div class="font-bold text-taupe-dark">Customer Support</div>
+                  <div class="font-bold text-carbon-black">Customer Support</div>
                   <div class="text-xs text-gray-500">Bilingual CSR</div>
                 </div>
               </div>
@@ -147,21 +146,21 @@
           </div>
 
           <!-- Quick Stats Bar -->
-          <div class="grid grid-cols-4 gap-4 p-4 bg-gray-100 rounded-xl">
+          <div class="grid grid-cols-4 gap-4 p-4 bg-floral-white rounded-xl">
             <div class="text-center">
-              <div class="text-2xl font-bold text-taupe-dark">97%</div>
+              <div class="text-2xl font-bold text-carbon-black">97%</div>
               <div class="text-xs text-gray-600">Retention Rate</div>
             </div>
             <div class="text-center">
-              <div class="text-2xl font-bold text-taupe-dark">7 days</div>
+              <div class="text-2xl font-bold text-carbon-black">7 days</div>
               <div class="text-xs text-gray-600">Avg. Time to Hire</div>
             </div>
             <div class="text-center">
-              <div class="text-2xl font-bold text-taupe-dark">100%</div>
+              <div class="text-2xl font-bold text-carbon-black">100%</div>
               <div class="text-xs text-gray-600">Compliance</div>
             </div>
             <div class="text-center">
-              <div class="text-2xl font-bold text-taupe-dark">$0</div>
+              <div class="text-2xl font-bold text-carbon-black">$0</div>
               <div class="text-xs text-gray-600">Upfront Fees</div>
             </div>
           </div>

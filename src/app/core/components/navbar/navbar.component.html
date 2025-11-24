@@ -2,19 +2,18 @@
   <div class="flex justify-between items-center max-w-[87.5rem] mx-auto">
     <!-- Logo (Left) -->
     <div (click)="navigateToHome()"
-      class="logo-container text-2xl font-bold text-black cursor-pointer z-[1001] flex-shrink-0 relative">
-      <span class="logo-text">Hirably</span>
-      <img src="assets/logos/logo 2.svg" alt="Hirably Logo" class="logo-hover" />
+      class="logo-container cursor-pointer z-[1001] flex-shrink-0 relative hover:drop-shadow-md transition-all duration-300">
+      <img src="assets/logos/logo 2.svg" alt="Hirably Logo" class="h-8" />
     </div>
 
     <!-- Hamburger Menu (Mobile Only) -->
     <button class="flex flex-col gap-1.5 bg-transparent border-none cursor-pointer p-1.5 z-[1001] md:hidden"
       (click)="toggleMenu()">
-      <span class="w-6 h-0.5 bg-muted-blue rounded transition-all duration-300"
+      <span class="w-6 h-0.5 bg-dark-amethyst rounded transition-all duration-300"
         [ngClass]="{'rotate-45 translate-x-2 translate-y-2': isMenuOpen}"></span>
-      <span class="w-6 h-0.5 bg-muted-blue rounded transition-all duration-300"
+      <span class="w-6 h-0.5 bg-dark-amethyst rounded transition-all duration-300"
         [ngClass]="{'opacity-0': isMenuOpen}"></span>
-      <span class="w-6 h-0.5 bg-muted-blue rounded transition-all duration-300"
+      <span class="w-6 h-0.5 bg-dark-amethyst rounded transition-all duration-300"
         [ngClass]="{'-rotate-45 translate-x-2 -translate-y-2': isMenuOpen}"></span>
     </button>
 
@@ -23,14 +22,14 @@
       <li *ngFor="let link of navLinks" class="relative">
         <!-- Regular Link -->
         <a *ngIf="!link.hasDropdown" (click)="navigateToSection(link.route!, link.fragment)"
-          class="text-gray-700 text-sm font-normal cursor-pointer transition-colors duration-300 hover:text-muted-blue">
+          class="text-gray-700 text-sm font-normal cursor-pointer transition-colors duration-300 hover:text-dark-amethyst">
           {{ link.label }}
         </a>
 
         <!-- Dropdown Link -->
         <div *ngIf="link.hasDropdown" class="relative">
           <button (click)="toggleMeetUsDropdown()"
-            class="flex items-center gap-1 text-gray-700 text-sm font-normal cursor-pointer transition-colors duration-300 hover:text-muted-blue">
+            class="flex items-center gap-1 text-gray-700 text-sm font-normal cursor-pointer transition-colors duration-300 hover:text-dark-amethyst">
             {{ link.label }}
             <svg class="w-4 h-4 transition-transform duration-300" [class.rotate-180]="isMeetUsDropdownOpen"
               fill="currentColor" viewBox="0 0 20 20">
@@ -44,7 +43,7 @@
           <div *ngIf="isMeetUsDropdownOpen"
             class="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-100 py-2 z-[1100]">
             <a *ngFor="let item of link.dropdownItems" (click)="navigateToMeetUs(item.route, item.fragment)"
-              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-muted-blue cursor-pointer transition-colors duration-200">
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-floral-white hover:text-dark-amethyst cursor-pointer transition-colors duration-200">
               {{ item.label }}
             </a>
           </div>
@@ -54,7 +53,7 @@
 
     <!-- CTA Button (Right) - Desktop only -->
     <a (click)="navigateToSection('/meet-us', 'contact')"
-      class="hidden md:inline-block bg-muted-blue text-taupe-dark font-bold py-2.5 px-7 rounded-xl text-base cursor-pointer transition duration-300 hover:bg-taupe-dark hover:text-white shadow-lg flex-shrink-0">
+      class="hidden md:inline-block bg-dark-amethyst text-white font-bold py-2.5 px-7 rounded-xl text-base cursor-pointer transition duration-300 hover:bg-dark-amethyst hover:text-white shadow-lg flex-shrink-0">
       Start Hiring Today
     </a>
 
@@ -68,14 +67,14 @@
         <li *ngFor="let link of navLinks">
           <!-- Regular Link -->
           <a *ngIf="!link.hasDropdown" (click)="navigateToSection(link.route!, link.fragment)"
-            class="text-gray-700 block py-3 text-base cursor-pointer transition-colors duration-300 hover:text-muted-blue">
+            class="text-gray-700 block py-3 text-base cursor-pointer transition-colors duration-300 hover:text-dark-amethyst">
             {{ link.label }}
           </a>
 
           <!-- Dropdown for Mobile -->
           <div *ngIf="link.hasDropdown" class="flex flex-col">
             <button (click)="toggleMeetUsDropdown()"
-              class="flex items-center justify-center gap-2 text-gray-700 py-3 text-base cursor-pointer transition-colors duration-300 hover:text-muted-blue">
+              class="flex items-center justify-center gap-2 text-gray-700 py-3 text-base cursor-pointer transition-colors duration-300 hover:text-dark-amethyst">
               {{ link.label }}
               <svg class="w-4 h-4 transition-transform duration-300" [class.rotate-180]="isMeetUsDropdownOpen"
                 fill="currentColor" viewBox="0 0 20 20">
@@ -86,9 +85,9 @@
             </button>
 
             <!-- Dropdown Items -->
-            <div *ngIf="isMeetUsDropdownOpen" class="flex flex-col gap-2 mt-2 bg-gray-50 py-3 rounded-lg">
+            <div *ngIf="isMeetUsDropdownOpen" class="flex flex-col gap-2 mt-2 bg-floral-white py-3 rounded-lg">
               <a *ngFor="let item of link.dropdownItems" (click)="navigateToMeetUs(item.route, item.fragment)"
-                class="text-gray-600 text-sm py-2 cursor-pointer hover:text-muted-blue transition-colors duration-200">
+                class="text-gray-600 text-sm py-2 cursor-pointer hover:text-dark-amethyst transition-colors duration-200">
                 {{ item.label }}
               </a>
             </div>
@@ -98,7 +97,7 @@
 
       <!-- Mobile CTA Button -->
       <a (click)="navigateToSection('/meet-us', 'contact')"
-        class="bg-muted-blue text-taupe-dark font-bold py-2.5 px-7 rounded-xl text-base cursor-pointer transition duration-300 hover:bg-taupe-dark hover:text-white shadow-lg w-4/5 mx-auto text-center inline-block">
+        class="bg-bright-amber text-carbon-black font-bold py-2.5 px-7 rounded-xl text-base cursor-pointer transition duration-300 hover:bg-dark-amethyst hover:text-white shadow-lg w-4/5 mx-auto text-center inline-block">
         Start Hiring Today
       </a>
     </div>

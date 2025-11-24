@@ -11,7 +11,7 @@ Landing page moderna y completamente funcional para **Hirably**, plataforma de c
 ### Componentes Implementados:
 1. **Hero Section** - Sección principal con CTA dual y animaciones
 2. **Why Hirably** - Grid de ventajas y beneficios
-3. **How It Works** - Timeline interactivo (desktop y mobile)
+3. **How Hirably Works** - Timeline interactivo (desktop y mobile)
 4. **Roles Carousel** - Carrusel automático de roles
 5. **Pricing Section** - Sección de precios con planes
 6. **Footer Completo** - Footer con 4 columnas
@@ -209,7 +209,7 @@ xl: 1280px  (Desktops)
 
 ---
 
-### 3. How It Works Timeline
+### 3. How Hirably Works Timeline
 **Archivo:** `components/how-it-works/`
 
 **Características:**

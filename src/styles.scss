@@ -26,20 +26,20 @@
   }
 
   .carousel-nav-btn-left {
-    @apply carousel-nav-btn left-0 -translate-x-4 hover:bg-gray-50;
+    @apply carousel-nav-btn left-0 -translate-x-4 hover:bg-floral-white;
   }
 
   .carousel-nav-btn-right {
-    @apply carousel-nav-btn right-0 translate-x-4 hover:bg-gray-50;
+    @apply carousel-nav-btn right-0 translate-x-4 hover:bg-floral-white;
   }
 
   /* Botones CTA primarios (respaldo si no se usa el componente) */
   .btn-primary {
-    @apply bg-muted-blue hover:bg-taupe-dark text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl;
+    @apply bg-bright-amber hover:bg-dark-amethyst text-carbon-black px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl;
   }
 
   .btn-secondary {
-    @apply bg-white text-muted-blue border-2 border-muted-blue hover:bg-blue-50 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl;
+    @apply bg-white text-dark-amethyst border-2 border-periwinkle hover:bg-floral-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl;
   }
 
   /* Cards con hover effect */

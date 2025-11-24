@@ -1,4 +1,4 @@
-// HOW IT WORKS - PROCESS TIMELINE STYLES
+// HOW HIRABLY WORKS - PROCESS TIMELINE STYLES
 // Custom styles for the timeline effect and node animation (matching original design)
 
 // ====================================
@@ -15,19 +15,6 @@
   letter-spacing: 0.05em;
   position: relative;
   display: inline-block;
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    height: 4px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
-    border-radius: 2px;
-    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.5);
-  }
 }
 
 @keyframes float {
@@ -47,33 +34,33 @@
   position: relative;
 }
 
-// Static Timeline Line (Soft beige background)
+// Static Timeline Line (Floral White background)
 .timeline-line {
   position: absolute;
   left: 50%;
   width: 4px;
-  background-color: #e7e3df; // Soft beige line
+  background-color: #FFFBF4; // Floral White line
   top: 0;
   height: calc(100% - 8rem); // End before the bottom padding
   transform: translateX(-50%);
-  z-index: 1;
+  z-index: 5; // Below step text but above background
 
   @media (max-width: 768px) {
     display: none;
   }
 }
 
-// Animated Timeline Progress (Uses Muted Blue - draws as user scrolls)
+// Animated Timeline Progress (Uses Icy Blue - draws as user scrolls)
 .timeline-progress {
   position: absolute;
   left: 50%;
   width: 4px;
-  background-color: #93c5fd; // Muted Blue for progress
+  background-color: #B1D8FC; // Icy Blue for progress
   top: 0;
   height: 0;
   max-height: calc(100% - 8rem); // Don't exceed the static line
   transform: translateX(-50%);
-  z-index: 2;
+  z-index: 6; // Below step text but above static line
   transition: height 0.5s ease-out; // Smooth animation on scroll
 
   @media (max-width: 768px) {
@@ -98,52 +85,70 @@
   z-index: 10;
 }
 
-// Node appearance - exactly matching original design
+// Node appearance - matching new color palette
 .node-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  background-color: #93c5fd; // Default Muted Blue
-  color: #4c4a47; // Dark icon inside light node (taupe-dark)
-  box-shadow: 0 0 0 6px #fcfcfc, 0 0 0 8px rgba(147, 197, 253, 0.5);
+  background-color: #B1D8FC; // Default Icy Blue
+  color: #1B1B1B; // Carbon Black number inside node
+  box-shadow: 0 0 0 6px #FFFFFF, 0 0 0 8px rgba(177, 216, 252, 0.5);
   transition: all 0.3s ease-in-out;
 
-  svg {
-    width: 24px;
-    height: 24px;
+  span {
+    font-size: 1.25rem;
+    font-weight: 800;
   }
 
   // Active node style - with color glow effect
   &.active {
-    box-shadow: 0 0 0 8px #fcfcfc, 0 0 0 12px var(--node-color), 0 0 20px 4px var(--node-color);
+    box-shadow: 0 0 0 8px #FFFFFF, 0 0 0 12px var(--node-color), 0 0 20px 4px var(--node-color);
   }
 
   // Color assignments based on data-step-icon attribute
   &[data-step-icon="1"] {
-    background-color: #93c5fd;
-    color: #4c4a47;
-    --node-color: #93c5fd;
+    background-color: #FFCF25; // Bright Amber
+    color: #1B1B1B;
+    --node-color: #FFCF25;
   }
 
   &[data-step-icon="2"] {
-    background-color: #c4b5fd;
-    color: #4c4a47;
-    --node-color: #c4b5fd;
+    background-color: #FFCF25; // Bright Amber
+    color: #1B1B1B;
+    --node-color: #FFCF25;
   }
 
   &[data-step-icon="3"] {
-    background-color: #fde047;
-    color: #4c4a47;
-    --node-color: #fde047;
+    background-color: #FFCF25; // Bright Amber
+    color: #1B1B1B;
+    --node-color: #FFCF25;
   }
 
   &[data-step-icon="4"] {
-    background-color: #a7f3d0;
-    color: #4c4a47;
-    --node-color: #a7f3d0;
+    background-color: #FFCF25; // Bright Amber
+    color: #1B1B1B;
+    --node-color: #FFCF25;
+  }
+
+  &[data-step-icon="5"] {
+    background-color: #FFCF25; // Bright Amber
+    color: #1B1B1B;
+    --node-color: #FFCF25;
+  }
+
+  &[data-step-icon="6"] {
+    background-color: #FFCF25; // Bright Amber
+    color: #1B1B1B;
+    --node-color: #FFCF25;
+  }
+
+  &[data-step-icon="7"] {
+    background-color: #FFCF25; // Bright Amber
+    color: #1B1B1B;
+    --node-color: #FFCF25;
   }
 }
 
@@ -176,7 +181,7 @@
       0 15px 35px rgba(0, 0, 0, 0.2),
       0 8px 16px rgba(0, 0, 0, 0.12),
       0 0 0 1px rgba(0, 0, 0, 0.08);
-    border-color: rgba(147, 197, 253, 0.4);
+    border-color: rgba(177, 216, 252, 0.4);
   }
 
   @media (max-width: 768px) {
@@ -198,9 +203,8 @@
     width: 40px;
     height: 40px;
 
-    svg {
-      width: 20px;
-      height: 20px;
+    span {
+      font-size: 1rem;
     }
   }
 }
