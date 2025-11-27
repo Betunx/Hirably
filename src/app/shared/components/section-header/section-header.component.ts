@@ -16,19 +16,19 @@ import { CommonModule } from '@angular/common';
       <!-- Tag opcional (ej: "NUESTROS SERVICIOS") -->
       <p
         *ngIf="tag"
-        class="text-muted-blue font-semibold uppercase tracking-wide mb-2">
+        [class]="tagClass || 'text-muted-blue font-semibold uppercase tracking-wide mb-2'">
         {{ tag }}
       </p>
 
       <!-- Título principal -->
-      <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+      <h2 [class]="titleClass || 'text-4xl md:text-5xl font-bold text-gray-900 mb-6'">
         {{ title }}
       </h2>
 
       <!-- Descripción opcional -->
       <p
         *ngIf="description"
-        class="text-xl text-gray-600 max-w-3xl mx-auto">
+        [class]="descriptionClass || 'text-xl text-gray-600 max-w-3xl mx-auto'">
         {{ description }}
       </p>
     </div>
@@ -51,4 +51,19 @@ export class SectionHeaderComponent {
    * Descripción de la sección (opcional)
    */
   @Input() description?: string;
+
+  /**
+   * Clases CSS personalizadas para el tag (opcional)
+   */
+  @Input() tagClass?: string;
+
+  /**
+   * Clases CSS personalizadas para el título (opcional)
+   */
+  @Input() titleClass?: string;
+
+  /**
+   * Clases CSS personalizadas para la descripción (opcional)
+   */
+  @Input() descriptionClass?: string;
 }
