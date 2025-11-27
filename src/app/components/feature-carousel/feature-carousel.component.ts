@@ -35,4 +35,9 @@ export class FeatureCarouselComponent extends BaseCarouselComponent<Feature> {
   protected override getDesktopVisibleItems(): number {
     return 3; // Feature carousel muestra 3 en desktop
   }
+
+  // Get the actual index of a feature in the full features array
+  getFeatureIndex(feature: Feature): number {
+    return this.features.indexOf(feature);
+  }
 }

@@ -150,40 +150,34 @@ export class DataService {
 
   private advantageData: Benefit[] = [
     {
-      icon: '🎯',
-      title: 'Zero-Risk Hiring',
-      description: 'No upfront fees, pay only when you hire, with lifetime replacement guarantee.',
-      items: ['No upfront fees', 'Pay only when you hire', 'Lifetime replacement guarantee']
+      icon: 'shield-check',
+      title: 'Hiring Made Risk-Free',
+      description: 'Start hiring with confidence and zero pressure. No commitments, no upfront fees and your lifetime replacement guarantee is always included.',
+      items: ['No upfront costs', 'Pay only when you hire', 'Lifetime replacement included']
     },
     {
-      icon: '⚡',
-      title: 'Lightning Fast',
-      description: 'From job posting to productive team member in just 7 days average.',
-      items: ['Candidates in 5 days', 'Hired in 7 days average', 'Start working immediately']
+      icon: 'bolt',
+      title: 'Hiring at Lightning Speed',
+      description: 'Meet pre-vetted candidates in days and get your new team member started almost immediately.',
+      items: ['Candidates in 5 days', 'Average time to hire under 21 days', 'Onboarding completed in 3 days']
     },
     {
-      icon: '💼',
-      title: 'White Glove Service',
-      description: 'Dedicated account manager providing end-to-end support and personal onboarding.',
-      items: ['Dedicated account manager', 'End-to-end support', 'Personal onboarding']
+      icon: 'user-group',
+      title: 'Support That Actually Feels Supportive',
+      description: 'Your dedicated account manager learns your style and helps you every step of the way.',
+      items: ['Dedicated account manager', 'End-to-end support', 'A process shaped around your needs']
     },
     {
-      icon: '✅',
-      title: 'Full Compliance',
-      description: 'Complete EOR services with payroll, benefits, and 100% legal protection included.',
-      items: ['EOR services included', 'Payroll & benefits handled', '100% legal protection']
+      icon: 'star',
+      title: 'Top Talent, Ready to Go',
+      description: 'Mexico\'s strongest bilingual professionals, aligned with U.S. and Canadian workflows.',
+      items: ['Millions of bilingual professionals', 'Culturally aligned talent', 'Experience with North American companies']
     },
     {
-      icon: '💎',
-      title: 'Pre-Vetted Talent Pool',
-      description: 'Access to 45K+ qualified, bilingual professionals who are culturally aligned and North American-trained.',
-      items: ['45K+ qualified professionals', 'Bilingual & culturally aligned', 'North American-trained']
-    },
-    {
-      icon: '📊',
-      title: 'Transparent Pricing',
-      description: 'Clear cost breakdown with no hidden fees. See exactly what you pay.',
-      items: ['Clear cost breakdown', 'No hidden fees', 'See exactly what you pay']
+      icon: 'chart-bar',
+      title: 'Pricing That Makes Sense',
+      description: 'You always know exactly what you\'re paying for with full visibility inside your platform.',
+      items: ['Clear cost breakdown', 'No hidden fees', 'Everything visible in your dashboard']
     }
   ];
 

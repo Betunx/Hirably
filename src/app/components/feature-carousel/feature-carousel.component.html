@@ -3,25 +3,104 @@
      feature-carousel.component.html
      ==================================== -->
 
-<section class="py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
-
+<section class="py-20 bg-floral-white relative overflow-hidden">
   <!-- Mexico Map Background Image -->
-  <div class="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
-    <img src="assets/img/DJV JUL 2377-18 (1).jpg" alt="Mexico" class="w-full h-full object-cover" loading="lazy">
+  <div
+    class="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none"
+  >
+    <img
+      src="assets/img/licensed-image.png"
+      alt="Mexico"
+      class="w-full h-full object-contain"
+      loading="lazy"
+    />
   </div>
 
-  <div class="container mx-auto px-4 relative z-10">
+  <style>
+    @keyframes float {
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
 
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes iconBounce {
+      0%,
+      100% {
+        transform: scale(1) rotate(0deg);
+      }
+      50% {
+        transform: scale(1.1) rotate(5deg);
+      }
+    }
+
+    .feature-card {
+      animation: fadeInUp 0.6s ease-out backwards;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .feature-card:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+    .feature-card:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    .feature-card:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 25px 50px -12px rgba(100, 116, 139, 0.25);
+    }
+
+    .feature-card .icon-container {
+      transition: all 0.4s ease;
+    }
+
+    .feature-card:hover .icon-container {
+      transform: scale(1.15) rotate(5deg);
+      animation: iconBounce 1s ease infinite;
+    }
+
+    .glassmorphism {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+  </style>
+
+  <div class="container mx-auto px-4 relative z-10">
     <!-- Section Header -->
-    <app-section-header tag="WHY MEXICO" title="Why Top Companies Choose Mexico"
-      description="Expand your team in real time, at a fraction of the cost. Work with bilingual professionals who understand North American standards.">
+    <app-section-header
+      tag="WHY MEXICO"
+      title="Why Top Companies Choose Mexico"
+      description="Expand your team in real time, at a fraction of the cost. Work with bilingual professionals who understand North American standards."
+    >
     </app-section-header>
 
     <!-- Why Mexico Benefits Grid (4 benefits - destacados primero) -->
-    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto mb-20">
-      <div *ngFor="let benefit of mexicoBenefits"
-        class="bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all hover:-translate-y-2 text-center border border-gray-100">
-
+    <div
+      class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto mb-20"
+    >
+      <div
+        *ngFor="let benefit of mexicoBenefits"
+        class="bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all hover:-translate-y-2 text-center border border-gray-100"
+      >
         <!-- Icon -->
         <div class="text-5xl mb-4">{{ benefit.icon }}</div>
 
@@ -37,71 +116,204 @@
       </div>
     </div>
 
-
-
     <!-- Feature Carousel Header -->
     <div class="text-center mb-12">
       <p class="text-muted-blue font-semibold uppercase tracking-wide mb-2">
         KEY BENEFITS
       </p>
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-900">
+      <h2
+        class="text-3xl md:text-4xl font-bold text-gray-900"
+        style="animation: float 3s ease-in-out infinite"
+      >
         The Hirably Advantage
       </h2>
     </div>
 
     <!-- Carousel Container -->
     <div class="relative max-w-5xl mx-auto">
-
       <!-- Features Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div *ngFor="let feature of getVisibleItems()"
-          class="p-8 rounded-2xl bg-white border-2 border-gray-200 hover:border-muted-blue hover:shadow-2xl transition-all duration-300">
-
-          <!-- Icon -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div
+          *ngFor="let feature of getVisibleItems()"
+          class="feature-card glassmorphism border-2 border-gray-200 hover:border-muted-blue p-8 rounded-3xl relative overflow-hidden group"
+        >
+          <!-- Icon Container with Rotating Icons -->
           <div
-            class="w-16 h-16 bg-gradient-to-br from-muted-blue to-pastel-purple rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
-            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            class="icon-container relative z-10 mx-auto mb-6 w-20 h-20 bg-gradient-to-br from-dark-amethyst to-periwinkle rounded-3xl flex items-center justify-center shadow-lg"
+          >
+            <!-- Different SVG icons based on actual feature index for variety -->
+            <!-- Icon 1: Lightning Bolt (Speed/Performance) -->
+            <svg
+              *ngIf="getFeatureIndex(feature) % 6 === 0"
+              class="w-10 h-10 text-white"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <defs>
+                <linearGradient
+                  id="iconGrad1"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
+                  <stop
+                    offset="0%"
+                    style="stop-color: #fffbf4; stop-opacity: 1"
+                  />
+                  <stop
+                    offset="100%"
+                    style="stop-color: #ffffff; stop-opacity: 1"
+                  />
+                </linearGradient>
+              </defs>
+              <path
+                fill="url(#iconGrad1)"
+                d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"
+              />
+            </svg>
+
+            <!-- Icon 2: Shield Check (Security/Trust) -->
+            <svg
+              *ngIf="getFeatureIndex(feature) % 6 === 1"
+              class="w-10 h-10 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              stroke-width="2.5"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+              />
+            </svg>
+
+            <!-- Icon 3: Star (Quality/Excellence) -->
+            <svg
+              *ngIf="getFeatureIndex(feature) % 6 === 2"
+              class="w-10 h-10 text-white"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+              />
+            </svg>
+
+            <!-- Icon 4: Users (Team/Collaboration) -->
+            <svg
+              *ngIf="getFeatureIndex(feature) % 6 === 3"
+              class="w-10 h-10 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              stroke-width="2.5"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+              />
+            </svg>
+
+            <!-- Icon 5: Rocket (Growth/Innovation) -->
+            <svg
+              *ngIf="getFeatureIndex(feature) % 6 === 4"
+              class="w-10 h-10 text-white"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M13.13 22.19l-.24-.23L2 11.46c1.16-1.19 2.31-2.38 3.47-3.57 1.16 1.16 2.31 2.31 3.47 3.47.47.47 1.24.47 1.71 0 .47-.47.47-1.24 0-1.71-1.16-1.16-2.31-2.31-3.47-3.47C9.36 4 11.54 2 14.12 2c3.47 0 6.3 2.83 6.3 6.3 0 2.59-2 4.77-4.18 6.95l-3.11 3.11c-.47.47-.47 1.24 0 1.71.47.47 1.24.47 1.71 0l3.11-3.11c2.58-2.58 4.79-5.36 4.79-8.66C22.74 3.54 19.2 0 14.12 0 9.75 0 6.95 2.21 4.47 4.7L2 2.24v7.22h7.22L6.89 7.13c1.75-1.75 3.89-3.13 7.23-3.13 3.11 0 5.64 2.53 5.64 5.64 0 2.36-1.75 4.53-3.89 6.67l-3.11 3.11c-1.16 1.16-3.03 1.16-4.19 0-1.16-1.16-1.16-3.03 0-4.19L11.68 12.12z"
+              />
+            </svg>
+
+            <!-- Icon 6: Globe (Global/Reach) -->
+            <svg
+              *ngIf="getFeatureIndex(feature) % 6 === 5"
+              class="w-10 h-10 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              stroke-width="2.5"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
             </svg>
           </div>
 
-          <h3 class="text-xl font-bold text-gray-900 mb-3 text-center">
+          <!-- Title -->
+          <h3
+            class="text-xl font-bold mb-4 text-center relative z-10 text-gray-900"
+          >
             {{ feature.title }}
           </h3>
 
-          <p *ngIf="feature.description" class="text-gray-600 text-center text-sm leading-relaxed">
+          <!-- Description -->
+          <p
+            *ngIf="feature.description"
+            class="text-center text-sm leading-relaxed relative z-10 text-gray-600"
+          >
             {{ feature.description }}
           </p>
         </div>
       </div>
 
       <!-- Navigation Arrows -->
-      <button (click)="prev()"
-        class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 w-12 h-12 bg-white rounded-full shadow-lg hover:shadow-xl transition-all hover:bg-muted-blue hover:text-white hidden lg:flex items-center justify-center group">
-        <svg class="w-6 h-6 text-gray-800 group-hover:text-white transition-colors" fill="none" stroke="currentColor"
-          viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      <button
+        (click)="prev()"
+        class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-20 w-12 h-12 bg-white rounded-full shadow-lg hover:shadow-xl transition-all hover:bg-muted-blue hover:text-white hidden lg:flex items-center justify-center group"
+      >
+        <svg
+          class="w-6 h-6 text-gray-800 group-hover:text-white transition-colors"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 19l-7-7 7-7"
+          />
         </svg>
       </button>
 
-      <button (click)="next()"
-        class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 w-12 h-12 bg-white rounded-full shadow-lg hover:shadow-xl transition-all hover:bg-muted-blue hover:text-white hidden lg:flex items-center justify-center group">
-        <svg class="w-6 h-6 text-gray-800 group-hover:text-white transition-colors" fill="none" stroke="currentColor"
-          viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      <button
+        (click)="next()"
+        class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-20 w-12 h-12 bg-white rounded-full shadow-lg hover:shadow-xl transition-all hover:bg-muted-blue hover:text-white hidden lg:flex items-center justify-center group"
+      >
+        <svg
+          class="w-6 h-6 text-gray-800 group-hover:text-white transition-colors"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 5l7 7-7 7"
+          />
         </svg>
       </button>
-
     </div>
 
     <!-- Dots Indicator -->
     <div class="flex justify-center mt-8 gap-2">
-      <button *ngFor="let feature of features; let i = index" (click)="goToSlide(i)"
-        [class.bg-muted-blue]="i === currentIndex" [class.w-8]="i === currentIndex"
-        [class.bg-gray-300]="i !== currentIndex" [class.w-3]="i !== currentIndex"
-        class="h-3 rounded-full transition-all duration-300 hover:bg-muted-blue/70">
-      </button>
+      <button
+        *ngFor="let feature of features; let i = index"
+        (click)="goToSlide(i)"
+        [class.bg-muted-blue]="i === currentIndex"
+        [class.w-8]="i === currentIndex"
+        [class.bg-gray-300]="i !== currentIndex"
+        [class.w-3]="i !== currentIndex"
+        class="h-3 rounded-full transition-all duration-300 hover:bg-muted-blue/70"
+      ></button>
     </div>
-
   </div>
 </section>
