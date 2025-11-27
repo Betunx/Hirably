@@ -1,11 +1,11 @@
 <!-- HOW HIRABLY WORKS - SCROLLING PROCESS MAP -->
-<section id="how-it-works" class="py-24 bg-bright-amber/50">
+<section id="how-it-works" class="py-24 bg-floral-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16">
-        <h1 class="text-4xl md:text-5xl font-bold text-black-carbon mb-4 floating-title">
+        <h1 class="py-1 text-3xl md:text-5xl font-bold text-black-carbon mb-4 floating-title">
             HOW HIRABLY WORKS
         </h1>
-        <h2 class="text-3xl font-extrabold text-bright-amber mb-4">From Discovery to Payroll</h2>
-        <p class="text-lg font-bold text-black max-w-4xl mx-auto">Every step is connected through one seamless,
+        <h2 class="text-3xl font-extrabold text-bright-amber mb-4 pb-3">From Discovery to Payroll</h2>
+        <p class="text-lg font-700 text-black max-w-4xl mx-auto pb-2">Every step is connected through one seamless,
             transparent
             process managed inside your Hirably platform. Watch your journey unfold.</p>
     </div>
@@ -20,23 +20,25 @@
         <div *ngFor="let step of steps; let i = index" class="process-step py-8 md:py-12" [attr.data-step]="step.number"
             [attr.data-color]="step.color" #processStep>
 
-            <!-- Step Number - Centered -->
-            <div class="text-center mb-6 relative z-20">
-                <h2 class="text-5xl md:text-6xl font-extrabold text-carbon-black">
-                    Step {{ step.number }}
+            <!-- Step Category - Centered -->
+            <div class="text-center mb-12 relative z-20">
+                <h2
+                    class="text-3xl md:text-4xl font-extrabold text-carbon-black bg-white inline-block px-6 py-3 uppercase">
+                    {{ step.category }}
                 </h2>
             </div>
 
             <!-- Main Content Grid -->
             <div class="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-6 md:gap-8 items-center">
 
-                <!-- Left Side: Category Title & Subtitle -->
+                <!-- Left Side: Step Number & Subtitle -->
                 <div class="order-2 md:order-1 flex">
                     <div
                         class="node-content transition-all duration-700 ease-out transform translate-y-4 opacity-0 w-full">
                         <div class="flex flex-col justify-center h-full">
-                            <h3 class="text-2xl md:text-3xl font-extrabold text-carbon-black mb-3 text-left">
-                                {{ step.category }}
+                            <h3
+                                class="text-2xl md:text-3xl font-extrabold text-white bg-carbon-black mb-3 text-left inline-block px-4 py-2 w-fit">
+                                Step {{ step.number }}
                             </h3>
                             <p class="text-lg md:text-xl font-semibold text-carbon-black/90 text-center">
                                 {{ step.title }}
@@ -57,7 +59,8 @@
                 <!-- Right Side: Description -->
                 <div class="order-3 flex">
                     <div
-                        class="step-card node-content transition-all duration-700 ease-out transform translate-y-4 opacity-0 bg-bright-amber/95 backdrop-blur-sm rounded-2xl p-6 md:p-8 border-2 border-bright-amber/50 w-full">
+                        class="step-card node-content transition-all duration-700 ease-out transform translate-y-4 opacity-0 bg-floral-white backdrop-blur-sm rounded-2xl p-6 md:p-8 border-4 w-full"
+                        [style.border-color]="step.color">
                         <div class="flex flex-col justify-center h-full">
                             <p class="text-base md:text-lg text-carbon-black leading-relaxed">
                                 {{ step.description }}

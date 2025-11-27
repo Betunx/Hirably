@@ -27,28 +27,39 @@
                 
                 <!-- Image Side (or colored placeholder if no image) -->
                 <div class="relative h-96 md:h-auto bg-gradient-to-br" [ngClass]="role.color">
-                  <div class="absolute inset-0 flex items-center justify-center">
+                  <!-- Background Image if available -->
+                  <img
+                    *ngIf="role.image"
+                    [src]="role.image"
+                    [alt]="role.title"
+                    class="absolute inset-0 w-full h-full object-cover">
+
+                  <!-- Icon fallback if no image -->
+                  <div *ngIf="!role.image" class="absolute inset-0 flex items-center justify-center">
                     <span class="text-9xl opacity-20">{{ role.icon }}</span>
                   </div>
 
                   <!-- Title Overlay -->
-                  <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-6 text-white z-20">
-                    <div class="flex items-center justify-between">
-                      <h3 class="text-2xl font-bold">{{ role.title }}</h3>
-                      <span class="text-3xl">{{ role.icon }}</span>
-                    </div>
+                  <div class="absolute bottom-0 left-0 right-0 flex items-center justify-center p-6 z-20">
+                    <h3 class="text-2xl font-bold">
+                      <span class="px-4 py-2 inline-block rounded-sm" [ngClass]="getTitleBackgroundColor(role.id)">
+                        {{ role.title }}
+                      </span>
+                    </h3>
                   </div>
                 </div>
 
                 <!-- Content Side -->
                 <div class="p-8 md:p-12 flex flex-col justify-center">
-                  <h4 class="text-lg font-semibold text-gray-700 mb-4">
-                    Roles We Fill:
+                  <h4 class="text-xl md:text-2xl font-bold text-center uppercase mb-6">
+                    <span class="bg-floral-white text-carbon-black px-4 py-2 inline-block">
+                      Roles We Fill:
+                    </span>
                   </h4>
                   <ul class="space-y-3 mb-8">
                     <li *ngFor="let roleName of role.roles" class="flex items-start">
-                      <span class="text-muted-blue mr-3 mt-1">✓</span>
-                      <span class="text-gray-700">{{ roleName }}</span>
+                      <span class="mr-3 mt-1" [ngClass]="getRoleTextColor(role.id)">✓</span>
+                      <span [ngClass]="getRoleTextColor(role.id)">{{ roleName }}</span>
                     </li>
                   </ul>
                   <button
@@ -82,14 +93,30 @@
         </svg>
       </button>
 
-      <!-- Dots Navigation - usando currentIndex directamente -->
-      <div class="flex justify-center mt-8 space-x-2">
-        <button
-          *ngFor="let role of roles; let i = index"
-          (click)="goToSlide(i)"
-          class="h-3 rounded-full transition-all"
-          [ngClass]="i === currentIndex ? 'w-8 bg-muted-blue' : 'w-3 bg-gray-300 hover:bg-gray-400'">
-        </button>
+      <!-- Navigation: 2 dots left, center text, 2 dots right -->
+      <div class="flex items-center justify-center mt-8 gap-4">
+        <!-- Left dots (previous 2) -->
+        <div class="flex space-x-2">
+          <button
+            *ngFor="let role of getLeftDots(); let i = index"
+            (click)="goToSlide(role.index)"
+            class="h-3 w-3 rounded-full bg-gray-300 hover:bg-gray-400 transition-all">
+          </button>
+        </div>
+
+        <!-- Center: Current section name -->
+        <div class="px-6 py-2 font-bold rounded-lg text-lg" [ngClass]="getCurrentTitleStyle()">
+          {{ roles[currentIndex]?.title }}
+        </div>
+
+        <!-- Right dots (next 2) -->
+        <div class="flex space-x-2">
+          <button
+            *ngFor="let role of getRightDots(); let i = index"
+            (click)="goToSlide(role.index)"
+            class="h-3 w-3 rounded-full bg-gray-300 hover:bg-gray-400 transition-all">
+          </button>
+        </div>
       </div>
 
     </div>

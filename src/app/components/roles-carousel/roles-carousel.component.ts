@@ -38,4 +38,83 @@ export class RolesCarouselComponent extends BaseCarouselComponent<Role> {
     console.log('View roles for:', roleId);
     // Navigate to roles page or open modal
   }
+
+  /**
+   * Gets the highlighter background color for each role title
+   * Colors follow the pattern: bright-amber, periwinkle, icy-blue, dark-amethyst, floral-white
+   */
+  getTitleBackgroundColor(roleId: string): string {
+    const colorMap: { [key: string]: string } = {
+      'operations': 'bg-bright-amber text-carbon-black',
+      'support': 'bg-periwinkle text-carbon-black',
+      'finance': 'bg-icy-blue text-carbon-black',
+      'tech': 'bg-dark-amethyst text-floral-white',
+      'marketing': 'bg-floral-white text-carbon-black'
+    };
+    return colorMap[roleId] || 'bg-gray-900 text-white';
+  }
+
+  /**
+   * Gets the text color for role items based on the role's background color
+   * Matches the highlighter color for consistency
+   */
+  getRoleTextColor(roleId: string): string {
+    const colorMap: { [key: string]: string } = {
+      'operations': 'text-bright-amber',
+      'support': 'text-periwinkle',
+      'finance': 'text-icy-blue',
+      'tech': 'text-dark-amethyst',
+      'marketing': 'text-carbon-black'
+    };
+    return colorMap[roleId] || 'text-gray-700';
+  }
+
+  /**
+   * Gets the 2 dots to display on the left of the current section
+   */
+  getLeftDots(): Array<{ index: number }> {
+    const dots: Array<{ index: number }> = [];
+    const totalRoles = this.roles.length;
+
+    for (let i = 2; i >= 1; i--) {
+      const index = (this.currentIndex - i + totalRoles) % totalRoles;
+      dots.push({ index });
+    }
+
+    return dots;
+  }
+
+  /**
+   * Gets the 2 dots to display on the right of the current section
+   */
+  getRightDots(): Array<{ index: number }> {
+    const dots: Array<{ index: number }> = [];
+    const totalRoles = this.roles.length;
+
+    for (let i = 1; i <= 2; i++) {
+      const index = (this.currentIndex + i) % totalRoles;
+      dots.push({ index });
+    }
+
+    return dots;
+  }
+
+  /**
+   * Gets the style for the current title in the navigation
+   * Uses the same color pattern as the role text colors
+   */
+  getCurrentTitleStyle(): string {
+    const currentRole = this.roles[this.currentIndex];
+    if (!currentRole) return 'bg-muted-blue text-white';
+
+    const styleMap: { [key: string]: string } = {
+      'operations': 'bg-bright-amber text-carbon-black',
+      'support': 'bg-periwinkle text-carbon-black',
+      'finance': 'bg-icy-blue text-carbon-black',
+      'tech': 'bg-dark-amethyst text-floral-white',
+      'marketing': 'bg-floral-white text-carbon-black border-2 border-carbon-black'
+    };
+
+    return styleMap[currentRole.id] || 'bg-muted-blue text-white';
+  }
 }
