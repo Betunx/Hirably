@@ -1,23 +1,32 @@
-<section id="pricing" class="py-20 bg-gray-50">
+<!-- Top Wave -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="w-full">
+    <path fill="#201148" fill-opacity="1"
+        d="M0,32L0,128L57.6,128L57.6,160L115.2,160L115.2,96L172.8,96L172.8,224L230.4,224L230.4,192L288,192L288,64L345.6,64L345.6,0L403.2,0L403.2,160L460.8,160L460.8,288L518.4,288L518.4,320L576,320L576,160L633.6,160L633.6,128L691.2,128L691.2,96L748.8,96L748.8,160L806.4,160L806.4,256L864,256L864,32L921.6,32L921.6,192L979.2,192L979.2,288L1036.8,288L1036.8,160L1094.4,160L1094.4,0L1152,0L1152,160L1209.6,160L1209.6,32L1267.2,32L1267.2,128L1324.8,128L1324.8,160L1382.4,160L1382.4,32L1440,32L1440,320L1382.4,320L1382.4,320L1324.8,320L1324.8,320L1267.2,320L1267.2,320L1209.6,320L1209.6,320L1152,320L1152,320L1094.4,320L1094.4,320L1036.8,320L1036.8,320L979.2,320L979.2,320L921.6,320L921.6,320L864,320L864,320L806.4,320L806.4,320L748.8,320L748.8,320L691.2,320L691.2,320L633.6,320L633.6,320L576,320L576,320L518.4,320L518.4,320L460.8,320L460.8,320L403.2,320L403.2,320L345.6,320L345.6,320L288,320L288,320L230.4,320L230.4,320L172.8,320L172.8,320L115.2,320L115.2,320L57.6,320L57.6,320L0,320L0,320Z">
+    </path>
+</svg>
+
+<section id="pricing" class="py-20 bg-dark-amethyst">
     <div class="container mx-auto px-4">
 
         <!-- Header - Usando componente compartido -->
-        <app-section-header
-            tag="OUR PRICES"
-            title="Transparent, All-Inclusive Pricing"
-            description="Choose the plan that fits your hiring needs. All plans include full recruitment, payroll, compliance, and HR support.">
+        <app-section-header tag="OUR PRICES" title="Transparent, All-Inclusive Pricing"
+            description="Choose the plan that fits your hiring needs. All plans include full recruitment, payroll, compliance, and HR support."
+            tagClass="text-bright-amber font-semibold uppercase tracking-wide mb-2"
+            titleClass="text-4xl md:text-5xl font-bold text-carbon-black bg-floral-white mb-6 inline-block px-6 py-3"
+            descriptionClass="text-xl text-white max-w-3xl mx-auto">
         </app-section-header>
 
         <!-- Pricing Cards -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
 
-            <div *ngFor="let plan of plans" [class.ring-4]="plan.recommended" [class.ring-muted-blue]="plan.recommended"
-                [class.scale-105]="plan.recommended"
-                class="relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden">
+            <div *ngFor="let plan of plans" [class.ring-4]="plan.recommended" [class.ring-icy-blue]="plan.recommended"
+                [class.scale-105]="plan.recommended" [class.bg-icy-blue]="plan.recommended"
+                [class.bg-floral-white]="!plan.recommended"
+                class="relative rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden">
 
                 <!-- Recommended Badge -->
                 <div *ngIf="plan.recommended"
-                    class="absolute top-0 right-0 bg-muted-blue text-white px-6 py-2 text-sm font-bold rounded-bl-lg">
+                    class="absolute top-0 right-0 bg-bright-amber text-carbon-black px-6 py-2 text-sm font-bold rounded-bl-lg rounded-tr-2xl">
                     RECOMMENDED
                 </div>
 
@@ -37,8 +46,8 @@
                     <!-- Features List -->
                     <ul class="space-y-4 mb-8">
                         <li *ngFor="let feature of plan.features" class="flex items-start">
-                            <svg class="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 13l4 4L19 7" />
                             </svg>
@@ -47,12 +56,11 @@
                     </ul>
 
                     <!-- CTA Button -->
-                    <button (click)="onSelectPlan(plan)"
-                        [ngClass]="{
-                            'bg-muted-blue hover:bg-muted-blue/90': plan.recommended,
-                            'bg-gray-800 hover:bg-gray-900': !plan.recommended
+                    <button (click)="onSelectPlan(plan)" [ngClass]="{
+                            'bg-white text-carbon-black hover:bg-dark-amethyst hover:text-white': plan.recommended,
+                            'bg-dark-amethyst text-white hover:bg-icy-blue hover:text-carbon-black': !plan.recommended
                         }"
-                        class="w-full text-white py-4 rounded-lg font-semibold text-lg transition shadow-lg hover:shadow-xl">
+                        class="w-full py-4 rounded-lg font-semibold text-lg transition shadow-lg hover:shadow-xl mt-auto">
                         {{ plan.cta }}
                     </button>
 
@@ -62,12 +70,20 @@
         </div>
 
         <!-- Additional Info -->
-        <div class="text-center mt-12 text-gray-600">
-            <p>All plans include a <strong class="text-gray-900">lifetime guarantee</strong> and <strong
-                    class="text-gray-900">no commitment</strong>.</p>
-            <p class="mt-2">Questions? <a href="#" class="text-muted-blue hover:text-muted-blue/80 font-semibold">Contact our
+        <div class="text-center mt-12 text-floral-white font-bold">
+            <p>All plans include a <strong class="text-floral-white">lifetime guarantee</strong> and <strong
+                    class="text-floral-white">no commitment</strong>.</p>
+            <p class="mt-2">Questions? <a href="#" class="text-floral-white hover:text-bright-amber font-bold">Contact
+                    our
                     sales team →</a></p>
         </div>
 
     </div>
 </section>
+
+<!-- Bottom Wave -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="w-full">
+    <path fill="#201148" fill-opacity="1"
+        d="M0,32L0,128L57.6,128L57.6,160L115.2,160L115.2,96L172.8,96L172.8,224L230.4,224L230.4,192L288,192L288,64L345.6,64L345.6,0L403.2,0L403.2,160L460.8,160L460.8,288L518.4,288L518.4,320L576,320L576,160L633.6,160L633.6,128L691.2,128L691.2,96L748.8,96L748.8,160L806.4,160L806.4,256L864,256L864,32L921.6,32L921.6,192L979.2,192L979.2,288L1036.8,288L1036.8,160L1094.4,160L1094.4,0L1152,0L1152,160L1209.6,160L1209.6,32L1267.2,32L1267.2,128L1324.8,128L1324.8,160L1382.4,160L1382.4,32L1440,32L1440,0L1382.4,0L1382.4,0L1324.8,0L1324.8,0L1267.2,0L1267.2,0L1209.6,0L1209.6,0L1152,0L1152,0L1094.4,0L1094.4,0L1036.8,0L1036.8,0L979.2,0L979.2,0L921.6,0L921.6,0L864,0L864,0L806.4,0L806.4,0L748.8,0L748.8,0L691.2,0L691.2,0L633.6,0L633.6,0L576,0L576,0L518.4,0L518.4,0L460.8,0L460.8,0L403.2,0L403.2,0L345.6,0L345.6,0L288,0L288,0L230.4,0L230.4,0L172.8,0L172.8,0L115.2,0L115.2,0L57.6,0L57.6,0L0,0L0,0Z">
+    </path>
+</svg>
