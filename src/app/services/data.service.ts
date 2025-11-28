@@ -123,22 +123,22 @@ export class DataService {
 
   private benefitsData: Benefit[] = [
     {
-      icon: '⏰',
+      icon: 'clock',
       title: 'Same Time Zones',
       description: 'Real-time collaboration with CST/MST/PST alignment. Instant communication without the delays of offshore teams.'
     },
     {
-      icon: '💰',
+      icon: 'chart-down',
       title: '60% Cost Savings',
       description: 'Competitive local salaries mean lower operational costs and higher profit margins without sacrificing quality.'
     },
     {
-      icon: '🎓',
+      icon: 'badge',
       title: 'Skilled Workforce',
       description: '130K+ annual STEM graduates with English proficiency and understanding of US work culture.'
     },
     {
-      icon: '🤝',
+      icon: 'handshake',
       title: 'Cultural Alignment',
       description: 'North American business practices, similar work ethics, and smooth team integration from day one.'
     }
