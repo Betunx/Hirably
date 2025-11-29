@@ -101,20 +101,35 @@ export class RolesCarouselComponent extends BaseCarouselComponent<Role> {
 
   /**
    * Gets the style for the current title in the navigation
-   * Uses the same color pattern as the role text colors
+   * Alternates between dark-amethyst, bright-amber, and carbon-black
    */
   getCurrentTitleStyle(): string {
     const currentRole = this.roles[this.currentIndex];
-    if (!currentRole) return 'bg-muted-blue text-white';
+    if (!currentRole) return 'bg-dark-amethyst text-floral-white';
 
     const styleMap: { [key: string]: string } = {
-      'operations': 'bg-bright-amber text-carbon-black',
-      'support': 'bg-periwinkle text-carbon-black',
-      'finance': 'bg-icy-blue text-carbon-black',
+      'operations': 'bg-dark-amethyst text-floral-white',
+      'support': 'bg-bright-amber text-carbon-black',
+      'finance': 'bg-carbon-black text-floral-white',
       'tech': 'bg-dark-amethyst text-floral-white',
-      'marketing': 'bg-floral-white text-carbon-black border-2 border-carbon-black'
+      'marketing': 'bg-bright-amber text-carbon-black'
     };
 
-    return styleMap[currentRole.id] || 'bg-muted-blue text-white';
+    return styleMap[currentRole.id] || 'bg-dark-amethyst text-floral-white';
+  }
+
+  /**
+   * Gets the button background color for each role
+   * Alternates between dark-amethyst, bright-amber, and carbon-black
+   */
+  getButtonColor(roleId: string): string {
+    const colorMap: { [key: string]: string } = {
+      'operations': 'bg-dark-amethyst hover:bg-dark-amethyst/90 text-floral-white',
+      'support': 'bg-bright-amber hover:bg-bright-amber/90 text-carbon-black',
+      'finance': 'bg-carbon-black hover:bg-carbon-black/90 text-floral-white',
+      'tech': 'bg-dark-amethyst hover:bg-dark-amethyst/90 text-floral-white',
+      'marketing': 'bg-bright-amber hover:bg-bright-amber/90 text-carbon-black'
+    };
+    return colorMap[roleId] || 'bg-dark-amethyst hover:bg-dark-amethyst/90 text-floral-white';
   }
 }
