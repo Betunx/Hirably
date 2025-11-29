@@ -24,6 +24,7 @@ import { ChatbotComponent } from './components/chatbot/chatbot.component';
 import { SectionHeaderComponent } from './shared/components/section-header/section-header.component';
 import { CtaButtonComponent } from './shared/components/cta-button/cta-button.component';
 import { MeetUsComponent } from './components/meet-us/meet-us.component';
+import { AllIncludedPlatformComponent } from './components/all-included-platform/all-included-platform.component';
 import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
@@ -53,6 +54,7 @@ import { AppRoutingModule } from './app-routing.module';
     SectionHeaderComponent,
     CtaButtonComponent,
     MeetUsComponent,
+    AllIncludedPlatformComponent,
     AppRoutingModule
   ],
   providers: [],

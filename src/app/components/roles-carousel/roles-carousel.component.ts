@@ -16,22 +16,78 @@ import { BaseCarouselComponent } from '../shared/base-carousel.component';
 export class RolesCarouselComponent extends BaseCarouselComponent<Role> {
 
   roles: Role[] = [];
+  displayRoles: Role[] = [];
 
   constructor(
     private dataService: DataService,
     cdr: ChangeDetectorRef
   ) {
     super(cdr);
-    this.autoplayDuration = 4000;
+    this.autoplayDuration = 5000;
   }
 
   protected override loadItems(): void {
     this.roles = this.dataService.getRoles();
-    this.items = this.roles;
+    // Crear array infinito: duplicar los roles para loop continuo
+    this.displayRoles = [...this.roles, ...this.roles, ...this.roles];
+    this.items = this.displayRoles;
+    // Empezar en el segundo set para poder ir hacia atrás también
+    this.currentIndex = this.roles.length;
   }
 
   protected override getDesktopVisibleItems(): number {
     return 1; // Roles carousel muestra 1 a la vez
+  }
+
+  override next(): void {
+    this.currentIndex++;
+    // Si llegamos al final del segundo set, saltar al inicio del segundo set sin animación
+    if (this.currentIndex >= this.roles.length * 2) {
+      setTimeout(() => {
+        // Quitar transición temporalmente
+        const carousel = document.querySelector('.roles-carousel-track') as HTMLElement;
+        if (carousel) {
+          carousel.style.transition = 'none';
+          this.currentIndex = this.roles.length;
+          this.cdr.markForCheck();
+          // Restaurar transición después del salto
+          setTimeout(() => {
+            if (carousel) {
+              carousel.style.transition = '';
+            }
+          }, 50);
+        }
+      }, 1000);
+    }
+    this.cdr.markForCheck();
+  }
+
+  override prev(): void {
+    this.currentIndex--;
+    // Si llegamos antes del segundo set, saltar al final del segundo set sin animación
+    if (this.currentIndex < this.roles.length) {
+      setTimeout(() => {
+        const carousel = document.querySelector('.roles-carousel-track') as HTMLElement;
+        if (carousel) {
+          carousel.style.transition = 'none';
+          this.currentIndex = this.roles.length * 2 - 1;
+          this.cdr.markForCheck();
+          setTimeout(() => {
+            if (carousel) {
+              carousel.style.transition = '';
+            }
+          }, 50);
+        }
+      }, 1000);
+    }
+    this.cdr.markForCheck();
+  }
+
+  /**
+   * Obtiene el rol actual considerando el array triplicado
+   */
+  getCurrentRole(): Role {
+    return this.displayRoles[this.currentIndex];
   }
 
   onViewRoles(roleId: string): void {
@@ -101,21 +157,10 @@ export class RolesCarouselComponent extends BaseCarouselComponent<Role> {
 
   /**
    * Gets the style for the current title in the navigation
-   * Alternates between dark-amethyst, bright-amber, and carbon-black
+   * Always yellow with black text
    */
   getCurrentTitleStyle(): string {
-    const currentRole = this.roles[this.currentIndex];
-    if (!currentRole) return 'bg-dark-amethyst text-floral-white';
-
-    const styleMap: { [key: string]: string } = {
-      'operations': 'bg-dark-amethyst text-floral-white',
-      'support': 'bg-bright-amber text-carbon-black',
-      'finance': 'bg-carbon-black text-floral-white',
-      'tech': 'bg-dark-amethyst text-floral-white',
-      'marketing': 'bg-bright-amber text-carbon-black'
-    };
-
-    return styleMap[currentRole.id] || 'bg-dark-amethyst text-floral-white';
+    return 'bg-bright-amber text-carbon-black';
   }
 
   /**

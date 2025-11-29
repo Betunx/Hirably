@@ -22,15 +22,21 @@
 @layer components {
   /* Botones de navegación de carousels */
   .carousel-nav-btn {
-    @apply absolute top-1/2 -translate-y-1/2 bg-white rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 z-10;
+    @apply absolute bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-10 flex items-center justify-center;
+    width: 48px;
+    height: 48px;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   .carousel-nav-btn-left {
-    @apply carousel-nav-btn left-0 -translate-x-4 hover:bg-floral-white;
+    @apply carousel-nav-btn hover:bg-floral-white;
+    left: -16px;
   }
 
   .carousel-nav-btn-right {
-    @apply carousel-nav-btn right-0 translate-x-4 hover:bg-floral-white;
+    @apply carousel-nav-btn hover:bg-floral-white;
+    right: -16px;
   }
 
   /* Botones CTA primarios (respaldo si no se usa el componente) */

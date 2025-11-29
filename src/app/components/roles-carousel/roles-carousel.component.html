@@ -2,7 +2,9 @@
   <!-- Top Wave with Header -->
   <div class="relative w-full">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-      <path fill="#b1d8fc" fill-opacity="1" d="M0,32L26.7,26.7C53.3,21,107,11,160,53.3C213.3,96,267,192,320,197.3C373.3,203,427,117,480,112C533.3,107,587,181,640,218.7C693.3,256,747,256,800,261.3C853.3,267,907,277,960,245.3C1013.3,213,1067,139,1120,106.7C1173.3,75,1227,85,1280,117.3C1333.3,149,1387,203,1413,229.3L1440,256L1440,320L1413.3,320C1386.7,320,1333,320,1280,320C1226.7,320,1173,320,1120,320C1066.7,320,1013,320,960,320C906.7,320,853,320,800,320C746.7,320,693,320,640,320C586.7,320,533,320,480,320C426.7,320,373,320,320,320C266.7,320,213,320,160,320C106.7,320,53,320,27,320L0,320Z"></path>
+      <path fill="#b1d8fc" fill-opacity="1"
+        d="M0,32L26.7,26.7C53.3,21,107,11,160,53.3C213.3,96,267,192,320,197.3C373.3,203,427,117,480,112C533.3,107,587,181,640,218.7C693.3,256,747,256,800,261.3C853.3,267,907,277,960,245.3C1013.3,213,1067,139,1120,106.7C1173.3,75,1227,85,1280,117.3C1333.3,149,1387,203,1413,229.3L1440,256L1440,320L1413.3,320C1386.7,320,1333,320,1280,320C1226.7,320,1173,320,1120,320C1066.7,320,1013,320,960,320C906.7,320,853,320,800,320C746.7,320,693,320,640,320C586.7,320,533,320,480,320C426.7,320,373,320,320,320C266.7,320,213,320,160,320C106.7,320,53,320,27,320L0,320Z">
+      </path>
     </svg>
 
     <!-- Header positioned over the wave -->
@@ -16,18 +18,18 @@
   <div class="w-full bg-icy-blue py-12">
 
     <!-- Carousel Container -->
-    <div class="relative max-w-6xl mx-auto px-4">
+    <div class="relative max-w-4xl mx-auto px-4">
 
       <div class="overflow-hidden rounded-2xl">
-        <div class="flex transition-transform duration-500 ease-in-out" [style.transform]="getTransform()">
+        <div class="flex transition-transform duration-1000 ease-in-out roles-carousel-track" [style.transform]="getTransform()">
 
           <!-- Carousel Items -->
-          <div *ngFor="let role of roles" class="w-full flex-shrink-0">
+          <div *ngFor="let role of displayRoles" class="w-full flex-shrink-0">
             <div class="bg-white rounded-2xl shadow-xl overflow-hidden mx-4">
               <div class="grid md:grid-cols-2 gap-0">
 
                 <!-- Image Side (or colored placeholder if no image) -->
-                <div class="relative h-96 md:h-auto bg-gradient-to-br" [ngClass]="role.color">
+                <div class="relative h-96 md:h-[500px] bg-gradient-to-br" [ngClass]="role.color">
                   <img *ngIf="role.image" [src]="role.image" [alt]="role.title"
                     class="absolute inset-0 w-full h-full object-cover">
 
@@ -39,20 +41,23 @@
                 </div>
 
                 <!-- Content Side -->
-                <div class="p-8 md:p-12 flex flex-col justify-center">
-                  <h4 class="text-xl md:text-2xl font-bold text-center uppercase mb-6 text-carbon-black">
+                <div class="p-6 md:p-8 flex flex-col h-full">
+                  <h4 class="text-xl md:text-2xl font-bold text-center uppercase mb-4 text-carbon-black">
                     Roles We Fill:
                   </h4>
-                  <ul class="grid grid-cols-2 gap-x-6 gap-y-3 mb-8">
-                    <li *ngFor="let roleName of role.roles" class="text-carbon-black">
-                      {{ roleName }}
-                    </li>
-                  </ul>
-                  <div class="flex justify-center">
+
+                  <div class="flex-grow flex items-center justify-center">
+                    <ul class="flex flex-col gap-y-2">
+                      <li *ngFor="let roleName of role.roles" class="text-carbon-black text-left">
+                        {{ roleName }}
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="flex justify-center mt-4">
                     <button (click)="onViewRoles(role.id)"
-                      class="text-white px-4 py-2 rounded-lg transition font-semibold text-sm"
-                      [ngClass]="getButtonColor(role.id)">
-                      View {{ role.title.split(' ')[0] }} Roles →
+                      class="bg-bright-amber hover:bg-bright-amber/90 text-carbon-black px-3 py-1.5 rounded-lg transition font-semibold text-xs">
+                      View Roles →
                     </button>
                   </div>
                 </div>
@@ -65,14 +70,14 @@
       </div>
 
       <!-- Navigation Arrows - usando clases globales -->
-      <button (click)="prev()" class="carousel-nav-btn-left hidden md:block">
-        <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <button (click)="prev()" class="carousel-nav-btn-left hidden md:flex" style="top: 250px;">
+        <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
         </svg>
       </button>
 
-      <button (click)="next()" class="carousel-nav-btn-right hidden md:block">
-        <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <button (click)="next()" class="carousel-nav-btn-right hidden md:flex" style="top: 250px;">
+        <svg class="w-5 h-5 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
         </svg>
       </button>
@@ -88,7 +93,7 @@
 
         <!-- Center: Current section name -->
         <div class="px-6 py-2 font-bold rounded-lg text-lg" [ngClass]="getCurrentTitleStyle()">
-          {{ roles[currentIndex]?.title }}
+          {{ getCurrentRole()?.title }}
         </div>
 
         <!-- Right dots (next 2) -->
@@ -105,7 +110,9 @@
   <!-- Bottom Wave -->
   <div class="w-full">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-      <path fill="#b1d8fc" fill-opacity="1" d="M0,32L26.7,26.7C53.3,21,107,11,160,53.3C213.3,96,267,192,320,197.3C373.3,203,427,117,480,112C533.3,107,587,181,640,218.7C693.3,256,747,256,800,261.3C853.3,267,907,277,960,245.3C1013.3,213,1067,139,1120,106.7C1173.3,75,1227,85,1280,117.3C1333.3,149,1387,203,1413,229.3L1440,256L1440,0L1413.3,0C1386.7,0,1333,0,1280,0C1226.7,0,1173,0,1120,0C1066.7,0,1013,0,960,0C906.7,0,853,0,800,0C746.7,0,693,0,640,0C586.7,0,533,0,480,0C426.7,0,373,0,320,0C266.7,0,213,0,160,0C106.7,0,53,0,27,0L0,0Z"></path>
+      <path fill="#b1d8fc" fill-opacity="1"
+        d="M0,32L26.7,26.7C53.3,21,107,11,160,53.3C213.3,96,267,192,320,197.3C373.3,203,427,117,480,112C533.3,107,587,181,640,218.7C693.3,256,747,256,800,261.3C853.3,267,907,277,960,245.3C1013.3,213,1067,139,1120,106.7C1173.3,75,1227,85,1280,117.3C1333.3,149,1387,203,1413,229.3L1440,256L1440,0L1413.3,0C1386.7,0,1333,0,1280,0C1226.7,0,1173,0,1120,0C1066.7,0,1013,0,960,0C906.7,0,853,0,800,0C746.7,0,693,0,640,0C586.7,0,533,0,480,0C426.7,0,373,0,320,0C266.7,0,213,0,160,0C106.7,0,53,0,27,0L0,0Z">
+      </path>
     </svg>
   </div>
 </section>
