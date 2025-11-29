@@ -8,7 +8,8 @@
             <span>WORKS</span>
         </h1>
         <h2 class="text-1xl font-bold text-dark-amethyst mb-4">From Discovery to Payroll</h2>
-        <p class="text-base font-700 text-black max-w-3xl mx-auto pb-2">Every step is connected through one seamless,
+        <p class="text-base font-semibold text-black max-w-3xl mx-auto pb-2">Every step is connected through one
+            seamless,
             transparent
             process managed inside your Hirably platform. Watch your journey unfold.</p>
     </div>
@@ -23,16 +24,22 @@
         <div *ngFor="let step of steps; let i = index" class="process-step py-10 md:py-12"
             [attr.data-step]="step.number" [attr.data-color]="step.color" #processStep>
 
-            <!-- Main Content Grid with Zigzag Pattern -->
+            <!-- Section Title Above Timeline (centered) -->
+            <div class="text-center mb-6 relative z-10">
+                <h2 class="text-2xl md:text-3xl font-bold text-carbon-black">
+                    {{ step.category }}
+                </h2>
+            </div>
+
+            <!-- Main Content Grid - No Zigzag, Fixed Left/Right Order -->
             <div class="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-6 items-center">
 
-                <!-- Left Side: Alternates based on step number (odd/even) -->
-                <div class="order-2 md:order-1 flex justify-center"
-                    [ngClass]="{'md:order-1': step.number % 2 === 1, 'md:order-3': step.number % 2 === 0}">
+                <!-- Left Side: Title (always on left) -->
+                <div class="order-2 md:order-1 flex justify-center">
                     <div
                         class="node-content transition-all duration-700 ease-out transform translate-y-4 opacity-0 w-full max-w-md">
-                        <h3 class="text-2xl md:text-3xl font-bold text-carbon-black text-center">
-                            {{ step.category }}
+                        <h3 class="text-xl md:text-2xl font-semibold text-carbon-black text-center">
+                            {{ step.title }}
                         </h3>
                     </div>
                 </div>
@@ -50,14 +57,10 @@
                     </div>
                 </div>
 
-                <!-- Right Side: Alternates based on step number (odd/even) -->
-                <div class="order-3 flex justify-center"
-                    [ngClass]="{'md:order-3': step.number % 2 === 1, 'md:order-1': step.number % 2 === 0}">
+                <!-- Right Side: Description (always on right) -->
+                <div class="order-3 flex justify-center">
                     <div
                         class="node-content transition-all duration-700 ease-out transform translate-y-4 opacity-0 max-w-lg w-full px-4 py-6">
-                        <h2 class="text-base md:text-lg font-bold text-carbon-black mb-2 text-center">
-                            {{ step.title }}
-                        </h2>
                         <p class="text-sm md:text-base text-carbon-black leading-relaxed text-justify">
                             {{ step.description }}
                         </p>
@@ -68,7 +71,7 @@
 
         <!-- Closing Line -->
         <div class="text-center mt-8 mb-6">
-            <p class="text-lg md:text-xl font-700 text-carbon-black max-w-4xl mx-auto">
+            <p class="text-lg md:text-xl font-semibold text-carbon-black max-w-4xl mx-auto">
                 Your team runs smoother, your hiring gets easier and your back office stays simple with Hirably.
             </p>
         </div>
