@@ -21,7 +21,7 @@ import { CommonModule } from '@angular/common';
         'border-2 border-white text-white hover:bg-white hover:text-taupe-dark': variant === 'outline',
         'opacity-50 cursor-not-allowed': disabled
       }"
-      class="px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl disabled:hover:shadow-lg">
+      class="px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl disabled:hover:shadow-lg border border-carbon-black">
       {{ text }}
     </button>
   `,

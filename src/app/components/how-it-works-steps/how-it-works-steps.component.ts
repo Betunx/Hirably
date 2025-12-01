@@ -134,4 +134,17 @@ export class HowItWorksStepsComponent extends BaseDataComponent implements After
     };
     return iconPaths[iconName] || iconPaths['discovery'];
   }
+
+  getClipPath(stepNumber: number): string {
+    const clipPaths: { [key: number]: string } = {
+      1: 'polygon(2% 0%, 100% 0%, 98% 100%, 0% 100%)',           // Inclinado hacia la derecha
+      2: 'polygon(0% 0%, 98% 0%, 100% 100%, 2% 100%)',           // Inclinado hacia la izquierda
+      3: 'polygon(1% 5%, 99% 0%, 100% 95%, 0% 100%)',            // Diagonal suave
+      4: 'polygon(0% 3%, 100% 0%, 99% 97%, 1% 100%)',            // Diagonal inversa
+      5: 'polygon(3% 0%, 100% 2%, 97% 100%, 0% 98%)',            // Asimétrico derecha
+      6: 'polygon(0% 2%, 97% 0%, 100% 98%, 3% 100%)',            // Asimétrico izquierda
+      7: 'polygon(2% 3%, 98% 0%, 100% 97%, 0% 100%)'             // Combinado
+    };
+    return clipPaths[stepNumber] || clipPaths[1];
+  }
 }

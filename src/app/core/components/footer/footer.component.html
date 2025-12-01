@@ -1,30 +1,36 @@
 <footer id="contact" class="bg-icy-blue text-carbon-black py-10 px-[5%]">
   <div class="max-w-7xl mx-auto">
     <!-- Main Footer Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8 bg-icy-blue rounded-2xl p-8">
 
       <!-- Branding & About -->
       <div>
-        <h2 class="text-2xl font-bold text-bright-amber mb-2">Hirably</h2>
-        <p class="text-carbon-black text-sm leading-relaxed mb-3">
-          Your trusted partner for nearshore hiring in Mexico. From recruitment to payroll, we handle everything.
-        </p>
-        <div class="flex gap-3 mt-4">
-          <a href="https://www.linkedin.com/company/hirably-staffing/about/?viewAsMember=true" target="_blank"
-            class="text-carbon-black hover:text-bright-amber transition-colors">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path
-                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-            </svg>
-          </a>
+        <div class="h-[44px] flex items-center justify-center mb-3">
+          <img src="assets/logos/logo-negro.jpg" alt="Hirably Logo" class="h-8" />
+        </div>
+        <div class="bg-icy-blue rounded-lg p-4 min-h-[180px] transition-colors hover:bg-floral-white">
+          <p class="text-carbon-black font-semibold text-sm leading-relaxed mb-3 text-justify">
+            Your trusted partner for nearshore hiring in Mexico. From recruitment to payroll, we handle everything.
+          </p>
+          <div class="flex gap-3">
+            <a href="https://www.linkedin.com/company/hirably-staffing/about/?viewAsMember=true" target="_blank"
+              class="text-carbon-black hover:text-bright-amber transition-colors">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
 
       <!-- Services -->
       <div>
-        <h3 class="text-sm font-bold text-carbon-black uppercase tracking-wider mb-3">Our Services</h3>
-        <ul class="space-y-2 text-sm">
-          <li *ngFor="let service of services" class="text-carbon-black">
+        <div class="h-[44px] flex items-center justify-center mb-3">
+          <h3 class="text-sm font-bold text-carbon-black uppercase tracking-wider text-center">Our Services</h3>
+        </div>
+        <ul class="space-y-2 text-sm bg-icy-blue rounded-lg p-4 min-h-[180px] transition-colors hover:bg-floral-white">
+          <li *ngFor="let service of services" class="text-carbon-black font-semibold">
             {{ service }}
           </li>
         </ul>
@@ -32,10 +38,12 @@
 
       <!-- Quick Links -->
       <div>
-        <h3 class="text-sm font-bold text-carbon-black uppercase tracking-wider mb-3">Quick Links</h3>
-        <nav class="space-y-2">
+        <div class="h-[44px] flex items-center justify-center mb-3">
+          <h3 class="text-sm font-bold text-carbon-black uppercase tracking-wider text-center">Quick Links</h3>
+        </div>
+        <nav class="space-y-2 bg-icy-blue rounded-lg p-4 min-h-[180px] transition-colors hover:bg-floral-white text-center">
           <a *ngFor="let link of siteLinks" [href]="link.url"
-            class="block text-sm text-carbon-black no-underline transition-colors duration-300 hover:text-bright-amber">
+            class="block text-sm text-carbon-black font-semibold no-underline transition-colors duration-300 hover:text-bright-amber">
             {{ link.label }}
           </a>
         </nav>
@@ -43,12 +51,14 @@
 
       <!-- Contact Info -->
       <div>
-        <h3 class="text-sm font-bold text-carbon-black uppercase tracking-wider mb-3">Contact Us</h3>
-        <div class="space-y-2 text-sm">
+        <div class="h-[44px] flex items-center justify-center mb-3">
+          <h3 class="text-sm font-bold text-carbon-black uppercase tracking-wider text-center">Contact Us</h3>
+        </div>
+        <div class="space-y-2 text-sm bg-icy-blue rounded-lg p-4 min-h-[180px] transition-colors hover:bg-floral-white">
           <a *ngFor="let contact of contactInfo" [href]="contact.link || '#'"
             [target]="contact.link && contact.link.startsWith('http') ? '_blank' : '_self'"
             [class.pointer-events-none]="!contact.link"
-            class="flex items-start gap-2 text-carbon-black no-underline transition-colors duration-300"
+            class="flex items-start gap-2 text-carbon-black font-semibold no-underline transition-colors duration-300"
             [class.hover:text-bright-amber]="contact.link">
             <span class="mt-0.5">{{ contact.icon }}</span>
             <span class="break-words">{{ contact.text }}</span>

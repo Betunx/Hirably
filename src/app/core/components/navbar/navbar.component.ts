@@ -52,11 +52,12 @@ export class NavbarComponent {
   isMeetUsDropdownOpen = false;
 
   navLinks: NavLink[] = [
-    { label: 'How Hirably Works', route: '/', fragment: 'how-it-works' },
-    { label: 'Why México', route: '/', fragment: 'why-mexico' },
+    { label: 'How it Works', route: '/', fragment: 'how-it-works' },
+    { label: 'Benefits', route: '/', fragment: 'key-benefits' },
+    { label: 'Hirably', route: '/', fragment: 'why-hirably' },
     { label: 'Pricing', route: '/', fragment: 'pricing' },
     {
-      label: 'Meet Us',
+      label: 'Us',
       hasDropdown: true,
       dropdownItems: [
         { label: 'About Us', route: '/meet-us', fragment: 'about' },
@@ -103,6 +104,10 @@ export class NavbarComponent {
 
   toggleMeetUsDropdown(): void {
     this.isMeetUsDropdownOpen = !this.isMeetUsDropdownOpen;
+  }
+
+  openMeetUsDropdown(): void {
+    this.isMeetUsDropdownOpen = true;
   }
 
   closeMeetUsDropdown(): void {
