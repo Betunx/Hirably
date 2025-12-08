@@ -12,7 +12,7 @@ import {
   Service,
   PricingPlan,
   Step
-} from '../models';
+} from '@models';
 
 @Injectable({
   providedIn: 'root'

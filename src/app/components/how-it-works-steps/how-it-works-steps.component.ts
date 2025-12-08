@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, AfterViewInit, ViewChildren, QueryList, ElementRef, ViewChild, OnDestroy } from '@angular/core';
-import { DataService } from '../../services/data.service';
-import { Step } from '../../models';
-import { BaseDataComponent } from '../../shared/base/base-data.component';
+import { DataService } from '@services/data.service';
+import { Step } from '@models';
+import { BaseDataComponent } from '@shared/base/base-data.component';
 
 @Component({
   selector: 'app-how-it-works-steps',

@@ -4,9 +4,9 @@
 // ====================================
 
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { DataService } from '../../services/data.service';
-import { Feature, Benefit } from '../../models';
-import { BaseCarouselComponent } from '../shared/base-carousel.component';
+import { DataService } from '@services/data.service';
+import { Feature, Benefit } from '@models';
+import { BaseCarouselComponent } from '@components/shared/base-carousel.component';
 
 @Component({
   selector: 'app-feature-carousel',

@@ -7,7 +7,7 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewChecked, 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
-import { ChatbotService, ChatMessage } from '../../services/chatbot.service';
+import { ChatbotService, ChatMessage } from '@services/chatbot.service';
 
 // ============================================
 // COMPONENTE

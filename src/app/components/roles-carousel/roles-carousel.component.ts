@@ -2,11 +2,13 @@
 // ROLES CAROUSEL COMPONENT - TypeScript
 // roles-carousel.component.ts
 // ====================================
+// Este componente muestra un carousel de roles disponibles.
+// Usa un patrón de "infinite scroll" duplicando los items 3 veces.
 
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { DataService } from '../../services/data.service';
-import { Role } from '../../models';
-import { BaseCarouselComponent } from '../shared/base-carousel.component';
+import { DataService } from '@services/data.service';
+import { Role } from '@models';
+import { BaseCarouselComponent } from '@components/shared/base-carousel.component';
 
 @Component({
   selector: 'app-roles-carousel',
@@ -15,7 +17,10 @@ import { BaseCarouselComponent } from '../shared/base-carousel.component';
 })
 export class RolesCarouselComponent extends BaseCarouselComponent<Role> {
 
+  // Array original de roles (5 roles)
   roles: Role[] = [];
+
+  // Array triplicado para infinite scroll (15 roles: 5 + 5 + 5)
   displayRoles: Role[] = [];
 
   constructor(
@@ -23,158 +28,166 @@ export class RolesCarouselComponent extends BaseCarouselComponent<Role> {
     cdr: ChangeDetectorRef
   ) {
     super(cdr);
-    this.autoplayDuration = 5000;
+    this.autoplayDuration = 5000; // 5 segundos entre cambios automáticos
   }
 
+  // ====================================
+  // MÉTODOS DEL CICLO DE VIDA
+  // ====================================
+
+  /**
+   * Carga los roles del servicio y prepara el carousel
+   */
   protected override loadItems(): void {
     this.roles = this.dataService.getRoles();
-    // Crear array infinito: duplicar los roles para loop continuo
+
+    // Estrategia de infinite scroll: triplicar el array
+    // [A, B, C, D, E] -> [A, B, C, D, E, A, B, C, D, E, A, B, C, D, E]
     this.displayRoles = [...this.roles, ...this.roles, ...this.roles];
     this.items = this.displayRoles;
-    // Empezar en el segundo set para poder ir hacia atrás también
+
+    // Empezar en el segundo set (índice 5) para poder navegar hacia atrás
     this.currentIndex = this.roles.length;
   }
 
   protected override getDesktopVisibleItems(): number {
-    return 1; // Roles carousel muestra 1 a la vez
+    return 1; // Solo mostrar 1 rol a la vez en todas las pantallas
   }
 
+  // ====================================
+  // NAVEGACIÓN DEL CAROUSEL
+  // ====================================
+
+  /**
+   * Avanza al siguiente rol
+   * Cuando llega al final del segundo set, salta al inicio del segundo set
+   */
   override next(): void {
     this.currentIndex++;
-    // Si llegamos al final del segundo set, saltar al inicio del segundo set sin animación
+
+    // Si llegamos al final del segundo set (índice 10 en un array de 5 items)
+    // saltamos de vuelta al inicio del segundo set (índice 5)
     if (this.currentIndex >= this.roles.length * 2) {
       setTimeout(() => {
-        // Quitar transición temporalmente
-        const carousel = document.querySelector('.roles-carousel-track') as HTMLElement;
-        if (carousel) {
-          carousel.style.transition = 'none';
-          this.currentIndex = this.roles.length;
-          this.cdr.markForCheck();
-          // Restaurar transición después del salto
-          setTimeout(() => {
-            if (carousel) {
-              carousel.style.transition = '';
-            }
-          }, 50);
-        }
-      }, 1000);
+        this.resetToMiddleSet();
+      }, 1000); // Esperar a que termine la animación CSS
     }
-    this.cdr.markForCheck();
-  }
 
-  override prev(): void {
-    this.currentIndex--;
-    // Si llegamos antes del segundo set, saltar al final del segundo set sin animación
-    if (this.currentIndex < this.roles.length) {
-      setTimeout(() => {
-        const carousel = document.querySelector('.roles-carousel-track') as HTMLElement;
-        if (carousel) {
-          carousel.style.transition = 'none';
-          this.currentIndex = this.roles.length * 2 - 1;
-          this.cdr.markForCheck();
-          setTimeout(() => {
-            if (carousel) {
-              carousel.style.transition = '';
-            }
-          }, 50);
-        }
-      }, 1000);
-    }
     this.cdr.markForCheck();
   }
 
   /**
-   * Obtiene el rol actual considerando el array triplicado
+   * Retrocede al rol anterior
+   * Cuando llega al inicio del segundo set, salta al final del segundo set
    */
-  getCurrentRole(): Role {
+  override prev(): void {
+    this.currentIndex--;
+
+    // Si llegamos antes del segundo set (índice < 5)
+    // saltamos al final del segundo set (índice 9 en un array de 5 items)
+    if (this.currentIndex < this.roles.length) {
+      setTimeout(() => {
+        this.resetToMiddleSet(true);
+      }, 1000); // Esperar a que termine la animación CSS
+    }
+
+    this.cdr.markForCheck();
+  }
+
+  /**
+   * Salta a un índice específico del carousel
+   * Los dots de navegación usan el índice del array ORIGINAL (0-4)
+   */
+  override goToSlide(originalIndex: number): void {
+    this.isAutoPlaying = false;
+    // Convertir índice original (0-4) a índice del segundo set (5-9)
+    this.currentIndex = this.roles.length + originalIndex;
+    this.cdr.markForCheck();
+  }
+
+  // ====================================
+  // MÉTODOS DE AYUDA PARA NAVEGACIÓN
+  // ====================================
+
+  /**
+   * Reinicia el carousel al segundo set sin animación visible
+   * Esto crea la ilusión de un scroll infinito
+   */
+  private resetToMiddleSet(isGoingBackward: boolean = false): void {
+    const carousel = document.querySelector('.roles-carousel-track') as HTMLElement;
+
+    if (carousel) {
+      // Paso 1: Quitar la transición CSS
+      carousel.style.transition = 'none';
+
+      // Paso 2: Saltar al segundo set
+      if (isGoingBackward) {
+        // Si íbamos hacia atrás, saltar al final del segundo set
+        this.currentIndex = this.roles.length * 2 - 1;
+      } else {
+        // Si íbamos hacia adelante, saltar al inicio del segundo set
+        this.currentIndex = this.roles.length;
+      }
+
+      this.cdr.markForCheck();
+
+      // Paso 3: Restaurar la transición después de que el salto se haya aplicado
+      setTimeout(() => {
+        if (carousel) {
+          carousel.style.transition = '';
+        }
+      }, 50);
+    }
+  }
+
+  /**
+   * Calcula qué índices mostrar como dots de navegación a la IZQUIERDA
+   * Retorna los 2 índices anteriores al actual
+   */
+  getLeftDots(): Array<{ index: number }> {
+    const totalRoles = this.roles.length;
+    const normalizedIndex = this.currentIndex % totalRoles;
+
+    return [
+      { index: (normalizedIndex - 2 + totalRoles) % totalRoles },
+      { index: (normalizedIndex - 1 + totalRoles) % totalRoles }
+    ];
+  }
+
+  /**
+   * Calcula qué índices mostrar como dots de navegación a la DERECHA
+   * Retorna los 2 índices siguientes al actual
+   */
+  getRightDots(): Array<{ index: number }> {
+    const totalRoles = this.roles.length;
+    const normalizedIndex = this.currentIndex % totalRoles;
+
+    return [
+      { index: (normalizedIndex + 1) % totalRoles },
+      { index: (normalizedIndex + 2) % totalRoles }
+    ];
+  }
+
+  // ====================================
+  // GETTERS PARA EL TEMPLATE
+  // ====================================
+
+  /**
+   * Obtiene el rol que se está mostrando actualmente
+   */
+  get currentRole(): Role {
     return this.displayRoles[this.currentIndex];
   }
 
+  // ====================================
+  // HANDLERS DE EVENTOS
+  // ====================================
+
+  /**
+   * Maneja el click en el botón "View Roles"
+   */
   onViewRoles(roleId: string): void {
-    console.log('View roles for:', roleId);
-    // Navigate to roles page or open modal
-  }
-
-  /**
-   * Gets the highlighter background color for each role title
-   * Colors follow the pattern: bright-amber, periwinkle, icy-blue, dark-amethyst, floral-white
-   */
-  getTitleBackgroundColor(roleId: string): string {
-    const colorMap: { [key: string]: string } = {
-      'operations': 'bg-bright-amber text-carbon-black',
-      'support': 'bg-periwinkle text-carbon-black',
-      'finance': 'bg-icy-blue text-carbon-black',
-      'tech': 'bg-dark-amethyst text-floral-white',
-      'marketing': 'bg-floral-white text-carbon-black'
-    };
-    return colorMap[roleId] || 'bg-gray-900 text-white';
-  }
-
-  /**
-   * Gets the text color for role items based on the role's background color
-   * Matches the highlighter color for consistency
-   */
-  getRoleTextColor(roleId: string): string {
-    const colorMap: { [key: string]: string } = {
-      'operations': 'text-bright-amber',
-      'support': 'text-periwinkle',
-      'finance': 'text-icy-blue',
-      'tech': 'text-dark-amethyst',
-      'marketing': 'text-carbon-black'
-    };
-    return colorMap[roleId] || 'text-gray-700';
-  }
-
-  /**
-   * Gets the 2 dots to display on the left of the current section
-   */
-  getLeftDots(): Array<{ index: number }> {
-    const dots: Array<{ index: number }> = [];
-    const totalRoles = this.roles.length;
-
-    for (let i = 2; i >= 1; i--) {
-      const index = (this.currentIndex - i + totalRoles) % totalRoles;
-      dots.push({ index });
-    }
-
-    return dots;
-  }
-
-  /**
-   * Gets the 2 dots to display on the right of the current section
-   */
-  getRightDots(): Array<{ index: number }> {
-    const dots: Array<{ index: number }> = [];
-    const totalRoles = this.roles.length;
-
-    for (let i = 1; i <= 2; i++) {
-      const index = (this.currentIndex + i) % totalRoles;
-      dots.push({ index });
-    }
-
-    return dots;
-  }
-
-  /**
-   * Gets the style for the current title in the navigation
-   * Always yellow with black text
-   */
-  getCurrentTitleStyle(): string {
-    return 'bg-bright-amber text-carbon-black';
-  }
-
-  /**
-   * Gets the button background color for each role
-   * Alternates between dark-amethyst, bright-amber, and carbon-black
-   */
-  getButtonColor(roleId: string): string {
-    const colorMap: { [key: string]: string } = {
-      'operations': 'bg-dark-amethyst hover:bg-dark-amethyst/90 text-floral-white',
-      'support': 'bg-bright-amber hover:bg-bright-amber/90 text-carbon-black',
-      'finance': 'bg-carbon-black hover:bg-carbon-black/90 text-floral-white',
-      'tech': 'bg-dark-amethyst hover:bg-dark-amethyst/90 text-floral-white',
-      'marketing': 'bg-bright-amber hover:bg-bright-amber/90 text-carbon-black'
-    };
-    return colorMap[roleId] || 'bg-dark-amethyst hover:bg-dark-amethyst/90 text-floral-white';
+    // TODO: Implementar navegación a página de roles o abrir modal
+    console.log('Ver roles para:', roleId);
   }
 }

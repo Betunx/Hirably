@@ -4,7 +4,7 @@
 // ====================================
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ScrollService } from '../../shared/services/scroll.service';
+import { ScrollService } from '@shared/services/scroll.service';
 
 @Component({
   selector: 'app-hero-section',

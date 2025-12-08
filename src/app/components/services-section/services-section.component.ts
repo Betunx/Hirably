@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { DataService } from '../../services/data.service';
-import { Service } from '../../models';
-import { BaseDataComponent } from '../../shared/base/base-data.component';
+import { DataService } from '@services/data.service';
+import { Service } from '@models';
+import { BaseDataComponent } from '@shared/base/base-data.component';
 
 @Component({
   selector: 'app-services-section',
