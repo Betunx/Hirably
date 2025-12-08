@@ -9,9 +9,6 @@ import { Component } from '@angular/core';
       <router-outlet></router-outlet>
     </main>
     <app-footer></app-footer>
-
-    <!-- Chatbot flotante (disponible en toda la aplicación) -->
-    <app-chatbot></app-chatbot>
   `,
   styleUrls: ['./app.component.scss']
 })
