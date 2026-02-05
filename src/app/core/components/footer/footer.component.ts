@@ -22,10 +22,10 @@ export class FooterComponent {
     { label: 'Pricing', url: '#pricing' }
   ];
 
+  // Figma Design Exacto - Contact Info
   contactInfo = [
     { icon: '📞', text: '+1 623 123 4569', link: 'tel:+16231234569' },
     { icon: '📧', text: 'info@hirably.com', link: 'mailto:info@hirably.com' },
-    { icon: '📍', text: 'Phoenix, Arizona & Hermosillo, Mexico', link: '' },
-    { icon: '🔗', text: 'LinkedIn: Hirably', link: 'https://linkedin.com/company/hirably' }
+    { icon: '📍', text: 'Phoenix, Arizona | Hermosillo, Mexico', link: '' }
   ];
 }

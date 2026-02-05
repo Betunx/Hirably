@@ -11,10 +11,20 @@
   }
 
   body {
-    @apply font-sans text-gray-900 bg-white overflow-x-hidden;
+    @apply font-body text-carbon-black bg-white overflow-x-hidden;
     min-height: 100%;
     display: flex;
     flex-direction: column;
+  }
+
+  /* Títulos usan Poppins */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+
+  /* Body text usa DM Sans */
+  p, span, a, li {
+    @apply font-body;
   }
 }
 
@@ -41,11 +51,15 @@
 
   /* Botones CTA primarios (respaldo si no se usa el componente) */
   .btn-primary {
-    @apply bg-bright-amber hover:bg-dark-amethyst text-carbon-black px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl;
+    @apply bg-primary-blue hover:bg-navy-dark text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl;
   }
 
   .btn-secondary {
-    @apply bg-white text-dark-amethyst border-2 border-periwinkle hover:bg-floral-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl;
+    @apply bg-white text-primary-blue border-2 border-primary-blue hover:bg-sky-blue/20 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl;
+  }
+
+  .btn-navy {
+    @apply bg-navy-dark hover:bg-primary-blue text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl;
   }
 
   /* Cards con hover effect */

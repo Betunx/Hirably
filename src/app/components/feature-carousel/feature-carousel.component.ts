@@ -1,11 +1,11 @@
 // ====================================
 // FEATURE CAROUSEL COMPONENT - TypeScript
-// feature-carousel.component.ts
+// "Why Mexico" Benefits Section
 // ====================================
 
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { DataService } from '@services/data.service';
-import { Feature, Benefit } from '@models';
+import { Benefit } from '@models';
 import { BaseCarouselComponent } from '@components/shared/base-carousel.component';
 
 @Component({
@@ -13,9 +13,8 @@ import { BaseCarouselComponent } from '@components/shared/base-carousel.componen
   templateUrl: './feature-carousel.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FeatureCarouselComponent extends BaseCarouselComponent<Feature> {
+export class FeatureCarouselComponent extends BaseCarouselComponent<Benefit> {
 
-  features: Feature[] = [];
   mexicoBenefits: Benefit[] = [];
 
   constructor(
@@ -27,17 +26,16 @@ export class FeatureCarouselComponent extends BaseCarouselComponent<Feature> {
   }
 
   protected override loadItems(): void {
-    this.features = this.dataService.getMainFeatures();
     this.mexicoBenefits = this.dataService.getBenefits();
-    this.items = this.features;
+    this.items = this.mexicoBenefits;
   }
 
   protected override getDesktopVisibleItems(): number {
-    return 3; // Feature carousel muestra 3 en desktop
+    return 4; // 4 benefits en desktop (grid)
   }
 
-  // Get the actual index of a feature in the full features array
-  getFeatureIndex(feature: Feature): number {
-    return this.features.indexOf(feature);
+  // Get the actual index of a benefit
+  getBenefitIndex(benefit: Benefit): number {
+    return this.mexicoBenefits.indexOf(benefit);
   }
 }

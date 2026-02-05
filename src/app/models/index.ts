@@ -1,10 +1,11 @@
 // ====================================
 // MODELS - TypeScript Interfaces
-// Consolidated from multiple sources
+// Alineado con Figma Design 2024
 // ====================================
 
 // ====================================
 // ROLE INTERFACE
+// Para "World-Class Talent" section
 // ====================================
 
 export interface Role {
@@ -17,23 +18,8 @@ export interface Role {
 }
 
 // ====================================
-// TIMELINE INTERFACES
-// ====================================
-
-export interface TimelineStep {
-  day: string;
-  title: string;
-  items: TimelineItem[];
-  color: string;
-}
-
-export interface TimelineItem {
-  icon: string;
-  text: string;
-}
-
-// ====================================
 // BENEFIT INTERFACE
+// Para "Why Mexico" y "Why Hirably" sections
 // ====================================
 
 export interface Benefit {
@@ -44,22 +30,20 @@ export interface Benefit {
 }
 
 // ====================================
-// LEGACY INTERFACES (For compatibility)
+// SERVICE INTERFACE
+// Para "Services" section (3 servicios)
 // ====================================
-
-export interface Feature {
-  id: string;
-  title: string;
-  description?: string;
-  icon?: string;
-  priority: number;
-}
 
 export interface Service {
   title: string;
   description: string;
   icon?: string;
 }
+
+// ====================================
+// PRICING INTERFACE
+// Para "Simple Pricing" section
+// ====================================
 
 export interface PricingPlan {
   name: string;
@@ -69,14 +53,19 @@ export interface PricingPlan {
   cta: string;
 }
 
+// ====================================
+// STEP INTERFACE
+// Para "The Hirably Way" (3 pasos)
+// ====================================
+
 export interface Step {
   number: number;
   title: string;
   description: string;
-  image?: string;
   category?: string;
   color?: string;
   icon?: string;
+  image?: string;
   items?: StepItem[];
 }
 

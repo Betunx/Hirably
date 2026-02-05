@@ -51,20 +51,12 @@ export class NavbarComponent {
   isMenuOpen = false;
   isMeetUsDropdownOpen = false;
 
+  // Navigation links - Alineados con Figma Design Exacto
   navLinks: NavLink[] = [
-    { label: 'How it Works', route: '/', fragment: 'how-it-works' },
-    { label: 'Benefits', route: '/', fragment: 'key-benefits' },
-    { label: 'Hirably', route: '/', fragment: 'why-hirably' },
-    { label: 'Pricing', route: '/', fragment: 'pricing' },
-    {
-      label: 'Us',
-      hasDropdown: true,
-      dropdownItems: [
-        { label: 'About Us', route: '/meet-us', fragment: 'about' },
-        { label: 'Our Team', route: '/meet-us', fragment: 'team' },
-        { label: 'Contact', route: '/meet-us', fragment: 'contact' }
-      ]
-    }
+    { label: 'How it works', route: '/', fragment: 'how-it-works' },
+    { label: 'Why nearshore?', route: '/', fragment: 'key-benefits' },
+    { label: 'Benefits', route: '/', fragment: 'why-hirably' },
+    { label: 'Pricing', route: '/', fragment: 'pricing' }
   ];
 
   constructor(

@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './all-included-platform.component.html',
-  styleUrl: './all-included-platform.component.scss'
+  styles: []
 })
-export class AllIncludedPlatformComponent {
-
-}
+export class AllIncludedPlatformComponent {}

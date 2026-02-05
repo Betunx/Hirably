@@ -1,94 +1,91 @@
-<!-- HOW HIRABLY WORKS - SCROLLING PROCESS MAP -->
-<section id="how-it-works" class="pt-24 pb-16 bg-floral-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-10">
-        <h1 class="text-2xl md:text-4xl font-bold text-carbon-black mb-3 py-4 tracking-wider"
-            style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);">
-            HOW HIRABLY WORKS
-        </h1>
-        <h2 class="text-1xl font-bold text-dark-amethyst mb-4">From Discovery to Payroll</h2>
-        <p class="text-base font-semibold text-black max-w-3xl mx-auto pb-2">Every step is connected through one
-            seamless,
-            transparent
-            process managed inside your Hirably platform. Watch your journey unfold.</p>
+<!-- ====================================
+     HOW IT WORKS - Figma Pixel Perfect
+     Extraído via Figma API
+     - Section Title: Poppins 50px/60px weight 500, #111f78
+     - Subtitle: DM Sans 20px/25px weight 300, #201148
+     - Numbers: Poppins 128px/154px weight 500, letter-spacing -8.96px
+     - Step Titles: Poppins 24px/29px weight 500, #111f78
+     - Step Desc: DM Sans 18px/25px weight 300, #201148
+     - Layout: 3 tarjetas en diagonal descendente de izquierda a derecha
+     ==================================== -->
+
+<section id="how-it-works" class="py-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Section Header - Figma exact -->
+    <div class="text-center mb-16">
+      <!-- Poppins Medium 50px/60px -->
+      <h2 class="font-display font-medium text-[50px] leading-[60px] text-navy-dark mb-6">
+        The Hirably Way
+      </h2>
+      <!-- DM Sans Light 20px/25px -->
+      <p class="font-body font-light text-[20px] leading-[25px] text-dark-purple max-w-3xl mx-auto">
+        You define the vision. We handle the vetting, scheduling, and paperwork. A simple, guided path to your next great hire.
+      </p>
     </div>
 
-    <div class="process-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Timeline Line - Static -->
-        <div class="timeline-line"></div>
-        <!-- Timeline Progress - Animated -->
-        <div class="timeline-progress" #timelineProgress></div>
+    <!-- 3 Steps - Layout horizontal con desplazamiento diagonal -->
+    <div class="relative max-w-6xl mx-auto">
 
-        <!-- Content for each step -->
-        <div *ngFor="let step of steps; let i = index" class="process-step py-10 md:py-12"
-            [attr.data-step]="step.number" [attr.data-color]="step.color" #processStep>
+      <!-- Flex container para 3 tarjetas en fila -->
+      <div class="flex flex-col lg:flex-row gap-6 lg:items-start">
 
-            <!-- Section Title Above Timeline (centered) -->
-            <div class="text-center mb-6 relative z-10">
-                <h2 class="text-2xl md:text-3xl font-bold text-carbon-black">
-                    <span class="inline-block px-6 py-2 text-floral-white relative"
-                        [style.background-color]="step.color" [style.clip-path]="getClipPath(step.number)">
-                        {{ step.category }}
-                    </span>
-                </h2>
+        <!-- Step 01 - Izquierda, arriba, bg #c2e7ff -->
+        <div class="flex-1 lg:mt-0">
+          <div class="rounded-3xl p-8 relative overflow-hidden min-h-[280px]" style="background-color: #c2e7ff;">
+            <!-- Large Number - Poppins 128px -->
+            <div class="absolute top-4 right-6 font-display font-medium select-none pointer-events-none"
+                 style="font-size: 128px; line-height: 154px; letter-spacing: -8.96px; color: rgba(17, 31, 120, 0.08);">
+              01
             </div>
-
-            <!-- Main Content Grid - Zigzag Layout -->
-            <div class="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 md:gap-6 items-center">
-
-                <!-- Left Side: Title (odd steps) or Description (even steps) -->
-                <div [ngClass]="step.number % 2 === 1 ? 'order-2 md:order-1' : 'order-3 md:order-1'"
-                    class="flex justify-center">
-                    <div *ngIf="step.number % 2 === 1"
-                        class="node-content transition-all duration-700 ease-out transform translate-y-4 opacity-0 w-full max-w-md">
-                        <h3 class="text-xl md:text-2xl font-semibold text-carbon-black text-center">
-                            {{ step.title }}
-                        </h3>
-                    </div>
-                    <div *ngIf="step.number % 2 === 0"
-                        class="node-content transition-all duration-700 ease-out transform translate-y-4 opacity-0 max-w-lg w-full px-4 py-6">
-                        <p class="text-sm md:text-base text-carbon-black leading-relaxed text-justify">
-                            {{ step.description }}
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Center: Step Number Pill (ALWAYS in center on desktop) -->
-                <div class="flex items-center justify-center order-1 md:order-2">
-                    <div class="node">
-                        <div class="node-icon transition-all duration-500 flex items-center justify-center px-4 py-2 bg-floral-white border-2"
-                            [attr.data-step-icon]="step.number" [style.border-color]="step.color"
-                            style="border-radius: 50px;">
-                            <span class="text-xs font-semibold text-carbon-black whitespace-nowrap">
-                                Step {{ step.number }}
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Right Side: Description (odd steps) or Title (even steps) -->
-                <div [ngClass]="step.number % 2 === 1 ? 'order-3 md:order-3' : 'order-2 md:order-3'"
-                    class="flex justify-center">
-                    <div *ngIf="step.number % 2 === 1"
-                        class="node-content transition-all duration-700 ease-out transform translate-y-4 opacity-0 max-w-lg w-full px-4 py-6">
-                        <p class="text-sm md:text-base text-carbon-black leading-relaxed text-justify">
-                            {{ step.description }}
-                        </p>
-                    </div>
-                    <div *ngIf="step.number % 2 === 0"
-                        class="node-content transition-all duration-700 ease-out transform translate-y-4 opacity-0 w-full max-w-md">
-                        <h3 class="text-xl md:text-2xl font-semibold text-carbon-black text-center">
-                            {{ step.title }}
-                        </h3>
-                    </div>
-                </div>
+            <div class="relative z-10">
+              <!-- Poppins Medium 24px/29px -->
+              <h3 class="font-display font-medium text-[24px] leading-[29px] text-navy-dark mb-4">We Scout & Screen</h3>
+              <!-- DM Sans Light 18px/25px -->
+              <p class="font-body font-light text-[18px] leading-[25px] text-dark-purple">
+                We take your requirements and go to market. We recruit and prescreen heavily, filtering out hundreds of candidates to surface only the perfect few.
+              </p>
             </div>
+          </div>
         </div>
 
-        <!-- Closing Line -->
-        <div class="text-center mt-8 mb-6">
-            <p class="text-lg md:text-xl font-700 text-carbon-black max-w-4xl mx-auto">
-                Your team runs smoother, your hiring gets easier and your back office stays simple with Hirably.
-            </p>
+        <!-- Step 02 - Centro, desplazado abajo, bg #d1f9e5 -->
+        <div class="flex-1 lg:mt-16">
+          <div class="rounded-3xl p-8 relative overflow-hidden min-h-[280px]" style="background-color: #d1f9e5;">
+            <!-- Large Number -->
+            <div class="absolute top-4 right-6 font-display font-medium select-none pointer-events-none"
+                 style="font-size: 128px; line-height: 154px; letter-spacing: -8.96px; color: rgba(17, 31, 120, 0.08);">
+              02
+            </div>
+            <div class="relative z-10">
+              <h3 class="font-display font-medium text-[24px] leading-[29px] text-navy-dark mb-4">You Interview & Select</h3>
+              <p class="font-body font-light text-[18px] leading-[25px] text-dark-purple">
+                Skip the scheduling mess. We manage the calendars so you can focus on the candidate. You interview the finalists, test their skills, and make the final hire.
+              </p>
+            </div>
+          </div>
         </div>
+
+        <!-- Step 03 - Derecha, más desplazado abajo, bg #e3e1ff -->
+        <div class="flex-1 lg:mt-32">
+          <div class="rounded-3xl p-8 relative overflow-hidden min-h-[280px]" style="background-color: #e3e1ff;">
+            <!-- Large Number -->
+            <div class="absolute top-4 right-6 font-display font-medium select-none pointer-events-none"
+                 style="font-size: 128px; line-height: 154px; letter-spacing: -8.96px; color: rgba(17, 31, 120, 0.08);">
+              03
+            </div>
+            <div class="relative z-10">
+              <h3 class="font-display font-medium text-[24px] leading-[29px] text-navy-dark mb-4">We Onboard Instantly</h3>
+              <p class="font-body font-light text-[18px] leading-[25px] text-dark-purple">
+                Once you say "Yes," we handle the rest. We generate compliant contracts, handle equipment logistics, and set up benefits instantly. Your new hire starts in days, not weeks.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
     </div>
+
+  </div>
 </section>

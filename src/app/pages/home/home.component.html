@@ -1,30 +1,113 @@
 <!-- ====================================
-     HOME PAGE - Landing Page Content
-     Reorganizado en 3 secciones principales
+     HOME PAGE - Landing Page Principal
+     Estructura alineada con diseño Figma
+     Orden: Hero (con cards) → Platform → Hirably Way → ...
+     Background: Hero azul → Todo beige con figuras geométricas → Footer azul
      ==================================== -->
 
-<!-- Hero Section -->
-<div id="home">
+<!-- 1. HERO SECTION (incluye tarjetas Hire/Employ/Pay) - Fondo azul gradiente -->
+<section id="home">
   <app-hero-section></app-hero-section>
+</section>
+
+<!-- ====================================
+     CONTENEDOR BEIGE CON FIGURAS GEOMÉTRICAS
+     Todas las secciones desde Platform hasta Pricing
+     tienen fondo beige (#fffbf4) con decoraciones SVG
+     ==================================== -->
+<div class="relative bg-floral-white overflow-hidden">
+
+  <!-- FIGURAS GEOMÉTRICAS DECORATIVAS (bocetos/sketches) -->
+  <div class="absolute inset-0 pointer-events-none overflow-hidden">
+
+    <!-- Círculo grande superior izquierdo -->
+    <svg class="absolute -top-20 -left-20 w-80 h-80 text-navy-dark/[0.03]" viewBox="0 0 200 200" fill="none">
+      <circle cx="100" cy="100" r="90" stroke="currentColor" stroke-width="1.5"/>
+    </svg>
+
+    <!-- Cuadrado rotado superior derecho -->
+    <svg class="absolute top-40 -right-10 w-48 h-48 text-primary-blue/[0.04]" viewBox="0 0 100 100" fill="none">
+      <rect x="15" y="15" width="70" height="70" stroke="currentColor" stroke-width="1.5" transform="rotate(15 50 50)"/>
+    </svg>
+
+    <!-- Triángulo centro izquierdo -->
+    <svg class="absolute top-[600px] -left-8 w-40 h-40 text-bright-amber/[0.05]" viewBox="0 0 100 100" fill="none">
+      <polygon points="50,10 90,90 10,90" stroke="currentColor" stroke-width="1.5"/>
+    </svg>
+
+    <!-- Círculo pequeño derecha medio -->
+    <svg class="absolute top-[900px] right-20 w-24 h-24 text-emerald/[0.04]" viewBox="0 0 100 100" fill="none">
+      <circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="1.5"/>
+    </svg>
+
+    <!-- Líneas diagonales cruzadas izquierda -->
+    <svg class="absolute top-[1200px] left-10 w-32 h-32 text-navy-dark/[0.03]" viewBox="0 0 100 100" fill="none">
+      <line x1="10" y1="10" x2="90" y2="90" stroke="currentColor" stroke-width="1.5"/>
+      <line x1="90" y1="10" x2="10" y2="90" stroke="currentColor" stroke-width="1.5"/>
+    </svg>
+
+    <!-- Hexágono derecha -->
+    <svg class="absolute top-[1500px] -right-12 w-56 h-56 text-purple-accent/[0.03]" viewBox="0 0 100 100" fill="none">
+      <polygon points="50,5 90,25 90,75 50,95 10,75 10,25" stroke="currentColor" stroke-width="1.5"/>
+    </svg>
+
+    <!-- Círculo medio grande centro -->
+    <svg class="absolute top-[1800px] left-1/2 -translate-x-1/2 w-96 h-96 text-primary-blue/[0.02]" viewBox="0 0 200 200" fill="none">
+      <circle cx="100" cy="100" r="95" stroke="currentColor" stroke-width="1"/>
+      <circle cx="100" cy="100" r="70" stroke="currentColor" stroke-width="1"/>
+    </svg>
+
+    <!-- Cuadrado pequeño izquierda abajo -->
+    <svg class="absolute top-[2200px] left-16 w-28 h-28 text-bright-amber/[0.04]" viewBox="0 0 100 100" fill="none">
+      <rect x="10" y="10" width="80" height="80" stroke="currentColor" stroke-width="1.5"/>
+    </svg>
+
+    <!-- Triángulo invertido derecha abajo -->
+    <svg class="absolute top-[2500px] right-24 w-36 h-36 text-emerald/[0.04]" viewBox="0 0 100 100" fill="none">
+      <polygon points="50,90 90,10 10,10" stroke="currentColor" stroke-width="1.5"/>
+    </svg>
+
+    <!-- Círculos concéntricos final -->
+    <svg class="absolute top-[2800px] -left-16 w-64 h-64 text-navy-dark/[0.025]" viewBox="0 0 200 200" fill="none">
+      <circle cx="100" cy="100" r="90" stroke="currentColor" stroke-width="1"/>
+      <circle cx="100" cy="100" r="60" stroke="currentColor" stroke-width="1"/>
+      <circle cx="100" cy="100" r="30" stroke="currentColor" stroke-width="1"/>
+    </svg>
+
+    <!-- Rombo derecha pricing -->
+    <svg class="absolute top-[3100px] right-8 w-40 h-40 text-primary-blue/[0.03]" viewBox="0 0 100 100" fill="none">
+      <polygon points="50,5 95,50 50,95 5,50" stroke="currentColor" stroke-width="1.5"/>
+    </svg>
+
+  </div>
+
+  <!-- CONTENIDO DE LAS SECCIONES (sobre las figuras geométricas) -->
+  <div class="relative z-10">
+
+    <!-- 2. ALL-IN-ONE PLATFORM ("Your hiring chaos, organized") -->
+    <app-all-included-platform></app-all-included-platform>
+
+    <!-- 3. THE HIRABLY WAY (Proceso en 3 pasos) -->
+    <section id="how-it-works">
+      <app-how-it-works-steps></app-how-it-works-steps>
+    </section>
+
+    <!-- 5. WHY NEARSHORE / MEXICO BENEFITS -->
+    <section id="key-benefits">
+      <app-feature-carousel></app-feature-carousel>
+    </section>
+
+    <!-- 6. WORLD-CLASS TALENT (Roles) -->
+    <app-roles-carousel></app-roles-carousel>
+
+    <!-- 7. WHY TEAMS LOVE HIRABLY -->
+    <app-why-hirably></app-why-hirably>
+
+    <!-- 8. PRICING -->
+    <section id="pricing">
+      <app-pricing-section></app-pricing-section>
+    </section>
+
+  </div>
+
 </div>
-
-<!-- Who We Are (Services Section) -->
-<app-services-section></app-services-section>
-
-<!-- ====================================
-     SECTION 1: PLATFORM & PROCESS
-     QUÉ ofrece Hirably y CÓMO funciona
-     ==================================== -->
-<app-section-one-platform-process></app-section-one-platform-process>
-
-<!-- ====================================
-     SECTION 2: MEXICO ADVANTAGE
-     POR QUÉ México y QUÉ TALENTO
-     ==================================== -->
-<app-section-two-mexico-advantage></app-section-two-mexico-advantage>
-
-<!-- ====================================
-     SECTION 3: VALUE & PRICING
-     POR QUÉ Hirably y CUÁNTO cuesta
-     ==================================== -->
-<app-section-three-value-pricing></app-section-three-value-pricing>

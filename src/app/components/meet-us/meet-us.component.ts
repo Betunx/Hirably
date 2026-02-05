@@ -19,7 +19,7 @@ interface CompanyValue {
   standalone: true,
   imports: [CommonModule],
   templateUrl: './meet-us.component.html',
-  styleUrl: './meet-us.component.scss'
+  styles: []
 })
 export class MeetUsComponent {
   companyValues: CompanyValue[] = [

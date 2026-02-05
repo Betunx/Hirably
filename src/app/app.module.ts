@@ -19,11 +19,6 @@ import { RolesCarouselComponent } from './components/roles-carousel/roles-carous
 import { PricingSectionComponent } from './components/pricing-section/pricing-section.component';
 import { WhyHirablyComponent } from './components/why-hirably/why-hirably.component';
 
-// Section containers
-import { SectionOnePlatformProcessComponent } from './components/sections/section-one-platform-process/section-one-platform-process.component';
-import { SectionTwoMexicoAdvantageComponent } from './components/sections/section-two-mexico-advantage/section-two-mexico-advantage.component';
-import { SectionThreeValuePricingComponent } from './components/sections/section-three-value-pricing/section-three-value-pricing.component';
-
 // Standalone components
 import { SectionHeaderComponent } from './shared/components/section-header/section-header.component';
 import { CtaButtonComponent } from './shared/components/cta-button/cta-button.component';
@@ -47,12 +42,7 @@ import { AppRoutingModule } from './app-routing.module';
     HowItWorksStepsComponent,
     RolesCarouselComponent,
     PricingSectionComponent,
-    WhyHirablyComponent,
-
-    // Section Containers
-    SectionOnePlatformProcessComponent,
-    SectionTwoMexicoAdvantageComponent,
-    SectionThreeValuePricingComponent
+    WhyHirablyComponent
   ],
   imports: [
     BrowserModule,
