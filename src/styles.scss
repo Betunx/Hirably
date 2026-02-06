@@ -11,45 +11,20 @@
   }
 
   body {
-    @apply font-sans text-gray-900 bg-white overflow-x-hidden;
+    @apply font-body text-carbon-black bg-white overflow-x-hidden;
     min-height: 100%;
     display: flex;
     flex-direction: column;
   }
-}
 
-/* Componentes reutilizables - Elimina duplicación de clases */
-@layer components {
-  /* Botones de navegación de carousels */
-  .carousel-nav-btn {
-    @apply absolute bg-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 z-10 flex items-center justify-center;
-    width: 48px;
-    height: 48px;
-    top: 50%;
-    transform: translateY(-50%);
+  /* Títulos usan Poppins */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
   }
 
-  .carousel-nav-btn-left {
-    @apply carousel-nav-btn hover:bg-floral-white;
-    left: -16px;
-  }
-
-  .carousel-nav-btn-right {
-    @apply carousel-nav-btn hover:bg-floral-white;
-    right: -16px;
-  }
-
-  /* Botones CTA primarios (respaldo si no se usa el componente) */
-  .btn-primary {
-    @apply bg-bright-amber hover:bg-dark-amethyst text-carbon-black px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl;
-  }
-
-  .btn-secondary {
-    @apply bg-white text-dark-amethyst border-2 border-periwinkle hover:bg-floral-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl;
-  }
-
-  /* Cards con hover effect */
-  .card-hover {
-    @apply rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all duration-300;
+  /* Body text usa DM Sans */
+  p, span, a, li {
+    @apply font-body;
   }
 }
+

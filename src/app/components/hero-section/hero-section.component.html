@@ -1,174 +1,76 @@
-<!-- ====================================
-     HERO SECTION COMPONENT - HTML Template
-     hero-section.component.html
-     ==================================== -->
+<!-- HERO SECTION - Figma Pixel Perfect -->
+<section id="home" class="relative overflow-hidden">
 
-<section id="home" class="pt-28 pb-24 bg-floral-white">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <!-- Background Gradient -->
+  <div class="absolute inset-0"
+    style="background: linear-gradient(180deg, #2291ea 0%, #2291ea 35%, #4691ea 55%, #c7e9f9 80%, #fffbf4 100%);">
+  </div>
+
+  <!-- Figma Decorative Shapes -->
+  <div class="absolute inset-0 pointer-events-none">
+
+    <!-- Shape 1: Arriba izquierda -->
+    <svg class="absolute top-0 left-0" xmlns="http://www.w3.org/2000/svg" width="294" height="228" viewBox="0 0 294 228" fill="none">
+      <path d="M-223.527 -247.349L-241.264 160.263C-241.787 172.724 -237.437 184.667 -229.08 193.876C-220.724 203.085 -209.08 208.489 -196.609 209.044L211.318 227.801C251.068 229.556 284.873 198.75 286.529 159.031L293.034 8.97878C297.507 -93.7522 250.197 -187.131 174.331 -245.816C126.336 -282.942 66.7603 -306.208 1.85244 -309.24L-148.315 -316.12C-188.065 -317.875 -221.87 -287.069 -223.527 -247.349Z" fill="#BBE2FD" fill-opacity="0.15"/>
+    </svg>
+
+    <!-- Shape 2: En medio del texto del hero -->
+    <svg class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" xmlns="http://www.w3.org/2000/svg" width="1062" height="605" viewBox="0 0 1062 605" fill="none">
+      <path d="M1024.7 116.561L553.116 -304.285C538.68 -317.129 520.09 -323.617 500.851 -322.62C481.612 -321.622 463.715 -312.952 450.824 -298.535L28.4471 172.425C-12.6249 218.388 -8.80842 289.139 37.2159 330.062L210.841 484.955C329.693 591.025 488.086 625.809 632.854 592.326C724.437 571.144 810.747 522.486 878.011 447.594L1033.47 274.198C1074.54 228.234 1070.72 157.484 1024.7 116.561Z" fill="#BBE2FD" fill-opacity="0.15"/>
+    </svg>
+
+    <!-- Shape 3: Derecha al centro del hero -->
+    <svg class="absolute top-1/4 right-0" xmlns="http://www.w3.org/2000/svg" width="327" height="550" viewBox="0 0 327 550" fill="none">
+      <path d="M576.334 444.291L519.444 40.2789C517.686 27.9308 511.231 16.9817 501.335 9.451C491.439 1.92031 479.005 -1.27001 466.642 0.45894L62.1352 56.4037C22.7312 61.9262 -4.88965 98.3801 0.725033 137.736L21.6923 286.458C36.028 388.282 99.5725 471.468 184.868 515.335C238.829 543.085 301.648 555.098 366.02 546.242L514.924 525.623C554.328 520.101 581.949 483.647 576.334 444.291Z" fill="#BBE2FD" fill-opacity="0.15"/>
+    </svg>
+
+  </div>
+
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-32 pb-20">
 
     <!-- Hero Content - Centered -->
-    <div class="text-center px-8 md:px-16 lg:px-24">
+    <div class="text-center max-w-[900px] mx-auto">
 
       <!-- Main Headline -->
-      <h1
-        class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-carbon-black leading-tight mb-6 max-w-5xl mx-auto">
-        The All-in-One Platform for <span class="text-icy-blue">Hiring in México</span>
+      <h1 class="font-display font-semibold text-[50px] leading-[65px] text-white mb-6">
+        The Most Reliable Way to<br>
+        <span class="text-navy-dark">Recruit</span>,
+        <span class="text-navy-dark">Onboard</span>, and
+        <span class="text-navy-dark">Pay</span><br>
+        Your Team in Mexico.
       </h1>
 
       <!-- Subtitle -->
-      <p class="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed text-justify">
-        From recruitment to payroll and compliance, Hirably makes nearshore hiring simple and transparent.
-        <strong>Save up to 60%</strong> while building high-performing remote teams—all managed in one unified platform.
+      <p class="font-body font-normal text-[25px] leading-[40px] text-white max-w-[700px] mx-auto mb-10">
+        Grow your company, knowing your people are taken care of.
       </p>
 
-      <!-- Animated Service Words -->
-      <div class="mb-6 h-12 flex items-center justify-center">
-        <div class="service-word-container">
-          <em class="text-2xl sm:text-3xl font-bold text-icy-blue animated-service-word"
-            [class.animating]="isAnimating">
-            {{ currentService }}
-          </em>
-        </div>
-      </div>
-
-      <!-- CTA Buttons -->
-      <div class="flex flex-col sm:flex-row justify-center gap-4 mb-8">
-        <button (click)="onSeeHowItWorks()"
-          class="bg-dark-amethyst text-white font-bold py-3 px-8 rounded-xl text-lg transition duration-300 hover:bg-icy-blue hover:text-carbon-black shadow-lg">
-          Start Hiring Today
-        </button>
+      <!-- CTA Button -->
+      <div class="mb-12">
         <button (click)="onBookConsultation()"
-          class="bg-white text-black font-bold py-3 px-8 rounded-xl text-lg transition duration-300 hover:bg-icy-blue hover:text-carbon-black shadow-lg border-2 border-carbon-black">
-          Book a Free Consultation
+          class="bg-bright-amber text-navy-dark font-display font-medium text-[22px] leading-[33px] py-4 px-10 rounded-lg transition-all duration-300 hover:bg-amber-gold hover:scale-105 shadow-lg">
+          Book a call
         </button>
       </div>
 
-      <!-- Social Proof Badge -->
-      <div
-        class="inline-flex items-center space-x-2 px-6 py-3 bg-white text-sm font-small text-carbon-black rounded-full shadow-sm">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-bright-amber" viewBox="0 0 20 20"
-          fill="currentColor">
-          <path fill-rule="evenodd"
-            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-            clip-rule="evenodd" />
-        </svg>
-        <span>Trusted by USA & Canada companies hiring in Mexico</span>
-      </div>
-
-      <!-- Dashboard Mockup -->
-      <div class="mt-16 bg-dark-amethyst p-8 rounded-3xl shadow-2xl">
-
-        <!-- Browser Header -->
-        <div class="bg-gray-700 p-4 rounded-t-2xl flex justify-between items-center">
-          <div class="flex space-x-1.5">
-            <div class="w-3 h-3 bg-red-500 rounded-full"></div>
-            <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
-            <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+      <!-- Trust Badge -->
+      <div class="flex justify-center mb-0">
+        <div class="inline-flex items-center gap-3 bg-white px-6 py-3 rounded-lg shadow-md">
+          <div class="w-7 h-7 bg-bright-amber rounded-full flex items-center justify-center flex-shrink-0">
+            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd"
+                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                clip-rule="evenodd" />
+            </svg>
           </div>
-          <div class="text-xs text-gray-400">Hirably Dashboard - Active Employees View</div>
-        </div>
-
-        <!-- Dashboard Content -->
-        <div class="bg-gradient-to-br from-gray-50 to-white p-8 rounded-b-2xl border-t border-gray-300">
-
-          <!-- Dashboard Header -->
-          <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-bold text-carbon-black">Active Employees</h2>
-            <div class="flex gap-3">
-              <div class="px-4 py-2 bg-icy-blue/20 rounded-lg">
-                <div class="text-xs text-gray-600">Total Employees</div>
-                <div class="text-xl font-bold text-icy-blue">24</div>
-              </div>
-              <div class="px-4 py-2 bg-green-100 rounded-lg">
-                <div class="text-xs text-gray-600">Monthly Savings</div>
-                <div class="text-xl font-bold text-green-600">$42,000</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Employee Cards Grid -->
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-
-            <!-- Employee Card 1 -->
-            <div class="bg-white border-2 border-gray-200 rounded-xl p-4 hover:shadow-lg transition-shadow">
-              <div class="flex items-center gap-3 mb-3">
-                <div
-                  class="w-12 h-12 bg-gradient-to-br from-icy-blue to-periwinkle rounded-full flex items-center justify-center text-xl">
-                  👨‍💻
-                </div>
-                <div>
-                  <div class="font-bold text-carbon-black">Software Engineer</div>
-                  <div class="text-xs text-gray-500">Full Stack Developer</div>
-                </div>
-              </div>
-              <div class="flex justify-between text-xs text-gray-600">
-                <span>Active since: Jan 2024</span>
-                <span class="text-green-600 font-semibold">✓ Active</span>
-              </div>
-            </div>
-
-            <!-- Employee Card 2 -->
-            <div class="bg-white border-2 border-gray-200 rounded-xl p-4 hover:shadow-lg transition-shadow">
-              <div class="flex items-center gap-3 mb-3">
-                <div
-                  class="w-12 h-12 bg-gradient-to-br from-periwinkle to-icy-blue rounded-full flex items-center justify-center text-xl">
-                  👩‍💼
-                </div>
-                <div>
-                  <div class="font-bold text-carbon-black">Project Manager</div>
-                  <div class="text-xs text-gray-500">Operations Lead</div>
-                </div>
-              </div>
-              <div class="flex justify-between text-xs text-gray-600">
-                <span>Active since: Mar 2024</span>
-                <span class="text-green-600 font-semibold">✓ Active</span>
-              </div>
-            </div>
-
-            <!-- Employee Card 3 -->
-            <div class="bg-white border-2 border-gray-200 rounded-xl p-4 hover:shadow-lg transition-shadow">
-              <div class="flex items-center gap-3 mb-3">
-                <div
-                  class="w-12 h-12 bg-gradient-to-br from-bright-amber to-periwinkle rounded-full flex items-center justify-center text-xl">
-                  💬
-                </div>
-                <div>
-                  <div class="font-bold text-carbon-black">Customer Support</div>
-                  <div class="text-xs text-gray-500">Bilingual CSR</div>
-                </div>
-              </div>
-              <div class="flex justify-between text-xs text-gray-600">
-                <span>Active since: Feb 2024</span>
-                <span class="text-green-600 font-semibold">✓ Active</span>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Quick Stats Bar -->
-          <div class="grid grid-cols-4 gap-4 p-4 bg-floral-white rounded-xl">
-            <div class="text-center">
-              <div class="text-2xl font-bold text-carbon-black">97%</div>
-              <div class="text-xs text-gray-600">Retention Rate</div>
-            </div>
-            <div class="text-center">
-              <div class="text-2xl font-bold text-carbon-black">7 days</div>
-              <div class="text-xs text-gray-600">Avg. Time to Hire</div>
-            </div>
-            <div class="text-center">
-              <div class="text-2xl font-bold text-carbon-black">100%</div>
-              <div class="text-xs text-gray-600">Compliance</div>
-            </div>
-            <div class="text-center">
-              <div class="text-2xl font-bold text-carbon-black">$0</div>
-              <div class="text-xs text-gray-600">Upfront Fees</div>
-            </div>
-          </div>
-
+          <span class="font-body font-normal text-[16px] leading-[21px] text-carbon-black">
+            Trusted by 750+ companies hiring in Mexico
+          </span>
         </div>
       </div>
 
     </div>
 
   </div>
+
 </section>

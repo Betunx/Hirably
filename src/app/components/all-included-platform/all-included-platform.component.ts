@@ -1,12 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-all-included-platform',
   standalone: true,
   imports: [],
   templateUrl: './all-included-platform.component.html',
-  styleUrl: './all-included-platform.component.scss'
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AllIncludedPlatformComponent {
-
-}
+export class AllIncludedPlatformComponent {}

@@ -1,29 +1,21 @@
-// ====================================
-// WHY HIRABLY COMPONENT - TypeScript
-// why-hirably.component.ts
-// ====================================
-
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataService } from '@services/data.service';
 import { Benefit } from '@models';
-import { BaseDataComponent } from '@shared/base/base-data.component';
 
 @Component({
   selector: 'app-why-hirably',
   templateUrl: './why-hirably.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class WhyHirablyComponent extends BaseDataComponent {
-
-  mexicoBenefits: Benefit[] = [];
-  advantages: Benefit[] = [];
+export class WhyHirablyComponent {
+  readonly advantages: Benefit[];
+  readonly barColors = ['bg-bright-amber', 'bg-primary-blue', 'bg-emerald'];
 
   constructor(private dataService: DataService) {
-    super();
+    this.advantages = this.dataService.getAdvantages();
   }
 
-  protected override loadData(): void {
-    this.mexicoBenefits = this.dataService.getBenefits();
-    this.advantages = this.dataService.getAdvantages();
+  trackByTitle(_index: number, item: Benefit): string {
+    return item.title;
   }
 }

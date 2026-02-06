@@ -24,3 +24,6 @@ Thumbs.db
 
 # Vercel
 .vercel
+
+# Claude Code (contains tokens/secrets)
+.claude/

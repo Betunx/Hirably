@@ -1,0 +1,82 @@
+<!-- ====================================
+     ROLES SECTION - Figma Pixel Perfect
+     - Title: Poppins 50px/60px weight 400, #111f78
+     - Subtitle: DM Sans 20px/28px weight 300, #201148
+     - Category Titles: Poppins 24px/29px weight 500, #2291ea
+     - Role Tags: DM Sans 16px/21px weight 400
+     ==================================== -->
+
+<section id="roles" class="py-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Header -->
+    <div class="text-left mb-12 max-w-2xl">
+      <h2 class="font-display font-normal text-[50px] leading-[60px] text-navy-dark mb-4">
+        World-Class Talent Across All Functions
+      </h2>
+      <p class="font-body font-light text-[20px] leading-[28px] text-dark-purple">
+        Each role supported by an industry-specialist recruiter.
+      </p>
+    </div>
+
+    <!-- Main Content: Accordion + Illustration -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+      <!-- Accordion -->
+      <div class="space-y-0">
+        <div *ngFor="let category of categories; trackBy: trackByCategory" class="border-b border-gray-200">
+          <button
+            (click)="toggleAccordion(category.id)"
+            class="w-full py-5 flex items-center justify-between text-left hover:bg-white/50 transition-colors px-4 rounded-lg">
+            <span class="font-display font-medium text-[24px] leading-[29px] text-primary-blue">{{ category.title }}</span>
+            <svg
+              class="w-6 h-6 text-primary-blue transition-transform duration-300"
+              [class.rotate-45]="expandedSection === category.id"
+              fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+          </button>
+          <div
+            class="overflow-hidden transition-all duration-300 ease-in-out"
+            [class.max-h-0]="expandedSection !== category.id"
+            [class.max-h-96]="expandedSection === category.id"
+            [class.opacity-0]="expandedSection !== category.id"
+            [class.opacity-100]="expandedSection === category.id">
+            <div class="px-4 pb-5">
+              <ul class="flex flex-wrap gap-2">
+                <li *ngFor="let role of category.roles"
+                    class="px-3 py-1.5 bg-primary-blue/10 text-primary-blue text-sm font-body rounded-full">
+                  {{ role }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Illustration: Handshake image (Figma) - flipped & cropped -->
+      <div class="hidden lg:flex items-center justify-center">
+        <div class="relative">
+          <!-- SVG decoration: light blue shape (top) -->
+          <svg class="absolute -top-12 -right-8 z-10" xmlns="http://www.w3.org/2000/svg" width="178" height="203" viewBox="0 0 178 203" fill="none">
+            <path d="M101.731 4.39125L5.46733 77.9299C2.52793 80.1825 0.635578 83.445 0.129718 87.0987C-0.376142 90.7525 0.611464 94.43 2.86185 97.3727L76.3301 193.745C83.5056 203.123 96.9681 204.951 106.335 197.768L141.767 170.691C166.029 152.158 178.292 123.624 177.206 95.1954C176.519 77.2111 170.467 59.2298 158.787 43.8864L131.736 8.41404C124.561 -0.963258 111.098 -2.79117 101.731 4.39125Z" fill="#C2E7FF"/>
+          </svg>
+
+          <!-- Handshake image: flipped and cropped -->
+          <div class="w-80 h-80 rounded-3xl overflow-hidden shadow-xl">
+            <img src="assets/img/apretonmanos.png"
+                 alt="Professional handshake"
+                 class="w-full h-full object-cover -scale-x-100">
+          </div>
+
+          <!-- SVG decoration: dark blue shape (bottom) -->
+          <svg class="absolute -bottom-6 -left-6 z-10" xmlns="http://www.w3.org/2000/svg" width="79" height="72" viewBox="0 0 79 72" fill="none">
+            <path d="M78.2548 49.4851L58.9003 3.50312C58.3065 2.09834 57.2018 1.00645 55.7976 0.42677C54.3935 -0.152911 52.8254 -0.139714 51.4195 0.452882L5.40151 19.7681C0.921063 21.6582 -1.20048 26.8355 0.693499 31.3125L7.82112 48.2382C12.6988 59.8273 22.8045 67.6676 34.2491 70.176C41.4891 71.7629 49.2831 71.2109 56.6078 68.1427L73.5468 61.0295C78.0272 59.1394 80.1488 53.962 78.2548 49.4851Z" fill="#2291EA"/>
+          </svg>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>

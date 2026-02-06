@@ -1,0 +1,73 @@
+<!-- ====================================
+     WHY NEARSHORE SECTION - Figma Pixel Perfect
+     - Badge: Poppins 14px/21px weight 500
+     - Title: Poppins 34px/43px weight 400, #111f78
+     - Subtitle: DM Sans 18px/27px weight 400, #111f78
+     - Card Titles: DM Sans 20px/28px weight 600
+     - Card Desc: DM Sans 16px/22px weight 300
+     ==================================== -->
+
+<section id="key-benefits" class="py-20 relative">
+
+  <div class="container mx-auto px-4 relative z-10">
+
+    <!-- Main Grid: 2 columns -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-6xl mx-auto">
+
+      <!-- Left Column: Header + Card 1 -->
+      <div class="space-y-8">
+        <!-- Section Header -->
+        <div>
+          <p class="font-display font-medium text-[14px] leading-[21px] text-carbon-black uppercase tracking-wide mb-4">
+            Why nearshore?
+          </p>
+          <h2 class="font-display font-normal text-[34px] leading-[43px] text-navy-dark mb-6">
+            Why top companies are moving from offshore to nearshore.
+          </h2>
+          <!-- Figma: Handshake image between header texts -->
+          <div class="mb-6 rounded-2xl overflow-hidden">
+            <img src="assets/img/manos.png" alt="Professional handshake" class="w-full h-auto object-cover rounded-2xl">
+          </div>
+          <p class="font-body font-normal text-[18px] leading-[27px] text-navy-dark">
+            Stop working the night shift to manage your team. Mexico offers the talent you need, in the time zone you work.
+          </p>
+        </div>
+
+        <!-- Card 1: White card with navy accent box -->
+        <div class="bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all duration-300">
+          <div class="bg-navy-dark text-white px-4 py-2 rounded-lg inline-block mb-4">
+            <h3 class="font-body font-semibold text-[20px] leading-[28px]">
+              {{ benefits[0].title }}
+            </h3>
+          </div>
+          <p class="font-body font-light text-[16px] leading-[22px] text-dark-purple">
+            {{ benefits[0].description }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Right Column: Cards 2 & 3 (navy background) -->
+      <div class="space-y-6">
+        <div class="bg-navy-dark rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all duration-300">
+          <h3 class="font-body font-semibold text-[20px] leading-[28px] text-white mb-4">
+            {{ benefits[1].title }}
+          </h3>
+          <p class="font-body font-light text-[16px] leading-[22px] text-white">
+            {{ benefits[1].description }}
+          </p>
+        </div>
+
+        <div class="bg-navy-dark rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all duration-300">
+          <h3 class="font-body font-semibold text-[20px] leading-[28px] text-white mb-4">
+            {{ benefits[2].title }}
+          </h3>
+          <p class="font-body font-light text-[16px] leading-[22px] text-white">
+            {{ benefits[2].description }}
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>

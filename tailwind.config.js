@@ -5,30 +5,62 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // PRIMARY COLOR PALETTE
-        'bright-amber': '#FFCF25', // Bright Amber - identificadores y elementos destacados
-        'periwinkle': '#D6C9FD', // Periwinkle - acentos secundarios
-        'carbon-black': '#1B1B1B', // Carbon Black - texto principal
-        'dark-amethyst': '#201148', // Dark Amethyst - fondos oscuros y contraste
-        'icy-blue': '#B1D8FC', // Icy Blue - acentos suaves
-        'floral-white': '#FFFBF4', // Floral White - fondos claros
-        'white': '#FFFFFF', // White - fondos y elementos puros
+        // ==========================================
+        // COLORES EXACTOS DEL FIGMA (2025)
+        // Extraídos via Figma API
+        // ==========================================
 
-        // LEGACY COLORS (from previous design system)
-        'muted-blue': '#93c5fd', // Soft, light blue for CTA and accents
-        'pastel-purple': '#c4b5fd', // Secondary accent
-        'pastel-yellow': '#fde047', // Secondary accent
-        'pastel-green-soft': '#a7f3d0', // Secondary accent
-        'cream-soft': '#f8f5f2', // Soft background
-        'beige-offwhite': '#fcfcfc', // Main body/header background
-        'taupe-dark': '#4c4a47', // Deep, warm gray/brown for text
-        'gray-medium': '#747775', // Medium gray for backgrounds
-        'gray-light': '#C4C7C5', // Light gray for subtle backgrounds
-        'light-blue-bg': '#C2E7FF', // Very light blue for backgrounds
+        // PRIMARY COLORS
+        'primary-blue': '#2291ea',     // Botones, links, acentos principales
+        'navy-dark': '#111f78',        // Títulos, footer, texto oscuro
+        'bright-amber': '#FFCF25',     // CTA principal (Book a call)
+        'amber-dark': '#e7ae00',       // Amber alternativo
+        'amber-gold': '#fccb37',       // Badges amarillos
+
+        // TEXT COLORS
+        'carbon-black': '#1B1B1B',     // Texto principal
+        'dark-purple': '#201148',      // Texto secundario/subtítulos
+
+        // BACKGROUND COLORS
+        'floral-white': '#FFFBF4',     // Fondo crema claro
+        'cream-light': '#fff1cf',      // Fondo crema más claro
+
+        // ACCENT COLORS
+        'sky-blue': '#bbe2fd',         // Backgrounds suaves
+        'light-sky': '#c2e7ff',        // Step 01 / Light Sky Blue
+        'mint-green': '#d1f9e5',       // Step 02 / Mint Green
+        'lavender': '#e3e1ff',         // Step 03 / Lavender
+        'emerald': '#10b981',          // Success, checks
+        'purple-accent': '#6c59d8',    // Badge morado (Recruitment)
+
+        // UI COLORS
+        'blue-soft': '#77bbf2',        // Azul suave
+        'blue-light': '#e0eeff',       // Azul muy claro
+        'green-teal': '#7fd4b8',       // Verde teal
+        'green-soft': '#d7fbe4',       // Verde suave
+        'gray-neutral': '#d9d9d9',     // Gris neutral
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-        display: ['Poppins', 'sans-serif'],
+        // Fuentes del Figma
+        sans: ['DM Sans', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        display: ['Poppins', 'sans-serif'],  // Títulos
+        body: ['DM Sans', 'sans-serif'],      // Texto
+      },
+      fontSize: {
+        // Tamaños exactos del Figma
+        'hero': ['50px', { lineHeight: '65px', fontWeight: '500' }],
+        'hero-sub': ['25px', { lineHeight: '40px', fontWeight: '400' }],
+        'section-title': ['50px', { lineHeight: '60px', fontWeight: '500' }],
+        'section-title-sm': ['36px', { lineHeight: '43px', fontWeight: '500' }],
+        'section-title-md': ['44px', { lineHeight: '53px', fontWeight: '500' }],
+        'card-title': ['28px', { lineHeight: '42px', fontWeight: '500' }],
+        'card-title-sm': ['24px', { lineHeight: '32px', fontWeight: '500' }],
+        'step-number': ['128px', { lineHeight: '154px', fontWeight: '500', letterSpacing: '-8.96px' }],
+        'nav': ['14px', { lineHeight: '21px', fontWeight: '500' }],
+        'body-lg': ['20px', { lineHeight: '28px', fontWeight: '300' }],
+        'body-md': ['18px', { lineHeight: '27px', fontWeight: '400' }],
+        'body-sm': ['16px', { lineHeight: '21px', fontWeight: '400' }],
+        'body-xs': ['14px', { lineHeight: '21px', fontWeight: '300' }],
       },
       animation: {
         'float': 'float 3s ease-in-out infinite',

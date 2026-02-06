@@ -1,86 +1,119 @@
-<!-- Top Wave -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="block w-full" style="display: block;">
-    <path fill="#b1d8fc" fill-opacity="1"
-        d="M0,192L34.3,202.7C68.6,213,137,235,206,250.7C274.3,267,343,277,411,240C480,203,549,117,617,122.7C685.7,128,754,224,823,266.7C891.4,309,960,299,1029,256C1097.1,213,1166,139,1234,138.7C1302.9,139,1371,213,1406,250.7L1440,288L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z">
-    </path>
-</svg>
+<!-- ====================================
+     PRICING SECTION - Figma Pixel Perfect
+     - Title: Poppins 44px/53px weight 500, #111f78
+     - Plan Names: Poppins 30-37px weight 500
+     - Subtitles: Poppins 20px/28px weight 300
+     - Badges: Poppins 16-18px weight 700
+     - Prices: Poppins 24px/29px weight 500
+     - Features: DM Sans 18px/26px weight 300
+     ==================================== -->
 
-<section id="pricing" class="py-20 bg-icy-blue">
-    <div class="container mx-auto px-4">
+<section id="pricing" class="py-20">
+  <div class="container mx-auto px-4">
 
-        <!-- Header -->
-        <div class="text-center mb-12">
-            <h2 class="text-4xl md:text-5xl font-bold text-carbon-black mb-6">
-                <span class="inline-block px-6 py-2 bg-carbon-black text-floral-white relative"
-                      style="clip-path: polygon(2% 0%, 100% 0%, 98% 100%, 0% 100%);">
-                    Transparent, All-Inclusive Pricing
-                </span>
-            </h2>
-            <p class="text-xl text-carbon-black font-semibold max-w-full mx-auto">
-                Choose the plan that fits your hiring needs. All plans include full recruitment, payroll, compliance, and HR support.
-            </p>
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h2 class="font-display font-medium text-[44px] leading-[53px] text-navy-dark mb-6">
+        Simple Pricing. No Surprises.
+      </h2>
+    </div>
+
+    <!-- Pricing Cards - Order: EOR Only | Staffing & EOR (popular) | Headhunting -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto items-stretch">
+
+      <!-- Plan 1: EOR Only (Green) -->
+      <div class="relative rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden bg-white flex flex-col">
+        <div class="px-6 pt-6 pb-2">
+          <span class="inline-block px-4 py-1.5 bg-emerald/10 font-display font-bold text-[16px] leading-[28px] text-emerald rounded-full uppercase tracking-wide">
+            {{ plans[2].badge }}
+          </span>
         </div>
-
-        <!-- Pricing Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-
-            <div *ngFor="let plan of plans" [class.ring-4]="plan.recommended" [class.ring-icy-blue]="plan.recommended"
-                [class.scale-105]="plan.recommended"
-                class="relative rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden bg-floral-white">
-
-                <!-- Recommended Badge -->
-                <div *ngIf="plan.recommended"
-                    class="absolute top-0 right-0 bg-dark-amethyst text-floral-white px-6 py-2 text-sm font-bold rounded-bl-lg rounded-tr-2xl">
-                    RECOMMENDED
-                </div>
-
-                <!-- Card Content -->
-                <div class="p-8">
-
-                    <!-- Plan Name -->
-                    <h3 class="text-2xl font-bold mb-4 text-carbon-black">
-                        {{ plan.name }}
-                    </h3>
-
-                    <!-- Price -->
-                    <div class="mb-6">
-                        <span class="text-4xl font-bold text-carbon-black">{{ plan.price }}</span>
-                    </div>
-
-                    <!-- Features List -->
-                    <ul class="space-y-4 mb-8">
-                        <li *ngFor="let feature of plan.features" class="flex items-start">
-                            <svg class="w-5 h-5 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none"
-                                stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span class="font-semibold text-carbon-black">{{ feature }}</span>
-                        </li>
-                    </ul>
-
-                    <!-- CTA Button -->
-                    <button (click)="onSelectPlan(plan)" [ngClass]="{
-                            'bg-icy-blue text-carbon-black hover:bg-bright-amber hover:text-carbon-black': plan.recommended,
-                            'bg-icy-blue text-carbon-black hover:bg-dark-amethyst hover:text-floral-white': !plan.recommended
-                        }"
-                        class="w-full py-3 rounded-lg font-semibold text-lg transition shadow-lg hover:shadow-xl mt-auto border-2 border-carbon-black">
-                        {{ plan.cta }}
-                    </button>
-
-                </div>
-            </div>
-
+        <div class="p-6 pt-4 flex flex-col flex-1">
+          <h3 class="font-display font-medium text-[30px] leading-[36px] text-navy-dark mb-1">{{ plans[2].name }}</h3>
+          <p class="font-display font-light text-[20px] leading-[28px] text-navy-dark mb-1">{{ plans[2].subtitle }}</p>
+          <p class="font-body text-[14px] leading-[21px] text-emerald mb-6">{{ plans[2].tagline }}</p>
+          <div class="mb-6">
+            <span class="font-display font-medium text-[24px] leading-[29px] text-navy-dark">{{ plans[2].price }}</span>
+            <span class="font-body font-normal text-[14px] leading-[28px] text-navy-dark">{{ plans[2].priceUnit }}</span>
+          </div>
+          <ul class="space-y-3 mb-8 flex-1">
+            <li *ngFor="let feature of plans[2].features; trackBy: trackByFeature" class="flex items-start">
+              <svg class="w-5 h-5 text-emerald mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="font-body font-light text-[18px] leading-[26px] text-dark-purple">{{ feature }}</span>
+            </li>
+          </ul>
+          <button class="w-full py-3 rounded-lg font-display font-medium text-[16px] leading-[24px] bg-white text-carbon-black border-2 border-carbon-black hover:bg-carbon-black hover:text-white transition-all duration-300 mt-auto">
+            {{ plans[2].cta }}
+          </button>
         </div>
+      </div>
 
-        <!-- Additional Info -->
-        <div class="text-center mt-12 text-carbon-black font-bold">
-            <p>All plans include a <strong class="text-carbon-black">lifetime guarantee</strong> and <strong
-                    class="text-carbon-black">no commitment</strong>.</p>
-            <p class="mt-2">Questions? <a href="#" class="text-carbon-black hover:text-bright-amber font-bold">Contact
-                    our
-                    sales team →</a></p>
+      <!-- Plan 2: Full-Service (Blue) - MOST POPULAR -->
+      <div class="relative rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 overflow-hidden bg-white ring-4 ring-primary-blue md:scale-105 z-10 flex flex-col">
+        <div class="bg-primary-blue text-white text-center py-2.5 font-display font-semibold text-[14px] uppercase tracking-wide">
+          Most Popular
         </div>
+        <div class="px-6 pt-4 pb-2">
+          <span class="inline-block px-4 py-1.5 bg-primary-blue/10 font-display font-bold text-[18px] leading-[28px] text-primary-blue rounded-full uppercase tracking-wide">
+            {{ plans[1].badge }}
+          </span>
+        </div>
+        <div class="p-6 pt-4 flex flex-col flex-1">
+          <h3 class="font-display font-medium text-[37px] leading-[44px] text-navy-dark mb-1">{{ plans[1].name }}</h3>
+          <p class="font-display font-light text-[26px] leading-[28px] text-navy-dark mb-1">{{ plans[1].subtitle }}</p>
+          <p class="font-body font-medium text-[16px] leading-[21px] text-primary-blue mb-6">For the growth-focused client.</p>
+          <div class="mb-4">
+            <p class="font-body font-normal text-[14px] leading-[28px] text-navy-dark mb-1">Starting at</p>
+            <span class="font-display font-medium text-[24px] leading-[29px] text-navy-dark">$9</span>
+            <span class="font-body font-normal text-[14px] leading-[28px] text-navy-dark">/hr (All-Inclusive Rate)</span>
+          </div>
+          <p class="font-body font-medium text-[20px] leading-[26px] text-dark-purple mb-6">Everything in Recruitment + EOR.</p>
+          <ul class="space-y-3 mb-8 flex-1">
+            <li *ngFor="let feature of plans[1].features; trackBy: trackByFeature" class="flex items-start">
+              <svg class="w-5 h-5 text-emerald mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="font-body font-light text-[18px] leading-[26px] text-dark-purple">{{ feature }}</span>
+            </li>
+          </ul>
+          <button class="w-full py-3.5 rounded-lg font-display font-medium text-[16px] leading-[24px] bg-primary-blue text-white hover:bg-navy-dark transition-all duration-300 mt-auto">
+            {{ plans[1].cta }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Plan 3: Recruitment Only (Purple) -->
+      <div class="relative rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden bg-white flex flex-col">
+        <div class="px-6 pt-6 pb-2">
+          <span class="inline-block px-4 py-1.5 bg-purple-accent/10 font-display font-bold text-[16px] leading-[28px] text-purple-accent rounded-full uppercase tracking-wide">
+            {{ plans[0].badge }}
+          </span>
+        </div>
+        <div class="p-6 pt-4 flex flex-col flex-1">
+          <h3 class="font-display font-medium text-[30px] leading-[36px] text-navy-dark mb-1">{{ plans[0].name }}</h3>
+          <p class="font-display font-light text-[20px] leading-[28px] text-navy-dark mb-1">{{ plans[0].subtitle }}</p>
+          <p class="font-body text-[14px] leading-[21px] text-purple-accent mb-6">{{ plans[0].tagline }}</p>
+          <div class="mb-6">
+            <span class="font-display font-medium text-[24px] leading-[29px] text-navy-dark">{{ plans[0].price }}</span>
+            <span class="font-body font-normal text-[14px] leading-[28px] text-navy-dark">{{ plans[0].priceUnit }}</span>
+          </div>
+          <ul class="space-y-3 mb-8 flex-1">
+            <li *ngFor="let feature of plans[0].features; trackBy: trackByFeature" class="flex items-start">
+              <svg class="w-5 h-5 text-emerald mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="font-body font-light text-[18px] leading-[26px] text-dark-purple">{{ feature }}</span>
+            </li>
+          </ul>
+          <button class="w-full py-3 rounded-lg font-display font-medium text-[16px] leading-[24px] bg-white text-carbon-black border-2 border-carbon-black hover:bg-carbon-black hover:text-white transition-all duration-300 mt-auto">
+            {{ plans[0].cta }}
+          </button>
+        </div>
+      </div>
 
     </div>
+
+  </div>
 </section>
