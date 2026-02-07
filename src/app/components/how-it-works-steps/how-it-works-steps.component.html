@@ -1,11 +1,9 @@
 <!-- ====================================
      HOW IT WORKS - Figma Pixel Perfect
-     - Section Title: Poppins 50px/60px weight 500, #111f78
-     - Subtitle: DM Sans 20px/25px weight 300, #201148
-     - Numbers: Poppins 128px/154px weight 500, letter-spacing -8.96px
-     - Step Titles: Poppins 24px/29px weight 500, #111f78
-     - Step Desc: DM Sans 18px/25px weight 300, #201148
-     - Layout: 3 tarjetas en diagonal descendente
+     - Cards: 329×236, white bg, blue border, shadow
+     - Numbers: 128px, pastel colors, above card
+     - Circles: 137px decorative logos inside cards
+     - Dashed arrows between cards (71×120)
      ==================================== -->
 
 <section id="how-it-works" class="py-20">
@@ -21,25 +19,49 @@
       </p>
     </div>
 
-    <!-- 3 Steps - Diagonal staggered layout -->
+    <!-- 3 Steps with dashed arrows -->
     <div class="relative max-w-6xl mx-auto">
-      <div class="flex flex-col lg:flex-row gap-6 lg:items-start">
+      <div class="flex flex-col lg:flex-row items-start justify-center">
 
-        <div *ngFor="let step of steps; let i = index; trackBy: trackByNumber"
-             class="flex-1" [ngClass]="stepOffsets[i]">
-          <div class="rounded-3xl p-8 relative overflow-hidden min-h-[280px]" [ngClass]="stepBgClasses[i]">
-            <!-- Large Number -->
-            <div class="absolute top-4 right-6 font-display font-medium select-none pointer-events-none text-step-number text-navy-dark/[0.08]">
+        <ng-container *ngFor="let step of steps; let i = index; let last = last; trackBy: trackByNumber">
+
+          <!-- Step container (number + card) -->
+          <div class="flex-shrink-0" [ngClass]="stepOffsets[i]">
+
+            <!-- Large Number: 128px, above card overlapping -->
+            <div class="font-display font-medium text-[128px] leading-[120%] text-center select-none pointer-events-none -mb-[40px]"
+                 [ngClass]="numberColors[i]"
+                 style="letter-spacing: -8.96px; width: 147px; margin-left: auto; margin-right: auto;">
               {{ step.number | number:'2.0-0' }}
             </div>
-            <div class="relative z-10">
-              <h3 class="font-display font-medium text-[24px] leading-[29px] text-navy-dark mb-4">{{ step.title }}</h3>
-              <p class="font-body font-light text-[18px] leading-[25px] text-dark-purple">
-                {{ step.description }}
-              </p>
+
+            <!-- Card: 329×236, white, blue border, shadow -->
+            <div class="w-[329px] h-[236px] bg-white rounded-[12px] border-2 border-primary-blue p-6 relative overflow-hidden"
+                 style="box-shadow: 2px 2px 8px 0 rgba(0,0,0,0.25);">
+
+              <!-- Decorative circle logo -->
+              <svg class="absolute -top-4 -right-4 opacity-40" width="137" height="136" viewBox="0 0 137 136" fill="none">
+                <ellipse cx="68.5" cy="68" rx="68.5" ry="68" [attr.fill]="circleFills[i]"/>
+              </svg>
+
+              <!-- Content -->
+              <div class="relative z-10">
+                <h3 class="font-display font-medium text-[24px] leading-[29px] text-navy-dark mb-3">{{ step.title }}</h3>
+                <p class="font-body font-light text-[18px] leading-[25px] text-dark-purple">
+                  {{ step.description }}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
+
+          <!-- Dashed arrow connector (between steps, hidden on mobile) -->
+          <div *ngIf="!last" class="hidden lg:flex items-center self-center mx-1 mt-[140px]">
+            <svg xmlns="http://www.w3.org/2000/svg" width="71" height="120" viewBox="0 0 71 120" fill="none">
+              <path d="M0 119H26.7483C31.7188 119 35.7483 114.971 35.7483 110V10C35.7483 5.02944 39.7777 1 44.7483 1H71" stroke="#111F78" stroke-width="2" stroke-dasharray="2 4"/>
+            </svg>
+          </div>
+
+        </ng-container>
 
       </div>
     </div>

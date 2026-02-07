@@ -8,10 +8,10 @@
      ==================================== -->
 
 <section class="py-20">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-20">
 
-    <!-- Main Grid: 2 columnas -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <!-- Main Grid: 2 columnas (texto ~400px, dashboard ~830px) -->
+    <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_auto] gap-12 items-center">
 
       <!-- Columna Izquierda: Texto y Features -->
       <div class="space-y-8">
@@ -26,22 +26,20 @@
           </p>
         </div>
 
-        <!-- 4 Features List - Figma exact colors and typography -->
-        <div class="space-y-5">
-          <!-- Feature 1: See who's next - Title #6c59d8 (purple) -->
+        <!-- 4 Features Grid 2×2 - Figma layout -->
+        <div class="grid grid-cols-2 gap-5">
+          <!-- Top-left: See who's next (purple) -->
           <div class="flex items-start gap-4">
             <div class="w-3 h-3 rounded-full mt-2 flex-shrink-0 bg-purple-accent"></div>
             <div>
-              <!-- DM Sans SemiBold 16px/28px -->
               <h3 class="font-body font-semibold text-[16px] leading-[28px] text-purple-accent">See who's next</h3>
-              <!-- DM Sans Light 16px/20px -->
               <p class="font-body font-light text-[16px] leading-[20px] text-dark-purple">
                 Track your favorite candidates without the email clutter.
               </p>
             </div>
           </div>
 
-          <!-- Feature 2: Onboard in a blink - Title #e7ae00 (amber) -->
+          <!-- Top-right: Onboard in a blink (amber) -->
           <div class="flex items-start gap-4">
             <div class="w-3 h-3 rounded-full mt-2 flex-shrink-0 bg-amber-dark"></div>
             <div>
@@ -52,18 +50,7 @@
             </div>
           </div>
 
-          <!-- Feature 3: Manage the family - Title #2291ea (blue) -->
-          <div class="flex items-start gap-4">
-            <div class="w-3 h-3 rounded-full mt-2 flex-shrink-0 bg-primary-blue"></div>
-            <div>
-              <h3 class="font-body font-semibold text-[16px] leading-[28px] text-primary-blue">Manage the family</h3>
-              <p class="font-body font-light text-[16px] leading-[20px] text-dark-purple">
-                Your whole team, right at your fingertips.
-              </p>
-            </div>
-          </div>
-
-          <!-- Feature 4: Pay without panic - Title #10b981 (green) -->
+          <!-- Bottom-left: Pay without panic (green) -->
           <div class="flex items-start gap-4">
             <div class="w-3 h-3 rounded-full mt-2 flex-shrink-0 bg-emerald"></div>
             <div>
@@ -73,20 +60,54 @@
               </p>
             </div>
           </div>
+
+          <!-- Bottom-right: Manage the family (blue) -->
+          <div class="flex items-start gap-4">
+            <div class="w-3 h-3 rounded-full mt-2 flex-shrink-0 bg-primary-blue"></div>
+            <div>
+              <h3 class="font-body font-semibold text-[16px] leading-[28px] text-primary-blue">Manage the family</h3>
+              <p class="font-body font-light text-[16px] leading-[20px] text-dark-purple">
+                Your whole team, right at your fingertips.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 
-      <!-- Columna Derecha: Dashboard Screenshots (Figma) -->
+      <!-- Columna Derecha: Dashboard Screenshots (Figma exact specs) -->
       <div class="relative">
-        <div class="flex items-stretch gap-0 rounded-2xl overflow-hidden shadow-2xl">
-          <!-- Sidebar: dash1 + dash1.1 stacked -->
-          <div class="flex flex-col flex-shrink-0 w-[140px]">
-            <img src="assets/img/dash1.png" alt="Hirably sidebar navigation" class="w-full h-auto flex-1 object-cover">
-            <img src="assets/img/dash1.1.png" alt="User profile bar" class="w-full h-auto">
+
+        <!-- Top notification: Candidate Match (204×49) -->
+        <div class="absolute -top-5 right-4 z-20 w-[204px] h-[49px] bg-white rounded-xl shadow-lg flex items-center gap-2 px-4">
+          <div class="w-2.5 h-2.5 rounded-full bg-emerald flex-shrink-0"></div>
+          <div>
+            <p class="font-body font-semibold text-[10px] leading-tight text-carbon-black">Candidate Match</p>
+            <p class="font-body font-normal text-[9px] leading-tight text-gray-500">Javier ready for interviews</p>
           </div>
-          <!-- Main dashboard view -->
-          <img src="assets/img/dash2.jpg" alt="Active Employees dashboard" class="flex-1 min-w-0 object-cover">
         </div>
+
+        <div class="flex items-center gap-4">
+          <!-- dash1 container (169×273) with dash1.1 inside at bottom -->
+          <div class="relative w-[169px] h-[273px] rounded-[10px] overflow-hidden flex-shrink-0 shadow-xl"
+               style="background: linear-gradient(142deg, rgba(255,255,255,0.15) 14.16%, rgba(217,217,217,0.03) 24.68%, rgba(217,217,217,0.03) 43.19%, rgba(255,255,255,0.12) 52.63%, rgba(181,181,181,0.03) 60.98%, rgba(255,255,255,0.03) 75.86%, rgba(95,95,95,0.03) 82.03%);">
+            <img src="assets/img/dash1.png" alt="Hirably sidebar navigation" class="w-full h-full object-cover">
+            <!-- dash1.1 overlayed at bottom inside dash1 -->
+            <img src="assets/img/dash1.1.png" alt="User profile bar" class="absolute bottom-0 left-0 w-full">
+          </div>
+
+          <!-- dash2 (645×414) -->
+          <img src="assets/img/dash2.jpg" alt="Active Employees dashboard" class="w-[645px] h-[414px] rounded-[10px] object-cover shadow-xl">
+        </div>
+
+        <!-- Bottom notification: Billing (224×49) -->
+        <div class="absolute -bottom-5 left-10 z-20 w-[224px] h-[49px] bg-white rounded-xl shadow-lg flex items-center gap-2 px-4">
+          <div class="w-2.5 h-2.5 rounded-full bg-primary-blue flex-shrink-0"></div>
+          <div>
+            <p class="font-body font-semibold text-[10px] leading-tight text-carbon-black">Billing</p>
+            <p class="font-body font-normal text-[9px] leading-tight text-gray-500">September invoice paid</p>
+          </div>
+        </div>
+
       </div>
 
     </div>

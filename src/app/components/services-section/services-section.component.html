@@ -21,19 +21,20 @@
 
   </div>
 
-  <div class="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-16">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+  <!-- Cards container: centered, Figma exact specs -->
+  <div class="relative z-10 flex justify-center px-4 pt-6 pb-16">
+    <div class="flex flex-col md:flex-row items-center gap-8 md:gap-[57px]">
 
-      <!-- Card 1: HIRE -->
-      <div class="bg-cream-light p-8 hover:-translate-y-1 transition-all duration-300"
+      <!-- Card 1: HIRE (275×361, padding 35 30 30 30, gap 15) -->
+      <div class="flex flex-col items-start gap-[15px] w-full md:w-[275px] md:h-[361px] pt-[35px] px-[30px] pb-[30px] bg-cream-light box-border hover:-translate-y-1 transition-all duration-300"
            style="border-radius: 15px 110px 15px 15px;">
-        <div class="w-14 h-14 mb-5">
+        <div class="w-14 h-14">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="#fccb37" stroke-width="1.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
           </svg>
         </div>
-        <h3 class="font-display font-medium text-[28px] leading-[42px] text-carbon-black mb-2">{{ services[0].title }}</h3>
-        <p class="font-display font-normal text-[16px] leading-[21px] text-carbon-black mb-4">{{ services[0].subtitle }}</p>
+        <h3 class="font-display font-medium text-[28px] leading-[42px] text-carbon-black">{{ services[0].title }}</h3>
+        <p class="font-display font-normal text-[16px] leading-[21px] text-carbon-black">{{ services[0].subtitle }}</p>
         <p class="font-body font-light text-[14px] leading-[21px] text-carbon-black">
           <span class="font-medium">Deep Sourcing:</span> We screen thousands to find the top 1%.<br/>
           <span class="font-medium">Culture Fit:</span> Technical skills matched with your company values.<br/>
@@ -42,15 +43,15 @@
       </div>
 
       <!-- Card 2: EMPLOY -->
-      <div class="bg-lavender p-8 hover:-translate-y-1 transition-all duration-300"
+      <div class="flex flex-col items-start gap-[15px] w-full md:w-[275px] md:h-[361px] pt-[35px] px-[30px] pb-[30px] bg-lavender box-border hover:-translate-y-1 transition-all duration-300"
            style="border-radius: 15px 110px 15px 15px;">
-        <div class="w-14 h-14 mb-5">
+        <div class="w-14 h-14">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="#6c59d8" stroke-width="1.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
           </svg>
         </div>
-        <h3 class="font-display font-medium text-[28px] leading-[42px] text-carbon-black mb-2">{{ services[1].title }}</h3>
-        <p class="font-display font-normal text-[16px] leading-[21px] text-carbon-black mb-4">{{ services[1].subtitle }}</p>
+        <h3 class="font-display font-medium text-[28px] leading-[42px] text-carbon-black">{{ services[1].title }}</h3>
+        <p class="font-display font-normal text-[16px] leading-[21px] text-carbon-black">{{ services[1].subtitle }}</p>
         <p class="font-body font-light text-[14px] leading-[21px] text-carbon-black">
           <span class="font-medium">Instant EOR:</span> We become the legal employer of record.<br/>
           <span class="font-medium">Total Shield:</span> Protect your company from foreign liability.<br/>
@@ -59,15 +60,15 @@
       </div>
 
       <!-- Card 3: PAY -->
-      <div class="bg-mint-green p-8 hover:-translate-y-1 transition-all duration-300"
+      <div class="flex flex-col items-start gap-[15px] w-full md:w-[275px] md:h-[361px] pt-[35px] px-[30px] pb-[30px] bg-mint-green box-border hover:-translate-y-1 transition-all duration-300"
            style="border-radius: 15px 110px 15px 15px;">
-        <div class="w-14 h-14 mb-5">
+        <div class="w-14 h-14">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="#10b981" stroke-width="1.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         </div>
-        <h3 class="font-display font-medium text-[28px] leading-[42px] text-carbon-black mb-2">{{ services[2].title }}</h3>
-        <p class="font-display font-normal text-[16px] leading-[21px] text-carbon-black mb-4">{{ services[2].subtitle }}</p>
+        <h3 class="font-display font-medium text-[28px] leading-[42px] text-carbon-black">{{ services[2].title }}</h3>
+        <p class="font-display font-normal text-[16px] leading-[21px] text-carbon-black">{{ services[2].subtitle }}</p>
         <p class="font-body font-light text-[14px] leading-[21px] text-carbon-black">
           <span class="font-medium">Simple Billing:</span> One consolidated monthly invoice in USD.<br/>
           <span class="font-medium">Tax & Benefits:</span> We handle all withholdings and benefits.<br/>

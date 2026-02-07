@@ -9,8 +9,9 @@ import { Step } from '@models';
 })
 export class HowItWorksStepsComponent {
   readonly steps: Step[];
-  readonly stepBgClasses = ['bg-light-sky', 'bg-mint-green', 'bg-lavender'];
   readonly stepOffsets = ['lg:mt-0', 'lg:mt-16', 'lg:mt-32'];
+  readonly numberColors = ['text-[#C2E7FF]', 'text-[#D1F9E5]', 'text-[#E3E1FF]'];
+  readonly circleFills = ['#C2E7FF', '#D1F9E5', '#E3E1FF'];
 
   constructor(private dataService: DataService) {
     this.steps = this.dataService.getHowItWorksSteps();
