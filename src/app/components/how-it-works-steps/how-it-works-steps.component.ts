@@ -9,9 +9,12 @@ import { Step } from '@models';
 })
 export class HowItWorksStepsComponent {
   readonly steps: Step[];
-  readonly stepOffsets = ['lg:mt-0', 'lg:mt-16', 'lg:mt-32'];
+  // Staircase goes UP: 01 lowest (left), 03 highest (right) — Figma exact offsets
+  readonly stepOffsets = ['lg:mt-[211px]', 'lg:mt-[97px]', 'lg:mt-0'];
   readonly numberColors = ['text-[#C2E7FF]', 'text-[#D1F9E5]', 'text-[#E3E1FF]'];
   readonly circleFills = ['#C2E7FF', '#D1F9E5', '#E3E1FF'];
+  // Arrows connect at card vertical midpoints
+  readonly arrowOffsets = ['mt-[336px]', 'mt-[219px]'];
 
   constructor(private dataService: DataService) {
     this.steps = this.dataService.getHowItWorksSteps();
