@@ -7,7 +7,7 @@
      - Dashed arrows (71×120) bridge card edges
      ==================================== -->
 
-<section id="how-it-works" class="py-20">
+<section id="how-it-works" class="pt-20 pb-[180px]">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
     <!-- Section Header -->
@@ -15,8 +15,8 @@
       <h2 class="font-display font-medium text-[50px] leading-[60px] text-navy-dark mb-6">
         The Hirably Way
       </h2>
-      <p class="font-body font-light text-[20px] leading-[25px] text-dark-purple max-w-3xl mx-auto">
-        You define the vision. We handle the vetting, scheduling, and paperwork. A simple, guided path to your next great hire.
+      <p class="font-body font-light text-[20px] leading-[25px] text-dark-purple w-[551px] mx-auto text-center">
+        You define the vision. We handle the vetting, scheduling, and paperwork. <span class="font-semibold">A simple, guided path to your next great hire.</span>
       </p>
     </div>
 
@@ -30,7 +30,7 @@
           <div class="flex-shrink-0" [ngClass]="stepOffsets[i]">
 
             <!-- Large Number: 128px, right-aligned at card edge, 32px overlap -->
-            <div class="font-display font-medium text-[128px] leading-[120%] text-right select-none pointer-events-none -mb-[32px] w-[329px]"
+            <div class="font-display font-medium text-[128px] leading-[120%] text-right select-none pointer-events-none -mb-[32px] w-[329px] pr-[5px]"
                  [ngClass]="numberColors[i]"
                  style="letter-spacing: -8.96px;">
               {{ step.number | number:'2.0-0' }}
@@ -76,9 +76,9 @@
                 </div>
               </div>
 
-              <!-- Content: 261px width, DM Sans 18px, #201148 -->
-              <div class="relative z-10 w-[261px]">
-                <h3 class="font-display font-medium text-[24px] leading-[29px] text-navy-dark mb-3">{{ step.title }}</h3>
+              <!-- Content: 279px width, DM Sans 18px, #201148 -->
+              <div class="relative z-10 w-[279px]">
+                <h3 class="font-display font-medium text-[24px] leading-[29px] text-navy-dark mb-3 whitespace-nowrap">{{ step.title }}</h3>
                 <p class="font-body font-normal text-[18px] leading-[25px] text-dark-purple">
                   {{ step.description }}
                 </p>

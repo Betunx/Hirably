@@ -1,84 +1,68 @@
 <!-- ====================================
      FOOTER - Figma Pixel Perfect
-     - Background: #111f78 (navy-dark)
-     - Border top: #111f78
-     - Left: Logo, description, locations
-     - Right: Contact info, LinkedIn
-     - Bottom: Copyright, Privacy, Terms
+     - Container: 1440×264, bg #111F78
+     - Logo: logo-white.svg 161×41
+     - Description: w-332px, DM Sans 13px/300/17px
+     - Location: Poppins 13px/400/137%
+     - Divider: 1260×1px
+     - Contact us: Poppins 16px/500/120%
+     - Email/Phone: Poppins 15px/400/120%
+     - Bottom: DM Sans 12px/400/120%, centered
      ==================================== -->
 
-<footer class="text-white py-12 px-4 bg-navy-dark">
-  <div class="max-w-7xl mx-auto">
+<footer class="bg-navy-dark">
+  <div class="max-w-[1440px] mx-auto h-[264px] flex flex-col justify-between px-4 sm:px-6 lg:px-[90px] py-10">
 
     <!-- Main Footer Content -->
-    <div class="flex flex-col md:flex-row justify-between items-start gap-12 mb-10">
+    <div class="flex flex-col md:flex-row justify-between items-start">
 
       <!-- Left Side: Logo + Description + Locations -->
-      <div class="max-w-md">
-        <!-- Logo 1 (white text for dark background) -->
-        <img src="assets/logos/logo 1.svg" alt="Hirably Logo" class="h-8 mb-6" />
+      <div>
+        <!-- Logo white 161×41 -->
+        <img src="assets/logos/logo-white.svg" alt="Hirably" class="w-[161px] h-[41px] mb-4" />
 
-        <!-- Description - DM Sans Light 13px/17px -->
-        <p class="font-body font-light text-[13px] leading-[17px] text-white mb-2">
+        <!-- Description - DM Sans 13px/300/17px, w-332px -->
+        <p class="font-body font-light text-[13px] leading-[17px] text-white w-[332px] mb-3">
           Your trusted partner for nearshore hiring in Mexico.
-        </p>
-        <p class="font-body font-light text-[13px] leading-[17px] text-white mb-4">
           From recruitment to payroll, we handle everything.
         </p>
 
-        <!-- Locations -->
-        <p class="font-body font-light text-[13px] leading-[17px] text-white">
-          Phoenix, Arizona | Hermosillo, Mexico
+        <!-- Locations - Poppins 13px/400/137% -->
+        <p class="font-display font-normal text-[13px] leading-[137%] text-white">
+          Phoenix, Arizona  |  Hermosillo, México
         </p>
       </div>
 
-      <!-- Right Side: Contact Info -->
-      <div class="flex flex-col items-start md:items-end gap-4">
-        <!-- Contact Us - Bold -->
-        <p class="font-body font-bold text-[14px] leading-[18px] text-white">
-          Contact Us
+      <!-- Right Side: Contact Info - vertically aligned with bottom of logo -->
+      <div class="flex flex-col items-end gap-2 mt-[41px]">
+        <!-- Contact Us - Poppins 16px/500/120% -->
+        <p class="font-display font-medium text-[16px] leading-[120%] text-white mb-1">
+          Contact us
         </p>
 
-        <!-- Phone -->
-        <a href="tel:+16231234569" class="font-body font-light text-[13px] leading-[17px] text-white hover:text-primary-blue transition-colors">
-          +1 (623) 123-4569
-        </a>
-
-        <!-- Email -->
-        <a href="mailto:info@hirably.com" class="font-body font-light text-[13px] leading-[17px] text-white hover:text-primary-blue transition-colors">
+        <!-- Email - Poppins 15px/400/120% -->
+        <a href="mailto:info@hirably.com" class="font-display font-normal text-[15px] leading-[120%] text-white hover:text-primary-blue transition-colors">
           info&#64;hirably.com
         </a>
 
-        <!-- LinkedIn Icon -->
-        <a href="https://www.linkedin.com/company/hirably-staffing/about/" target="_blank" rel="noopener noreferrer"
-          class="text-white hover:text-primary-blue transition-colors mt-2">
-          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-          </svg>
+        <!-- Phone - Poppins 15px/400/120% -->
+        <a href="tel:+16231234569" class="font-display font-normal text-[15px] leading-[120%] text-white hover:text-primary-blue transition-colors">
+          +1 (623) 123-4569
+        </a>
+
+        <!-- LinkedIn - 30×30 -->
+        <a href="https://www.linkedin.com/company/hirably-staffing/about/" target="_blank" rel="noopener noreferrer">
+          <img src="assets/logos/linkedIN.png" alt="LinkedIn" class="w-[30px] h-[30px]" style="aspect-ratio: 1/1;" />
         </a>
       </div>
 
     </div>
 
-    <!-- Footer Bottom - Horizontal line with Privacy & Terms -->
-    <div class="border-t border-white/30 pt-6">
-      <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-        <!-- Copyright -->
-        <p class="font-body font-normal text-[12px] text-white">
-          © {{ currentYear }} Hirably. All rights reserved.
-        </p>
+    <!-- Divider - 1260×1px -->
+    <div class="w-[1260px] max-w-full h-px bg-white/30 mx-auto"></div>
 
-        <!-- Privacy & Terms - Underlined -->
-        <div class="flex items-center gap-6">
-          <a href="#" class="font-body font-normal text-[12px] text-white underline hover:text-primary-blue transition-colors">
-            Privacy Policy
-          </a>
-          <a href="#" class="font-body font-normal text-[12px] text-white underline hover:text-primary-blue transition-colors">
-            Terms of Service
-          </a>
-        </div>
-      </div>
-    </div>
+    <!-- Footer Bottom - all inline, centered, DM Sans 12px/400/120% -->
+    <p class="text-center font-body font-normal text-[12px] leading-[120%] text-white">© {{ currentYear }} Hirably. All rights reserved. | <a href="#" class="underline hover:text-primary-blue transition-colors">Privacy Policy</a> | <a href="#" class="underline hover:text-primary-blue transition-colors">Terms of Service</a></p>
 
   </div>
 </footer>

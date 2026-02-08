@@ -45,7 +45,7 @@ export class DataService {
     {
       icon: 'speed',
       title: 'Candidates in <5 days',
-      description: 'We move at the speed of your roadmap. Receive a shortlist of qualified, pre-vetted candidates in less than a business week.'
+      description: 'Days We move at the speed of your roadmap. Receive a shortlist of qualified, pre-vetted candidates in less than a business week.'
     },
     {
       icon: 'calendar',
@@ -130,10 +130,8 @@ export class DataService {
         'Legal Employer (Mexican Entity)',
         'Contracts & Labor Compliance',
         'Taxes',
-        'Social Security & Benefits',
-        'Ongoing HR Support',
-        'One Simple USD Invoice',
-        '90-Day Replacement Guarantee'
+        'Social Security & Benefits Ongoing HR Support',
+        'One Simple USD Invoice'
       ],
       cta: 'Get started on EOR',
       recommended: false
@@ -146,7 +144,7 @@ export class DataService {
       number: 1,
       category: 'Step 01',
       title: 'We Scout & Screen',
-      description: 'We take your requirements and go to market. We recruit and prescreen heavily, filtering through hundreds of candidates to surface the perfect few.',
+      description: 'We take your requirements and go to market. We recruit and prescreen heavily, filtering out the noise so you only see the candidates worth your time.',
       color: '#c2e7ff',
       icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
     },
@@ -154,7 +152,7 @@ export class DataService {
       number: 2,
       category: 'Step 02',
       title: 'You Interview & Select',
-      description: 'Skip the scheduling mess. We manage the calendars so you can focus on the candidates. Meet your top picks and choose your new team member.',
+      description: 'Skip the scheduling mess. We manage the calendars so you can focus on the candidate. You interview the finalists, test their skills, and make the final hire.',
       color: '#d1f9e5',
       icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z'
     },
@@ -162,7 +160,7 @@ export class DataService {
       number: 3,
       category: 'Step 03',
       title: 'We Onboard Instantly',
-      description: 'Once you say "Yes," we handle the rest. We generate compliant contracts, handle payroll setup, and get your new hire working within days.',
+      description: 'Once you say "Yes," we handle the rest. We generate compliant contracts, handle equipment logistics, and set up benefits instantly. Your new hire starts in days, not weeks.',
       color: '#e3e1ff',
       icon: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'
     }

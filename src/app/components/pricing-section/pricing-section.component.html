@@ -1,116 +1,174 @@
 <!-- ====================================
      PRICING SECTION - Figma Pixel Perfect
-     - Title: Poppins 44px/53px weight 500, #111f78
-     - Plan Names: Poppins 30-37px weight 500
-     - Subtitles: Poppins 20px/28px weight 300
-     - Badges: Poppins 16-18px weight 700
-     - Prices: Poppins 24px/29px weight 500
-     - Features: DM Sans 18px/26px weight 300
+     - Card 1 (EOR): 379×576, padding 18px 34px 34px 34px, gap 22px, border 2px #D1FAE5
+     - Card 2 (Full-Service): 418×632, padding 0 34px 34px 34px, gap 40px, border 2px #2291EA
+     - Card 3 (Headhunting): 379×576, padding 18px 34px 34px 34px, gap 22px, border 2px #E3E1FF
+     - MOST POPULAR: width 203px, padding 5px 13px, gap 9px, radius 0 0 0 12px, right-aligned
+     - Buttons: padding 10px 15px, radius 7px, bg #FFCF25, Poppins 16px/500
+     - Cards 1 & 3 centered vertically relative to Card 2
      ==================================== -->
 
-<section id="pricing" class="py-20">
-  <div class="container mx-auto px-4">
+<section id="pricing" class="py-20 bg-floral-white">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-[100px]">
 
     <!-- Header -->
     <div class="text-center mb-12">
-      <h2 class="font-display font-medium text-[44px] leading-[53px] text-navy-dark mb-6">
+      <h2 class="font-display font-medium text-[44px] leading-[53px] text-navy-dark">
         Simple Pricing. No Surprises.
       </h2>
     </div>
 
-    <!-- Pricing Cards - Order: EOR Only | Staffing & EOR (popular) | Headhunting -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto items-stretch">
+    <!-- Pricing Cards Grid - cards 1 & 3 centered vertically to card 2 -->
+    <div class="flex flex-col lg:flex-row justify-center items-center gap-6">
 
-      <!-- Plan 1: EOR Only (Green) -->
-      <div class="relative rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden bg-white flex flex-col">
-        <div class="px-6 pt-6 pb-2">
-          <span class="inline-block px-4 py-1.5 bg-emerald/10 font-display font-bold text-[16px] leading-[28px] text-emerald rounded-full uppercase tracking-wide">
-            {{ plans[2].badge }}
-          </span>
+      <!-- Card 1: EOR Only (Green border) - plans[2] -->
+      <div class="flex flex-col items-start bg-white w-full lg:w-[379px] lg:h-[576px]"
+           style="padding: 18px 34px 34px 34px; gap: 22px; border-radius: 12px; border: 2px solid #D1FAE5;">
+
+        <!-- Badge -->
+        <span class="font-display font-bold text-[16px] leading-[28px] text-emerald uppercase tracking-wide">
+          {{ plans[2].badge }}
+        </span>
+
+        <!-- Name + Subtitle + Tagline group -->
+        <div class="flex flex-col">
+          <h3 class="font-display font-medium text-[30px] leading-[36px] text-navy-dark">
+            {{ plans[2].name }}
+          </h3>
+          <p class="font-display font-light text-[20px] leading-[28px] text-navy-dark">
+            {{ plans[2].subtitle }}
+          </p>
+          <p class="font-body text-[14px] leading-[21px] text-emerald mt-1">
+            For clients who already have a candidate.
+          </p>
         </div>
-        <div class="p-6 pt-4 flex flex-col flex-1">
-          <h3 class="font-display font-medium text-[30px] leading-[36px] text-navy-dark mb-1">{{ plans[2].name }}</h3>
-          <p class="font-display font-light text-[20px] leading-[28px] text-navy-dark mb-1">{{ plans[2].subtitle }}</p>
-          <p class="font-body text-[14px] leading-[21px] text-emerald mb-6">{{ plans[2].tagline }}</p>
-          <div class="mb-6">
-            <span class="font-display font-medium text-[24px] leading-[29px] text-navy-dark">{{ plans[2].price }}</span>
-            <span class="font-body font-normal text-[14px] leading-[28px] text-navy-dark">{{ plans[2].priceUnit }}</span>
+
+        <!-- Price -->
+        <div>
+          <span class="font-display font-medium text-[24px] leading-[29px] text-navy-dark">$499</span>
+          <span class="font-body font-normal text-[14px] leading-[28px] text-navy-dark"> /month per employee</span>
+        </div>
+
+        <!-- Description -->
+        <p class="font-body font-light text-[18px] leading-[26px] text-dark-purple w-[311px]">
+          You found the talent; we make it legal.
+        </p>
+
+        <!-- Features -->
+        <ul class="flex flex-col gap-3">
+          <li *ngFor="let feature of plans[2].features; trackBy: trackByFeature" class="flex items-start gap-3">
+            <img src="assets/img/arrowgreen.svg" alt="" class="w-[17px] h-[14px] mt-1.5 flex-shrink-0">
+            <span class="font-body font-light text-[18px] leading-[26px] text-dark-purple">{{ feature }}</span>
+          </li>
+        </ul>
+
+        <!-- Button -->
+        <button class="font-display font-medium text-[16px] text-black mt-auto"
+                style="padding: 10px 15px; border-radius: 7px; background: #FFCF25;">
+          Get starter on EOR
+        </button>
+      </div>
+
+      <!-- Card 2: Full-Service (Blue border) - plans[1] - MOST POPULAR -->
+      <div class="flex flex-col items-start bg-white w-full lg:w-[418px] lg:h-[632px] overflow-hidden"
+           style="padding: 0 34px 34px 34px; border-radius: 12px; border: 2px solid #2291EA;">
+
+        <!-- MOST POPULAR Badge - right-aligned, width 203px, radius 0 0 0 12px -->
+        <div class="flex items-center self-end mr-[-34px] text-white font-display font-medium text-[19px] leading-[28px] uppercase"
+             style="width: 203px; padding: 5px 13px; gap: 9px; border-radius: 0 0 0 12px; background: #2291EA;">
+          <img src="assets/img/Star1.svg" alt="" class="w-[17px] h-[16px]">
+          <span>MOST POPULAR</span>
+        </div>
+
+        <!-- Content wrapper with gap 40px -->
+        <div class="flex flex-col items-start flex-1 w-full mt-3" style="gap: 40px;">
+
+          <!-- Top group -->
+          <div class="flex flex-col items-start gap-2">
+            <span class="font-display font-bold text-[18px] leading-[28px] text-primary-blue uppercase tracking-wide w-[147px]">
+              {{ plans[1].badge }}
+            </span>
+            <h3 class="font-display font-medium text-[37px] leading-[44px] text-navy-dark">
+              {{ plans[1].name }}
+            </h3>
+            <p class="font-display font-light text-[26px] leading-[28px] text-navy-dark">
+              {{ plans[1].subtitle }}
+            </p>
+            <p class="font-body font-medium text-[21px] leading-[28px] text-primary-blue">
+              For the growth-focused client.
+            </p>
+            <div class="mt-2">
+              <span class="font-body font-normal text-[14px] leading-[28px] text-navy-dark">Starting at </span>
+              <span class="font-display font-medium text-[24px] leading-[29px] text-navy-dark">$9</span>
+              <span class="font-body font-normal text-[14px] leading-[28px] text-navy-dark"> /hr (All-Inclusive Rate)</span>
+            </div>
+            <p class="font-body font-medium text-[20px] leading-[26px] text-dark-purple mt-2">
+              Everything in Recruitment + EOR.
+            </p>
           </div>
-          <ul class="space-y-3 mb-8 flex-1">
-            <li *ngFor="let feature of plans[2].features; trackBy: trackByFeature" class="flex items-start">
-              <svg class="w-5 h-5 text-emerald mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
+
+          <!-- Features -->
+          <ul class="flex flex-col gap-3">
+            <li *ngFor="let feature of plans[1].features; trackBy: trackByFeature" class="flex items-start gap-3">
+              <img src="assets/img/arrowblue.svg" alt="" class="w-[17px] h-[14px] mt-1.5 flex-shrink-0">
               <span class="font-body font-light text-[18px] leading-[26px] text-dark-purple">{{ feature }}</span>
             </li>
           </ul>
-          <button class="w-full py-3 rounded-lg font-display font-medium text-[16px] leading-[24px] bg-white text-carbon-black border-2 border-carbon-black hover:bg-carbon-black hover:text-white transition-all duration-300 mt-auto">
-            {{ plans[2].cta }}
+
+          <!-- Button -->
+          <button class="font-display font-medium text-[16px] text-black mt-auto"
+                  style="padding: 10px 15px; border-radius: 7px; background: #FFCF25;">
+            Start hiring
           </button>
         </div>
       </div>
 
-      <!-- Plan 2: Full-Service (Blue) - MOST POPULAR -->
-      <div class="relative rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 overflow-hidden bg-white ring-4 ring-primary-blue md:scale-105 z-10 flex flex-col">
-        <div class="bg-primary-blue text-white text-center py-2.5 font-display font-semibold text-[14px] uppercase tracking-wide">
-          Most Popular
-        </div>
-        <div class="px-6 pt-4 pb-2">
-          <span class="inline-block px-4 py-1.5 bg-primary-blue/10 font-display font-bold text-[18px] leading-[28px] text-primary-blue rounded-full uppercase tracking-wide">
-            {{ plans[1].badge }}
-          </span>
-        </div>
-        <div class="p-6 pt-4 flex flex-col flex-1">
-          <h3 class="font-display font-medium text-[37px] leading-[44px] text-navy-dark mb-1">{{ plans[1].name }}</h3>
-          <p class="font-display font-light text-[26px] leading-[28px] text-navy-dark mb-1">{{ plans[1].subtitle }}</p>
-          <p class="font-body font-medium text-[16px] leading-[21px] text-primary-blue mb-6">For the growth-focused client.</p>
-          <div class="mb-4">
-            <p class="font-body font-normal text-[14px] leading-[28px] text-navy-dark mb-1">Starting at</p>
-            <span class="font-display font-medium text-[24px] leading-[29px] text-navy-dark">$9</span>
-            <span class="font-body font-normal text-[14px] leading-[28px] text-navy-dark">/hr (All-Inclusive Rate)</span>
-          </div>
-          <p class="font-body font-medium text-[20px] leading-[26px] text-dark-purple mb-6">Everything in Recruitment + EOR.</p>
-          <ul class="space-y-3 mb-8 flex-1">
-            <li *ngFor="let feature of plans[1].features; trackBy: trackByFeature" class="flex items-start">
-              <svg class="w-5 h-5 text-emerald mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-              <span class="font-body font-light text-[18px] leading-[26px] text-dark-purple">{{ feature }}</span>
-            </li>
-          </ul>
-          <button class="w-full py-3.5 rounded-lg font-display font-medium text-[16px] leading-[24px] bg-primary-blue text-white hover:bg-navy-dark transition-all duration-300 mt-auto">
-            {{ plans[1].cta }}
-          </button>
-        </div>
-      </div>
+      <!-- Card 3: Headhunting (Purple border) - plans[0] -->
+      <div class="flex flex-col items-start bg-white w-full lg:w-[379px] lg:h-[576px]"
+           style="padding: 18px 34px 34px 34px; gap: 22px; border-radius: 12px; border: 2px solid #E3E1FF;">
 
-      <!-- Plan 3: Recruitment Only (Purple) -->
-      <div class="relative rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden bg-white flex flex-col">
-        <div class="px-6 pt-6 pb-2">
-          <span class="inline-block px-4 py-1.5 bg-purple-accent/10 font-display font-bold text-[16px] leading-[28px] text-purple-accent rounded-full uppercase tracking-wide">
-            {{ plans[0].badge }}
-          </span>
+        <!-- Badge -->
+        <span class="font-display font-bold text-[16px] leading-[28px] text-purple-accent uppercase tracking-wide">
+          {{ plans[0].badge }}
+        </span>
+
+        <!-- Name + Subtitle + Tagline group -->
+        <div class="flex flex-col">
+          <h3 class="font-display font-medium text-[30px] leading-[36px] text-navy-dark">
+            {{ plans[0].name }}
+          </h3>
+          <p class="font-display font-light text-[20px] leading-[28px] text-navy-dark">
+            {{ plans[0].subtitle }}
+          </p>
+          <p class="font-body text-[14px] leading-[21px] text-purple-accent mt-1">
+            For enterprise clients with their own Mexican Entity.
+          </p>
         </div>
-        <div class="p-6 pt-4 flex flex-col flex-1">
-          <h3 class="font-display font-medium text-[30px] leading-[36px] text-navy-dark mb-1">{{ plans[0].name }}</h3>
-          <p class="font-display font-light text-[20px] leading-[28px] text-navy-dark mb-1">{{ plans[0].subtitle }}</p>
-          <p class="font-body text-[14px] leading-[21px] text-purple-accent mb-6">{{ plans[0].tagline }}</p>
-          <div class="mb-6">
-            <span class="font-display font-medium text-[24px] leading-[29px] text-navy-dark">{{ plans[0].price }}</span>
-            <span class="font-body font-normal text-[14px] leading-[28px] text-navy-dark">{{ plans[0].priceUnit }}</span>
-          </div>
-          <ul class="space-y-3 mb-8 flex-1">
-            <li *ngFor="let feature of plans[0].features; trackBy: trackByFeature" class="flex items-start">
-              <svg class="w-5 h-5 text-emerald mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-              <span class="font-body font-light text-[18px] leading-[26px] text-dark-purple">{{ feature }}</span>
-            </li>
-          </ul>
-          <button class="w-full py-3 rounded-lg font-display font-medium text-[16px] leading-[24px] bg-white text-carbon-black border-2 border-carbon-black hover:bg-carbon-black hover:text-white transition-all duration-300 mt-auto">
-            {{ plans[0].cta }}
-          </button>
+
+        <!-- Price -->
+        <div>
+          <span class="font-display font-medium text-[24px] leading-[29px] text-navy-dark">$2,499</span>
+          <span class="font-body font-normal text-[14px] leading-[28px] text-navy-dark"> flat fee</span>
         </div>
+
+        <!-- Description -->
+        <p class="font-body font-light text-[18px] leading-[26px] text-dark-purple">
+          For Clients With Their Offices in Mexico.
+        </p>
+
+        <!-- Features -->
+        <ul class="flex flex-col gap-3">
+          <li *ngFor="let feature of plans[0].features; trackBy: trackByFeature" class="flex items-start gap-3">
+            <img src="assets/img/arrowpurple.svg" alt="" class="w-[17px] h-[14px] mt-1.5 flex-shrink-0">
+            <span class="font-body font-light text-[18px] leading-[26px] text-dark-purple">{{ feature }}</span>
+          </li>
+        </ul>
+
+        <!-- Button -->
+        <button class="font-display font-medium text-[16px] text-black mt-auto"
+                style="padding: 10px 15px; border-radius: 7px; background: #FFCF25;">
+          Get a quote
+        </button>
       </div>
 
     </div>

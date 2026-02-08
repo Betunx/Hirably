@@ -1,110 +1,106 @@
 <!-- ====================================
      PLATFORM SECTION - Figma Pixel Perfect
      Extraído via Figma API
-     - Título: Poppins 31px/37px weight 500, #111f78
-     - Subtítulo: DM Sans 18px/25px weight 400, #201148
+     - Título: Poppins 31px/120% weight 500, #111f78 ("one happy place." bold)
+     - Subtítulo: DM Sans 18px/25px weight 400, #201148 ("one simple view" medium)
      - Feature titles: DM Sans 16px/28px weight 600, colores individuales
      - Feature desc: DM Sans 16px/20px weight 300, #201148
+     - Dashboard: dash2 645×414, sidebar dash1 169×273 overlapping bottom-left
+     - Notifications: 204×48 / 225×48, label 8px, desc 11px
      ==================================== -->
 
 <section class="py-20">
-  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-20">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-[100px]">
 
-    <!-- Main Grid: 2 columnas (texto ~400px, dashboard ~830px) -->
+    <!-- Main Grid: 2 columnas (texto ~460px, dashboard) -->
     <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_auto] gap-12 items-center">
 
       <!-- Columna Izquierda: Texto y Features -->
       <div class="space-y-8">
-        <!-- Header - Figma: Poppins Medium 31px/37px -->
+        <!-- Header - Figma: Poppins Medium 31px/120%, width 450px -->
         <div>
-          <h2 class="font-display font-medium text-[31px] leading-[37px] text-navy-dark mb-6">
-            Your hiring chaos, organized into one happy place.
+          <h2 class="font-display font-medium text-[31px] leading-[120%] text-navy-dark mb-6 max-w-[450px]">
+            Your hiring chaos, organized into <span class="font-bold">one happy place.</span>
           </h2>
-          <!-- Subtítulo - Figma: DM Sans Regular 18px/25px -->
-          <p class="font-body font-normal text-[18px] leading-[25px] text-dark-purple">
-            Spreadsheets are for accountants. Hirably is for team builders. We brought recruitment, payroll, and legal stuff into one simple view—so you can spend less time on admin and more time with your people.
+          <!-- Subtítulo - Figma: DM Sans Regular 18px/25px, width 458px -->
+          <p class="font-body font-normal text-[18px] leading-[25px] text-dark-purple max-w-[458px]">
+            Spreadsheets are for accountants. Hirably is for team builders. We brought recruitment, payroll, and legal stuff into <span class="font-medium">one simple view</span>—so you can spend less time on admin and more time with your people.
           </p>
         </div>
 
-        <!-- 4 Features Grid 2×2 - Figma layout -->
+        <!-- 4 Features Grid 2×2 - Figma: no dots, just colored titles -->
         <div class="grid grid-cols-2 gap-5">
-          <!-- Top-left: See who's next (purple) -->
-          <div class="flex items-start gap-4">
-            <div class="w-3 h-3 rounded-full mt-2 flex-shrink-0 bg-purple-accent"></div>
-            <div>
-              <h3 class="font-body font-semibold text-[16px] leading-[28px] text-purple-accent">See who's next</h3>
-              <p class="font-body font-light text-[16px] leading-[20px] text-dark-purple">
-                Track your favorite candidates without the email clutter.
-              </p>
-            </div>
+          <!-- Top-left: See who's next (purple #6c59d8) -->
+          <div>
+            <h3 class="font-body font-semibold text-[16px] leading-[28px] text-purple-accent">See who's next</h3>
+            <p class="font-body font-light text-[16px] leading-[20px] text-dark-purple">
+              Track your favorite candidates without the email clutter.
+            </p>
           </div>
 
-          <!-- Top-right: Onboard in a blink (amber) -->
-          <div class="flex items-start gap-4">
-            <div class="w-3 h-3 rounded-full mt-2 flex-shrink-0 bg-amber-dark"></div>
-            <div>
-              <h3 class="font-body font-semibold text-[16px] leading-[28px] text-amber-dark">Onboard in a blink</h3>
-              <p class="font-body font-light text-[16px] leading-[20px] text-dark-purple">
-                Contracts and legal sorted instantly.
-              </p>
-            </div>
+          <!-- Top-right: Onboard in a blink (amber #e7ae00) -->
+          <div>
+            <h3 class="font-body font-semibold text-[16px] leading-[28px] text-amber-dark">Onboard in a blink</h3>
+            <p class="font-body font-light text-[16px] leading-[20px] text-dark-purple">
+              Contracts and legal sorted instantly.
+            </p>
           </div>
 
-          <!-- Bottom-left: Pay without panic (green) -->
-          <div class="flex items-start gap-4">
-            <div class="w-3 h-3 rounded-full mt-2 flex-shrink-0 bg-emerald"></div>
-            <div>
-              <h3 class="font-body font-semibold text-[16px] leading-[28px] text-emerald">Pay without panic</h3>
-              <p class="font-body font-light text-[16px] leading-[20px] text-dark-purple">
-                One clear invoice. No hidden math.
-              </p>
-            </div>
+          <!-- Bottom-left: Pay without panic (green #10b981) -->
+          <div>
+            <h3 class="font-body font-semibold text-[16px] leading-[28px] text-emerald">Pay without panic</h3>
+            <p class="font-body font-light text-[16px] leading-[20px] text-dark-purple">
+              One clear invoice. No hidden math.
+            </p>
           </div>
 
-          <!-- Bottom-right: Manage the family (blue) -->
-          <div class="flex items-start gap-4">
-            <div class="w-3 h-3 rounded-full mt-2 flex-shrink-0 bg-primary-blue"></div>
-            <div>
-              <h3 class="font-body font-semibold text-[16px] leading-[28px] text-primary-blue">Manage the family</h3>
-              <p class="font-body font-light text-[16px] leading-[20px] text-dark-purple">
-                Your whole team, right at your fingertips.
-              </p>
-            </div>
+          <!-- Bottom-right: Manage the family (blue #2291ea) -->
+          <div>
+            <h3 class="font-body font-semibold text-[16px] leading-[28px] text-primary-blue">Manage the family</h3>
+            <p class="font-body font-light text-[16px] leading-[20px] text-dark-purple">
+              Your whole team, right at your fingertips.
+            </p>
           </div>
         </div>
       </div>
 
       <!-- Columna Derecha: Dashboard Screenshots (Figma exact specs) -->
-      <div class="relative">
+      <div class="relative mb-8">
 
-        <!-- Top notification: Candidate Match (204×49) -->
-        <div class="absolute -top-5 right-4 z-20 w-[204px] h-[49px] bg-white rounded-xl shadow-lg flex items-center gap-2 px-4">
-          <div class="w-2.5 h-2.5 rounded-full bg-emerald flex-shrink-0"></div>
+        <!-- Top notification: Candidate Match (204×48) — Figma: above dashboard, left-of-center -->
+        <div class="absolute -top-6 left-[25%] z-20 w-[204px] h-[48px] bg-white rounded-2xl shadow-lg flex items-center gap-3 px-4">
+          <!-- Checkmark icon -->
+          <div class="w-5 h-5 rounded-full bg-emerald/20 flex items-center justify-center flex-shrink-0">
+            <svg class="w-3 h-3 text-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
           <div>
-            <p class="font-body font-semibold text-[10px] leading-tight text-carbon-black">Candidate Match</p>
-            <p class="font-body font-normal text-[9px] leading-tight text-gray-500">Javier ready for interviews</p>
+            <p class="font-body font-medium text-[8px] leading-[14px] text-primary-blue">Candidate match</p>
+            <p class="font-body font-medium text-[11px] leading-[14px] text-carbon-black">Javier ready for interviews</p>
           </div>
         </div>
 
-        <div class="flex items-center gap-4">
-          <!-- dash1 container (169×273) with dash1.1 inside at bottom -->
-          <div class="relative w-[169px] h-[273px] rounded-[10px] overflow-hidden flex-shrink-0 shadow-xl"
+        <!-- Dashboard images: sidebar overlapping bottom-left of main dashboard -->
+        <div class="flex items-end gap-0">
+          <!-- dash1: Sidebar (169×273) — overlaps into dash2 with negative right margin -->
+          <div class="relative z-10 -mr-[29px] w-[169px] h-[273px] rounded-[10px] overflow-hidden flex-shrink-0 shadow-xl"
                style="background: linear-gradient(142deg, rgba(255,255,255,0.15) 14.16%, rgba(217,217,217,0.03) 24.68%, rgba(217,217,217,0.03) 43.19%, rgba(255,255,255,0.12) 52.63%, rgba(181,181,181,0.03) 60.98%, rgba(255,255,255,0.03) 75.86%, rgba(95,95,95,0.03) 82.03%);">
             <img src="assets/img/dash1.png" alt="Hirably sidebar navigation" class="w-full h-full object-cover">
             <!-- dash1.1 overlayed at bottom inside dash1 -->
             <img src="assets/img/dash1.1.png" alt="User profile bar" class="absolute bottom-0 left-0 w-full">
           </div>
 
-          <!-- dash2 (645×414) -->
+          <!-- dash2: Main dashboard (645×414) -->
           <img src="assets/img/dash2.jpg" alt="Active Employees dashboard" class="w-[645px] h-[414px] rounded-[10px] object-cover shadow-xl">
         </div>
 
-        <!-- Bottom notification: Billing (224×49) -->
-        <div class="absolute -bottom-5 left-10 z-20 w-[224px] h-[49px] bg-white rounded-xl shadow-lg flex items-center gap-2 px-4">
-          <div class="w-2.5 h-2.5 rounded-full bg-primary-blue flex-shrink-0"></div>
+        <!-- Bottom notification: Billing (225×48) — Figma: bottom-right of dashboard -->
+        <div class="absolute -bottom-6 right-16 z-20 w-[225px] h-[48px] bg-white rounded-2xl shadow-lg flex items-center gap-3 px-4">
+          <div class="w-3 h-3 rounded-full bg-emerald flex-shrink-0"></div>
           <div>
-            <p class="font-body font-semibold text-[10px] leading-tight text-carbon-black">Billing</p>
-            <p class="font-body font-normal text-[9px] leading-tight text-gray-500">September invoice paid</p>
+            <p class="font-body font-medium text-[8px] leading-[14px] text-emerald">Billing</p>
+            <p class="font-body font-medium text-[11px] leading-[14px] text-carbon-black">September Invoice <span class="font-bold">Paid</span></p>
           </div>
         </div>
 
