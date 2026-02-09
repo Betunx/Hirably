@@ -11,12 +11,12 @@ export class DataService {
     {
       icon: 'clock',
       title: 'No More "Async" Lag',
-      description: 'Forget waiting 24 hours for a reply. Your team works 9-5 on PST/CST. You collaborate on Slack/Zoom in real-time, just like in-house.'
+      description: 'Forget waiting 24 hours for a reply. Your team works 9-5 on PST/CST. You collaborate on Slack/Zoom in real-time, just like they are in the next room.'
     },
     {
       icon: 'globe',
       title: 'Culture, Not Just Language',
-      description: 'It\'s not just about speaking English; it\'s about speaking "Business." LATAM professionals share North American work ethics, deadlines, and communication styles.'
+      description: 'It\'s not just about speaking English; it\'s about speaking "Business." LATAM professionals share North American work ethics, urgency, and communication styles.'
     },
     {
       icon: 'dollar',

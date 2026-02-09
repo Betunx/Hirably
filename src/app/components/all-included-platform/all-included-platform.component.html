@@ -19,12 +19,12 @@
       <div class="space-y-8">
         <!-- Header - Figma: Poppins Medium 31px/120%, width 450px -->
         <div>
-          <h2 class="font-display font-medium text-[31px] leading-[120%] text-navy-dark mb-6 max-w-[450px]">
+          <h2 class="font-display font-normal text-[31px] leading-[120%] text-navy-dark mb-6 w-[450px]">
             Your hiring chaos, organized into <span class="font-bold">one happy place.</span>
           </h2>
           <!-- Subtítulo - Figma: DM Sans Regular 18px/25px, width 458px -->
-          <p class="font-body font-normal text-[18px] leading-[25px] text-dark-purple max-w-[458px]">
-            Spreadsheets are for accountants. Hirably is for team builders. We brought recruitment, payroll, and legal stuff into <span class="font-medium">one simple view</span>—so you can spend less time on admin and more time with your people.
+          <p class="font-body font-normal text-[18px] leading-[25px] text-dark-purple w-[458px]">
+            Spreadsheets are for accountants. Hirably is for team builders. We brought recruitment, payroll, and legal stuff into <span class="font-bold">one simple view</span>—so you can spend less time on admin and more time with your people.
           </p>
         </div>
 
@@ -32,32 +32,32 @@
         <div class="grid grid-cols-2 gap-5">
           <!-- Top-left: See who's next (purple #6c59d8) -->
           <div>
-            <h3 class="font-body font-semibold text-[16px] leading-[28px] text-purple-accent">See who's next</h3>
-            <p class="font-body font-light text-[16px] leading-[20px] text-dark-purple">
+            <h3 class="font-body font-semibold text-[16px] leading-[28px] text-purple-accent w-[143px]">See who's next</h3>
+            <p class="font-body font-light text-[16px] leading-[20px] text-dark-purple self-stretch">
               Track your favorite candidates without the email clutter.
             </p>
           </div>
 
           <!-- Top-right: Onboard in a blink (amber #e7ae00) -->
           <div>
-            <h3 class="font-body font-semibold text-[16px] leading-[28px] text-amber-dark">Onboard in a blink</h3>
-            <p class="font-body font-light text-[16px] leading-[20px] text-dark-purple">
+            <h3 class="font-body font-semibold text-[16px] leading-[28px] text-amber-dark w-[143px]">Onboard in a blink</h3>
+            <p class="font-body font-light text-[16px] leading-[20px] text-dark-purple self-stretch">
               Contracts and legal sorted instantly.
             </p>
           </div>
 
           <!-- Bottom-left: Pay without panic (green #10b981) -->
           <div>
-            <h3 class="font-body font-semibold text-[16px] leading-[28px] text-emerald">Pay without panic</h3>
-            <p class="font-body font-light text-[16px] leading-[20px] text-dark-purple">
+            <h3 class="font-body font-semibold text-[16px] leading-[28px] text-emerald w-[143px]">Pay without panic</h3>
+            <p class="font-body font-light text-[16px] leading-[20px] text-dark-purple self-stretch">
               One clear invoice. No hidden math.
             </p>
           </div>
 
           <!-- Bottom-right: Manage the family (blue #2291ea) -->
           <div>
-            <h3 class="font-body font-semibold text-[16px] leading-[28px] text-primary-blue">Manage the family</h3>
-            <p class="font-body font-light text-[16px] leading-[20px] text-dark-purple">
+            <h3 class="font-body font-semibold text-[16px] leading-[28px] text-primary-blue w-[143px]">Manage the family</h3>
+            <p class="font-body font-light text-[16px] leading-[20px] text-dark-purple self-stretch">
               Your whole team, right at your fingertips.
             </p>
           </div>
@@ -67,17 +67,22 @@
       <!-- Columna Derecha: Dashboard Screenshots (Figma exact specs) -->
       <div class="relative mb-8">
 
-        <!-- Top notification: Candidate Match (204×48) — Figma: above dashboard, left-of-center -->
-        <div class="absolute -top-6 left-[25%] z-20 w-[204px] h-[48px] bg-white rounded-2xl shadow-lg flex items-center gap-3 px-4">
-          <!-- Checkmark icon -->
-          <div class="w-5 h-5 rounded-full bg-emerald/20 flex items-center justify-center flex-shrink-0">
-            <svg class="w-3 h-3 text-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+        <!-- Top notification: Candidate Match — Figma: rounded-[10px], white, shadow -->
+        <div class="absolute -top-6 left-[25%] z-20 w-[204px] h-[48px] bg-white rounded-[10px] flex items-center gap-3 px-4"
+             style="box-shadow: 2px 4px 10px 2px rgba(0, 0, 0, 0.25);">
+          <!-- Blue ellipse 27×27 + checkmark -->
+          <div class="relative w-[27px] h-[27px] flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27" fill="none">
+              <circle cx="13.3225" cy="13.3225" r="13.3225" fill="#E0EEFF"/>
+            </svg>
+            <svg class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <line x1="0.707107" y1="8.00383" x2="4.80636" y2="12.1031" stroke="#2291EA" stroke-width="2"/>
+              <line x1="13.0059" y1="4.29402" x2="4.29501" y2="13.0049" stroke="#2291EA" stroke-width="2"/>
             </svg>
           </div>
           <div>
-            <p class="font-body font-medium text-[8px] leading-[14px] text-primary-blue">Candidate match</p>
-            <p class="font-body font-medium text-[11px] leading-[14px] text-carbon-black">Javier ready for interviews</p>
+            <p class="font-body font-medium text-[8px] leading-[14px] text-primary-blue w-[78px]">Candidate match</p>
+            <p class="font-body font-medium text-[11px] leading-[14px] text-black w-[140px]">Javier ready for interviews</p>
           </div>
         </div>
 
@@ -86,21 +91,35 @@
           <!-- dash1: Sidebar (169×273) — overlaps into dash2 with negative right margin -->
           <div class="relative z-10 -mr-[29px] w-[169px] h-[273px] rounded-[10px] overflow-hidden flex-shrink-0 shadow-xl"
                style="background: linear-gradient(142deg, rgba(255,255,255,0.15) 14.16%, rgba(217,217,217,0.03) 24.68%, rgba(217,217,217,0.03) 43.19%, rgba(255,255,255,0.12) 52.63%, rgba(181,181,181,0.03) 60.98%, rgba(255,255,255,0.03) 75.86%, rgba(95,95,95,0.03) 82.03%);">
-            <img src="assets/img/dash1.png" alt="Hirably sidebar navigation" class="w-full h-full object-cover">
-            <!-- dash1.1 overlayed at bottom inside dash1 -->
-            <img src="assets/img/dash1.1.png" alt="User profile bar" class="absolute bottom-0 left-0 w-full">
+            <img src="assets/img/dash1.png" alt="Hirably sidebar navigation" class="w-[169px] h-full object-cover object-left-top">
+            <!-- Red "5" badge next to "My Job Openings" -->
+            <svg class="absolute z-10" style="top: 108px; right: 14px;" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <rect width="13.3225" height="13.3225" rx="4" fill="#FF5656"/>
+              <path d="M6.68163 10.2481C6.16923 10.2481 5.72514 10.1608 5.34938 9.98613C4.98045 9.80478 4.69009 9.55961 4.4783 9.25064C4.26651 8.93494 4.14011 8.57895 4.09912 8.18265H5.29814C5.35963 8.4782 5.51335 8.72672 5.7593 8.92823C6.00526 9.12301 6.3127 9.22041 6.68163 9.22041C6.96174 9.22041 7.20086 9.1566 7.39899 9.02898C7.59712 8.89464 7.75084 8.71664 7.86015 8.49499C7.9763 8.26661 8.03437 8.01137 8.03437 7.72926C8.03437 7.44044 7.9763 7.18855 7.86015 6.97361C7.75084 6.75867 7.59712 6.59411 7.39899 6.47992C7.20086 6.35902 6.97199 6.29857 6.71237 6.29857C6.39127 6.29857 6.11457 6.37245 5.88228 6.52022C5.65682 6.66128 5.49285 6.83928 5.39037 7.05422H4.2016L4.79599 3.07446H8.75173V4.13237H5.71831L5.39037 5.8754C5.54751 5.70748 5.75589 5.57314 6.0155 5.47239C6.27512 5.36492 6.57232 5.31119 6.90708 5.31119C7.28285 5.31119 7.6142 5.375 7.90114 5.50262C8.18809 5.63024 8.43063 5.80488 8.62876 6.02653C8.82688 6.24819 8.97377 6.50679 9.06942 6.80233C9.1719 7.09116 9.22314 7.39678 9.22314 7.71919C9.22314 8.0819 9.16165 8.41774 9.03868 8.72672C8.9157 9.02898 8.74148 9.2943 8.51603 9.52267C8.2974 9.75104 8.03095 9.92904 7.71668 10.0567C7.40924 10.1843 7.06422 10.2481 6.68163 10.2481Z" fill="white"/>
+            </svg>
+            <!-- dash1.1 overlayed at bottom inside dash1, same width -->
+            <img src="assets/img/dash1.1.png" alt="User profile bar" class="absolute bottom-0 left-0 w-[169px]">
           </div>
 
           <!-- dash2: Main dashboard (645×414) -->
           <img src="assets/img/dash2.jpg" alt="Active Employees dashboard" class="w-[645px] h-[414px] rounded-[10px] object-cover shadow-xl">
         </div>
 
-        <!-- Bottom notification: Billing (225×48) — Figma: bottom-right of dashboard -->
-        <div class="absolute -bottom-6 right-16 z-20 w-[225px] h-[48px] bg-white rounded-2xl shadow-lg flex items-center gap-3 px-4">
-          <div class="w-3 h-3 rounded-full bg-emerald flex-shrink-0"></div>
+        <!-- Bottom notification: Billing — Figma: 224×49, rounded-[10px], gradient bg -->
+        <div class="absolute -bottom-6 right-16 z-20 w-[224px] h-[49px] rounded-[10px] flex items-center gap-3 px-4"
+             style="background: linear-gradient(107deg, rgba(255,255,255,0.40) 17.77%, rgba(217,217,217,0.08) 28.7%, rgba(217,217,217,0.08) 47.92%, rgba(255,255,255,0.32) 57.72%, rgba(181,181,181,0.08) 66.39%, rgba(255,255,255,0.08) 81.84%, rgba(95,95,95,0.08) 88.25%);">
+          <!-- Green ellipse 27×27 + billing icon -->
+          <div class="relative w-[27px] h-[27px] flex-shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27" fill="none">
+              <circle cx="13.3225" cy="13.3225" r="13.3225" fill="#D1F9E5"/>
+            </svg>
+            <svg class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M11.8698 12.8857V13.4204H1.44363V12.8857H11.8698ZM12.7788 11.9768V1.44363C12.7788 0.941629 12.3718 0.534677 11.8698 0.534677H1.44363C0.941628 0.534677 0.534677 0.941629 0.534677 1.44363V11.9768C0.534677 12.4788 0.941629 12.8857 1.44363 12.8857V13.4204L1.40635 13.4199C0.638672 13.4005 0.0199299 12.7817 0.000469931 12.0141L0 11.9768V1.44363C0 0.646335 0.646335 2.45436e-08 1.44363 0H11.8698C12.6671 0 13.3135 0.646335 13.3135 1.44363V11.9768C13.3135 12.7616 12.6872 13.4002 11.9071 13.4199L11.8698 13.4204V12.8857C12.3718 12.8857 12.7788 12.4788 12.7788 11.9768Z" fill="#10B981"/>
+            </svg>
+          </div>
           <div>
-            <p class="font-body font-medium text-[8px] leading-[14px] text-emerald">Billing</p>
-            <p class="font-body font-medium text-[11px] leading-[14px] text-carbon-black">September Invoice <span class="font-bold">Paid</span></p>
+            <p class="font-body font-medium text-[8px] leading-[14px] text-emerald w-[46px]">Billing</p>
+            <p class="font-body font-medium text-[11px] leading-[14px] text-black w-[165px]">September Invoice <span class="font-bold">Paid</span></p>
           </div>
         </div>
 
