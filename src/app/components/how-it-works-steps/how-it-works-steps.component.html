@@ -11,7 +11,7 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
     <!-- Section Header -->
-    <div class="text-center mb-16">
+    <div class="text-center">
       <h2 class="font-display font-medium text-[50px] leading-[60px] text-navy-dark mb-6">
         The Hirably Way
       </h2>
@@ -30,7 +30,7 @@
           <div class="flex-shrink-0" [ngClass]="stepOffsets[i]">
 
             <!-- Large Number: 128px, right-aligned at card edge, 32px overlap -->
-            <div class="font-display font-medium text-[128px] leading-[120%] text-right select-none pointer-events-none -mb-[32px] w-[329px] pr-[5px]"
+            <div class="font-display font-medium text-[128px] leading-none text-right select-none pointer-events-none -mb-[23px] w-[329px] pr-[5px]"
                  [ngClass]="numberColors[i]"
                  style="letter-spacing: -8.96px;">
               {{ step.number | number:'2.0-0' }}
