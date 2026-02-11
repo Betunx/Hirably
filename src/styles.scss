@@ -22,8 +22,8 @@
     @apply font-display;
   }
 
-  /* Body text usa DM Sans */
-  p, span, a, li {
+  /* Body text usa DM Sans (span omitido para que herede de su padre) */
+  p, a, li {
     @apply font-body;
   }
 }

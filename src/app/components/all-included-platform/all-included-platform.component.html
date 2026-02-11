@@ -9,7 +9,7 @@
      - Notifications: 204×48 / 225×48, label 8px, desc 11px
      ==================================== -->
 
-<section class="py-20">
+<section class="pt-20 pb-[20px]">
   <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-[100px]">
 
     <!-- Main Grid: 2 columnas (texto ~460px, dashboard) -->
@@ -67,9 +67,9 @@
       <!-- Columna Derecha: Dashboard Screenshots (Figma exact specs) -->
       <div class="relative mb-8">
 
-        <!-- Top notification: Candidate Match — Figma: rounded-[10px], white, shadow -->
-        <div class="absolute -top-6 left-[25%] z-20 w-[204px] h-[48px] bg-white rounded-[10px] flex items-center gap-3 px-4"
-             style="box-shadow: 2px 4px 10px 2px rgba(0, 0, 0, 0.25);">
+        <!-- Top notification: Candidate Match — Figma: rounded-[10px], glassmorphism, shadow -->
+        <div class="absolute -top-6 left-[25%] z-20 w-[204px] h-[48px] rounded-[10px] flex items-center gap-3 px-4"
+             style="background: linear-gradient(107deg, rgba(255,255,255,0.80) 17.77%, rgba(217,217,217,0.15) 28.7%, rgba(217,217,217,0.15) 47.92%, rgba(255,255,255,0.70) 57.72%, rgba(181,181,181,0.10) 66.39%, rgba(255,255,255,0.15) 81.84%, rgba(95,95,95,0.08) 88.25%); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 2px 4px 10px 2px rgba(0, 0, 0, 0.25);">
           <!-- Blue ellipse 27×27 + checkmark -->
           <div class="relative w-[27px] h-[27px] flex-shrink-0">
             <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27" fill="none">
@@ -101,22 +101,29 @@
             <img src="assets/img/dash1.1.png" alt="User profile bar" class="absolute bottom-0 left-0 w-[169px]">
           </div>
 
-          <!-- dash2: Main dashboard (645×414) -->
-          <img src="assets/img/dash2.jpg" alt="Active Employees dashboard" class="w-[645px] h-[414px] rounded-[10px] object-cover shadow-xl">
+          <!-- dash2: Main dashboard (645×415) — Figma specs -->
+          <div class="relative">
+            <img src="assets/img/dash2.jpg" alt="Active Employees dashboard"
+                 class="w-[645px] h-[415px] rounded-[10px] object-cover"
+                 style="border: 1px solid #FFF; box-shadow: 2px 4px 10px 2px rgba(0, 0, 0, 0.25); filter: blur(1px);">
+            <!-- Stat card: Monthly payroll (blue) -->
+            <div class="absolute top-[38px] right-[92px] w-[81px] h-[48px] rounded-[5px] bg-[#E0EEFF] flex flex-col items-center justify-center">
+              <span class="font-body text-[8px] text-black/60">Monthly payroll</span>
+              <span class="font-body font-bold text-[14px] leading-tight text-[#2291EA]">$19,773</span>
+            </div>
+            <!-- Stat card: Yearly savings (green) -->
+            <div class="absolute top-[38px] right-[0px] w-[81px] h-[48px] rounded-[5px] bg-[#D7FBE4] flex flex-col items-center justify-center">
+              <span class="font-body text-[8px] text-black/60">Yearly savings</span>
+              <span class="font-body font-bold text-[14px] leading-tight text-[#179C4C]">$210,000</span>
+            </div>
+          </div>
         </div>
 
-        <!-- Bottom notification: Billing — Figma: 224×49, rounded-[10px], gradient bg -->
-        <div class="absolute -bottom-6 right-16 z-20 w-[224px] h-[49px] rounded-[10px] flex items-center gap-3 px-4"
-             style="background: linear-gradient(107deg, rgba(255,255,255,0.40) 17.77%, rgba(217,217,217,0.08) 28.7%, rgba(217,217,217,0.08) 47.92%, rgba(255,255,255,0.32) 57.72%, rgba(181,181,181,0.08) 66.39%, rgba(255,255,255,0.08) 81.84%, rgba(95,95,95,0.08) 88.25%);">
-          <!-- Green ellipse 27×27 + billing icon -->
-          <div class="relative w-[27px] h-[27px] flex-shrink-0">
-            <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27" fill="none">
-              <circle cx="13.3225" cy="13.3225" r="13.3225" fill="#D1F9E5"/>
-            </svg>
-            <svg class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M11.8698 12.8857V13.4204H1.44363V12.8857H11.8698ZM12.7788 11.9768V1.44363C12.7788 0.941629 12.3718 0.534677 11.8698 0.534677H1.44363C0.941628 0.534677 0.534677 0.941629 0.534677 1.44363V11.9768C0.534677 12.4788 0.941629 12.8857 1.44363 12.8857V13.4204L1.40635 13.4199C0.638672 13.4005 0.0199299 12.7817 0.000469931 12.0141L0 11.9768V1.44363C0 0.646335 0.646335 2.45436e-08 1.44363 0H11.8698C12.6671 0 13.3135 0.646335 13.3135 1.44363V11.9768C13.3135 12.7616 12.6872 13.4002 11.9071 13.4199L11.8698 13.4204V12.8857C12.3718 12.8857 12.7788 12.4788 12.7788 11.9768Z" fill="#10B981"/>
-            </svg>
-          </div>
+        <!-- Bottom notification: Billing — Figma: 225×48, rounded-[10px], glassmorphism, shadow -->
+        <div class="absolute -bottom-6 right-16 z-20 w-[225px] h-[48px] rounded-[10px] flex items-center gap-3 px-4"
+             style="background: linear-gradient(107deg, rgba(255,255,255,0.80) 17.77%, rgba(217,217,217,0.15) 28.7%, rgba(217,217,217,0.15) 47.92%, rgba(255,255,255,0.70) 57.72%, rgba(181,181,181,0.10) 66.39%, rgba(255,255,255,0.15) 81.84%, rgba(95,95,95,0.08) 88.25%); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 2px 4px 10px 2px rgba(0, 0, 0, 0.25);">
+          <!-- Billing icon from Figma -->
+          <img src="assets/img/billin-icon.svg" alt="Billing" class="w-[27px] h-[27px] flex-shrink-0">
           <div>
             <p class="font-body font-medium text-[8px] leading-[14px] text-emerald w-[46px]">Billing</p>
             <p class="font-body font-medium text-[11px] leading-[14px] text-black w-[165px]">September Invoice <span class="font-bold">Paid</span></p>
