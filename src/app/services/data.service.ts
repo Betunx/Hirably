@@ -62,14 +62,14 @@ export class DataService {
   // Services - Figma (Hire/Employ/Pay)
   private servicesData: Service[] = [
     {
-      title: 'Hire',
+      title: 'Recruit',
       subtitle: 'Find top 1% talent',
       description: 'Deep Sourcing: We screen thousands to find the top 1%. Culture Fit: Technical skills matched with your company values. Speed: Qualified candidates in under 5 days.',
       icon: 'megaphone',
       color: '#fff1cf'
     },
     {
-      title: 'Employ',
+      title: 'Onboard',
       subtitle: 'Zero Legal Complexity',
       description: 'Instant EOR: We become the legal employer of record. Total Shield: Protect your company from foreign liability. Compliance: Contracts and labor laws handled instantly.',
       icon: 'document-pencil',
