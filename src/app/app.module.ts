@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -10,6 +12,7 @@ import { FooterComponent } from '@core/footer/footer.component';
 
 // Pages
 import { HomeComponent } from '@app/pages/home/home.component';
+import { ContactFormComponent } from '@app/pages/contact-form/contact-form.component';
 
 // Section components
 import { HeroSectionComponent } from '@components/hero-section/hero-section.component';
@@ -29,6 +32,7 @@ import { AllIncludedPlatformComponent } from '@components/all-included-platform/
     NavbarComponent,
     FooterComponent,
     HomeComponent,
+    ContactFormComponent,
     HeroSectionComponent,
     WhyNearshoreComponent,
     ServicesSectionComponent,
@@ -40,6 +44,8 @@ import { AllIncludedPlatformComponent } from '@components/all-included-platform/
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     AllIncludedPlatformComponent
   ],
   providers: [],

@@ -101,4 +101,9 @@ export class NavbarComponent {
     this.router.navigate([route], { fragment: fragment });
     this.closeMenu();
   }
+
+  navigateToContact(type: string): void {
+    this.router.navigate(['/contact', type]);
+    this.closeMenu();
+  }
 }

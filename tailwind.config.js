@@ -66,6 +66,7 @@ module.exports = {
         'float': 'float 3s ease-in-out infinite',
         'float-delayed': 'float-delayed 3s ease-in-out infinite',
         'fade-in': 'fadeIn 0.6s ease-out',
+        'marquee': 'marquee 28s linear infinite',
       },
       keyframes: {
         float: {
@@ -85,6 +86,10 @@ module.exports = {
             opacity: '1',
             transform: 'translateY(0)',
           },
+        },
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
         },
       },
     },

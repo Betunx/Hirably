@@ -63,9 +63,10 @@
         </ul>
 
         <!-- Button - absolute bottom to match Card 3 -->
-        <button class="absolute bottom-[24px] left-[34px] font-display font-medium text-[16px] text-black"
+        <button (click)="onEorServices()"
+                class="absolute bottom-[24px] left-[34px] font-display font-medium text-[16px] text-black cursor-pointer transition-opacity duration-200 hover:opacity-80"
                 style="padding: 10px 15px; border-radius: 7px; background: #FFCF25;">
-          Get starter on EOR
+          Get started on EOR
         </button>
       </div>
 
@@ -116,7 +117,8 @@
           </ul>
 
           <!-- Button -->
-          <button class="font-display font-medium text-[16px] text-black mt-auto"
+          <button (click)="onStartHiring()"
+                  class="font-display font-medium text-[16px] text-black mt-auto cursor-pointer transition-opacity duration-200 hover:opacity-80"
                   style="padding: 10px 15px; border-radius: 7px; background: #FFCF25;">
             Start hiring
           </button>
@@ -165,7 +167,8 @@
         </ul>
 
         <!-- Button - absolute bottom to match Card 1 -->
-        <button class="absolute bottom-[24px] left-[34px] font-display font-medium text-[16px] text-black"
+        <button (click)="onGetAQuote()"
+                class="absolute bottom-[24px] left-[34px] font-display font-medium text-[16px] text-black cursor-pointer transition-opacity duration-200 hover:opacity-80"
                 style="padding: 10px 15px; border-radius: 7px; background: #FFCF25;">
           Get a quote
         </button>

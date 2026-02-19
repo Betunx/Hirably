@@ -1,0 +1,213 @@
+<!-- CONTACT FORM PAGE — split layout, per-type theme, OnPush safe -->
+<div class="min-h-screen bg-floral-white overflow-x-hidden pt-[72px]" *ngIf="config">
+
+  <!-- ── BACK TO HOME ────────────────────────────────────────────────────── -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
+    <a (click)="goHome()"
+      class="inline-flex items-center gap-1.5 font-body text-[13px] text-dark-purple opacity-50 hover:opacity-100 transition-opacity duration-200 cursor-pointer">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        class="size-3.5">
+        <path d="m12 19-7-7 7-7"></path>
+        <path d="M19 12H5"></path>
+      </svg>
+      Back to Home
+    </a>
+  </div>
+
+  <!-- ── SUCCESS STATE ──────────────────────────────────────────────────── -->
+  <div *ngIf="submitted" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
+
+    <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6"
+      [style.background]="config.theme.bulletBg + '22'">
+      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"
+        [attr.stroke]="config.theme.accentHex" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12" />
+      </svg>
+    </div>
+
+    <h2 class="font-display font-semibold text-[32px] text-navy-dark mb-3">You're all set!</h2>
+    <p class="font-body text-[18px] text-dark-purple mb-8 max-w-md mx-auto">
+      We received your submission and will be in touch within 24 hours.
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <button (click)="onSubmitAnother()"
+        class="px-8 py-3 rounded-[7px] border-2 border-navy-dark font-display font-medium text-[16px] text-navy-dark hover:bg-navy-dark hover:text-white transition-all duration-200 cursor-pointer">
+        Submit Another
+      </button>
+      <button (click)="goHome()"
+        class="px-8 py-3 rounded-[7px] font-display font-medium text-[16px] transition-all duration-200 cursor-pointer shadow-md hover:opacity-90"
+        [style.background]="config.theme.submitBg"
+        [style.color]="config.theme.submitText">
+        Back to Home
+      </button>
+    </div>
+
+  </div>
+
+  <!-- ── MAIN FORM VIEW ─────────────────────────────────────────────────── -->
+  <div *ngIf="!submitted" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-2 pb-16">
+    <div class="grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-10 lg:gap-16 items-start">
+
+      <!-- ── LEFT PANEL ────────────────────────────────────────────────── -->
+      <div class="flex flex-col gap-6 pt-4 lg:sticky lg:top-[100px]">
+
+        <!-- Badge -->
+        <span
+          class="inline-flex self-start px-4 py-1.5 rounded-full font-display font-semibold text-[12px] uppercase tracking-widest"
+          [ngClass]="[config.badgeBgClass, config.badgeTextClass]">
+          {{ config.left.badgeText }}
+        </span>
+
+        <!-- Title -->
+        <h1 class="font-display font-semibold text-[32px] leading-[1.15] text-navy-dark lg:text-[38px]">
+          {{ config.left.title }}
+        </h1>
+
+        <!-- Description -->
+        <p class="font-body font-light text-[17px] leading-[27px] text-dark-purple">
+          {{ config.left.description }}
+        </p>
+
+        <!-- Image -->
+        <img [src]="config.left.imageSrc" [alt]="config.left.imageAlt"
+          class="w-full max-w-[420px] rounded-xl object-cover h-[200px] lg:h-[230px]" />
+
+        <!-- Bullet rows -->
+        <ul class="flex flex-col gap-4">
+          <li *ngFor="let bullet of config.left.bullets" class="flex items-start gap-3">
+            <span class="mt-0.5 w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center"
+              [style.background]="config.theme.bulletBg">
+              <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none"
+                [attr.stroke]="config.theme.bulletStroke" stroke-width="3" stroke-linecap="round"
+                stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </span>
+            <span class="font-body text-[15px] leading-[24px] text-dark-purple">{{ bullet.text }}</span>
+          </li>
+        </ul>
+
+      </div>
+
+      <!-- ── RIGHT PANEL ───────────────────────────────────────────────── -->
+      <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
+
+        <!-- Accent top bar — color changes per theme -->
+        <div class="h-[5px] w-full" [style.background]="config.theme.accentHex"></div>
+
+        <!-- Card body -->
+        <div class="p-6 sm:p-8 lg:p-9">
+
+          <h2 class="font-display font-semibold text-[20px] text-navy-dark mb-1">
+            {{ config.right.formTitle }}
+          </h2>
+          <p class="font-body text-[13px] text-dark-purple/60 mb-7">
+            {{ config.right.formSubtitle }}
+          </p>
+
+          <!-- Error banner -->
+          <div *ngIf="submitError"
+            class="mb-5 px-4 py-3 rounded-lg bg-red-50 border border-red-200 font-body text-[13px] text-red-600">
+            Something went wrong. Please try again or email us at
+            <a href="mailto:info&#64;hirably.com" class="underline">info&#64;hirably.com</a>.
+          </div>
+
+          <!-- Reactive form — 2-column responsive grid -->
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate
+            class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-4">
+
+            <ng-container *ngFor="let field of config.right.fields; trackBy: trackByKey">
+              <div class="flex flex-col gap-1.5"
+                [ngClass]="field.colSpan === 1 ? 'sm:col-span-1' : 'sm:col-span-2'">
+
+                <!-- Label -->
+                <label [for]="field.key"
+                  class="font-display font-medium text-[13px] leading-none text-carbon-black flex items-center gap-1.5">
+                  {{ field.label }}
+                  <span *ngIf="field.required" class="text-red-400 text-[13px]">*</span>
+                </label>
+
+                <!-- text / email / tel / date -->
+                <input
+                  *ngIf="field.type !== 'select' && field.type !== 'textarea'"
+                  [id]="field.key"
+                  [type]="field.type"
+                  [formControlName]="field.key"
+                  [placeholder]="field.placeholder ?? ''"
+                  class="w-full h-9 px-3 py-1 rounded-md border font-body text-[14px] text-carbon-black bg-white outline-none transition-colors duration-150"
+                  [ngClass]="{
+                    'border-gray-neutral': !isInvalid(field.key),
+                    'border-red-400 bg-red-50': isInvalid(field.key)
+                  }" />
+
+                <!-- select -->
+                <select
+                  *ngIf="field.type === 'select'"
+                  [id]="field.key"
+                  [formControlName]="field.key"
+                  class="w-full h-9 px-3 py-1 rounded-md border font-body text-[14px] text-carbon-black bg-white outline-none transition-colors duration-150 cursor-pointer appearance-none"
+                  [ngClass]="{
+                    'border-gray-neutral': !isInvalid(field.key),
+                    'border-red-400 bg-red-50': isInvalid(field.key)
+                  }">
+                  <option value="" disabled>Select an option</option>
+                  <option *ngFor="let opt of (field.options ?? [])" [value]="opt.value">{{ opt.label }}</option>
+                </select>
+
+                <!-- textarea -->
+                <textarea
+                  *ngIf="field.type === 'textarea'"
+                  [id]="field.key"
+                  [formControlName]="field.key"
+                  [placeholder]="field.placeholder ?? ''"
+                  [rows]="field.rows ?? 4"
+                  class="w-full px-3 py-2 rounded-md border font-body text-[14px] text-carbon-black bg-white outline-none transition-colors duration-150 resize-none"
+                  [ngClass]="{
+                    'border-gray-neutral': !isInvalid(field.key),
+                    'border-red-400 bg-red-50': isInvalid(field.key)
+                  }">
+                </textarea>
+
+                <!-- Validation message -->
+                <span *ngIf="isInvalid(field.key)" class="font-body text-[11px] text-red-400">
+                  {{ field.label }} is required.
+                </span>
+
+              </div>
+            </ng-container>
+
+            <!-- Submit button — full width, spans both columns -->
+            <div class="sm:col-span-2 mt-1">
+              <button
+                type="submit"
+                [disabled]="submitting"
+                [style.background]="config.theme.submitBg"
+                [style.color]="config.theme.submitText"
+                class="w-full h-12 rounded-md font-display font-medium text-[15px] transition-all duration-200 shadow-sm cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 hover:opacity-90">
+                <!-- Send icon -->
+                <svg *ngIf="!submitting" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"></path>
+                  <path d="m21.854 2.147-10.94 10.939"></path>
+                </svg>
+                <!-- Spinner while submitting -->
+                <svg *ngIf="submitting" class="animate-spin" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10" stroke-opacity="0.25" />
+                  <path d="M12 2a10 10 0 0 1 10 10" />
+                </svg>
+                {{ submitting ? 'Sending…' : config.right.submitLabel }}
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

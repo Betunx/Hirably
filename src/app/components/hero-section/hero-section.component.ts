@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { ScrollService } from '@services/scroll.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-hero-section',
@@ -8,9 +8,9 @@ import { ScrollService } from '@services/scroll.service';
 })
 export class HeroSectionComponent {
 
-  constructor(private scrollService: ScrollService) {}
+  constructor(private router: Router) {}
 
   onBookConsultation(): void {
-    this.scrollService.scrollToId('how-it-works');
+    this.router.navigate(['/contact', 'book-a-call']);
   }
 }
