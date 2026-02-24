@@ -13,7 +13,7 @@
 
     <!-- Header -->
     <div class="text-center mb-12">
-      <h2 class="font-display font-medium text-[44px] leading-[53px] text-navy-dark">
+      <h2 class="font-display font-medium text-[54px] leading-[64px] text-navy-dark pt-[15px]">
         Simple Pricing. No Surprises.
       </h2>
     </div>
@@ -57,7 +57,7 @@
         <!-- Features -->
         <ul class="flex flex-col gap-3">
           <li *ngFor="let feature of plans[2].features; trackBy: trackByFeature" class="flex items-start gap-3">
-            <img src="assets/img/arrowgreen.svg" alt="" class="w-[17px] h-[14px] mt-1.5 flex-shrink-0">
+            <img src="assets/img/arrowgreen.svg" alt="" class="w-[17px] h-[14px] mt-1.5 flex-shrink-0" loading="lazy">
             <span class="font-body font-light text-[18px] leading-[26px] text-dark-purple">{{ feature }}</span>
           </li>
         </ul>
@@ -77,7 +77,7 @@
         <!-- MOST POPULAR Badge - right-aligned, width 203px, radius 0 0 0 12px -->
         <div class="flex items-center self-end mr-[-34px] text-white font-display font-medium text-[19px] leading-[28px] uppercase"
              style="width: 203px; padding: 5px 13px; gap: 9px; border-radius: 0 0 0 12px; background: #2291EA;">
-          <img src="assets/img/Star1.svg" alt="" class="w-[17px] h-[16px]">
+          <img src="assets/img/Star1.svg" alt="" class="w-[17px] h-[16px]" loading="lazy">
           <span>MOST POPULAR</span>
         </div>
 
@@ -111,7 +111,7 @@
           <!-- Features -->
           <ul class="flex flex-col gap-3">
             <li *ngFor="let feature of plans[1].features; trackBy: trackByFeature" class="flex items-start gap-3">
-              <img src="assets/img/arrowblue.svg" alt="" class="w-[17px] h-[14px] mt-1.5 flex-shrink-0">
+              <img src="assets/img/arrowblue.svg" alt="" class="w-[17px] h-[14px] mt-1.5 flex-shrink-0" loading="lazy">
               <span class="font-body font-light text-[18px] leading-[26px] text-dark-purple">{{ feature }}</span>
             </li>
           </ul>
@@ -161,7 +161,7 @@
         <!-- Features -->
         <ul class="flex flex-col gap-3">
           <li *ngFor="let feature of plans[0].features; trackBy: trackByFeature" class="flex items-start gap-3">
-            <img src="assets/img/arrowpurple.svg" alt="" class="w-[17px] h-[14px] mt-1.5 flex-shrink-0">
+            <img src="assets/img/arrowpurple.svg" alt="" class="w-[17px] h-[14px] mt-1.5 flex-shrink-0" loading="lazy">
             <span class="font-body font-light text-[18px] leading-[26px] text-dark-purple">{{ feature }}</span>
           </li>
         </ul>

@@ -13,7 +13,9 @@
 
     <!-- Hamburger Menu (Mobile Only) -->
     <button class="flex flex-col gap-1.5 bg-transparent border-none cursor-pointer p-1.5 z-[1001] md:hidden"
-      (click)="toggleMenu()">
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="isMenuOpen"
+      aria-label="Toggle navigation menu">
       <span class="w-6 h-0.5 bg-navy-dark rounded transition-all duration-300"
         [ngClass]="{'rotate-45 translate-x-2 translate-y-2': isMenuOpen}"></span>
       <span class="w-6 h-0.5 bg-navy-dark rounded transition-all duration-300"
