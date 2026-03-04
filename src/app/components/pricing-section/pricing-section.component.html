@@ -9,7 +9,7 @@
      ==================================== -->
 
 <section id="pricing" class="pt-[44px] pb-20 bg-floral-white">
-  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-[100px]">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-[100px]">
 
     <!-- Header -->
     <div class="text-center mb-8 lg:mb-12">
@@ -22,7 +22,7 @@
 
     <!-- Card 1: EOR Only (Green border) - plans[2] -->
     <ng-template #pricingCard1>
-      <div class="flex flex-col items-start bg-white w-full h-auto lg:h-[576px] p-[14px_20px_20px_20px] lg:p-[18px_34px_34px_34px] gap-[14px] lg:gap-[22px]"
+      <div class="flex flex-col items-start bg-white w-full h-full p-[14px_20px_20px_20px] lg:p-[18px_34px_34px_34px] gap-[14px] lg:gap-[22px]"
            style="border-radius: 12px; border: 2px solid #D1FAE5;">
         <span class="font-display font-bold text-[16px] leading-[28px] text-emerald uppercase tracking-wide">
           {{ plans[2].badge }}
@@ -61,7 +61,7 @@
 
     <!-- Card 2: Full-Service (Blue border) - plans[1] - MOST POPULAR -->
     <ng-template #pricingCard2>
-      <div class="flex flex-col items-start bg-white w-full h-auto lg:h-[632px] overflow-hidden px-5 pb-5 lg:px-[34px] lg:pb-[34px]"
+      <div class="flex flex-col items-start bg-white w-full h-full px-5 pb-5 lg:px-[34px] lg:pb-[34px]"
            style="border-radius: 12px; border: 2px solid #2291EA;">
         <div class="flex items-center self-end -mr-5 lg:mr-[-34px] text-white font-display font-medium text-[16px] lg:text-[19px] leading-[28px] uppercase"
              style="width: 203px; padding: 5px 13px; gap: 9px; border-radius: 0 0 0 12px; background: #2291EA;">
@@ -108,7 +108,7 @@
 
     <!-- Card 3: Headhunting (Purple border) - plans[0] -->
     <ng-template #pricingCard3>
-      <div class="flex flex-col items-start bg-white w-full h-auto lg:h-[576px] p-[14px_20px_20px_20px] lg:p-[18px_34px_34px_34px] gap-[14px] lg:gap-[22px]"
+      <div class="flex flex-col items-start bg-white w-full h-full p-[14px_20px_20px_20px] lg:p-[18px_34px_34px_34px] gap-[14px] lg:gap-[22px]"
            style="border-radius: 12px; border: 2px solid #E3E1FF;">
         <span class="font-display font-bold text-[16px] leading-[28px] text-purple-accent uppercase tracking-wide">
           {{ plans[0].badge }}
@@ -146,14 +146,14 @@
     </ng-template>
 
     <!-- ========== Desktop Layout (lg+) ========== -->
-    <div class="hidden lg:flex justify-center items-center gap-6">
-      <div class="w-[379px]">
+    <div class="hidden lg:flex justify-center items-stretch gap-4 xl:gap-6">
+      <div class="flex-1 max-w-[379px]">
         <ng-container *ngTemplateOutlet="pricingCard1"></ng-container>
       </div>
-      <div class="w-[418px]">
+      <div class="flex-1 max-w-[418px]">
         <ng-container *ngTemplateOutlet="pricingCard2"></ng-container>
       </div>
-      <div class="w-[379px]">
+      <div class="flex-1 max-w-[379px]">
         <ng-container *ngTemplateOutlet="pricingCard3"></ng-container>
       </div>
     </div>
