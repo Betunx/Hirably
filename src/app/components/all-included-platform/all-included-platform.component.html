@@ -12,24 +12,25 @@
 <section class="pt-20 pb-[20px]">
   <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-[100px]">
 
-    <!-- Main Grid: 2 columnas (texto ~460px, dashboard) -->
-    <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_auto] gap-12 items-start">
+    <!-- Main Grid: 2 columnas solo en ≥1440px, stacked en tablet -->
+    <div class="grid grid-cols-1 min-[1440px]:grid-cols-[minmax(0,1fr)_auto] gap-12 items-start">
 
       <!-- Columna Izquierda: Texto y Features -->
-      <div class="space-y-8">
+      <!-- Tablet: centered / Desktop ≥1440: left-aligned -->
+      <div class="space-y-8 max-w-[520px] mx-auto min-[1440px]:mx-0 min-[1440px]:max-w-none">
         <!-- Header - Figma: Poppins Medium 31px/120%, width 450px -->
         <div>
-          <h2 class="font-display font-normal text-[31px] leading-[120%] text-navy-dark mb-6 w-[450px]">
+          <h2 class="font-display font-normal text-[24px] md:text-[28px] lg:text-[31px] leading-[120%] text-navy-dark mb-6 max-w-[450px]">
             Your hiring chaos, organized into <span class="font-bold">one happy place.</span>
           </h2>
           <!-- Subtítulo - Figma: DM Sans Regular 18px/25px, width 458px -->
-          <p class="font-body font-normal text-[18px] leading-[25px] text-dark-purple w-[458px]">
+          <p class="font-body font-normal text-[16px] lg:text-[18px] leading-[25px] text-dark-purple max-w-[458px]">
             Spreadsheets are for accountants. Hirably is for team builders. We brought recruitment, payroll, and legal stuff into <span class="font-bold">one simple view</span>—so you can spend less time on admin and more time with your people.
           </p>
         </div>
 
         <!-- 4 Features Grid 2×2 - Figma: no dots, just colored titles -->
-        <div class="grid grid-cols-[232px_232px] gap-5">
+        <div class="grid grid-cols-2 lg:grid-cols-[232px_232px] gap-4 lg:gap-5">
           <!-- Top-left: See who's next (purple #6c59d8) -->
           <div>
             <h3 class="font-body font-semibold text-[16px] leading-[28px] text-purple-accent">See who's next</h3>
@@ -65,10 +66,11 @@
       </div>
 
       <!-- Columna Derecha: Dashboard Screenshots (Figma exact specs) -->
-      <div class="relative mt-[15px] mb-8 lg:translate-x-[65px]">
+      <!-- Tablet: centered below text / Desktop ≥1440: side column with offset -->
+      <div class="relative mt-[15px] mb-8 max-w-[700px] mx-auto min-[1440px]:mx-0 min-[1440px]:max-w-none min-[1440px]:translate-x-[65px]">
 
-        <!-- Top notification: Candidate Match — Figma: rounded-[10px], glassmorphism, shadow -->
-        <div class="absolute -top-6 left-[95px] z-20 w-[204px] h-[48px] rounded-[10px] flex items-center gap-3 px-4"
+        <!-- Top notification: Candidate Match — hidden until desktop -->
+        <div class="absolute -top-6 left-[95px] z-20 w-[204px] h-[48px] rounded-[10px] hidden min-[1440px]:flex items-center gap-3 px-4"
              style="background: linear-gradient(107deg, rgba(255,255,255,0.40) 21.7%, rgba(217,217,217,0.08) 31.51%, rgba(217,217,217,0.08) 48.77%, rgba(255,255,255,0.32) 57.56%, rgba(181,181,181,0.08) 65.34%, rgba(255,255,255,0.08) 79.21%, rgba(95,95,95,0.08) 84.97%); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 2px 4px 10px 2px rgba(0, 0, 0, 0.25);">
           <!-- Blue ellipse 27×27 + checkmark -->
           <div class="relative w-[27px] h-[27px] flex-shrink-0">
@@ -88,18 +90,18 @@
 
         <!-- Dashboard images: sidebar overlapping bottom-left of main dashboard -->
         <div class="flex items-end gap-0">
-          <!-- Sidebar (169×273) -->
-          <div class="z-10 -mr-[28px] w-[169px] h-[273px] rounded-[10px] overflow-hidden flex-shrink-0 translate-y-[27px]">
+          <!-- Sidebar (169×273) — hidden until desktop -->
+          <div class="hidden min-[1440px]:block z-10 -mr-[28px] w-[169px] h-[273px] rounded-[10px] overflow-hidden flex-shrink-0 translate-y-[27px]">
             <img src="assets/img/Group 14.png" alt="Hirably sidebar navigation" class="w-full h-full object-cover" loading="lazy">
           </div>
 
           <!-- Main dashboard (645×415) -->
           <img src="assets/img/Group 15.png" alt="Active Employees dashboard"
-               class="w-[645px] h-[414px] rounded-[10px] object-cover" loading="lazy">
+               class="w-full min-[1440px]:w-[645px] h-auto min-[1440px]:h-[414px] rounded-[10px] object-cover" loading="lazy">
         </div>
 
-        <!-- Bottom notification: Billing — Figma: 225×48, rounded-[10px], glassmorphism, shadow -->
-        <div class="absolute -bottom-6 right-16 z-20 w-[225px] h-[48px] rounded-[10px] flex items-center gap-3 px-4"
+        <!-- Bottom notification: Billing — hidden until desktop -->
+        <div class="absolute -bottom-6 right-16 z-20 w-[225px] h-[48px] rounded-[10px] hidden min-[1440px]:flex items-center gap-3 px-4"
              style="background: linear-gradient(107deg, rgba(255,255,255,0.40) 17.77%, rgba(217,217,217,0.08) 28.7%, rgba(217,217,217,0.08) 47.92%, rgba(255,255,255,0.32) 57.72%, rgba(181,181,181,0.08) 66.39%, rgba(255,255,255,0.08) 81.84%, rgba(95,95,95,0.08) 88.25%); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 2px 4px 10px 2px rgba(0, 0, 0, 0.25);">
           <!-- Billing icon from Figma -->
           <img src="assets/img/billin-icon.svg" alt="Billing" class="w-[27px] h-[27px] flex-shrink-0" loading="lazy">

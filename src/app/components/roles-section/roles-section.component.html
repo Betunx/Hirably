@@ -12,76 +12,73 @@
      - Decorations: #C2E7FF blob top-right, #2291EA shape bottom-left
      ==================================== -->
 
-<section id="roles" class="pt-[83px] pb-[91px] overflow-hidden">
-  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-[100px]">
+<section id="roles" class="pt-[50px] min-[1400px]:pt-[83px] pb-[50px] min-[1400px]:pb-[91px] overflow-hidden">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6 min-[1400px]:px-[100px]">
 
     <!-- Main Grid: 2 columns (text+accordion left, image right) -->
-    <div class="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-12 items-start">
+    <div class="flex flex-col min-[1400px]:grid min-[1400px]:grid-cols-[1fr_minmax(0,664px)] gap-8 min-[1400px]:gap-12 items-start">
 
       <!-- Left Column: Title + Subtitle + Accordion -->
-      <div>
-        <!-- Header - Figma: Poppins 50px/120%, #111f78, width 519px -->
-        <h2 class="font-display text-[50px] leading-[120%] text-navy-dark mb-4 w-[519px] text-justify">
+      <div class="order-1 min-[1400px]:order-none">
+
+        <!-- Mobile Image: visible below 1400px -->
+        <div class="flex min-[1400px]:hidden items-center justify-center mb-8">
+          <img src="assets/img/man2.png" alt="World-class talent" class="h-auto max-h-[300px] object-contain" loading="lazy">
+        </div>
+
+        <!-- Header - Figma: Poppins 50px/120%, #111f78, full column width -->
+        <h2 class="font-display text-[32px] md:text-[40px] min-[1400px]:text-[50px] leading-[120%] text-navy-dark mb-4">
           <span class="font-medium">World-Class Talent</span><br>
           <span class="font-normal">Across All Functions</span>
         </h2>
-        <!-- Subtitle - Figma: DM Sans 20px/28px weight 300, #201148, width 518px -->
-        <p class="font-body font-light text-[20px] leading-[28px] text-dark-purple max-w-[518px] mb-10">
+        <!-- Subtitle - Figma: DM Sans 20px/28px weight 300, #201148, full column width -->
+        <p class="font-body font-light text-[18px] min-[1400px]:text-[20px] leading-[28px] text-dark-purple mb-10">
           Each role supported by an industry-specialist recruiter.
         </p>
 
-        <!-- Accordion - Figma: width 518px, blue #2291EA dividers -->
-        <div class="max-w-[518px]">
-          <div *ngFor="let category of categories; let first = first; trackBy: trackByCategory">
-            <!-- Top divider (only first item) - Figma: 518px line, stroke #2291EA -->
-            <svg *ngIf="first" width="518" height="1" viewBox="0 0 518 1" fill="none" xmlns="http://www.w3.org/2000/svg"
-              class="w-full">
-              <line y1="0.5" x2="518" y2="0.5" stroke="#2291EA" />
-            </svg>
+        <!-- Accordion - full column width, blue #2291EA dividers -->
+        <div *ngFor="let category of categories; let first = first; trackBy: trackByCategory">
+          <!-- Top divider (only first item) -->
+          <div *ngIf="first" class="h-px bg-primary-blue w-full"></div>
 
-            <!-- Category row - Figma: flex row, justify-between, py 13px -->
-            <div class="py-[13px]">
-              <button (click)="toggleAccordion(category.id)" class="w-full flex items-center justify-between text-left">
-                <!-- Category title - Figma: Poppins 24px/120% weight 500, #2291ea -->
-                <span class="font-display font-medium text-[24px] leading-[120%] text-primary-blue">{{ category.title
-                  }}</span>
-                <!-- "+" icon - Figma: 17×17 SVG cross, stroke #2291EA width 3 -->
-                <svg class="flex-shrink-0 transition-transform duration-300"
-                  [class.rotate-45]="expandedSection === category.id" width="17" height="17" viewBox="0 0 17 17"
-                  fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <line x1="8.5" y1="0" x2="8.5" y2="17" stroke="#2291EA" stroke-width="3" />
-                  <line x1="17" y1="8.5" x2="0" y2="8.5" stroke="#2291EA" stroke-width="3" />
-                </svg>
-              </button>
+          <!-- Category row -->
+          <div class="py-[13px]">
+            <button (click)="toggleAccordion(category.id)" class="w-full flex items-center justify-between text-left">
+              <!-- Category title - Figma: Poppins 24px/120% weight 500, #2291ea -->
+              <span class="font-display font-medium text-[20px] min-[1400px]:text-[24px] leading-[120%] text-primary-blue">{{ category.title }}</span>
+              <!-- "+" icon - Figma: 17×17 SVG cross, stroke #2291EA width 3 -->
+              <svg class="flex-shrink-0 transition-transform duration-300"
+                [class.rotate-45]="expandedSection === category.id" width="17" height="17" viewBox="0 0 17 17"
+                fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="8.5" y1="0" x2="8.5" y2="17" stroke="#2291EA" stroke-width="3" />
+                <line x1="17" y1="8.5" x2="0" y2="8.5" stroke="#2291EA" stroke-width="3" />
+              </svg>
+            </button>
 
-              <!-- Expanded roles - Figma: flex wrap, gap 10px, tags with light-sky border -->
-              <div class="overflow-hidden transition-all duration-300 ease-in-out"
-                [class.max-h-0]="expandedSection !== category.id" [class.max-h-96]="expandedSection === category.id"
-                [class.opacity-0]="expandedSection !== category.id"
-                [class.opacity-100]="expandedSection === category.id">
-                <div class="pt-3 pb-1">
-                  <div class="flex flex-wrap gap-[10px]">
-                    <span *ngFor="let role of category.roles"
-                      class="px-[17px] py-[9px] bg-white border border-light-sky rounded-lg font-body font-normal text-[16px] text-carbon-black">
-                      {{ role }}
-                    </span>
-                  </div>
+            <!-- Expanded roles - Figma: flex wrap, gap 10px, tags with light-sky border -->
+            <div class="overflow-hidden transition-all duration-300 ease-in-out"
+              [class.max-h-0]="expandedSection !== category.id" [class.max-h-96]="expandedSection === category.id"
+              [class.opacity-0]="expandedSection !== category.id"
+              [class.opacity-100]="expandedSection === category.id">
+              <div class="pt-3 pb-1">
+                <div class="flex flex-wrap gap-[10px]">
+                  <span *ngFor="let role of category.roles"
+                    class="px-[12px] min-[1400px]:px-[17px] py-[7px] min-[1400px]:py-[9px] bg-white border border-light-sky rounded-lg font-body font-normal text-[14px] min-[1400px]:text-[16px] text-carbon-black">
+                    {{ role }}
+                  </span>
                 </div>
               </div>
             </div>
-
-            <!-- Bottom divider - Figma: 518px line, stroke #2291EA -->
-            <svg width="518" height="1" viewBox="0 0 518 1" fill="none" xmlns="http://www.w3.org/2000/svg"
-              class="w-full">
-              <line y1="0.5" x2="518" y2="0.5" stroke="#2291EA" />
-            </svg>
           </div>
+
+          <!-- Bottom divider -->
+          <div class="h-px bg-primary-blue w-full"></div>
         </div>
       </div>
 
-      <!-- Right Column: Image -->
-      <div class="hidden lg:flex items-center justify-center">
-        <img src="assets/img/man2.png" alt="World-class talent" class="h-auto object-contain" loading="lazy">
+      <!-- Right Column: Image (desktop only) - Figma: 664×583 -->
+      <div class="hidden min-[1400px]:flex items-center justify-center">
+        <img src="assets/img/man2.png" alt="World-class talent" class="w-full max-w-[664px] h-auto object-contain" loading="lazy">
       </div>
 
     </div>

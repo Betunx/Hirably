@@ -25,40 +25,6 @@ export class DataService {
     }
   ];
 
-  // Why Hirably - Figma (6 cards)
-  private advantageData: Benefit[] = [
-    {
-      icon: 'dollar-zero',
-      title: '$0 Upfront',
-      description: '$0 Onboarding. No recruitment fees. No setup fees. You don\'t pay a single cent until your new team member officially starts working.'
-    },
-    {
-      icon: 'check-shield',
-      title: 'Risk-Free Trial',
-      description: 'If the fit isn\'t right within the first 90 days, we replace the candidate at no cost. We back our vetting with skin in the game.'
-    },
-    {
-      icon: 'shield',
-      title: 'Lifetime Protection',
-      description: 'If your employee leaves for any reason\u2014at any time\u2014we recruit their replacement for free. You never pay for the same role twice.'
-    },
-    {
-      icon: 'speed',
-      title: 'Candidates in <5 days',
-      description: 'Days We move at the speed of your roadmap. Receive a shortlist of qualified, pre-vetted candidates in less than a business week.'
-    },
-    {
-      icon: 'calendar',
-      title: 'Month-to-Month',
-      description: 'No long-term lock-ins. Our service is strictly month-to-month, giving you the freedom to scale up or down instantly.'
-    },
-    {
-      icon: 'flag',
-      title: 'North American Standards',
-      description: 'Same time zones. Same business culture. Your team integrates seamlessly into your workflow from Day 1. Not Day 90.'
-    }
-  ];
-
   // Services - Figma (Hire/Employ/Pay)
   private servicesData: Service[] = [
     {
@@ -177,10 +143,6 @@ export class DataService {
 
   getBenefits(): Benefit[] {
     return this.benefitsData;
-  }
-
-  getAdvantages(): Benefit[] {
-    return this.advantageData;
   }
 
   getServices(): Service[] {

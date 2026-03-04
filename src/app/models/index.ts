@@ -8,7 +8,6 @@ export interface Benefit {
   icon: string;
   title: string;
   description: string;
-  items?: string[];
 }
 
 export interface Service {
@@ -38,5 +37,4 @@ export interface Step {
   category?: string;
   color?: string;
   icon?: string;
-  image?: string;
 }

@@ -25,6 +25,7 @@ import { WhyHirablyComponent } from '@components/why-hirably/why-hirably.compone
 
 // Standalone components
 import { AllIncludedPlatformComponent } from '@components/all-included-platform/all-included-platform.component';
+import { MobileCarouselComponent } from '@components/shared/mobile-carousel/mobile-carousel.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { AllIncludedPlatformComponent } from '@components/all-included-platform/
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AllIncludedPlatformComponent
+    AllIncludedPlatformComponent,
+    MobileCarouselComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

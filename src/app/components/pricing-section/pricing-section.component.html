@@ -12,25 +12,21 @@
   <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-[100px]">
 
     <!-- Header -->
-    <div class="text-center mb-12">
-      <h2 class="font-display font-medium text-[54px] leading-[64px] text-navy-dark pt-[15px]">
+    <div class="text-center mb-8 lg:mb-12">
+      <h2 class="font-display font-medium text-[32px] md:text-[44px] lg:text-[54px] leading-[120%] lg:leading-[64px] text-navy-dark pt-[15px]">
         Simple Pricing. No Surprises.
       </h2>
     </div>
 
-    <!-- Pricing Cards Grid - cards 1 & 3 centered vertically to card 2 -->
-    <div class="flex flex-col lg:flex-row justify-center items-center gap-6">
+    <!-- ========== Card Templates (shared between desktop & mobile) ========== -->
 
-      <!-- Card 1: EOR Only (Green border) - plans[2] -->
-      <div class="relative flex flex-col items-start bg-white w-full lg:w-[379px] lg:h-[576px]"
-           style="padding: 18px 34px 34px 34px; gap: 22px; border-radius: 12px; border: 2px solid #D1FAE5;">
-
-        <!-- Badge -->
+    <!-- Card 1: EOR Only (Green border) - plans[2] -->
+    <ng-template #pricingCard1>
+      <div class="flex flex-col items-start bg-white w-full h-auto lg:h-[576px] p-[14px_20px_20px_20px] lg:p-[18px_34px_34px_34px] gap-[14px] lg:gap-[22px]"
+           style="border-radius: 12px; border: 2px solid #D1FAE5;">
         <span class="font-display font-bold text-[16px] leading-[28px] text-emerald uppercase tracking-wide">
           {{ plans[2].badge }}
         </span>
-
-        <!-- Name + Subtitle + Tagline group -->
         <div class="flex flex-col">
           <h3 class="font-display font-medium text-[30px] leading-[36px] text-navy-dark">
             {{ plans[2].name }}
@@ -42,81 +38,65 @@
             For clients who already have a candidate.
           </p>
         </div>
-
-        <!-- Price -->
         <div>
           <span class="font-display font-medium text-[24px] leading-[29px] text-navy-dark">$499</span>
           <span class="font-body font-normal text-[14px] leading-[28px] text-navy-dark"> /month per employee</span>
         </div>
-
-        <!-- Description -->
-        <p class="font-body font-light text-[18px] leading-[26px] text-dark-purple w-[311px]">
+        <p class="font-body font-light text-[18px] leading-[26px] text-dark-purple max-w-[311px]">
           You found the talent; we make it legal.
         </p>
-
-        <!-- Features -->
-        <ul class="flex flex-col gap-3">
+        <ul class="flex flex-col gap-2 lg:gap-3">
           <li *ngFor="let feature of plans[2].features; trackBy: trackByFeature" class="flex items-start gap-3">
             <img src="assets/img/arrowgreen.svg" alt="" class="w-[17px] h-[14px] mt-1.5 flex-shrink-0" loading="lazy">
             <span class="font-body font-light text-[18px] leading-[26px] text-dark-purple">{{ feature }}</span>
           </li>
         </ul>
-
-        <!-- Button - absolute bottom to match Card 3 -->
         <button (click)="onEorServices()"
-                class="absolute bottom-[24px] left-[34px] font-display font-medium text-[16px] text-black cursor-pointer transition-opacity duration-200 hover:opacity-80"
+                class="font-display font-medium text-[16px] text-black mt-auto cursor-pointer transition-opacity duration-200 hover:opacity-80"
                 style="padding: 10px 15px; border-radius: 7px; background: #FFCF25;">
           Get started on EOR
         </button>
       </div>
+    </ng-template>
 
-      <!-- Card 2: Full-Service (Blue border) - plans[1] - MOST POPULAR -->
-      <div class="flex flex-col items-start bg-white w-full lg:w-[418px] lg:h-[632px] overflow-hidden"
-           style="padding: 0 34px 34px 34px; border-radius: 12px; border: 2px solid #2291EA;">
-
-        <!-- MOST POPULAR Badge - right-aligned, width 203px, radius 0 0 0 12px -->
-        <div class="flex items-center self-end mr-[-34px] text-white font-display font-medium text-[19px] leading-[28px] uppercase"
+    <!-- Card 2: Full-Service (Blue border) - plans[1] - MOST POPULAR -->
+    <ng-template #pricingCard2>
+      <div class="flex flex-col items-start bg-white w-full h-auto lg:h-[632px] overflow-hidden px-5 pb-5 lg:px-[34px] lg:pb-[34px]"
+           style="border-radius: 12px; border: 2px solid #2291EA;">
+        <div class="flex items-center self-end -mr-5 lg:mr-[-34px] text-white font-display font-medium text-[16px] lg:text-[19px] leading-[28px] uppercase"
              style="width: 203px; padding: 5px 13px; gap: 9px; border-radius: 0 0 0 12px; background: #2291EA;">
           <img src="assets/img/Star1.svg" alt="" class="w-[17px] h-[16px]" loading="lazy">
           <span>MOST POPULAR</span>
         </div>
-
-        <!-- Content wrapper with gap 40px -->
-        <div class="flex flex-col items-start flex-1 w-full mt-3" style="gap: 40px;">
-
-          <!-- Top group -->
+        <div class="flex flex-col items-start flex-1 w-full mt-3 gap-[22px] lg:gap-[40px]">
           <div class="flex flex-col items-start gap-2">
-            <span class="font-display font-bold text-[18px] leading-[28px] text-primary-blue uppercase tracking-wide w-[147px]">
+            <span class="font-display font-bold text-[16px] lg:text-[18px] leading-[28px] text-primary-blue uppercase tracking-wide lg:w-[147px]">
               {{ plans[1].badge }}
             </span>
-            <h3 class="font-display font-medium text-[37px] leading-[44px] text-navy-dark">
+            <h3 class="font-display font-medium text-[30px] lg:text-[37px] leading-[36px] lg:leading-[44px] text-navy-dark">
               {{ plans[1].name }}
             </h3>
-            <p class="font-display font-light text-[26px] leading-[28px] text-navy-dark">
+            <p class="font-display font-light text-[20px] lg:text-[26px] leading-[28px] text-navy-dark">
               {{ plans[1].subtitle }}
             </p>
-            <p class="font-body font-medium text-[21px] leading-[28px] text-primary-blue">
+            <p class="font-body text-[14px] lg:font-medium lg:text-[21px] leading-[21px] lg:leading-[28px] text-primary-blue">
               For the growth-focused client.
             </p>
-            <div class="mt-2">
+            <div class="mt-1 lg:mt-2">
               <span class="font-body font-normal text-[14px] leading-[28px] text-navy-dark">Starting at </span>
               <span class="font-display font-medium text-[24px] leading-[29px] text-navy-dark">$9</span>
               <span class="font-body font-normal text-[14px] leading-[28px] text-navy-dark"> /hr (All-Inclusive Rate)</span>
             </div>
-            <p class="font-body font-medium text-[20px] leading-[26px] text-dark-purple mt-2">
+            <p class="font-body font-light lg:font-medium text-[18px] lg:text-[20px] leading-[26px] text-dark-purple mt-1 lg:mt-2">
               Everything in Recruitment + EOR.
             </p>
           </div>
-
-          <!-- Features -->
-          <ul class="flex flex-col gap-3">
+          <ul class="flex flex-col gap-2 lg:gap-3">
             <li *ngFor="let feature of plans[1].features; trackBy: trackByFeature" class="flex items-start gap-3">
               <img src="assets/img/arrowblue.svg" alt="" class="w-[17px] h-[14px] mt-1.5 flex-shrink-0" loading="lazy">
               <span class="font-body font-light text-[18px] leading-[26px] text-dark-purple">{{ feature }}</span>
             </li>
           </ul>
-
-          <!-- Button -->
           <button (click)="onStartHiring()"
                   class="font-display font-medium text-[16px] text-black mt-auto cursor-pointer transition-opacity duration-200 hover:opacity-80"
                   style="padding: 10px 15px; border-radius: 7px; background: #FFCF25;">
@@ -124,17 +104,15 @@
           </button>
         </div>
       </div>
+    </ng-template>
 
-      <!-- Card 3: Headhunting (Purple border) - plans[0] -->
-      <div class="relative flex flex-col items-start bg-white w-full lg:w-[379px] lg:h-[576px]"
-           style="padding: 18px 34px 34px 34px; gap: 22px; border-radius: 12px; border: 2px solid #E3E1FF;">
-
-        <!-- Badge -->
+    <!-- Card 3: Headhunting (Purple border) - plans[0] -->
+    <ng-template #pricingCard3>
+      <div class="flex flex-col items-start bg-white w-full h-auto lg:h-[576px] p-[14px_20px_20px_20px] lg:p-[18px_34px_34px_34px] gap-[14px] lg:gap-[22px]"
+           style="border-radius: 12px; border: 2px solid #E3E1FF;">
         <span class="font-display font-bold text-[16px] leading-[28px] text-purple-accent uppercase tracking-wide">
           {{ plans[0].badge }}
         </span>
-
-        <!-- Name + Subtitle + Tagline group -->
         <div class="flex flex-col">
           <h3 class="font-display font-medium text-[30px] leading-[36px] text-navy-dark">
             {{ plans[0].name }}
@@ -146,34 +124,53 @@
             For enterprise clients with their own Mexican Entity.
           </p>
         </div>
-
-        <!-- Price -->
         <div>
           <span class="font-display font-medium text-[24px] leading-[29px] text-navy-dark">$2,499</span>
           <span class="font-body font-normal text-[14px] leading-[28px] text-navy-dark"> flat fee</span>
         </div>
-
-        <!-- Description -->
         <p class="font-body font-light text-[18px] leading-[26px] text-dark-purple">
           For Clients With Their Offices in Mexico.
         </p>
-
-        <!-- Features -->
-        <ul class="flex flex-col gap-3">
+        <ul class="flex flex-col gap-2 lg:gap-3">
           <li *ngFor="let feature of plans[0].features; trackBy: trackByFeature" class="flex items-start gap-3">
             <img src="assets/img/arrowpurple.svg" alt="" class="w-[17px] h-[14px] mt-1.5 flex-shrink-0" loading="lazy">
             <span class="font-body font-light text-[18px] leading-[26px] text-dark-purple">{{ feature }}</span>
           </li>
         </ul>
-
-        <!-- Button - absolute bottom to match Card 1 -->
         <button (click)="onGetAQuote()"
-                class="absolute bottom-[24px] left-[34px] font-display font-medium text-[16px] text-black cursor-pointer transition-opacity duration-200 hover:opacity-80"
+                class="font-display font-medium text-[16px] text-black mt-auto cursor-pointer transition-opacity duration-200 hover:opacity-80"
                 style="padding: 10px 15px; border-radius: 7px; background: #FFCF25;">
           Get a quote
         </button>
       </div>
+    </ng-template>
 
+    <!-- ========== Desktop Layout (lg+) ========== -->
+    <div class="hidden lg:flex justify-center items-center gap-6">
+      <div class="w-[379px]">
+        <ng-container *ngTemplateOutlet="pricingCard1"></ng-container>
+      </div>
+      <div class="w-[418px]">
+        <ng-container *ngTemplateOutlet="pricingCard2"></ng-container>
+      </div>
+      <div class="w-[379px]">
+        <ng-container *ngTemplateOutlet="pricingCard3"></ng-container>
+      </div>
+    </div>
+
+    <!-- ========== Mobile Carousel (<lg) ========== -->
+    <div class="lg:hidden">
+      <app-mobile-carousel [totalSlides]="3" [showDots]="true" [peekPercent]="6" [initialIndex]="1">
+        <div style="width: calc(80vw); max-width: 330px;" class="mx-2 flex-shrink-0 self-stretch [&>div]:h-full">
+          <ng-container *ngTemplateOutlet="pricingCard1"></ng-container>
+        </div>
+        <div style="width: calc(80vw); max-width: 330px;" class="mx-2 flex-shrink-0 self-stretch [&>div]:h-full">
+          <ng-container *ngTemplateOutlet="pricingCard2"></ng-container>
+        </div>
+        <div style="width: calc(80vw); max-width: 330px;" class="mx-2 flex-shrink-0 self-stretch [&>div]:h-full">
+          <ng-container *ngTemplateOutlet="pricingCard3"></ng-container>
+        </div>
+      </app-mobile-carousel>
     </div>
 
   </div>

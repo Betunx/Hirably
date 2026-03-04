@@ -9,28 +9,28 @@
      - Grid: 3×2, gap ~34px
      ==================================== -->
 
-<section id="why-hirably" class="pt-[92px] pb-[44px]">
+<section id="why-hirably" class="pt-[50px] lg:pt-[92px] pb-[44px]">
   <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-[100px]">
 
     <!-- Header - Figma: centered, title 519px, subtitle 521px -->
-    <div class="text-center mb-16">
-      <h2 class="font-display font-medium text-[54px] leading-[64px] text-navy-dark mb-2 mx-auto pt-[15px] whitespace-nowrap">
+    <div class="text-center mb-8 lg:mb-16">
+      <h2 class="font-display font-medium text-[32px] md:text-[44px] lg:text-[54px] leading-[120%] lg:leading-[64px] text-navy-dark mb-2 mx-auto pt-[15px]">
         Why teams love Hirably
       </h2>
-      <p class="font-body font-light text-[20px] leading-[28px] text-dark-purple max-w-[521px] mx-auto">
+      <p class="font-body font-light text-[16px] lg:text-[20px] leading-[24px] lg:leading-[28px] text-dark-purple max-w-[521px] mx-auto">
         Most agencies charge upfront fees and lock you into contracts. We take on the risk so you don't have to.
       </p>
     </div>
 
     <!-- Benefits Grid - 6 cards (3×2) - Figma: gap ~34px -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[34px]">
+    <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-[34px]">
 
       <div *ngFor="let card of cards; let i = index; trackBy: trackByTitle"
-           class="flex flex-col justify-center items-center rounded-xl bg-white w-[391px] h-[277px]"
-           [style.border]="'3px solid ' + card.borderColor"
-           style="padding: 32px 33px 34px 33px; gap: 18px;">
+           class="flex flex-col justify-center items-center rounded-xl bg-white w-full lg:w-[391px] h-auto lg:h-[277px] p-4 lg:px-[33px] lg:pt-[32px] lg:pb-[34px] gap-3 lg:gap-[18px]"
+           [style.border]="'3px solid ' + card.borderColor">
 
-        <!-- SVG Logo - centered, unique per card -->
+        <!-- SVG Logo - centered, unique per card, scaled on mobile -->
+        <div class="w-[36px] h-[36px] lg:w-auto lg:h-auto flex items-center justify-center [&>svg]:w-full [&>svg]:h-full lg:[&>svg]:w-auto lg:[&>svg]:h-auto">
         <ng-container [ngSwitch]="i">
 
           <!-- Card 0: Lifetime Protection - Purple shield 62×68 -->
@@ -99,14 +99,15 @@
           </svg>
 
         </ng-container>
+        </div>
 
         <!-- Card Title - Figma: Poppins 24px/120% weight 500, #111F78, center -->
-        <h3 class="font-display font-medium text-[24px] leading-[120%] text-navy-dark text-center self-stretch whitespace-nowrap">
+        <h3 class="font-display font-medium text-[14px] md:text-[20px] lg:text-[24px] leading-[120%] text-navy-dark text-center self-stretch">
           {{ card.title }}
         </h3>
 
         <!-- Card Description - Figma: DM Sans 18px/26px weight 300, #201148, center -->
-        <p class="font-body font-light text-[18px] leading-[26px] text-dark-purple text-center self-stretch">
+        <p class="font-body font-light text-[12px] md:text-[16px] lg:text-[18px] leading-[18px] md:leading-[22px] lg:leading-[26px] text-dark-purple text-center self-stretch">
           {{ card.description }}
         </p>
 
