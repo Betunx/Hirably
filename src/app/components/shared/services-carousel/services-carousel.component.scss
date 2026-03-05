@@ -1,0 +1,62 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.carousel-container {
+  position: relative;
+  width: 100%;
+}
+
+.cards-stage {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  perspective: 1000px;
+}
+
+.card-wrapper {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-left: -140px; // half of card width (280px)
+  width: 280px;
+  height: 100%;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-inner {
+  width: 100%;
+  height: 100%;
+}
+
+// Arrow buttons - clean, no circle
+.arrow-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  padding: 8px;
+  color: rgba(17, 31, 120, 0.7);
+  transition: color 0.2s, transform 0.2s;
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    color: rgba(17, 31, 120, 1);
+  }
+
+  &:active {
+    transform: translateY(-50%) scale(0.9);
+  }
+}
+
+.arrow-left {
+  left: 4px;
+}
+
+.arrow-right {
+  right: 4px;
+}

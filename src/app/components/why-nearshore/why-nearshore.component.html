@@ -36,27 +36,24 @@
 
   <div class="max-w-[1200px] mx-auto px-4 relative z-10">
 
-    <!-- 3-column grid: items-end so yellow/image/green bottoms align -->
-    <div class="flex flex-col lg:flex-row gap-[40px] items-end justify-center">
+    <!-- Flex container: col on mobile, row on desktop -->
+    <div class="flex flex-col lg:flex-row gap-5 lg:gap-[40px] items-end justify-center">
 
-      <!-- LEFT: Title + Subtitle + Yellow card -->
-      <div class="flex flex-col w-full lg:w-[427px] flex-shrink-0 mb-[3px]">
+      <!-- LEFT: Title + Subtitle + Yellow card (desktop) -->
+      <div class="flex flex-col w-full lg:w-[427px] flex-shrink-0 lg:mb-[3px]">
 
-        <!-- Title - Figma: Poppins 34px/127% 400, w-450, "top companies" 500, "nearshore" #2291EA 500 -->
-        <!-- Title sits ~3-5px above image/purple top -->
-        <h2 class="font-display font-normal text-[26px] md:text-[30px] lg:text-[34px] leading-[127%] text-navy-dark max-w-[450px] mb-4">
-          Why <span class="font-medium">top companies</span> are<br>moving from offshore to<br><span
-            class="text-primary-blue font-medium">nearshore</span>.
+        <!-- Title — centered on mobile, left on desktop -->
+        <h2 class="font-display font-normal text-[26px] md:text-[30px] lg:text-[34px] leading-[127%] text-navy-dark max-w-full lg:max-w-[450px] mb-3 lg:mb-4 text-center lg:text-left">
+          Why <span class="font-medium">top companies</span> are <br class="hidden lg:block">moving from <br class="lg:hidden">offshore to <br class="hidden lg:block"><span class="text-primary-blue font-medium">nearshore</span>.
         </h2>
 
-        <!-- Subtitle -->
-        <p class="font-body font-normal text-[18px] leading-[27px] text-navy-dark mb-4">
-          Stop working the night shift to manage your team. Mexico offers the talent you need, in the time zone you live
-          in.
+        <!-- Subtitle — centered on mobile, left on desktop -->
+        <p class="font-body font-normal text-[16px] lg:text-[18px] leading-[25px] lg:leading-[27px] text-navy-dark mb-4 text-center lg:text-left">
+          Stop working the night shift to manage your team.<br>Mexico offers the talent you need, in the time zone you live in.
         </p>
 
-        <!-- Yellow card: No More Async (427×199) -->
-        <div class="w-full h-auto lg:h-[199px] p-8 flex flex-col justify-center"
+        <!-- Yellow card: desktop only -->
+        <div class="hidden lg:flex w-full h-auto lg:h-[199px] p-8 flex-col justify-center"
           style="border-radius: 8px 8px 50px 8px; background: #FFCF25;">
           <h3 class="font-body font-semibold text-[20px] leading-[28px] text-navy-dark mb-2">
             {{ benefits[0].title }}
@@ -68,16 +65,64 @@
 
       </div>
 
-      <!-- CENTER: Handshake image (298×446) -->
-      <div class="w-full max-w-[298px] mx-auto lg:mx-0 h-auto lg:h-[446px] rounded-[12px] overflow-hidden flex-shrink-0 lg:translate-y-[2px] order-first lg:order-none">
+      <!-- MOBILE ONLY: imagen izquierda + 3 tarjetas apiladas derecha -->
+      <div class="lg:hidden w-full flex flex-row gap-2">
+
+        <!-- Imagen: col izquierda, altura = suma de las 3 tarjetas -->
+        <div class="w-1/2 rounded-xl overflow-hidden">
+          <img src="assets/img/manos.png" alt="Professional handshake" class="w-full h-full object-cover" loading="lazy">
+        </div>
+
+        <!-- Col derecha: 3 tarjetas apiladas -->
+        <div class="w-1/2 flex flex-col gap-2">
+
+          <!-- Yellow -->
+          <div class="flex-1 p-3 flex flex-col justify-center"
+            style="border-radius: 8px 8px 20px 8px; background: #FFCF25;">
+            <h3 class="font-body font-semibold text-[12px] leading-[17px] text-navy-dark mb-0.5">
+              {{ benefits[0].title }}
+            </h3>
+            <p class="font-body font-light text-[10px] leading-[14px] text-navy-dark">
+              {{ benefits[0].description }}
+            </p>
+          </div>
+
+          <!-- Purple -->
+          <div class="flex-1 p-3 flex flex-col justify-center"
+            style="border-radius: 8px 8px 8px 20px; background: #6C59D8;">
+            <h3 class="font-body font-semibold text-[12px] leading-[17px] text-white mb-0.5">
+              {{ benefits[1].title }}
+            </h3>
+            <p class="font-body font-light text-[10px] leading-[14px] text-white">
+              {{ benefits[1].description }}
+            </p>
+          </div>
+
+          <!-- Green -->
+          <div class="flex-1 p-3 flex flex-col justify-center"
+            style="border-radius: 8px 20px 8px 8px; background: #10B981;">
+            <h3 class="font-body font-semibold text-[12px] leading-[17px] text-white mb-0.5">
+              {{ benefits[2].title }}
+            </h3>
+            <p class="font-body font-light text-[10px] leading-[14px] text-white">
+              {{ benefits[2].description }}
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- CENTER: Handshake image — desktop only -->
+      <div class="hidden lg:block w-full lg:max-w-none lg:w-auto lg:h-[446px] rounded-[12px] overflow-hidden flex-shrink-0 lg:translate-y-[2px]">
         <img src="assets/img/manos.png" alt="Professional handshake" class="w-full h-full object-cover" loading="lazy">
       </div>
 
-      <!-- RIGHT: Purple + Green cards (h-[446px] to match image, justify-between so tops/bottoms align) -->
-      <div class="flex flex-col justify-between w-full lg:w-[427px] h-auto lg:h-[446px] gap-4 lg:gap-0 flex-shrink-0 lg:translate-y-[2px]">
+      <!-- RIGHT: Purple + Green cards — desktop only -->
+      <div class="hidden lg:flex flex-col justify-between w-full lg:w-[427px] lg:h-[446px] gap-0 flex-shrink-0 lg:translate-y-[2px]">
 
-        <!-- Purple card: Culture (427×204) — top aligns with image top -->
-        <div class="w-full h-auto lg:h-[204px] p-8 flex flex-col justify-center"
+        <!-- Purple card: Culture -->
+        <div class="w-full lg:h-[204px] p-8 flex flex-col justify-center"
           style="border-radius: 8px 8px 8px 50px; background: #6C59D8;">
           <h3 class="font-body font-semibold text-[20px] leading-[28px] text-white mb-2">
             {{ benefits[1].title }}
@@ -87,8 +132,8 @@
           </p>
         </div>
 
-        <!-- Green card: Senior Talent (427×200) — bottom aligns with image bottom -->
-        <div class="w-full h-auto lg:h-[200px] p-8 flex flex-col justify-center"
+        <!-- Green card: Senior Talent -->
+        <div class="w-full lg:h-[200px] p-8 flex flex-col justify-center"
           style="border-radius: 8px 50px 8px 8px; background: #10B981;">
           <h3 class="font-body font-semibold text-[20px] leading-[28px] text-white mb-2">
             {{ benefits[2].title }}

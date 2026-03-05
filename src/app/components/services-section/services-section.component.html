@@ -106,22 +106,25 @@
     </div>
   </div>
 
-  <!-- ── Mobile Layout (<lg): Swipe Carousel ── -->
+  <!-- ── Mobile Layout (<lg): 3D Perspective Carousel ── -->
   <div class="lg:hidden relative z-10 px-4 pt-6 pb-16">
-    <app-mobile-carousel [totalSlides]="3" [showDots]="false" [peekPercent]="8">
-      <div class="flex-shrink-0 flex flex-col items-start gap-[15px] pt-[35px] px-[24px] pb-[30px] bg-cream-light box-border mx-2"
-        style="border-radius: 15px 110px 15px 15px; width: calc(84vw); max-width: 300px;">
+    <app-services-carousel [totalSlides]="3" [initialIndex]="1">
+      <div slot="card-0"
+        class="flex flex-col items-start gap-[15px] pt-[35px] px-[24px] pb-[30px] bg-cream-light box-border h-full"
+        style="border-radius: 15px 110px 15px 15px;">
         <ng-container *ngTemplateOutlet="card1"></ng-container>
       </div>
-      <div class="flex-shrink-0 flex flex-col items-start gap-[15px] pt-[35px] px-[24px] pb-[30px] bg-lavender box-border mx-2"
-        style="border-radius: 15px 110px 15px 15px; width: calc(84vw); max-width: 300px;">
+      <div slot="card-1"
+        class="flex flex-col items-start gap-[15px] pt-[35px] px-[24px] pb-[30px] bg-lavender box-border h-full"
+        style="border-radius: 15px 110px 15px 15px;">
         <ng-container *ngTemplateOutlet="card2"></ng-container>
       </div>
-      <div class="flex-shrink-0 flex flex-col items-start gap-[15px] pt-[35px] px-[24px] pb-[30px] bg-mint-green box-border mx-2"
-        style="border-radius: 15px 110px 15px 15px; width: calc(84vw); max-width: 300px;">
+      <div slot="card-2"
+        class="flex flex-col items-start gap-[15px] pt-[35px] px-[24px] pb-[30px] bg-mint-green box-border h-full"
+        style="border-radius: 15px 110px 15px 15px;">
         <ng-container *ngTemplateOutlet="card3"></ng-container>
       </div>
-    </app-mobile-carousel>
+    </app-services-carousel>
   </div>
 
 </section>

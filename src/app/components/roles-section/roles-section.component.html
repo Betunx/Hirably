@@ -19,20 +19,21 @@
     <div class="flex flex-col min-[1400px]:grid min-[1400px]:grid-cols-[1fr_minmax(0,664px)] gap-8 min-[1400px]:gap-12 items-start">
 
       <!-- Left Column: Title + Subtitle + Accordion -->
-      <div class="order-1 min-[1400px]:order-none">
+      <!-- max-w constrains content at intermediate widths (1024–1400px) where layout is still single-col -->
+      <div class="order-1 min-[1400px]:order-none max-w-[650px] min-[1400px]:max-w-none mx-auto min-[1400px]:mx-0">
 
         <!-- Mobile Image: visible below 1400px -->
         <div class="flex min-[1400px]:hidden items-center justify-center mb-8">
           <img src="assets/img/man2.png" alt="World-class talent" class="h-auto max-h-[300px] object-contain" loading="lazy">
         </div>
 
-        <!-- Header - Figma: Poppins 50px/120%, #111f78, full column width -->
-        <h2 class="font-display text-[32px] md:text-[40px] min-[1400px]:text-[50px] leading-[120%] text-navy-dark mb-4">
+        <!-- Header — centered on mobile, left on desktop -->
+        <h2 class="font-display text-[32px] md:text-[40px] min-[1400px]:text-[50px] leading-[120%] text-navy-dark mb-3 min-[1400px]:mb-4 text-center min-[1400px]:text-left">
           <span class="font-medium">World-Class Talent</span><br>
           <span class="font-normal">Across All Functions</span>
         </h2>
-        <!-- Subtitle - Figma: DM Sans 20px/28px weight 300, #201148, full column width -->
-        <p class="font-body font-light text-[18px] min-[1400px]:text-[20px] leading-[28px] text-dark-purple mb-10">
+        <!-- Subtitle — centered on mobile, left on desktop -->
+        <p class="font-body font-light text-[16px] min-[1400px]:text-[20px] leading-[28px] text-dark-purple mb-5 min-[1400px]:mb-10 text-center min-[1400px]:text-left">
           Each role supported by an industry-specialist recruiter.
         </p>
 
@@ -42,28 +43,28 @@
           <div *ngIf="first" class="h-px bg-primary-blue w-full"></div>
 
           <!-- Category row -->
-          <div class="py-[13px]">
+          <div class="py-[9px] min-[1400px]:py-[13px]">
             <button (click)="toggleAccordion(category.id)" class="w-full flex items-center justify-between text-left">
-              <!-- Category title - Figma: Poppins 24px/120% weight 500, #2291ea -->
-              <span class="font-display font-medium text-[20px] min-[1400px]:text-[24px] leading-[120%] text-primary-blue">{{ category.title }}</span>
-              <!-- "+" icon - Figma: 17×17 SVG cross, stroke #2291EA width 3 -->
+              <!-- Category title -->
+              <span class="font-display font-medium text-[16px] min-[1400px]:text-[24px] leading-[120%] text-primary-blue">{{ category.title }}</span>
+              <!-- "+" icon -->
               <svg class="flex-shrink-0 transition-transform duration-300"
-                [class.rotate-45]="expandedSection === category.id" width="17" height="17" viewBox="0 0 17 17"
+                [class.rotate-45]="expandedSection === category.id" width="14" height="14" viewBox="0 0 17 17"
                 fill="none" xmlns="http://www.w3.org/2000/svg">
                 <line x1="8.5" y1="0" x2="8.5" y2="17" stroke="#2291EA" stroke-width="3" />
                 <line x1="17" y1="8.5" x2="0" y2="8.5" stroke="#2291EA" stroke-width="3" />
               </svg>
             </button>
 
-            <!-- Expanded roles - Figma: flex wrap, gap 10px, tags with light-sky border -->
+            <!-- Expanded roles -->
             <div class="overflow-hidden transition-all duration-300 ease-in-out"
               [class.max-h-0]="expandedSection !== category.id" [class.max-h-96]="expandedSection === category.id"
               [class.opacity-0]="expandedSection !== category.id"
               [class.opacity-100]="expandedSection === category.id">
-              <div class="pt-3 pb-1">
-                <div class="flex flex-wrap gap-[10px]">
+              <div class="pt-2 pb-1">
+                <div class="flex flex-wrap gap-[7px] min-[1400px]:gap-[10px]">
                   <span *ngFor="let role of category.roles"
-                    class="px-[12px] min-[1400px]:px-[17px] py-[7px] min-[1400px]:py-[9px] bg-white border border-light-sky rounded-lg font-body font-normal text-[14px] min-[1400px]:text-[16px] text-carbon-black">
+                    class="px-[10px] min-[1400px]:px-[17px] py-[5px] min-[1400px]:py-[9px] bg-white border border-light-sky rounded-lg font-body font-normal text-[12px] min-[1400px]:text-[16px] text-carbon-black">
                     {{ role }}
                   </span>
                 </div>

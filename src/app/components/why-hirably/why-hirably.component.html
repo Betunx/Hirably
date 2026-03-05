@@ -23,10 +23,11 @@
     </div>
 
     <!-- Benefits Grid - 6 cards (3×2) - Figma: gap ~34px -->
-    <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-[34px]">
+    <!-- 3 cols only at ≥1400px: below that, 391px cards overflow the container -->
+    <div class="grid grid-cols-2 min-[1400px]:grid-cols-3 gap-3 min-[1400px]:gap-[34px]">
 
       <div *ngFor="let card of cards; let i = index; trackBy: trackByTitle"
-           class="flex flex-col justify-center items-center rounded-xl bg-white w-full lg:w-[391px] h-auto lg:h-[277px] p-4 lg:px-[33px] lg:pt-[32px] lg:pb-[34px] gap-3 lg:gap-[18px]"
+           class="flex flex-col justify-center items-center rounded-xl bg-white w-full h-auto min-[1400px]:h-[277px] p-5 min-[1400px]:px-[33px] min-[1400px]:pt-[32px] min-[1400px]:pb-[34px] gap-3 min-[1400px]:gap-[18px]"
            [style.border]="'3px solid ' + card.borderColor">
 
         <!-- SVG Logo - centered, unique per card, scaled on mobile -->
