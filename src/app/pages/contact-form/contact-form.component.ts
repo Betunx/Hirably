@@ -140,6 +140,18 @@ const TIMELINES: SelectOption[] = [
   { value: '6months', label: '3–6 months' },
 ];
 
+// ── Unified SALES fields — shared by start-hiring, eor-services, get-a-quote ─
+
+const SALES_FIELDS: FormFieldDef[] = [
+  { key: 'fullName',  label: 'Full Name',              type: 'text',     placeholder: 'Jane Smith',                                     required: true,  colSpan: 1 },
+  { key: 'company',   label: 'Company Name',           type: 'text',     placeholder: 'Acme Corp',                                      required: true,  colSpan: 1 },
+  { key: 'email',     label: 'Work Email',             type: 'email',    placeholder: 'jane@acme.com',                                  required: true,  colSpan: 1 },
+  { key: 'phone',     label: 'Phone Number',           type: 'tel',      placeholder: '+1 (555) 000-0000',                              required: false, colSpan: 1 },
+  { key: 'positions', label: 'How many people to hire?', type: 'select', options: POSITION_COUNTS,                                      required: true,  colSpan: 1 },
+  { key: 'timeline',  label: 'Timeline',               type: 'select',   options: TIMELINES,                                            required: true,  colSpan: 1 },
+  { key: 'details',   label: 'Tell us about your needs', type: 'textarea', placeholder: 'Role, skills, current setup, or anything else…', required: true,  colSpan: 2, rows: 5 },
+];
+
 // ── Static config map — one entry per form type ──────────────────────────────
 
 const FORM_CONFIGS: Record<ContactFormType, ContactFormConfig> = {
@@ -165,7 +177,7 @@ const FORM_CONFIGS: Record<ContactFormType, ContactFormConfig> = {
         { text: 'Learn about our process and timelines' },
         { text: 'Receive a tailored recommendation' },
       ],
-      imageSrc: 'assets/img/talentman.png',
+      imageSrc: 'assets/img/handshake.jpg',
       imageAlt: 'Schedule a consultation',
     },
     right: {
@@ -206,22 +218,14 @@ const FORM_CONFIGS: Record<ContactFormType, ContactFormConfig> = {
         { text: 'Average hire in 20 business days' },
         { text: '$0 upfront fees, pay only on success' },
       ],
-      imageSrc: 'assets/img/bigtalentman.png',
+      imageSrc: 'assets/img/hire.jpg',
       imageAlt: 'Start hiring talent in Mexico',
     },
     right: {
       formTitle: 'Staffing Request',
       formSubtitle: "Share your requirements and we'll send you matching profiles within 72 hours.",
       submitLabel: 'Submit Request',
-      fields: [
-        { key: 'fullName',      label: 'Full Name',               type: 'text',     placeholder: 'Jane Smith',                                        required: true,  colSpan: 1 },
-        { key: 'company',       label: 'Company Name',            type: 'text',     placeholder: 'Acme Corp',                                         required: true,  colSpan: 1 },
-        { key: 'email',         label: 'Email Address',           type: 'email',    placeholder: 'jane@acme.com',                                     required: true,  colSpan: 1 },
-        { key: 'phone',         label: 'Phone Number',            type: 'tel',      placeholder: '+1 (555) 000-0000',                                 required: false, colSpan: 1 },
-        { key: 'industry',      label: 'Industry / Sector',       type: 'select',   options: INDUSTRIES,                                              required: true,  colSpan: 1 },
-        { key: 'positions',     label: 'Number of Positions',     type: 'select',   options: POSITION_COUNTS,                                         required: true,  colSpan: 1 },
-        { key: 'requirements',  label: 'Job Role & Requirements', type: 'textarea', placeholder: 'Describe the role, skills, and experience needed…', required: true,  colSpan: 2, rows: 5 },
-      ],
+      fields: SALES_FIELDS,
     },
   },
 
@@ -246,23 +250,14 @@ const FORM_CONFIGS: Record<ContactFormType, ContactFormConfig> = {
         { text: 'Payroll processed on time, every time' },
         { text: 'Dedicated HR support included' },
       ],
-      imageSrc: 'assets/img/dash.jpg',
+      imageSrc: 'assets/img/eor-service.jpg',
       imageAlt: 'EOR compliance services',
     },
     right: {
       formTitle: 'EOR Inquiry',
       formSubtitle: "Tell us about your current situation and we'll show you how EOR simplifies it.",
       submitLabel: 'Submit Inquiry',
-      fields: [
-        { key: 'fullName',      label: 'Full Name',              type: 'text',     placeholder: 'Jane Smith',           required: true,  colSpan: 1 },
-        { key: 'company',       label: 'Company Name',           type: 'text',     placeholder: 'Acme Corp',            required: true,  colSpan: 1 },
-        { key: 'email',         label: 'Email Address',          type: 'email',    placeholder: 'jane@acme.com',        required: true,  colSpan: 1 },
-        { key: 'phone',         label: 'Phone Number',           type: 'tel',      placeholder: '+1 (555) 000-0000',    required: false, colSpan: 1 },
-        { key: 'country',       label: 'Country / Region',       type: 'select',   options: COUNTRIES,                  required: true,  colSpan: 1 },
-        { key: 'employeeCount', label: 'Number of Employees',    type: 'select',   options: EMPLOYEE_COUNTS,            required: true,  colSpan: 1 },
-        { key: 'payrollSetup',  label: 'Current Payroll Setup',  type: 'select',   options: PAYROLL_SETUPS,             required: false, colSpan: 2 },
-        { key: 'requirements',  label: 'Requirements & Details', type: 'textarea', placeholder: 'Describe your needs…', required: true,  colSpan: 2, rows: 4 },
-      ],
+      fields: SALES_FIELDS,
     },
   },
 
@@ -287,23 +282,14 @@ const FORM_CONFIGS: Record<ContactFormType, ContactFormConfig> = {
         { text: 'No hidden fees or surprise costs' },
         { text: 'Quote delivered within 1 business day' },
       ],
-      imageSrc: 'assets/img/layerdash.png',
+      imageSrc: 'assets/img/question.jpg',
       imageAlt: 'Request a custom quote',
     },
     right: {
       formTitle: 'Request a Quote',
       formSubtitle: "Give us a few details and we'll send you a tailored proposal.",
       submitLabel: 'Request Quote',
-      fields: [
-        { key: 'fullName',  label: 'Full Name',              type: 'text',     placeholder: 'Jane Smith',                                        required: true,  colSpan: 1 },
-        { key: 'company',   label: 'Company Name',           type: 'text',     placeholder: 'Acme Corp',                                         required: true,  colSpan: 1 },
-        { key: 'email',     label: 'Email Address',          type: 'email',    placeholder: 'jane@acme.com',                                     required: true,  colSpan: 1 },
-        { key: 'phone',     label: 'Phone Number',           type: 'tel',      placeholder: '+1 (555) 000-0000',                                 required: false, colSpan: 1 },
-        { key: 'service',   label: 'Service Interested In',  type: 'select',   options: SERVICES,                                                required: true,  colSpan: 1 },
-        { key: 'teamSize',  label: 'Team Size',              type: 'select',   options: TEAM_SIZES,                                              required: true,  colSpan: 1 },
-        { key: 'timeline',  label: 'Timeline',               type: 'select',   options: TIMELINES,                                               required: false, colSpan: 2 },
-        { key: 'details',   label: 'Project Details',        type: 'textarea', placeholder: "Tell us more about what you're looking to build…", required: true,  colSpan: 2, rows: 5 },
-      ],
+      fields: SALES_FIELDS,
     },
   },
 
