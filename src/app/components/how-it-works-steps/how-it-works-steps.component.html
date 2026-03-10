@@ -132,18 +132,18 @@
             </svg>
           </div>
 
-          <!-- Dashed connector: MOBILE — L-shape with rounded corners
-               Coordinates in viewBox 0-300 (scales with container via preserveAspectRatio="none")
-               Card centers at ~400px: card01=x134, card02=x150, card03=x166 -->
+          <!-- Dashed connector: MOBILE — exits bottom-center of card N, arrives at left-center of card N+1
+               Viewbox 0-300 at ~400px: card01_center=134, card02_left=16, card02_center=150, card03_left=32
+               Both connectors identical in shape (same deltaX=118, same curve proportions) -->
           <div *ngIf="!last" class="lg:hidden w-full h-[60px] -my-1">
-            <!-- Connector 01 → 02: center of card 01 (x=134) → center of card 02 (x=150) -->
+            <!-- 01→02: bottom-center of card01 (134,0) → left edge of card02 (16,60) via midpoint (75,40) -->
             <svg *ngIf="i === 0" width="100%" height="60" viewBox="0 0 300 60" fill="none" preserveAspectRatio="none">
-              <path d="M134 0 V20 Q134 30 142 30 H142 Q150 30 150 40 V60"
+              <path d="M134 0 V20 Q134 40 75 40 Q16 40 16 60"
                     stroke="#111F78" stroke-width="2" stroke-dasharray="4 6" fill="none"/>
             </svg>
-            <!-- Connector 02 → 03: center of card 02 (x=150) → center of card 03 (x=166) -->
+            <!-- 02→03: bottom-center of card02 (150,0) → left edge of card03 (32,60) via midpoint (91,40) -->
             <svg *ngIf="i === 1" width="100%" height="60" viewBox="0 0 300 60" fill="none" preserveAspectRatio="none">
-              <path d="M150 0 V20 Q150 30 158 30 H158 Q166 30 166 40 V60"
+              <path d="M150 0 V20 Q150 40 91 40 Q32 40 32 60"
                     stroke="#111F78" stroke-width="2" stroke-dasharray="4 6" fill="none"/>
             </svg>
           </div>
