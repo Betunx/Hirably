@@ -6,7 +6,7 @@
 /* Global styles using Tailwind's @layer */
 @layer base {
   html {
-    @apply scroll-smooth;
+    @apply scroll-smooth overflow-x-hidden;
     height: 100%;
   }
 
