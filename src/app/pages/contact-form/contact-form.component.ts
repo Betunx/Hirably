@@ -10,9 +10,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import getCalApi from '@calcom/embed-snippet';
 
 // ── Replace with your Formspree form endpoint once created at formspree.io ──
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/REPLACE_WITH_YOUR_ID';
+
+// ── Cal.com: replace with your actual username/event-slug ─────────────────
+// Example: 'john-doe/discovery-call'
+const CAL_LINK = 'REPLACE_WITH_YOUR_CAL_LINK';
+const CAL_BRAND_COLOR = '#FFCF25'; // matches book-a-call theme
 
 export type ContactFormType = 'book-a-call' | 'start-hiring' | 'eor-services' | 'get-a-quote';
 const VALID_TYPES: ContactFormType[] = ['book-a-call', 'start-hiring', 'eor-services', 'get-a-quote'];
@@ -182,18 +188,9 @@ const FORM_CONFIGS: Record<ContactFormType, ContactFormConfig> = {
     },
     right: {
       formTitle: 'Schedule Your Call',
-      formSubtitle: "Fill in your details and we'll confirm your slot within 24 hours.",
+      formSubtitle: 'Pick a date and time that works for you.',
       submitLabel: 'Book My Call',
-      fields: [
-        { key: 'fullName',  label: 'Full Name',            type: 'text',     placeholder: 'Jane Smith',               required: true,  colSpan: 1 },
-        { key: 'company',   label: 'Company Name',         type: 'text',     placeholder: 'Acme Corp',                required: false, colSpan: 1 },
-        { key: 'email',     label: 'Email Address',        type: 'email',    placeholder: 'jane@acme.com',            required: true,  colSpan: 1 },
-        { key: 'phone',     label: 'Phone Number',         type: 'tel',      placeholder: '+1 (555) 000-0000',        required: true,  colSpan: 1 },
-        { key: 'date',      label: 'Preferred Date',       type: 'date',                                              required: true,  colSpan: 1 },
-        { key: 'timeSlot',  label: 'Preferred Time Slot',  type: 'select',   options: TIME_SLOTS,                     required: true,  colSpan: 1 },
-        { key: 'topic',     label: 'Topic of Discussion',  type: 'select',   options: TOPICS,                         required: false, colSpan: 2 },
-        { key: 'notes',     label: 'Additional Notes',     type: 'textarea', placeholder: "Anything specific you'd like to discuss? Let us know so we can prepare…", required: false, rows: 4, colSpan: 2 },
-      ],
+      fields: [],
     },
   },
 
@@ -310,7 +307,12 @@ export class ContactFormComponent implements OnInit, OnDestroy {
   submitted = false;
   submitError = false;
 
+  get isBookACall(): boolean {
+    return this.config?.type === 'book-a-call';
+  }
+
   private readonly destroy$ = new Subject<void>();
+  private calInitialized = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -330,12 +332,40 @@ export class ContactFormComponent implements OnInit, OnDestroy {
           return;
         }
         this.config = FORM_CONFIGS[type];
+        this.calInitialized = false;
         this.buildForm();
         this.submitted = false;
         this.submitting = false;
         this.submitError = false;
         this.cdr.markForCheck();
+
+        if (type === 'book-a-call') {
+          // Wait one tick for Angular to render the #my-cal-inline div
+          setTimeout(() => this.initCal(), 0);
+        }
       });
+  }
+
+  private async initCal(): Promise<void> {
+    if (this.calInitialized) return;
+    this.calInitialized = true;
+
+    const cal = await getCalApi();
+
+    cal('inline', {
+      elementOrSelector: '#my-cal-inline',
+      calLink: CAL_LINK,
+    });
+
+    cal('ui', {
+      theme: 'light',
+      cssVarsPerTheme: {
+        light: { 'cal-brand': CAL_BRAND_COLOR },
+        dark:  { 'cal-brand': CAL_BRAND_COLOR },
+      },
+      hideEventTypeDetails: false,
+      layout: 'month_view',
+    });
   }
 
   ngOnDestroy(): void {

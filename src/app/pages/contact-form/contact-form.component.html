@@ -97,114 +97,131 @@
         <!-- Accent top bar — color changes per theme -->
         <div class="h-[5px] w-full" [style.background]="config.theme.accentHex"></div>
 
-        <!-- Card body -->
-        <div class="p-6 sm:p-8 lg:p-9">
-
-          <h2 class="font-display font-semibold text-[20px] text-navy-dark mb-1">
-            {{ config.right.formTitle }}
-          </h2>
-          <p class="font-body text-[13px] text-dark-purple/60 mb-7">
-            {{ config.right.formSubtitle }}
-          </p>
-
-          <!-- Error banner -->
-          <div *ngIf="submitError"
-            class="mb-5 px-4 py-3 rounded-lg bg-red-50 border border-red-200 font-body text-[13px] text-red-600">
-            Something went wrong. Please try again or email us at
-            <a href="mailto:info&#64;hirably.com" class="underline">info&#64;hirably.com</a>.
+        <!-- ── BOOK A CALL: Cal.com inline embed ───────────────────────── -->
+        <ng-container *ngIf="isBookACall">
+          <div class="px-6 pt-6 sm:px-8 sm:pt-8 pb-2">
+            <h2 class="font-display font-semibold text-[20px] text-navy-dark mb-1">
+              {{ config.right.formTitle }}
+            </h2>
+            <p class="font-body text-[13px] text-dark-purple/60">
+              {{ config.right.formSubtitle }}
+            </p>
           </div>
+          <!-- Cal.com mounts here -->
+          <div id="my-cal-inline" style="width:100%; min-height:600px; overflow:scroll;"></div>
+        </ng-container>
 
-          <!-- Reactive form — 2-column responsive grid -->
-          <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate
-            class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-4">
+        <!-- ── SALES FORMS: Formspree reactive form ────────────────────── -->
+        <ng-container *ngIf="!isBookACall">
+          <div class="p-6 sm:p-8 lg:p-9">
 
-            <ng-container *ngFor="let field of config.right.fields; trackBy: trackByKey">
-              <div class="flex flex-col gap-1.5"
-                [ngClass]="field.colSpan === 1 ? 'sm:col-span-1' : 'sm:col-span-2'">
+            <h2 class="font-display font-semibold text-[20px] text-navy-dark mb-1">
+              {{ config.right.formTitle }}
+            </h2>
+            <p class="font-body text-[13px] text-dark-purple/60 mb-7">
+              {{ config.right.formSubtitle }}
+            </p>
 
-                <!-- Label -->
-                <label [for]="field.key"
-                  class="font-display font-medium text-[13px] leading-none text-carbon-black flex items-center gap-1.5">
-                  {{ field.label }}
-                  <span *ngIf="field.required" class="text-red-400 text-[13px]">*</span>
-                </label>
-
-                <!-- text / email / tel / date -->
-                <input
-                  *ngIf="field.type !== 'select' && field.type !== 'textarea'"
-                  [id]="field.key"
-                  [type]="field.type"
-                  [formControlName]="field.key"
-                  [placeholder]="field.placeholder ?? ''"
-                  class="w-full h-9 px-3 py-1 rounded-md border font-body text-[14px] text-carbon-black bg-white outline-none transition-colors duration-150"
-                  [ngClass]="{
-                    'border-gray-neutral': !isInvalid(field.key),
-                    'border-red-400 bg-red-50': isInvalid(field.key)
-                  }" />
-
-                <!-- select -->
-                <select
-                  *ngIf="field.type === 'select'"
-                  [id]="field.key"
-                  [formControlName]="field.key"
-                  class="w-full h-9 px-3 py-1 rounded-md border font-body text-[14px] text-carbon-black bg-white outline-none transition-colors duration-150 cursor-pointer appearance-none"
-                  [ngClass]="{
-                    'border-gray-neutral': !isInvalid(field.key),
-                    'border-red-400 bg-red-50': isInvalid(field.key)
-                  }">
-                  <option value="" disabled>Select an option</option>
-                  <option *ngFor="let opt of (field.options ?? [])" [value]="opt.value">{{ opt.label }}</option>
-                </select>
-
-                <!-- textarea -->
-                <textarea
-                  *ngIf="field.type === 'textarea'"
-                  [id]="field.key"
-                  [formControlName]="field.key"
-                  [placeholder]="field.placeholder ?? ''"
-                  [rows]="field.rows ?? 4"
-                  class="w-full px-3 py-2 rounded-md border font-body text-[14px] text-carbon-black bg-white outline-none transition-colors duration-150 resize-none"
-                  [ngClass]="{
-                    'border-gray-neutral': !isInvalid(field.key),
-                    'border-red-400 bg-red-50': isInvalid(field.key)
-                  }">
-                </textarea>
-
-                <!-- Validation message -->
-                <span *ngIf="isInvalid(field.key)" class="font-body text-[11px] text-red-400">
-                  {{ field.label }} is required.
-                </span>
-
-              </div>
-            </ng-container>
-
-            <!-- Submit button — full width, spans both columns -->
-            <div class="sm:col-span-2 mt-1">
-              <button
-                type="submit"
-                [disabled]="submitting"
-                [style.background]="config.theme.submitBg"
-                [style.color]="config.theme.submitText"
-                class="w-full h-12 rounded-md font-display font-medium text-[15px] transition-all duration-200 shadow-sm cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 hover:opacity-90">
-                <!-- Send icon -->
-                <svg *ngIf="!submitting" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                  stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"></path>
-                  <path d="m21.854 2.147-10.94 10.939"></path>
-                </svg>
-                <!-- Spinner while submitting -->
-                <svg *ngIf="submitting" class="animate-spin" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="12" cy="12" r="10" stroke-opacity="0.25" />
-                  <path d="M12 2a10 10 0 0 1 10 10" />
-                </svg>
-                {{ submitting ? 'Sending…' : config.right.submitLabel }}
-              </button>
+            <!-- Error banner -->
+            <div *ngIf="submitError"
+              class="mb-5 px-4 py-3 rounded-lg bg-red-50 border border-red-200 font-body text-[13px] text-red-600">
+              Something went wrong. Please try again or email us at
+              <a href="mailto:info&#64;hirably.com" class="underline">info&#64;hirably.com</a>.
             </div>
 
-          </form>
-        </div>
+            <!-- Reactive form — 2-column responsive grid -->
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate
+              class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-4">
+
+              <ng-container *ngFor="let field of config.right.fields; trackBy: trackByKey">
+                <div class="flex flex-col gap-1.5"
+                  [ngClass]="field.colSpan === 1 ? 'sm:col-span-1' : 'sm:col-span-2'">
+
+                  <!-- Label -->
+                  <label [for]="field.key"
+                    class="font-display font-medium text-[13px] leading-none text-carbon-black flex items-center gap-1.5">
+                    {{ field.label }}
+                    <span *ngIf="field.required" class="text-red-400 text-[13px]">*</span>
+                  </label>
+
+                  <!-- text / email / tel / date -->
+                  <input
+                    *ngIf="field.type !== 'select' && field.type !== 'textarea'"
+                    [id]="field.key"
+                    [type]="field.type"
+                    [formControlName]="field.key"
+                    [placeholder]="field.placeholder ?? ''"
+                    class="w-full h-9 px-3 py-1 rounded-md border font-body text-[14px] text-carbon-black bg-white outline-none transition-colors duration-150"
+                    [ngClass]="{
+                      'border-gray-neutral': !isInvalid(field.key),
+                      'border-red-400 bg-red-50': isInvalid(field.key)
+                    }" />
+
+                  <!-- select -->
+                  <select
+                    *ngIf="field.type === 'select'"
+                    [id]="field.key"
+                    [formControlName]="field.key"
+                    class="w-full h-9 px-3 py-1 rounded-md border font-body text-[14px] text-carbon-black bg-white outline-none transition-colors duration-150 cursor-pointer appearance-none"
+                    [ngClass]="{
+                      'border-gray-neutral': !isInvalid(field.key),
+                      'border-red-400 bg-red-50': isInvalid(field.key)
+                    }">
+                    <option value="" disabled>Select an option</option>
+                    <option *ngFor="let opt of (field.options ?? [])" [value]="opt.value">{{ opt.label }}</option>
+                  </select>
+
+                  <!-- textarea -->
+                  <textarea
+                    *ngIf="field.type === 'textarea'"
+                    [id]="field.key"
+                    [formControlName]="field.key"
+                    [placeholder]="field.placeholder ?? ''"
+                    [rows]="field.rows ?? 4"
+                    class="w-full px-3 py-2 rounded-md border font-body text-[14px] text-carbon-black bg-white outline-none transition-colors duration-150 resize-none"
+                    [ngClass]="{
+                      'border-gray-neutral': !isInvalid(field.key),
+                      'border-red-400 bg-red-50': isInvalid(field.key)
+                    }">
+                  </textarea>
+
+                  <!-- Validation message -->
+                  <span *ngIf="isInvalid(field.key)" class="font-body text-[11px] text-red-400">
+                    {{ field.label }} is required.
+                  </span>
+
+                </div>
+              </ng-container>
+
+              <!-- Submit button — full width, spans both columns -->
+              <div class="sm:col-span-2 mt-1">
+                <button
+                  type="submit"
+                  [disabled]="submitting"
+                  [style.background]="config.theme.submitBg"
+                  [style.color]="config.theme.submitText"
+                  class="w-full h-12 rounded-md font-display font-medium text-[15px] transition-all duration-200 shadow-sm cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 hover:opacity-90">
+                  <!-- Send icon -->
+                  <svg *ngIf="!submitting" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"></path>
+                    <path d="m21.854 2.147-10.94 10.939"></path>
+                  </svg>
+                  <!-- Spinner while submitting -->
+                  <svg *ngIf="submitting" class="animate-spin" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" stroke-opacity="0.25" />
+                    <path d="M12 2a10 10 0 0 1 10 10" />
+                  </svg>
+                  {{ submitting ? 'Sending…' : config.right.submitLabel }}
+                </button>
+              </div>
+
+            </form>
+          </div>
+        </ng-container>
+
       </div>
 
     </div>
