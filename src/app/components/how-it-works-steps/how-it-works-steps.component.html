@@ -132,16 +132,18 @@
             </svg>
           </div>
 
-          <!-- Dashed connector: MOBILE — L-shape with rounded corners (Figma style) -->
+          <!-- Dashed connector: MOBILE — L-shape with rounded corners
+               Coordinates in viewBox 0-300 (scales with container via preserveAspectRatio="none")
+               Card centers at ~400px: card01=x134, card02=x150, card03=x166 -->
           <div *ngIf="!last" class="lg:hidden w-full h-[60px] -my-1">
-            <!-- Connector 01 → 02: left card down-right to center -->
+            <!-- Connector 01 → 02: center of card 01 (x=134) → center of card 02 (x=150) -->
             <svg *ngIf="i === 0" width="100%" height="60" viewBox="0 0 300 60" fill="none" preserveAspectRatio="none">
-              <path d="M30 0 V20 Q30 30 40 30 H140 Q150 30 150 40 V60"
+              <path d="M134 0 V20 Q134 30 142 30 H142 Q150 30 150 40 V60"
                     stroke="#111F78" stroke-width="2" stroke-dasharray="4 6" fill="none"/>
             </svg>
-            <!-- Connector 02 → 03: center card down-right to right -->
+            <!-- Connector 02 → 03: center of card 02 (x=150) → center of card 03 (x=166) -->
             <svg *ngIf="i === 1" width="100%" height="60" viewBox="0 0 300 60" fill="none" preserveAspectRatio="none">
-              <path d="M150 0 V20 Q150 30 160 30 H265 Q275 30 275 40 V60"
+              <path d="M150 0 V20 Q150 30 158 30 H158 Q166 30 166 40 V60"
                     stroke="#111F78" stroke-width="2" stroke-dasharray="4 6" fill="none"/>
             </svg>
           </div>
