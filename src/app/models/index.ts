@@ -22,9 +22,11 @@ export interface PricingPlan {
   name: string;
   price: string;
   priceUnit?: string;
+  pricePrefix?: string;
   badge?: string;
   subtitle?: string;
   tagline?: string;
+  priceNote?: string;
   features: string[];
   recommended?: boolean;
   cta: string;

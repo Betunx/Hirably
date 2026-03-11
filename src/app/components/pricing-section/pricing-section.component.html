@@ -12,8 +12,8 @@
   <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 xl:px-[100px]">
 
     <!-- Header -->
-    <div class="text-center mb-8 lg:mb-12">
-      <h2 class="font-display font-medium text-[32px] md:text-[44px] lg:text-[54px] leading-[120%] lg:leading-[64px] text-navy-dark pt-[15px]">
+    <div class="text-center py-5 mb-8 lg:mb-12 px-5">
+      <h2 class="font-display font-medium text-[32px] md:text-[44px] lg:text-[54px] leading-[120%] lg:leading-[64px] text-navy-dark">
         Simple Pricing. No Surprises.
       </h2>
     </div>
@@ -22,85 +22,92 @@
 
     <!-- Card 1: EOR Only (Green border) - plans[2] -->
     <ng-template #pricingCard1>
-      <div class="flex flex-col items-start bg-white w-full h-full p-[14px_20px_20px_20px] lg:p-[18px_34px_34px_34px] gap-[14px] lg:gap-[22px]"
+      <div class="flex flex-col items-start bg-white w-full h-full p-[14px_20px_20px_20px] lg:p-[18px_34px_34px_34px] gap-[12px] lg:gap-[16px]"
            style="border-radius: 12px; border: 2px solid #D1FAE5;">
-        <span class="font-display font-bold text-[16px] leading-[28px] text-emerald uppercase tracking-wide">
-          {{ plans[2].badge }}
-        </span>
-        <div class="flex flex-col">
-          <h3 class="font-display font-medium text-[30px] leading-[36px] text-navy-dark">
-            {{ plans[2].name }}
-          </h3>
-          <p class="font-display font-light text-[20px] leading-[28px] text-navy-dark">
-            {{ plans[2].subtitle }}
-          </p>
-          <p class="font-body text-[14px] leading-[21px] text-emerald mt-1">
-            For clients who already have a candidate.
-          </p>
+        <!-- Badge + title + subtitle — same spacing relationship across all cards -->
+        <div class="flex flex-col gap-1">
+          <span class="font-body font-semibold text-[12px] leading-none uppercase tracking-[0.08em] text-emerald">{{ plans[2].badge }}</span>
+          <h3 class="font-display font-medium text-[28px] leading-[34px] text-navy-dark">{{ plans[2].name }}</h3>
+          <p class="font-display font-light text-[18px] leading-[26px] text-navy-dark">{{ plans[2].subtitle }}</p>
         </div>
+        <!-- Price -->
         <div>
-          <span class="font-display font-medium text-[24px] leading-[29px] text-navy-dark">$499</span>
-          <span class="font-body font-normal text-[14px] leading-[28px] text-navy-dark"> /month per employee</span>
+          <p class="font-body text-[12px] leading-none text-dark-purple opacity-50 mb-1">{{ plans[2].pricePrefix }}</p>
+          <div class="flex items-baseline gap-1.5">
+            <span class="font-display font-bold text-[44px] lg:text-[48px] leading-none text-navy-dark">{{ plans[2].price }}</span>
+            <span class="font-body font-normal text-[13px] leading-none text-dark-purple opacity-70">{{ plans[2].priceUnit }}</span>
+          </div>
+          <p class="font-body font-light text-[12px] leading-[18px] text-dark-purple opacity-60 italic mt-1 opacity-0 select-none" aria-hidden="true">x</p>
         </div>
-        <p class="font-body font-light text-[18px] leading-[26px] text-dark-purple max-w-[311px]">
-          You found the talent; we make it legal.
-        </p>
-        <ul class="flex flex-col gap-2 lg:gap-3">
+        <!-- Description -->
+        <p class="font-body font-light text-[14px] leading-[21px] text-dark-purple">{{ plans[2].tagline }}</p>
+        <!-- Divider + features -->
+        <div class="w-full border-t border-gray-200"></div>
+        <ul class="flex flex-col gap-2 lg:gap-2.5">
           <li *ngFor="let feature of plans[2].features; trackBy: trackByFeature" class="flex items-start gap-3">
-            <img src="assets/img/arrowgreen.svg" alt="" class="w-[17px] h-[14px] mt-1.5 flex-shrink-0" loading="lazy">
-            <span class="font-body font-light text-[18px] leading-[26px] text-dark-purple">{{ feature }}</span>
+            <img src="assets/img/arrowgreen.svg" alt="" class="w-[17px] h-[14px] mt-1 flex-shrink-0" loading="lazy">
+            <span class="font-body font-light text-[15px] leading-[22px] text-dark-purple">{{ feature }}</span>
           </li>
         </ul>
+        <!-- Button anchored to bottom -->
         <button (click)="onEorServices()"
-                class="font-display font-medium text-[16px] text-black mt-auto cursor-pointer transition-opacity duration-200 hover:opacity-80"
-                style="padding: 10px 15px; border-radius: 7px; background: #FFCF25;">
-          Get started on EOR
+                class="font-display font-medium text-[16px] text-emerald mt-auto w-full flex items-center justify-center gap-2 cursor-pointer transition-opacity duration-200 hover:opacity-80"
+                style="padding: 10px 15px; border-radius: 7px; background: white; border: 1.5px solid #D1FAE5;">
+          {{ plans[2].cta }}
+          <svg width="16" height="16" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 9H14M14 9L10 5M14 9L10 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </button>
       </div>
     </ng-template>
 
     <!-- Card 2: Full-Service (Blue border) - plans[1] - MOST POPULAR -->
     <ng-template #pricingCard2>
-      <div class="flex flex-col items-start bg-white w-full h-full px-5 pb-5 lg:px-[34px] lg:pb-[34px]"
-           style="border-radius: 12px; border: 2px solid #2291EA;">
-        <div class="flex items-center self-end -mr-5 lg:mr-[-34px] text-white font-display font-medium text-[16px] lg:text-[19px] leading-[28px] uppercase"
-             style="width: 203px; padding: 5px 13px; gap: 9px; border-radius: 0 0 0 12px; background: #2291EA;">
-          <img src="assets/img/Star1.svg" alt="" class="w-[17px] h-[16px]" loading="lazy">
-          <span>MOST POPULAR</span>
+      <div class="relative flex flex-col items-start w-full h-full px-5 pt-12 pb-5 min-[1450px]:px-[34px] min-[1450px]:pt-8 min-[1450px]:pb-[34px]"
+           style="border-radius: 12px; border: 2px solid #2291EA; background: #102076;">
+        <!-- Centered pill badge: inside card always in carousel, floats above only in desktop grid -->
+        <div class="absolute top-3 min-[1450px]:-top-[13px] left-1/2 -translate-x-1/2 font-body font-bold text-[11px] uppercase tracking-[0.1em] text-navy-dark whitespace-nowrap"
+             style="background: #FFCF25; padding: 6px 18px; border-radius: 100px;">
+          MOST POPULAR
         </div>
-        <div class="flex flex-col items-start flex-1 w-full mt-3 gap-[22px] lg:gap-[40px]">
-          <div class="flex flex-col items-start gap-2">
-            <span class="font-display font-bold text-[16px] lg:text-[18px] leading-[28px] text-primary-blue uppercase tracking-wide lg:w-[147px]">
-              {{ plans[1].badge }}
-            </span>
-            <h3 class="font-display font-medium text-[30px] lg:text-[37px] leading-[36px] lg:leading-[44px] text-navy-dark">
-              {{ plans[1].name }}
-            </h3>
-            <p class="font-display font-light text-[20px] lg:text-[26px] leading-[28px] text-navy-dark">
-              {{ plans[1].subtitle }}
-            </p>
-            <p class="font-body text-[14px] lg:font-medium lg:text-[21px] leading-[21px] lg:leading-[28px] text-primary-blue">
-              For the growth-focused client.
-            </p>
-            <div class="mt-1 lg:mt-2">
-              <span class="font-body font-normal text-[14px] leading-[28px] text-navy-dark">Starting at </span>
-              <span class="font-display font-medium text-[24px] leading-[29px] text-navy-dark">$9</span>
-              <span class="font-body font-normal text-[14px] leading-[28px] text-navy-dark"> /hr (All-Inclusive Rate)</span>
-            </div>
-            <p class="font-body font-light lg:font-medium text-[18px] lg:text-[20px] leading-[26px] text-dark-purple mt-1 lg:mt-2">
-              Everything in Recruitment + EOR.
-            </p>
+        <div class="flex flex-col items-start flex-1 w-full gap-[12px] lg:gap-[16px]">
+          <!-- Badge + title + subtitle -->
+          <div class="flex flex-col gap-1">
+            <span class="font-body font-semibold text-[12px] leading-none uppercase tracking-[0.08em] text-[#C2E8FF]">{{ plans[1].badge }}</span>
+            <h3 class="font-display font-medium text-[30px] lg:text-[37px] leading-[36px] lg:leading-[44px] text-white">{{ plans[1].name }}</h3>
+            <p class="font-display font-light text-[20px] lg:text-[24px] leading-[28px] text-white opacity-70">{{ plans[1].subtitle }}</p>
           </div>
-          <ul class="flex flex-col gap-2 lg:gap-3">
-            <li *ngFor="let feature of plans[1].features; trackBy: trackByFeature" class="flex items-start gap-3">
-              <img src="assets/img/arrowblue.svg" alt="" class="w-[17px] h-[14px] mt-1.5 flex-shrink-0" loading="lazy">
-              <span class="font-body font-light text-[18px] leading-[26px] text-dark-purple">{{ feature }}</span>
+          <!-- Price -->
+          <div>
+            <p class="font-body text-[12px] leading-none text-white opacity-40 mb-1">{{ plans[1].pricePrefix }}</p>
+            <div class="flex items-baseline gap-1.5">
+              <span class="font-display font-bold text-[44px] lg:text-[52px] leading-none text-[#FFCF25]">{{ plans[1].price }}</span>
+              <span class="font-body font-normal text-[13px] leading-none text-[#FFCF25] opacity-60">{{ plans[1].priceUnit }}</span>
+            </div>
+            <p class="font-body font-light text-[12px] leading-[18px] text-[#C2E8FF] opacity-50 italic mt-1">{{ plans[1].priceNote }}</p>
+          </div>
+          <!-- Description + divider -->
+          <p class="font-body font-light text-[14px] leading-[21px] text-[#C2E8FF] opacity-75">{{ plans[1].tagline }}</p>
+          <div class="w-full border-t border-white opacity-20"></div>
+          <!-- Features -->
+          <p class="font-body font-medium text-[13px] leading-none text-[#C2E8FF] opacity-50">
+            {{ plans[1].features[0] }}
+          </p>
+          <ul class="flex flex-col gap-2 lg:gap-2.5">
+            <li *ngFor="let feature of plans[1].features.slice(1); trackBy: trackByFeature" class="flex items-start gap-3">
+              <svg width="17" height="14" viewBox="0 0 18 18" fill="none" class="mt-1 flex-shrink-0 text-[#FFCF25]" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 9.5L7.5 13L14 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span class="font-body font-light text-[15px] leading-[22px] text-white opacity-85">{{ feature }}</span>
             </li>
           </ul>
           <button (click)="onStartHiring()"
-                  class="font-display font-medium text-[16px] text-black mt-auto cursor-pointer transition-opacity duration-200 hover:opacity-80"
+                  class="font-display font-medium text-[16px] text-navy-dark mt-auto w-full flex items-center justify-center gap-2 cursor-pointer transition-opacity duration-200 hover:opacity-80"
                   style="padding: 10px 15px; border-radius: 7px; background: #FFCF25;">
-            Start hiring
+            {{ plans[1].cta }}
+            <svg width="16" height="16" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 9H14M14 9L10 5M14 9L10 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           </button>
         </div>
       </div>
@@ -108,47 +115,49 @@
 
     <!-- Card 3: Headhunting (Purple border) - plans[0] -->
     <ng-template #pricingCard3>
-      <div class="flex flex-col items-start bg-white w-full h-full p-[14px_20px_20px_20px] lg:p-[18px_34px_34px_34px] gap-[14px] lg:gap-[22px]"
+      <div class="flex flex-col items-start bg-white w-full h-full p-[14px_20px_20px_20px] lg:p-[18px_34px_34px_34px] gap-[12px] lg:gap-[16px]"
            style="border-radius: 12px; border: 2px solid #E3E1FF;">
-        <span class="font-display font-bold text-[16px] leading-[28px] text-purple-accent uppercase tracking-wide">
-          {{ plans[0].badge }}
-        </span>
-        <div class="flex flex-col">
-          <h3 class="font-display font-medium text-[30px] leading-[36px] text-navy-dark">
-            {{ plans[0].name }}
-          </h3>
-          <p class="font-display font-light text-[20px] leading-[28px] text-navy-dark">
-            {{ plans[0].subtitle }}
-          </p>
-          <p class="font-body text-[14px] leading-[21px] text-purple-accent mt-1">
-            For enterprise clients with their own Mexican Entity.
-          </p>
+        <!-- Badge + title + subtitle — same spacing relationship across all cards -->
+        <div class="flex flex-col gap-1">
+          <span class="font-body font-semibold text-[12px] leading-none uppercase tracking-[0.08em] text-purple-accent">{{ plans[0].badge }}</span>
+          <h3 class="font-display font-medium text-[28px] leading-[34px] text-navy-dark">{{ plans[0].name }}</h3>
+          <p class="font-display font-light text-[18px] leading-[26px] text-navy-dark">{{ plans[0].subtitle }}</p>
         </div>
+        <!-- Price -->
         <div>
-          <span class="font-display font-medium text-[24px] leading-[29px] text-navy-dark">$2,499</span>
-          <span class="font-body font-normal text-[14px] leading-[28px] text-navy-dark"> flat fee</span>
+          <p class="font-body text-[12px] leading-none text-dark-purple opacity-50 mb-1">{{ plans[0].pricePrefix }}</p>
+          <div class="flex items-baseline gap-1.5">
+            <span class="font-display font-bold text-[44px] lg:text-[48px] leading-none text-navy-dark">{{ plans[0].price }}</span>
+            <span class="font-body font-normal text-[13px] leading-none text-dark-purple opacity-70">{{ plans[0].priceUnit }}</span>
+          </div>
+          <p class="font-body font-light text-[12px] leading-[18px] text-dark-purple opacity-60 italic mt-1">{{ plans[0].priceNote }}</p>
         </div>
-        <p class="font-body font-light text-[18px] leading-[26px] text-dark-purple">
-          For Clients With Their Offices in Mexico.
-        </p>
-        <ul class="flex flex-col gap-2 lg:gap-3">
+        <!-- Description -->
+        <p class="font-body font-light text-[14px] leading-[21px] text-dark-purple">{{ plans[0].tagline }}</p>
+        <!-- Divider + features -->
+        <div class="w-full border-t border-gray-200"></div>
+        <ul class="flex flex-col gap-2 lg:gap-2.5">
           <li *ngFor="let feature of plans[0].features; trackBy: trackByFeature" class="flex items-start gap-3">
-            <img src="assets/img/arrowpurple.svg" alt="" class="w-[17px] h-[14px] mt-1.5 flex-shrink-0" loading="lazy">
-            <span class="font-body font-light text-[18px] leading-[26px] text-dark-purple">{{ feature }}</span>
+            <img src="assets/img/arrowpurple.svg" alt="" class="w-[17px] h-[14px] mt-1 flex-shrink-0" loading="lazy">
+            <span class="font-body font-light text-[15px] leading-[22px] text-dark-purple">{{ feature }}</span>
           </li>
         </ul>
+        <!-- Button anchored to bottom -->
         <button (click)="onGetAQuote()"
-                class="font-display font-medium text-[16px] text-black mt-auto cursor-pointer transition-opacity duration-200 hover:opacity-80"
-                style="padding: 10px 15px; border-radius: 7px; background: #FFCF25;">
-          Get a quote
+                class="font-display font-medium text-[16px] text-purple-accent mt-auto w-full flex items-center justify-center gap-2 cursor-pointer transition-opacity duration-200 hover:opacity-80"
+                style="padding: 10px 15px; border-radius: 7px; background: white; border: 1.5px solid #E3E1FF;">
+          {{ plans[0].cta }}
+          <svg width="16" height="16" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 9H14M14 9L10 5M14 9L10 13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </button>
       </div>
     </ng-template>
 
     <!-- ========== Desktop Layout (≥1200px) ========== -->
     <!-- Wrappers with explicit h → h-full inside templates anchors to a definite height
-         items-end → Card 2 (632px) extends 56px above Cards 1&3 (576px) -->
-    <div class="hidden min-[1450px]:grid gap-4 xl:gap-6 items-end"
+         items-center → Cards 1&3 (576px) vertically centered relative to Card 2 (632px) -->
+    <div class="hidden min-[1450px]:grid gap-4 xl:gap-6 items-center"
          style="grid-template-columns: 379fr 418fr 379fr;">
       <div class="h-[576px]">
         <ng-container *ngTemplateOutlet="pricingCard1"></ng-container>
@@ -163,18 +172,30 @@
 
     <!-- ========== Mobile Carousel (<1200px) ========== -->
     <div class="min-[1450px]:hidden">
-      <app-mobile-carousel [totalSlides]="3" [showDots]="true" [peekPercent]="6" [initialIndex]="1">
-        <div style="width: calc(80vw); max-width: 330px;" class="mx-2 flex-shrink-0 self-stretch [&>div]:h-full">
+      <app-mobile-carousel [totalSlides]="3" [showDots]="true" [peekPercent]="4" [initialIndex]="1">
+        <!-- Card 1 — EOR: no priceNote, less content -->
+        <div class="w-[78vw] max-w-[340px] mx-2 flex-shrink-0 self-center h-[620px] [&>div]:h-full">
           <ng-container *ngTemplateOutlet="pricingCard1"></ng-container>
         </div>
-        <div style="width: calc(80vw); max-width: 330px;" class="mx-2 flex-shrink-0 self-stretch [&>div]:h-full">
+        <!-- Card 2 — Full-service: most content + badge area -->
+        <div class="w-[78vw] max-w-[340px] mx-2 flex-shrink-0 self-stretch h-[720px] [&>div]:h-full">
           <ng-container *ngTemplateOutlet="pricingCard2"></ng-container>
         </div>
-        <div style="width: calc(80vw); max-width: 330px;" class="mx-2 flex-shrink-0 self-stretch [&>div]:h-full">
+        <!-- Card 3 — Recruitment: has priceNote, needs extra height -->
+        <div class="w-[78vw] max-w-[340px] mx-2 flex-shrink-0 self-center h-[660px] [&>div]:h-full">
           <ng-container *ngTemplateOutlet="pricingCard3"></ng-container>
         </div>
       </app-mobile-carousel>
     </div>
+
+    <!-- Footer note -->
+    <p class="text-center font-body text-[13px] leading-[1.6] text-dark-purple opacity-60 mt-12 max-w-[500px] mx-auto">
+      All prices in USD. No hidden fees. Cancel anytime with 30-day notice.<br>
+      Need a custom plan?
+      <a routerLink="/contact/get-a-quote"
+         class="font-medium cursor-pointer hover:opacity-80 transition-opacity duration-200"
+         style="color: #2291EA;">Let's talk →</a>
+    </p>
 
   </div>
 </section>

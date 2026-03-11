@@ -37,6 +37,7 @@ export interface FormFieldDef {
   options?: SelectOption[];
   rows?: number;
   colSpan?: 1 | 2; // 1 = half width in 2-col grid, 2 = full width (default)
+  sectionLabel?: string; // if set, renders a divider + label before this field
 }
 
 export interface FormBullet {
@@ -55,6 +56,7 @@ export interface ContactFormConfig {
   type: ContactFormType;
   badgeBgClass: string;
   badgeTextClass: string;
+  secondaryBadge?: string;
   theme: ContactFormTheme;
   left: {
     badgeText: string;
@@ -64,20 +66,47 @@ export interface ContactFormConfig {
     imageSrc: string;
     imageAlt: string;
   };
+  callDetails?: {
+    duration: string;
+    platform: string;
+    confirmationNote: string;
+  };
+  testimonial?: {
+    quote: string;
+    attribution: string;
+  };
   right: {
     formTitle: string;
     formSubtitle: string;
     submitLabel: string;
     fields: FormFieldDef[];
+    footerNote?: string;
+    showFileUpload?: boolean;
   };
 }
 
 // ── Select option lists ──────────────────────────────────────────────────────
 
 const TIME_SLOTS: SelectOption[] = [
-  { value: 'morning', label: 'Morning (9am – 12pm CST)' },
-  { value: 'afternoon', label: 'Afternoon (12pm – 3pm CST)' },
-  { value: 'evening', label: 'Evening (3pm – 5pm CST)' },
+  { value: 'morning',       label: 'Morning (9am – 12pm CT)' },
+  { value: 'afternoon',     label: 'Afternoon (12pm – 3pm CT)' },
+  { value: 'late-afternoon',label: 'Late Afternoon (3pm – 5pm CT)' },
+];
+
+const HIRING_INTERESTS: SelectOption[] = [
+  { value: 'full-service',  label: 'Hirably Complete (Staffing + EOR)' },
+  { value: 'eor',           label: 'Hirably EOR (Bring My Own Talent)' },
+  { value: 'recruitment',   label: 'Hirably Recruitment (Headhunting)' },
+  { value: 'not-sure',      label: 'Not sure yet — help me decide' },
+];
+
+const CALL_TOPICS: SelectOption[] = [
+  { value: 'general',    label: 'General overview / How it works' },
+  { value: 'pricing',    label: 'Pricing & plan comparison' },
+  { value: 'compliance', label: 'Compliance & legal questions' },
+  { value: 'scaling',    label: 'Scaling an existing team in Mexico' },
+  { value: 'migration',  label: 'Migrating contractors to full-time' },
+  { value: 'other',      label: 'Other' },
 ];
 
 const TOPICS: SelectOption[] = [
@@ -85,6 +114,48 @@ const TOPICS: SelectOption[] = [
   { value: 'eor', label: 'EOR / Payroll' },
   { value: 'pricing', label: 'Pricing' },
   { value: 'general', label: 'General Inquiry' },
+];
+
+const HEADCOUNTS: SelectOption[] = [
+  { value: '1',    label: '1' },
+  { value: '2-3',  label: '2–3' },
+  { value: '4-10', label: '4–10' },
+  { value: '10+',  label: '10+' },
+];
+
+const SENIORITY_LEVELS: SelectOption[] = [
+  { value: 'junior', label: 'Junior (0–2 yrs)' },
+  { value: 'mid',    label: 'Mid-Level (2–5 yrs)' },
+  { value: 'senior', label: 'Senior (5–8 yrs)' },
+  { value: 'lead',   label: 'Lead / Staff (8+ yrs)' },
+];
+
+const START_TIMELINES: SelectOption[] = [
+  { value: 'asap',      label: 'ASAP' },
+  { value: '2-weeks',   label: 'Within 2 weeks' },
+  { value: '1-month',   label: 'Within a month' },
+  { value: 'flexible',  label: 'Flexible / Exploring' },
+];
+
+const MONTHLY_BUDGETS: SelectOption[] = [
+  { value: '1500-2500', label: '$1,500 – $2,500' },
+  { value: '2500-4000', label: '$2,500 – $4,000' },
+  { value: '4000-6000', label: '$4,000 – $6,000' },
+  { value: '6000+',     label: '$6,000+' },
+  { value: 'unsure',    label: 'Not sure yet' },
+];
+
+const WORK_SCHEDULES: SelectOption[] = [
+  { value: 'us-hours', label: 'US business hours' },
+  { value: 'overlap',  label: '4+ hrs overlap with US' },
+  { value: 'flexible', label: 'Flexible / async' },
+];
+
+const ENGLISH_LEVELS: SelectOption[] = [
+  { value: 'native',         label: 'Native / Bilingual' },
+  { value: 'fluent',         label: 'Fluent (C1+)' },
+  { value: 'conversational', label: 'Conversational (B2)' },
+  { value: 'basic',          label: 'Basic is fine' },
 ];
 
 const INDUSTRIES: SelectOption[] = [
@@ -146,6 +217,40 @@ const TIMELINES: SelectOption[] = [
   { value: '6months', label: '3–6 months' },
 ];
 
+// ── Start-Hiring fields (full form from JSX) ─────────────────────────────────
+
+const START_HIRING_FIELDS: FormFieldDef[] = [
+  { key: 'fullName',       label: 'Full Name',                      type: 'text',    placeholder: 'Jane Smith',                                                       required: true,  colSpan: 1 },
+  { key: 'company',        label: 'Company Name',                   type: 'text',    placeholder: 'Acme Corp',                                                        required: true,  colSpan: 1 },
+  { key: 'email',          label: 'Work Email',                     type: 'email',   placeholder: 'jane@acme.com',                                                    required: true,  colSpan: 1 },
+  { key: 'phone',          label: 'Phone Number',                   type: 'tel',     placeholder: '+1 (555) 000-0000',                                                required: false, colSpan: 1 },
+  { key: 'roles',          label: "Role(s) You're Hiring For",      type: 'text',    placeholder: 'e.g. Full-Stack Developer, SDR, Customer Support',                 required: true,  colSpan: 2, sectionLabel: 'Role Details' },
+  { key: 'headcount',      label: 'How Many People?',               type: 'select',  options: HEADCOUNTS,                                                             required: true,  colSpan: 1 },
+  { key: 'seniorityLevel', label: 'Seniority Level',                type: 'select',  options: SENIORITY_LEVELS,                                                       required: true,  colSpan: 1 },
+  { key: 'timeline',       label: 'Timeline',                       type: 'select',  options: START_TIMELINES,                                                        required: true,  colSpan: 1 },
+  { key: 'monthlyBudget',  label: 'Monthly Budget per Person',      type: 'select',  options: MONTHLY_BUDGETS,                                                        required: false, colSpan: 1 },
+  { key: 'workSchedule',   label: 'Work Schedule',                  type: 'select',  options: WORK_SCHEDULES,                                                         required: false, colSpan: 1 },
+  { key: 'englishLevel',   label: 'English Level Required',         type: 'select',  options: ENGLISH_LEVELS,                                                         required: false, colSpan: 1 },
+  { key: 'preferredDate',  label: 'Preferred Date',                 type: 'date',                                                                                     required: true,  colSpan: 1, sectionLabel: 'Schedule Your Call' },
+  { key: 'preferredTime',  label: 'Preferred Time Slot',            type: 'select',  options: TIME_SLOTS,                                                             required: true,  colSpan: 1 },
+  { key: 'notes',          label: 'Anything Else We Should Know?',  type: 'textarea', placeholder: 'Tech stack, team culture, must-have skills, nice-to-haves…',     required: false, colSpan: 2, rows: 3 },
+];
+
+// ── Book-a-Call fields (full form from JSX) ──────────────────────────────────
+
+const BOOK_A_CALL_FIELDS: FormFieldDef[] = [
+  { key: 'fullName',       label: 'Full Name',                   type: 'text',     placeholder: 'Jane Smith',                                                              required: true,  colSpan: 1 },
+  { key: 'company',        label: 'Company Name',                type: 'text',     placeholder: 'Acme Corp',                                                               required: false, colSpan: 1 },
+  { key: 'email',          label: 'Email Address',               type: 'email',    placeholder: 'jane@acme.com',                                                           required: true,  colSpan: 1 },
+  { key: 'phone',          label: 'Phone Number',                type: 'tel',      placeholder: '+1 (555) 000-0000',                                                       required: true,  colSpan: 1 },
+  { key: 'preferredDate',  label: 'Preferred Date',              type: 'date',                                                                                              required: true,  colSpan: 1, sectionLabel: 'Scheduling' },
+  { key: 'preferredTime',  label: 'Preferred Time Slot',         type: 'select',   options: TIME_SLOTS,                                                                    required: true,  colSpan: 1 },
+  { key: 'companySize',    label: 'Company Size',                type: 'select',   options: EMPLOYEE_COUNTS,                                                               required: false, colSpan: 1, sectionLabel: 'Help Us Prepare' },
+  { key: 'hiringInterest', label: 'What Are You Interested In?', type: 'select',   options: HIRING_INTERESTS,                                                              required: false, colSpan: 1 },
+  { key: 'topic',          label: 'Topic of Discussion',         type: 'select',   options: CALL_TOPICS,                                                                   required: false, colSpan: 2 },
+  { key: 'notes',          label: 'Additional Notes',            type: 'textarea', placeholder: "Anything specific you'd like to discuss? Let us know so we can prepare…", required: false, colSpan: 2, rows: 3 },
+];
+
 // ── Unified SALES fields — shared by start-hiring, eor-services, get-a-quote ─
 
 const SALES_FIELDS: FormFieldDef[] = [
@@ -177,52 +282,68 @@ const FORM_CONFIGS: Record<ContactFormType, ContactFormConfig> = {
     left: {
       badgeText: 'Schedule a Call',
       title: "Let's Talk About Your Hiring Needs",
-      description: "Book a free consultation with one of our nearshore specialists. We'll walk you through how Hirably can accelerate your team growth in Mexico.",
+      description: "Book a free 20-minute discovery call with one of our nearshore specialists. We'll walk you through how Hirably works and give you a tailored recommendation — no pressure, no commitment.",
       bullets: [
-        { text: 'Get answers to all your hiring questions' },
-        { text: 'Learn about our process and timelines' },
-        { text: 'Receive a tailored recommendation' },
+        { text: 'Get answers to all your hiring-in-Mexico questions' },
+        { text: 'Learn about our process, timelines, and pricing' },
+        { text: 'Receive a tailored recommendation for your team' },
+        { text: 'No sales pressure — just a real conversation' },
       ],
       imageSrc: 'assets/img/handshake.jpg',
       imageAlt: 'Schedule a consultation',
     },
+    callDetails: {
+      duration: '20 minutes',
+      platform: 'Google Meet or Zoom — your choice',
+      confirmationNote: "We'll confirm your slot within 24 hours via email.",
+    },
     right: {
       formTitle: 'Schedule Your Call',
-      formSubtitle: 'Pick a date and time that works for you.',
+      formSubtitle: "Fill in your details and we'll confirm your slot within 24 hours.",
       submitLabel: 'Book My Call',
-      fields: [],
+      fields: BOOK_A_CALL_FIELDS,
+      footerNote: "Free 20-minute call. No commitment. We'll confirm via email within 24 hours.",
     },
   },
 
   // ── START HIRING — Blue theme ────────────────────────────────────────────
   'start-hiring': {
     type: 'start-hiring',
-    badgeBgClass: 'bg-primary-blue',
-    badgeTextClass: 'text-white',
+    badgeBgClass: 'bg-navy-dark',
+    badgeTextClass: 'text-bright-amber',
+    secondaryBadge: '★ MOST POPULAR',
     theme: {
       accentHex: '#2291ea',
-      submitBg: '#111f78',
+      submitBg: '#102076',
       submitText: '#ffffff',
       bulletBg: '#2291ea',
       bulletStroke: '#ffffff',
     },
     left: {
       badgeText: 'Start Hiring',
-      title: 'Build Your Team in Mexico — Fast',
-      description: "Tell us what you need and we'll start matching you with pre-vetted talent in days, not months.",
+      title: 'A Custom Plan Built Around Your Business',
+      description: "Every company is different. Tell us what you're building and we'll put together a plan tailored to your needs — recruitment, compliance, payroll, and HR all handled under one rate.",
       bullets: [
-        { text: 'Access 10,000+ pre-vetted candidates' },
-        { text: 'Average hire in 20 business days' },
-        { text: '$0 upfront fees, pay only on success' },
+        { text: 'Transparent, all-inclusive pricing' },
+        { text: 'No hidden fees or surprise costs' },
+        { text: '$0 upfront — pay only on success' },
+        { text: 'Dedicated account manager from day one' },
+        { text: 'Lifetime replacement guarantee' },
       ],
       imageSrc: 'assets/img/hire.jpg',
       imageAlt: 'Start hiring talent in Mexico',
     },
+    testimonial: {
+      quote: '"Hirably built a plan that fit exactly what we needed — three developers and a designer, all compliant, one invoice. It felt like they were part of our team from day one."',
+      attribution: '— Head of Operations, Growth-Stage Fintech',
+    },
     right: {
-      formTitle: 'Staffing Request',
-      formSubtitle: "Share your requirements and we'll send you matching profiles within 72 hours.",
-      submitLabel: 'Submit Request',
-      fields: SALES_FIELDS,
+      formTitle: 'Hirably Complete',
+      formSubtitle: 'Tell us about your hiring needs and schedule a call to build your custom plan.',
+      submitLabel: 'Book My Consultation',
+      fields: START_HIRING_FIELDS,
+      showFileUpload: true,
+      footerNote: "Free 30-minute consultation. We'll confirm your slot within 24 hours and come prepared with a custom plan.",
     },
   },
 
@@ -338,11 +459,6 @@ export class ContactFormComponent implements OnInit, OnDestroy {
         this.submitting = false;
         this.submitError = false;
         this.cdr.markForCheck();
-
-        if (type === 'book-a-call') {
-          // Wait one tick for Angular to render the #my-cal-inline div
-          setTimeout(() => this.initCal(), 0);
-        }
       });
   }
 

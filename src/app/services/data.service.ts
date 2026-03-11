@@ -53,53 +53,62 @@ export class DataService {
   // Pricing - Figma
   private pricingPlansData: PricingPlan[] = [
     {
-      name: 'Headhunting',
-      price: '$2,499',
-      priceUnit: ' flat fee',
-      badge: 'Recruitment Only',
+      badge: 'Headhunting',
+      name: 'Recruitment Only',
       subtitle: 'Hiring for Your Entity',
-      tagline: 'For enterprise clients with their own Mexican Entity.',
+      price: '$2,499',
+      pricePrefix: 'Starting at',
+      priceUnit: ' flat fee',
+      priceNote: 'Starting rate — tiered based on seniority of the role.',
+      tagline: 'For companies that already have a Mexican legal entity and just need the right people.',
       features: [
-        'Sourcing',
-        'Vetting',
-        'Coordination',
-        '90-day Guarantee'
+        'Sourcing, Screening & Background Checks',
+        'Bilingual Candidate Profiles',
+        'Technical & Cultural Vetting',
+        'Salary Benchmarking & Market Data',
+        'Simple USD Invoice',
+        '90-Day Replacement Guarantee'
       ],
-      cta: 'Get a quote',
+      cta: 'Get a Quote',
       recommended: false
     },
     {
-      name: 'Staffing & EOR',
-      price: 'Starting at $9/hr',
-      priceUnit: ' (All-Inclusive Rate)',
-      badge: 'Full-Service',
+      badge: 'Staffing + EOR',
+      name: 'Hirably Complete',
       subtitle: 'We Build Your Team',
-      tagline: 'For the growth-focused client. Everything in Recruitment + EOR.',
+      price: '$9',
+      pricePrefix: 'Starting at',
+      priceUnit: '/hr all-inclusive',
+      priceNote: 'Starting rate — scales with seniority. Covers salary, benefits, and our service fee.',
+      tagline: 'Hiring, payroll, compliance — all handled. One rate, zero surprises.',
       features: [
-        'Access to Top 1% Talent Pool',
+        'Everything in EOR + Recruitment',
+        'Vetted Talent (4% acceptance rate)',
         '$0 Upfront Recruitment Fees',
         'Lifetime Replacement Guarantee',
-        'Full Payroll, Benefits & HR Included',
+        'Full Payroll, Benefits & HR',
         'Hardware Logistics & Asset Tracking'
       ],
-      cta: 'Start hiring',
+      cta: 'Start Hiring',
       recommended: true
     },
     {
-      name: 'Employer of Record',
-      price: '$499/month',
-      priceUnit: ' per employee',
-      badge: 'EOR Only',
+      badge: 'Employer of Record',
+      name: 'EOR Only',
       subtitle: 'Bring Your Own Talent',
-      tagline: 'You found the talent; we make it legal. For clients who already have a candidate.',
+      price: '$499',
+      pricePrefix: 'Starting at',
+      priceUnit: '/mo per employee',
+      tagline: 'You found the talent — we make it legal.',
       features: [
         'Legal Employer (Mexican Entity)',
         'Contracts & Labor Compliance',
-        'Taxes',
-        'Social Security & Benefits Ongoing HR Support',
+        'Tax Filing & Withholding',
+        'Social Security & Benefits',
+        'Ongoing HR Support',
         'One Simple USD Invoice'
       ],
-      cta: 'Get started on EOR',
+      cta: 'Get Started',
       recommended: false
     }
   ];
