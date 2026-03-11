@@ -63,9 +63,11 @@ export interface ContactFormConfig {
     title: string;
     description: string;
     bullets: FormBullet[];
-    imageSrc: string;
-    imageAlt: string;
+    imageSrc?: string;
+    imageAlt?: string;
   };
+  includedItems?: string[];
+  tipNote?: string;
   callDetails?: {
     duration: string;
     platform: string;
@@ -158,6 +160,61 @@ const ENGLISH_LEVELS: SelectOption[] = [
   { value: 'basic',          label: 'Basic is fine' },
 ];
 
+const EOR_HEADCOUNTS: SelectOption[] = [
+  { value: '1',    label: '1' },
+  { value: '2-5',  label: '2–5' },
+  { value: '6-15', label: '6–15' },
+  { value: '15+',  label: '15+' },
+];
+
+const EOR_TIMELINES: SelectOption[] = [
+  { value: 'asap',     label: 'ASAP' },
+  { value: '2-weeks',  label: 'Within 2 weeks' },
+  { value: '1-month',  label: 'Within a month' },
+  { value: 'flexible', label: 'Flexible' },
+];
+
+const EMPLOYEE_LOCATIONS: SelectOption[] = [
+  { value: 'already-mexico', label: 'Already in Mexico' },
+  { value: 'relocating',     label: 'Relocating to Mexico' },
+  { value: 'remote-mx',      label: 'Remote within Mexico' },
+  { value: 'not-sure',       label: 'Not sure yet' },
+];
+
+const CURRENT_SETUPS: SelectOption[] = [
+  { value: 'contractors', label: 'Paying as contractors' },
+  { value: 'own-entity',  label: 'Have our own MX entity' },
+  { value: 'nothing',     label: 'Not yet employed' },
+  { value: 'other-eor',   label: 'Using another EOR' },
+];
+
+const PAYROLL_CURRENCIES: SelectOption[] = [
+  { value: 'usd',  label: 'USD' },
+  { value: 'mxn',  label: 'MXN' },
+  { value: 'both', label: 'Both / Flexible' },
+];
+
+const QUOTE_TIMELINES: SelectOption[] = [
+  { value: 'asap',      label: 'ASAP' },
+  { value: '2-weeks',   label: 'Within 2 weeks' },
+  { value: '1-month',   label: 'Within a month' },
+  { value: 'flexible',  label: 'Flexible / Planning ahead' },
+];
+
+const SALARY_RANGES: SelectOption[] = [
+  { value: '15-25k',         label: '$15,000 – $25,000' },
+  { value: '25-40k',         label: '$25,000 – $40,000' },
+  { value: '40-60k',         label: '$40,000 – $60,000' },
+  { value: '60k+',           label: '$60,000+' },
+  { value: 'need-benchmarks',label: 'I need salary benchmarks' },
+];
+
+const ENTITY_STATUS: SelectOption[] = [
+  { value: 'yes',         label: 'Yes — fully operational' },
+  { value: 'setting-up',  label: 'Setting one up currently' },
+  { value: 'no',          label: 'No — I might need EOR too' },
+];
+
 const INDUSTRIES: SelectOption[] = [
   { value: 'technology', label: 'Technology' },
   { value: 'finance', label: 'Finance' },
@@ -215,6 +272,41 @@ const TIMELINES: SelectOption[] = [
   { value: '1month', label: 'Within 1 month' },
   { value: '3months', label: '1–3 months' },
   { value: '6months', label: '3–6 months' },
+];
+
+// ── Get-a-Quote fields (full form from JSX) ──────────────────────────────────
+
+const GET_QUOTE_FIELDS: FormFieldDef[] = [
+  { key: 'fullName',       label: 'Full Name',                        type: 'text',    placeholder: 'Jane Smith',                                                                            required: true,  colSpan: 1 },
+  { key: 'company',        label: 'Company Name',                     type: 'text',    placeholder: 'Acme Corp',                                                                             required: true,  colSpan: 1 },
+  { key: 'email',          label: 'Work Email',                       type: 'email',   placeholder: 'jane@acme.com',                                                                         required: true,  colSpan: 1 },
+  { key: 'phone',          label: 'Phone Number',                     type: 'tel',     placeholder: '+1 (555) 000-0000',                                                                     required: false, colSpan: 1 },
+  { key: 'roles',          label: "Role(s) You Need to Fill",         type: 'text',    placeholder: 'e.g. Accountant, Operations Manager, QA Engineer',                                     required: true,  colSpan: 2, sectionLabel: 'Hiring Details' },
+  { key: 'headcount',      label: 'How Many Positions?',              type: 'select',  options: HEADCOUNTS,                                                                                  required: true,  colSpan: 1 },
+  { key: 'seniorityLevel', label: 'Seniority Level',                  type: 'select',  options: SENIORITY_LEVELS,                                                                            required: true,  colSpan: 1 },
+  { key: 'timeline',       label: 'Timeline',                         type: 'select',  options: QUOTE_TIMELINES,                                                                             required: true,  colSpan: 1 },
+  { key: 'salaryRange',    label: 'Expected Salary Range (MXN/mo)',   type: 'select',  options: SALARY_RANGES,                                                                               required: false, colSpan: 1 },
+  { key: 'entityStatus',   label: 'Do You Have a Mexican Entity?',    type: 'select',  options: ENTITY_STATUS,                                                                               required: true,  colSpan: 2 },
+  { key: 'preferredDate',  label: 'Preferred Date',                   type: 'date',                                                                                                          required: true,  colSpan: 1, sectionLabel: 'Schedule Your Call' },
+  { key: 'preferredTime',  label: 'Preferred Time Slot',              type: 'select',  options: TIME_SLOTS,                                                                                  required: true,  colSpan: 1 },
+  { key: 'notes',          label: 'Tell Us About Your Needs',         type: 'textarea', placeholder: 'Role details, skills required, team structure, or anything that helps us prepare…',  required: true,  colSpan: 2, rows: 3 },
+];
+
+// ── EOR fields (full form from JSX) ──────────────────────────────────────────
+
+const EOR_FIELDS: FormFieldDef[] = [
+  { key: 'fullName',         label: 'Full Name',                    type: 'text',    placeholder: 'Jane Smith',                                                              required: true,  colSpan: 1 },
+  { key: 'company',          label: 'Company Name',                 type: 'text',    placeholder: 'Acme Corp',                                                               required: true,  colSpan: 1 },
+  { key: 'email',            label: 'Work Email',                   type: 'email',   placeholder: 'jane@acme.com',                                                           required: true,  colSpan: 1 },
+  { key: 'phone',            label: 'Phone Number',                 type: 'tel',     placeholder: '+1 (555) 000-0000',                                                       required: false, colSpan: 1 },
+  { key: 'headcount',        label: 'How Many Employees?',          type: 'select',  options: EOR_HEADCOUNTS,                                                                required: true,  colSpan: 1, sectionLabel: 'Employment Details' },
+  { key: 'timeline',         label: 'When Do You Need to Start?',   type: 'select',  options: EOR_TIMELINES,                                                                 required: true,  colSpan: 1 },
+  { key: 'employeeLocation', label: 'Where Are They Based?',        type: 'select',  options: EMPLOYEE_LOCATIONS,                                                            required: true,  colSpan: 1 },
+  { key: 'currentSetup',     label: 'Current Employment Setup',     type: 'select',  options: CURRENT_SETUPS,                                                                required: false, colSpan: 1 },
+  { key: 'payrollCurrency',  label: 'Preferred Invoice Currency',   type: 'select',  options: PAYROLL_CURRENCIES,                                                            required: false, colSpan: 2 },
+  { key: 'preferredDate',    label: 'Preferred Date',               type: 'date',                                                                                            required: true,  colSpan: 1, sectionLabel: 'Schedule Your Call' },
+  { key: 'preferredTime',    label: 'Preferred Time Slot',          type: 'select',  options: TIME_SLOTS,                                                                    required: true,  colSpan: 1 },
+  { key: 'notes',            label: 'Tell Us About Your Needs',     type: 'textarea', placeholder: 'Roles, current setup, specific compliance concerns, anything else…',     required: true,  colSpan: 2, rows: 3 },
 ];
 
 // ── Start-Hiring fields (full form from JSX) ─────────────────────────────────
@@ -347,35 +439,39 @@ const FORM_CONFIGS: Record<ContactFormType, ContactFormConfig> = {
     },
   },
 
-  // ── EOR SERVICES — Green theme ───────────────────────────────────────────
+  // ── EOR SERVICES — Teal theme ────────────────────────────────────────────
   'eor-services': {
     type: 'eor-services',
-    badgeBgClass: 'bg-mint-green',
-    badgeTextClass: 'text-emerald',
+    badgeBgClass: 'bg-[#0C6C9F]',
+    badgeTextClass: 'text-white',
     theme: {
-      accentHex: '#10b981',
-      submitBg: '#10b981',
+      accentHex: '#0C6C9F',
+      submitBg: '#0C6C9F',
       submitText: '#ffffff',
-      bulletBg: '#10b981',
+      bulletBg: '#0C6C9F',
       bulletStroke: '#ffffff',
     },
     left: {
       badgeText: 'EOR Services',
       title: 'Compliant Employment in Mexico, Handled for You',
-      description: "Let Hirably be your Employer of Record. We manage payroll, taxes, and full legal compliance so you can focus on growth.",
-      bullets: [
-        { text: '100% legal compliance guaranteed' },
-        { text: 'Payroll processed on time, every time' },
-        { text: 'Dedicated HR support included' },
-      ],
-      imageSrc: 'assets/img/eor-service.jpg',
-      imageAlt: 'EOR compliance services',
+      description: "You already found the right person — let Hirably be their legal employer in Mexico. We handle payroll, taxes, benefits, and full labor compliance so you can focus on growth.",
+      bullets: [],
     },
+    includedItems: [
+      'Mexican legal entity acts as employer',
+      'Compliant contracts drafted & managed',
+      'Monthly payroll, tax withholding & filing',
+      'IMSS, Infonavit & all statutory benefits',
+      'Ongoing HR support for you and your employee',
+      'One consolidated USD invoice — no surprises',
+    ],
+    tipNote: 'Already paying contractors in Mexico? We can help you convert them to full-time employees compliantly — often within 2 weeks.',
     right: {
-      formTitle: 'EOR Inquiry',
-      formSubtitle: "Tell us about your current situation and we'll show you how EOR simplifies it.",
-      submitLabel: 'Submit Inquiry',
-      fields: SALES_FIELDS,
+      formTitle: 'Hirably EOR',
+      formSubtitle: 'Tell us about your situation and schedule a call to walk through how EOR works for you.',
+      submitLabel: 'Book My EOR Consultation',
+      fields: EOR_FIELDS,
+      footerNote: "Free 20-minute call. We'll confirm your slot within 24 hours and walk you through the full EOR process.",
     },
   },
 
@@ -393,21 +489,26 @@ const FORM_CONFIGS: Record<ContactFormType, ContactFormConfig> = {
     },
     left: {
       badgeText: 'Get a Quote',
-      title: 'A Custom Plan Built Around Your Business',
-      description: "Every company is different. Tell us what you're building and we'll put together a pricing proposal tailored to your needs.",
+      title: 'Find the Right People for Your Team in Mexico',
+      description: "You have the entity — we have the talent. Tell us what you need and we'll source, vet, and deliver bilingual candidates matched to your requirements.",
       bullets: [
-        { text: 'Transparent, all-inclusive pricing' },
-        { text: 'No hidden fees or surprise costs' },
-        { text: 'Quote delivered within 1 business day' },
+        { text: 'Access 10,000+ pre-vetted candidates' },
+        { text: 'Average hire in 20 business days' },
+        { text: 'Bilingual candidate profiles included' },
+        { text: 'Background checks on every candidate' },
+        { text: '60-day replacement guarantee' },
       ],
       imageSrc: 'assets/img/question.jpg',
       imageAlt: 'Request a custom quote',
     },
+    tipNote: "Don't have a Mexican entity? No problem — check out Hirably Complete where we handle recruitment AND employment under one all-inclusive rate.",
     right: {
-      formTitle: 'Request a Quote',
-      formSubtitle: "Give us a few details and we'll send you a tailored proposal.",
-      submitLabel: 'Request Quote',
-      fields: SALES_FIELDS,
+      formTitle: 'Hirably Recruitment',
+      formSubtitle: 'Tell us about the roles you need to fill and schedule a call to get a tailored quote.',
+      submitLabel: 'Book My Call & Get a Quote',
+      fields: GET_QUOTE_FIELDS,
+      showFileUpload: true,
+      footerNote: "Free 20-minute call. We'll confirm your slot within 24 hours and come prepared with a quote.",
     },
   },
 

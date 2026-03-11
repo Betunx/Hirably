@@ -77,12 +77,40 @@
           {{ config.left.description }}
         </p>
 
-        <!-- Image -->
-        <img [src]="config.left.imageSrc" [alt]="config.left.imageAlt"
+        <!-- Image (optional) -->
+        <img *ngIf="config.left.imageSrc" [src]="config.left.imageSrc" [alt]="config.left.imageAlt"
           class="w-full max-w-[420px] rounded-xl object-cover h-[200px] lg:h-[230px]" />
 
-        <!-- Bullet rows -->
-        <ul class="flex flex-col gap-4">
+        <!-- EOR: Shield icon + What's included card -->
+        <ng-container *ngIf="config.includedItems">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <rect width="40" height="40" rx="10" fill="#0C6C9F" opacity="0.08"/>
+            <path d="M20 10L28 14V20C28 25.5 24.5 28.5 20 30C15.5 28.5 12 25.5 12 20V14L20 10Z" stroke="#0C6C9F" stroke-width="1.5" stroke-linejoin="round"/>
+            <path d="M16 20L18.5 22.5L24 17" stroke="#0C6C9F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="p-5 bg-white rounded-xl border border-gray-100">
+            <p class="font-display font-semibold text-[14px] text-navy-dark mb-3">
+              What's included at $499/mo per employee:
+            </p>
+            <div class="flex flex-col gap-2.5">
+              <div *ngFor="let item of config.includedItems" class="flex items-center gap-2.5 font-body text-[14px] text-dark-purple">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="flex-shrink-0">
+                  <circle cx="10" cy="10" r="10" fill="#12B981" opacity="0.15"/>
+                  <path d="M6 10.5L8.5 13L14 7" stroke="#12B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                {{ item }}
+              </div>
+            </div>
+          </div>
+          <div *ngIf="config.tipNote" class="p-4 rounded-[10px] border border-[#FFCF25]" style="background: #FFF0CF;">
+            <p class="font-body text-[13px] text-navy-dark leading-[1.55]">
+              <strong>Already paying contractors in Mexico?</strong> {{ config.tipNote.replace('Already paying contractors in Mexico? ', '') }}
+            </p>
+          </div>
+        </ng-container>
+
+        <!-- Bullet rows (skip if empty) -->
+        <ul *ngIf="config.left.bullets.length > 0" class="flex flex-col gap-4">
           <li *ngFor="let bullet of config.left.bullets" class="flex items-start gap-3">
             <span class="mt-0.5 w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center"
               [style.background]="config.theme.bulletBg">
@@ -95,6 +123,17 @@
             <span class="font-body text-[15px] leading-[24px] text-dark-purple">{{ bullet.text }}</span>
           </li>
         </ul>
+
+
+        <!-- Accent tip note (get-a-quote etc.) — themed purple/accent card -->
+        <div *ngIf="config.tipNote && !config.includedItems"
+          class="p-4 rounded-[10px]"
+          [style.background]="config.theme.accentHex + '18'"
+          [style.border]="'1px solid ' + config.theme.accentHex + '44'">
+          <p class="font-body text-[13px] text-navy-dark leading-[1.55]">
+            {{ config.tipNote }}
+          </p>
+        </div>
 
         <!-- Testimonial (start-hiring only) -->
         <div *ngIf="config.testimonial"
@@ -139,10 +178,8 @@
         <!-- ── FORM (all types) ───────────────────────────────────────────── -->
         <div class="p-6 sm:p-8 lg:p-9">
 
-          <!-- Form title — book-a-call gets yellow bottom border -->
-          <div class="mb-7"
-            [style.border-bottom]="isBookACall ? '3px solid ' + config.theme.accentHex : 'none'"
-            [style.padding-bottom]="isBookACall ? '20px' : '0'">
+          <!-- Form title — all types get accent bottom border -->
+          <div class="mb-7 pb-5" [style.border-bottom]="'3px solid ' + config.theme.accentHex">
             <h2 class="font-display font-semibold text-[20px] text-navy-dark mb-1">
               {{ config.right.formTitle }}
             </h2>

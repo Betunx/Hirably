@@ -173,8 +173,8 @@
     <!-- ========== Mobile Carousel (<1200px) ========== -->
     <div class="min-[1450px]:hidden">
       <app-mobile-carousel [totalSlides]="3" [showDots]="true" [peekPercent]="4" [initialIndex]="1">
-        <!-- Card 1 — EOR: no priceNote, less content -->
-        <div class="w-[78vw] max-w-[340px] mx-2 flex-shrink-0 self-center h-[620px] [&>div]:h-full">
+        <!-- Card 1 — EOR: same height as card 3 so buttons align -->
+        <div class="w-[78vw] max-w-[340px] mx-2 flex-shrink-0 self-center h-[660px] [&>div]:h-full">
           <ng-container *ngTemplateOutlet="pricingCard1"></ng-container>
         </div>
         <!-- Card 2 — Full-service: most content + badge area -->
