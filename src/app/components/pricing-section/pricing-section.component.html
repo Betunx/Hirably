@@ -33,11 +33,10 @@
         <!-- Price -->
         <div>
           <p class="font-body text-[12px] leading-none text-dark-purple opacity-50 mb-1">{{ plans[2].pricePrefix }}</p>
-          <div class="flex items-baseline gap-1.5">
-            <span class="font-display font-bold text-[44px] lg:text-[48px] leading-none text-navy-dark">{{ plans[2].price }}</span>
-            <span class="font-body font-normal text-[13px] leading-none text-dark-purple opacity-70">{{ plans[2].priceUnit }}</span>
+          <div class="flex items-baseline gap-1.5 flex-nowrap">
+            <span class="font-display font-bold text-[44px] lg:text-[48px] leading-none text-navy-dark flex-shrink-0">{{ plans[2].price }}</span>
+            <span class="font-body font-normal text-[13px] leading-none text-dark-purple opacity-70 whitespace-nowrap">{{ plans[2].priceUnit }}</span>
           </div>
-          <p class="font-body font-light text-[12px] leading-[18px] text-dark-purple opacity-60 italic mt-1 opacity-0 select-none" aria-hidden="true">x</p>
         </div>
         <!-- Description -->
         <p class="font-body font-light text-[14px] leading-[21px] text-dark-purple">{{ plans[2].tagline }}</p>
@@ -154,9 +153,8 @@
       </div>
     </ng-template>
 
-    <!-- ========== Desktop Layout (≥1200px) ========== -->
-    <!-- Wrappers with explicit h → h-full inside templates anchors to a definite height
-         items-center → Cards 1&3 (576px) vertically centered relative to Card 2 (632px) -->
+    <!-- ========== Desktop Layout (≥1450px) ========== -->
+    <!-- Cards 1&3 same fixed height; card 2 taller as featured card -->
     <div class="hidden min-[1450px]:grid gap-4 xl:gap-6 items-center"
          style="grid-template-columns: 379fr 418fr 379fr;">
       <div class="h-[576px]">
