@@ -218,7 +218,7 @@
                 <!-- text / email / tel / date -->
                 <input *ngIf="field.type !== 'select' && field.type !== 'textarea'" [id]="field.key" [type]="field.type"
                   [formControlName]="field.key" [placeholder]="field.placeholder ?? ''"
-                  class="w-full h-9 px-3 py-1 rounded-md border font-body text-[14px] text-carbon-black bg-white outline-none transition-colors duration-150"
+                  class="w-full h-9 px-3 py-1 rounded-md border font-body text-[14px] text-carbon-black bg-white outline-none transition-colors duration-150 placeholder:text-gray-400 focus:ring-2 focus:ring-offset-1"
                   [ngClass]="{
                     'border-gray-neutral': !isInvalid(field.key),
                     'border-red-400 bg-red-50': isInvalid(field.key)
@@ -226,7 +226,7 @@
 
                 <!-- select -->
                 <select *ngIf="field.type === 'select'" [id]="field.key" [formControlName]="field.key"
-                  class="w-full h-9 px-3 py-1 rounded-md border font-body text-[14px] text-carbon-black bg-white outline-none transition-colors duration-150 cursor-pointer appearance-none"
+                  class="w-full h-9 px-3 py-1 rounded-md border font-body text-[14px] text-carbon-black bg-white outline-none transition-colors duration-150 cursor-pointer appearance-none placeholder:text-gray-400 focus:ring-2 focus:ring-offset-1"
                   [ngClass]="{
                     'border-gray-neutral': !isInvalid(field.key),
                     'border-red-400 bg-red-50': isInvalid(field.key)
@@ -238,7 +238,7 @@
                 <!-- textarea -->
                 <textarea *ngIf="field.type === 'textarea'" [id]="field.key" [formControlName]="field.key"
                   [placeholder]="field.placeholder ?? ''" [rows]="field.rows ?? 4"
-                  class="w-full px-3 py-2 rounded-md border font-body text-[14px] text-carbon-black bg-white outline-none transition-colors duration-150 resize-y"
+                  class="w-full px-3 py-2 rounded-md border font-body text-[14px] text-carbon-black bg-white outline-none transition-colors duration-150 resize-none placeholder:text-gray-400 focus:ring-2 focus:ring-offset-1"
                   [ngClass]="{
                     'border-gray-neutral': !isInvalid(field.key),
                     'border-red-400 bg-red-50': isInvalid(field.key)
