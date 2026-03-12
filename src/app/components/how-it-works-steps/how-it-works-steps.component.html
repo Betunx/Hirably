@@ -47,7 +47,8 @@
               <!-- Decorative ellipse + logo at BOTTOM-RIGHT, extending outside card -->
               <div class="absolute hidden lg:block" style="bottom: -83px; right: -77px;">
                 <!-- Ellipse background (137×136, solid pastel) -->
-                <svg width="137" height="136" viewBox="0 0 137 136" fill="none">
+                <svg xmlns="http://www.w3.org/2000/svg" width="137" height="136" viewBox="0 0 137 136" fill="none"
+                  style="display: block; width: 137px; height: 136px;">
                   <ellipse cx="68.5" cy="68" rx="68.5" ry="68" [attr.fill]="circleFills[i]" />
                 </svg>
                 <!-- Logo centered on ellipse -->
@@ -119,16 +120,18 @@
           </div>
 
           <!-- Dashed arrow: HORIZONTAL (desktop) — center-Y of card N to center-Y of card N+1 -->
-          <div *ngIf="!last" class="hidden lg:flex items-center mx-1" [ngClass]="arrowOffsets[i]">
-            <svg xmlns="http://www.w3.org/2000/svg" width="71" height="107" viewBox="0 0 71 107" fill="none">
+          <div *ngIf="!last" class="hidden lg:flex items-center mx-1 flex-shrink-0 w-[71px] h-[107px]" [ngClass]="arrowOffsets[i]">
+            <svg xmlns="http://www.w3.org/2000/svg" width="71" height="107" viewBox="0 0 71 107" fill="none"
+              style="display: block; width: 71px; height: 107px; min-width: 71px;">
               <path d="M0 106H26.7483C31.7188 106 35.7483 101.971 35.7483 97V10C35.7483 5.02944 39.7777 1 44.7483 1H71"
                 stroke="#111F78" stroke-width="2" stroke-dasharray="2 4" />
             </svg>
           </div>
 
           <!-- Dashed connector: MOBILE — simple vertical line, centered -->
-          <div *ngIf="!last" class="lg:hidden flex justify-center h-10">
-            <svg width="2" height="40" viewBox="0 0 2 40" fill="none">
+          <div *ngIf="!last" class="lg:hidden flex justify-center h-10 flex-shrink-0">
+            <svg width="2" height="40" viewBox="0 0 2 40" fill="none"
+              style="display: block; width: 2px; height: 40px;">
               <path d="M1 0 V40" stroke="#111F78" stroke-width="2" stroke-dasharray="2 4"/>
             </svg>
           </div>

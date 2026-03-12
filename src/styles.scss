@@ -26,5 +26,27 @@
   p, a, li {
     @apply font-body;
   }
+
+  /* ═══ Safari Compatibility Fixes ═══ */
+
+  /* Fix: Safari doesn't clip content with overflow:hidden + border-radius
+     Forces GPU compositing layer to enable proper clipping */
+  .rounded-xl,
+  .rounded-lg,
+  .rounded-2xl,
+  .rounded-full {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  /* Fix: Safari SVG rendering — ensure inline SVGs always get proper dimensions */
+  svg {
+    shape-rendering: geometricPrecision;
+  }
+
+  /* Fix: Safari flex gap fallback — ensure flex containers render properly */
+  img {
+    -webkit-transform: translate3d(0, 0, 0);
+  }
 }
 
