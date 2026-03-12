@@ -1,5 +1,5 @@
 <!-- CONTACT FORM PAGE — split layout, per-type theme, OnPush safe -->
-<div class="min-h-screen bg-floral-white overflow-x-hidden pt-[72px]" *ngIf="config">
+<div class="min-h-screen bg-floral-white pt-[72px]" *ngIf="config">
 
   <!-- ── BACK TO HOME ────────────────────────────────────────────────────── -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
@@ -47,16 +47,16 @@
   </div>
 
   <!-- ── MAIN FORM VIEW ─────────────────────────────────────────────────── -->
-  <div *ngIf="!submitted" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-2 pb-16">
+  <div *ngIf="!submitted" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-0 pb-16">
     <div class="grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-10 lg:gap-16 items-start">
 
       <!-- ── LEFT PANEL ────────────────────────────────────────────────── -->
-      <div class="flex flex-col gap-6 pt-4 lg:sticky lg:top-[100px]">
+      <div class="flex flex-col gap-6 pt-0 lg:sticky lg:top-[100px]">
 
         <!-- Badge (+ optional secondary badge) -->
         <div class="flex items-center gap-2.5 flex-wrap">
           <span
-            class="inline-flex self-start px-4 py-1.5 rounded-full font-display font-semibold text-[12px] uppercase tracking-widest"
+            class="inline-flex px-4 py-1.5 rounded-full font-display font-semibold text-[12px] uppercase tracking-widest"
             [ngClass]="[config.badgeBgClass, config.badgeTextClass]">
             {{ config.left.badgeText }}
           </span>
@@ -68,18 +68,18 @@
         </div>
 
         <!-- Title -->
-        <h1 class="font-display font-semibold text-[32px] leading-[1.15] text-navy-dark lg:text-[38px]">
+        <h1 class="font-display font-semibold text-[32px] leading-[1.15] text-navy-dark lg:text-[38px] text-center">
           {{ config.left.title }}
         </h1>
 
         <!-- Description -->
-        <p class="font-body font-light text-[17px] leading-[27px] text-dark-purple">
+        <p class="font-body font-light text-[17px] leading-[27px] text-dark-purple text-pretty text-justify">
           {{ config.left.description }}
         </p>
 
         <!-- Image (optional) -->
         <img *ngIf="config.left.imageSrc" [src]="config.left.imageSrc" [alt]="config.left.imageAlt"
-          class="w-full max-w-[420px] rounded-xl object-cover h-[200px] lg:h-[230px]" />
+          class="w-full rounded-xl object-cover h-[200px] lg:h-[230px]" />
 
         <!-- EOR: Shield icon + What's included card -->
         <ng-container *ngIf="config.includedItems">
@@ -110,17 +110,17 @@
         </ng-container>
 
         <!-- Bullet rows (skip if empty) -->
-        <ul *ngIf="config.left.bullets.length > 0" class="flex flex-col gap-4">
-          <li *ngFor="let bullet of config.left.bullets" class="flex items-start gap-3">
-            <span class="mt-0.5 w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center"
+        <ul *ngIf="config.left.bullets.length > 0" class="flex flex-col gap-2.5">
+          <li *ngFor="let bullet of config.left.bullets" class="flex items-start gap-2.5">
+            <span class="mt-1 w-4 h-4 rounded-full flex-shrink-0 flex items-center justify-center"
               [style.background]="config.theme.bulletBg">
-              <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none"
+              <svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 24 24" fill="none"
                 [attr.stroke]="config.theme.bulletStroke" stroke-width="3" stroke-linecap="round"
                 stroke-linejoin="round">
                 <polyline points="20 6 9 17 4 12" />
               </svg>
             </span>
-            <span class="font-body text-[15px] leading-[24px] text-dark-purple">{{ bullet.text }}</span>
+            <span class="font-body text-[14px] leading-[22px] text-dark-purple">{{ bullet.text }}</span>
           </li>
         </ul>
 
@@ -138,7 +138,7 @@
         <!-- Testimonial (start-hiring only) -->
         <div *ngIf="config.testimonial"
           class="p-5 bg-white rounded-xl border border-gray-100">
-          <p class="font-body font-light text-[14px] leading-[1.6] text-dark-purple italic mb-3">
+          <p class="font-body font-light text-[14px] leading-[1.6] text-dark-purple italic mb-3 text-justify">
             {{ config.testimonial.quote }}
           </p>
           <p class="font-body text-[13px] text-dark-purple opacity-50">{{ config.testimonial.attribution }}</p>
@@ -146,23 +146,23 @@
 
         <!-- Call Details card (book-a-call only) -->
         <div *ngIf="config.callDetails"
-          class="flex flex-col gap-3 p-5 bg-white rounded-xl border border-gray-100 shadow-sm">
-          <p class="font-display font-semibold text-[13px] text-navy-dark">Call Details</p>
-          <div class="flex items-center gap-2 font-body text-[14px] text-dark-purple">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          class="flex flex-col gap-2 p-3.5 bg-white rounded-xl border border-gray-100 shadow-sm w-full">
+          <p class="font-display font-semibold text-[12px] text-navy-dark">Call Details</p>
+          <div class="flex items-center gap-2 font-body text-[13px] text-dark-purple">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
               <circle cx="8" cy="8" r="6.5" stroke="#999" stroke-width="1.2"/>
               <path d="M8 4.5V8L10.5 9.5" stroke="#999" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
             {{ config.callDetails.duration }}
           </div>
-          <div class="flex items-center gap-2 font-body text-[14px] text-dark-purple">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <div class="flex items-center gap-2 font-body text-[13px] text-dark-purple">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
               <rect x="1.5" y="3.5" width="9" height="9" rx="1.5" stroke="#999" stroke-width="1.2"/>
               <path d="M10.5 6.5L14.5 4.5V11.5L10.5 9.5" stroke="#999" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
             {{ config.callDetails.platform }}
           </div>
-          <p class="font-body text-[13px] text-dark-purple opacity-60 leading-[1.5]">
+          <p class="font-body text-[12px] text-dark-purple opacity-60 leading-[1.5]">
             {{ config.callDetails.confirmationNote }}
           </p>
         </div>
@@ -178,8 +178,8 @@
         <!-- ── FORM (all types) ───────────────────────────────────────────── -->
         <div class="p-6 sm:p-8 lg:p-9">
 
-          <!-- Form title — all types get accent bottom border -->
-          <div class="mb-7 pb-5" [style.border-bottom]="'3px solid ' + config.theme.accentHex">
+          <!-- Form title -->
+          <div class="mb-7">
             <h2 class="font-display font-semibold text-[20px] text-navy-dark mb-1">
               {{ config.right.formTitle }}
             </h2>

@@ -373,7 +373,7 @@ const FORM_CONFIGS: Record<ContactFormType, ContactFormConfig> = {
     },
     left: {
       badgeText: 'Schedule a Call',
-      title: "Let's Talk About Your Hiring Needs",
+      title: "Let's Talk About Your\nHiring Needs",
       description: "Book a free 20-minute discovery call with one of our nearshore specialists. We'll walk you through how Hirably works and give you a tailored recommendation — no pressure, no commitment.",
       bullets: [
         { text: 'Get answers to all your hiring-in-Mexico questions' },
@@ -650,6 +650,10 @@ export class ContactFormComponent implements OnInit, OnDestroy {
   }
 
   goHome(): void {
-    this.router.navigate(['/']);
+    const scrollY = parseInt(sessionStorage.getItem('returnScrollY') || '0', 10);
+    sessionStorage.removeItem('returnScrollY');
+    this.router.navigate(['/']).then(() => {
+      setTimeout(() => window.scrollTo({ top: scrollY, behavior: 'instant' }), 80);
+    });
   }
 }

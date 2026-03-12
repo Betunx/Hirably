@@ -38,3 +38,4 @@ MIGRATION_PLAN.md
 FIGMA_CONTENT.md
 extract_figma.js
 figma_*.json
+.claude/settings.local.json

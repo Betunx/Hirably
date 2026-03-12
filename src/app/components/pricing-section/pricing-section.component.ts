@@ -20,14 +20,17 @@ export class PricingSectionComponent {
   }
 
   onEorServices(): void {
+    sessionStorage.setItem('returnScrollY', window.scrollY.toString());
     this.router.navigate(['/contact', 'eor-services']);
   }
 
   onStartHiring(): void {
+    sessionStorage.setItem('returnScrollY', window.scrollY.toString());
     this.router.navigate(['/contact', 'start-hiring']);
   }
 
   onGetAQuote(): void {
+    sessionStorage.setItem('returnScrollY', window.scrollY.toString());
     this.router.navigate(['/contact', 'get-a-quote']);
   }
 }

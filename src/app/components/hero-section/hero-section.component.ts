@@ -11,6 +11,7 @@ export class HeroSectionComponent {
   constructor(private router: Router) {}
 
   onBookConsultation(): void {
+    sessionStorage.setItem('returnScrollY', window.scrollY.toString());
     this.router.navigate(['/contact', 'book-a-call']);
   }
 }
