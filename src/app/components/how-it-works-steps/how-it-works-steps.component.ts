@@ -15,9 +15,10 @@ export class HowItWorksStepsComponent {
   readonly mobileStepAlignments = ['', '', ''];
   readonly numberColors = ['text-[#C2E7FF]', 'text-[#D1F9E5]', 'text-[#E3E1FF]'];
   readonly circleFills = ['#C2E7FF', '#D1F9E5', '#E3E1FF'];
-  // Arrow 1: exits lower-half of card 01 (y≈492) → arrives at center of card 02 (y=328)
-  // Arrow 2: exits center of card 02 (y=328)    → arrives at top of card 03    (y=105)
-  readonly arrowOffsets = ['mt-[327px]', 'mt-[134px]'];
+  // Both arrows connect card center-Y to card center-Y (105px gap between centers)
+  // Card centers: 01=433px, 02=328px, 03=223px (step_mt + 105 + 118)
+  // SVG 71×107: path (0,106)→(71,1). container_mt = card_next_center - 1
+  readonly arrowOffsets = ['mt-[327px]', 'mt-[222px]'];
 
   constructor(private dataService: DataService) {
     this.steps = this.dataService.getHowItWorksSteps();
