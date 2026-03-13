@@ -54,7 +54,7 @@ export class DataService {
   private pricingPlansData: PricingPlan[] = [
     {
       badge: 'Headhunting',
-      name: 'Recruitment Only',
+      name: 'Hirably Recruitment',
       subtitle: 'Hiring for Your Entity',
       price: '$2,499',
       pricePrefix: 'Starting at',
@@ -94,7 +94,7 @@ export class DataService {
     },
     {
       badge: 'Employer of Record',
-      name: 'EOR Only',
+      name: 'Hirably EOR',
       subtitle: 'Bring Your Own Talent',
       price: '$499',
       pricePrefix: 'Starting at',

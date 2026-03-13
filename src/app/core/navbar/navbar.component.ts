@@ -103,7 +103,6 @@ export class NavbarComponent {
   }
 
   navigateToContact(type: string): void {
-    sessionStorage.setItem('returnScrollY', window.scrollY.toString());
     this.router.navigate(['/contact', type]);
     this.closeMenu();
   }

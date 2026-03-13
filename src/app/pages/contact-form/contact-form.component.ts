@@ -5,6 +5,7 @@ import {
   OnInit,
   OnDestroy
 } from '@angular/core';
+import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -539,6 +540,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private location: Location,
     private fb: FormBuilder,
     private http: HttpClient,
     private cdr: ChangeDetectorRef
@@ -650,10 +652,6 @@ export class ContactFormComponent implements OnInit, OnDestroy {
   }
 
   goHome(): void {
-    const scrollY = parseInt(sessionStorage.getItem('returnScrollY') || '0', 10);
-    sessionStorage.removeItem('returnScrollY');
-    this.router.navigate(['/']).then(() => {
-      setTimeout(() => window.scrollTo({ top: scrollY, behavior: 'instant' }), 80);
-    });
+    this.location.back();
   }
 }
