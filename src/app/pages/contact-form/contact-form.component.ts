@@ -11,15 +11,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import getCalApi from '@calcom/embed-snippet';
+// ── Formspree ─────────────────────────────────────────────────────────────
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xqeypgpb';
 
-// ── Replace with your Formspree form endpoint once created at formspree.io ──
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/REPLACE_WITH_YOUR_ID';
-
-// ── Cal.com: replace with your actual username/event-slug ─────────────────
-// Example: 'john-doe/discovery-call'
-const CAL_LINK = 'REPLACE_WITH_YOUR_CAL_LINK';
-const CAL_BRAND_COLOR = '#FFCF25'; // matches book-a-call theme
+// ── Cal.com ────────────────────────────────────────────────────────────────
+const CAL_API_KEY    = 'cal_live_a594cf0e99e01ae505a0bd39b000f222';
+const CAL_EVENT_ID   = 4585757;
+const CAL_TIMEZONE   = 'America/Hermosillo';
 
 export type ContactFormType = 'book-a-call' | 'start-hiring' | 'eor-services' | 'get-a-quote';
 const VALID_TYPES: ContactFormType[] = ['book-a-call', 'start-hiring', 'eor-services', 'get-a-quote'];
@@ -84,17 +82,10 @@ export interface ContactFormConfig {
     submitLabel: string;
     fields: FormFieldDef[];
     footerNote?: string;
-    showFileUpload?: boolean;
   };
 }
 
 // ── Select option lists ──────────────────────────────────────────────────────
-
-const TIME_SLOTS: SelectOption[] = [
-  { value: 'morning',       label: 'Morning (9am – 12pm CT)' },
-  { value: 'afternoon',     label: 'Afternoon (12pm – 3pm CT)' },
-  { value: 'late-afternoon',label: 'Late Afternoon (3pm – 5pm CT)' },
-];
 
 const HIRING_INTERESTS: SelectOption[] = [
   { value: 'full-service',  label: 'Hirably Complete (Staffing + EOR)' },
@@ -110,13 +101,6 @@ const CALL_TOPICS: SelectOption[] = [
   { value: 'scaling',    label: 'Scaling an existing team in Mexico' },
   { value: 'migration',  label: 'Migrating contractors to full-time' },
   { value: 'other',      label: 'Other' },
-];
-
-const TOPICS: SelectOption[] = [
-  { value: 'recruitment', label: 'Recruitment' },
-  { value: 'eor', label: 'EOR / Payroll' },
-  { value: 'pricing', label: 'Pricing' },
-  { value: 'general', label: 'General Inquiry' },
 ];
 
 const HEADCOUNTS: SelectOption[] = [
@@ -216,63 +200,11 @@ const ENTITY_STATUS: SelectOption[] = [
   { value: 'no',          label: 'No — I might need EOR too' },
 ];
 
-const INDUSTRIES: SelectOption[] = [
-  { value: 'technology', label: 'Technology' },
-  { value: 'finance', label: 'Finance' },
-  { value: 'healthcare', label: 'Healthcare' },
-  { value: 'ecommerce', label: 'E-Commerce' },
-  { value: 'manufacturing', label: 'Manufacturing' },
-  { value: 'other', label: 'Other' },
-];
-
-const POSITION_COUNTS: SelectOption[] = [
-  { value: '1-5', label: '1–5 positions' },
-  { value: '6-15', label: '6–15 positions' },
-  { value: '16-50', label: '16–50 positions' },
-  { value: '50+', label: '50+ positions' },
-];
-
 const EMPLOYEE_COUNTS: SelectOption[] = [
   { value: '1-10', label: '1–10 employees' },
   { value: '11-50', label: '11–50 employees' },
   { value: '51-200', label: '51–200 employees' },
   { value: '200+', label: '200+ employees' },
-];
-
-const COUNTRIES: SelectOption[] = [
-  { value: 'mexico', label: 'Mexico' },
-  { value: 'usa', label: 'United States' },
-  { value: 'canada', label: 'Canada' },
-  { value: 'latam', label: 'Latin America' },
-  { value: 'other', label: 'Other' },
-];
-
-const PAYROLL_SETUPS: SelectOption[] = [
-  { value: 'none', label: 'No existing setup' },
-  { value: 'inhouse', label: 'In-house payroll' },
-  { value: 'contractors', label: 'Contractors only' },
-  { value: 'vendor', label: 'Third-party vendor' },
-];
-
-const SERVICES: SelectOption[] = [
-  { value: 'recruitment', label: 'Recruitment' },
-  { value: 'eor', label: 'EOR / Compliance' },
-  { value: 'full', label: 'Full-Service Staffing' },
-  { value: 'payroll', label: 'Payroll Management' },
-];
-
-const TEAM_SIZES: SelectOption[] = [
-  { value: '1-5', label: '1–5 people' },
-  { value: '6-20', label: '6–20 people' },
-  { value: '21-100', label: '21–100 people' },
-  { value: '100+', label: '100+ people' },
-];
-
-const TIMELINES: SelectOption[] = [
-  { value: 'immediate', label: 'Immediately' },
-  { value: '1month', label: 'Within 1 month' },
-  { value: '3months', label: '1–3 months' },
-  { value: '6months', label: '3–6 months' },
 ];
 
 // ── Get-a-Quote fields (full form from JSX) ──────────────────────────────────
@@ -288,8 +220,6 @@ const GET_QUOTE_FIELDS: FormFieldDef[] = [
   { key: 'timeline',       label: 'Timeline',                         type: 'select',  options: QUOTE_TIMELINES,                                                                             required: true,  colSpan: 1 },
   { key: 'salaryRange',    label: 'Expected Salary Range (MXN/mo)',   type: 'select',  options: SALARY_RANGES,                                                                               required: false, colSpan: 1 },
   { key: 'entityStatus',   label: 'Do You Have a Mexican Entity?',    type: 'select',  options: ENTITY_STATUS,                                                                               required: true,  colSpan: 2 },
-  { key: 'preferredDate',  label: 'Preferred Date',                   type: 'date',                                                                                                          required: true,  colSpan: 1, sectionLabel: 'Schedule Your Call' },
-  { key: 'preferredTime',  label: 'Preferred Time Slot',              type: 'select',  options: TIME_SLOTS,                                                                                  required: true,  colSpan: 1 },
   { key: 'notes',          label: 'Tell Us About Your Needs',         type: 'textarea', placeholder: 'Role details, skills required, team structure, or anything that helps us prepare…',  required: true,  colSpan: 2, rows: 3 },
 ];
 
@@ -305,8 +235,6 @@ const EOR_FIELDS: FormFieldDef[] = [
   { key: 'employeeLocation', label: 'Where Are They Based?',        type: 'select',  options: EMPLOYEE_LOCATIONS,                                                            required: true,  colSpan: 1 },
   { key: 'currentSetup',     label: 'Current Employment Setup',     type: 'select',  options: CURRENT_SETUPS,                                                                required: false, colSpan: 1 },
   { key: 'payrollCurrency',  label: 'Preferred Invoice Currency',   type: 'select',  options: PAYROLL_CURRENCIES,                                                            required: false, colSpan: 2 },
-  { key: 'preferredDate',    label: 'Preferred Date',               type: 'date',                                                                                            required: true,  colSpan: 1, sectionLabel: 'Schedule Your Call' },
-  { key: 'preferredTime',    label: 'Preferred Time Slot',          type: 'select',  options: TIME_SLOTS,                                                                    required: true,  colSpan: 1 },
   { key: 'notes',            label: 'Tell Us About Your Needs',     type: 'textarea', placeholder: 'Roles, current setup, specific compliance concerns, anything else…',     required: true,  colSpan: 2, rows: 3 },
 ];
 
@@ -324,8 +252,6 @@ const START_HIRING_FIELDS: FormFieldDef[] = [
   { key: 'monthlyBudget',  label: 'Monthly Budget per Person',      type: 'select',  options: MONTHLY_BUDGETS,                                                        required: false, colSpan: 1 },
   { key: 'workSchedule',   label: 'Work Schedule',                  type: 'select',  options: WORK_SCHEDULES,                                                         required: false, colSpan: 1 },
   { key: 'englishLevel',   label: 'English Level Required',         type: 'select',  options: ENGLISH_LEVELS,                                                         required: false, colSpan: 1 },
-  { key: 'preferredDate',  label: 'Preferred Date',                 type: 'date',                                                                                     required: true,  colSpan: 1, sectionLabel: 'Schedule Your Call' },
-  { key: 'preferredTime',  label: 'Preferred Time Slot',            type: 'select',  options: TIME_SLOTS,                                                             required: true,  colSpan: 1 },
   { key: 'notes',          label: 'Anything Else We Should Know?',  type: 'textarea', placeholder: 'Tech stack, team culture, must-have skills, nice-to-haves…',     required: false, colSpan: 2, rows: 3 },
 ];
 
@@ -336,24 +262,10 @@ const BOOK_A_CALL_FIELDS: FormFieldDef[] = [
   { key: 'company',        label: 'Company Name',                type: 'text',     placeholder: 'Acme Corp',                                                               required: false, colSpan: 1 },
   { key: 'email',          label: 'Email Address',               type: 'email',    placeholder: 'jane@acme.com',                                                           required: true,  colSpan: 1 },
   { key: 'phone',          label: 'Phone Number',                type: 'tel',      placeholder: '+1 (555) 000-0000',                                                       required: true,  colSpan: 1 },
-  { key: 'preferredDate',  label: 'Preferred Date',              type: 'date',                                                                                              required: true,  colSpan: 1, sectionLabel: 'Scheduling' },
-  { key: 'preferredTime',  label: 'Preferred Time Slot',         type: 'select',   options: TIME_SLOTS,                                                                    required: true,  colSpan: 1 },
   { key: 'companySize',    label: 'Company Size',                type: 'select',   options: EMPLOYEE_COUNTS,                                                               required: false, colSpan: 1, sectionLabel: 'Help Us Prepare' },
   { key: 'hiringInterest', label: 'What Are You Interested In?', type: 'select',   options: HIRING_INTERESTS,                                                              required: false, colSpan: 1 },
   { key: 'topic',          label: 'Topic of Discussion',         type: 'select',   options: CALL_TOPICS,                                                                   required: false, colSpan: 2 },
   { key: 'notes',          label: 'Additional Notes',            type: 'textarea', placeholder: "Anything specific you'd like to discuss? Let us know so we can prepare…", required: false, colSpan: 2, rows: 3 },
-];
-
-// ── Unified SALES fields — shared by start-hiring, eor-services, get-a-quote ─
-
-const SALES_FIELDS: FormFieldDef[] = [
-  { key: 'fullName',  label: 'Full Name',              type: 'text',     placeholder: 'Jane Smith',                                     required: true,  colSpan: 1 },
-  { key: 'company',   label: 'Company Name',           type: 'text',     placeholder: 'Acme Corp',                                      required: true,  colSpan: 1 },
-  { key: 'email',     label: 'Work Email',             type: 'email',    placeholder: 'jane@acme.com',                                  required: true,  colSpan: 1 },
-  { key: 'phone',     label: 'Phone Number',           type: 'tel',      placeholder: '+1 (555) 000-0000',                              required: false, colSpan: 1 },
-  { key: 'positions', label: 'How many people to hire?', type: 'select', options: POSITION_COUNTS,                                      required: true,  colSpan: 1 },
-  { key: 'timeline',  label: 'Timeline',               type: 'select',   options: TIMELINES,                                            required: true,  colSpan: 1 },
-  { key: 'details',   label: 'Tell us about your needs', type: 'textarea', placeholder: 'Role, skills, current setup, or anything else…', required: true,  colSpan: 2, rows: 5 },
 ];
 
 // ── Static config map — one entry per form type ──────────────────────────────
@@ -435,7 +347,6 @@ const FORM_CONFIGS: Record<ContactFormType, ContactFormConfig> = {
       formSubtitle: 'Tell us about your hiring needs and schedule a call to build your custom plan.',
       submitLabel: 'Book My Consultation',
       fields: START_HIRING_FIELDS,
-      showFileUpload: true,
       footerNote: "Free 30-minute consultation. We'll confirm your slot within 24 hours and come prepared with a custom plan.",
     },
   },
@@ -508,7 +419,6 @@ const FORM_CONFIGS: Record<ContactFormType, ContactFormConfig> = {
       formSubtitle: 'Tell us about the roles you need to fill and schedule a call to get a tailored quote.',
       submitLabel: 'Book My Call & Get a Quote',
       fields: GET_QUOTE_FIELDS,
-      showFileUpload: true,
       footerNote: "Free 20-minute call. We'll confirm your slot within 24 hours and come prepared with a quote.",
     },
   },
@@ -526,16 +436,20 @@ export class ContactFormComponent implements OnInit, OnDestroy {
 
   config!: ContactFormConfig;
   form!: FormGroup;
-  submitting = false;
-  submitted = false;
-  submitError = false;
+  submitting    = false;
+  submitted     = false;
+  submitError   = false;
 
-  get isBookACall(): boolean {
-    return this.config?.type === 'book-a-call';
-  }
+  // Cal.com slot picker state
+  selectedDate   = '';
+  availableSlots: string[] = [];
+  selectedSlot: string | null = null;
+  loadingSlots   = false;
+
+  get isBookACall(): boolean { return this.config?.type === 'book-a-call'; }
+  get today(): string { return new Date().toISOString().split('T')[0]; }
 
   private readonly destroy$ = new Subject<void>();
-  private calInitialized = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -555,36 +469,17 @@ export class ContactFormComponent implements OnInit, OnDestroy {
           this.router.navigate(['/']);
           return;
         }
-        this.config = FORM_CONFIGS[type];
-        this.calInitialized = false;
+        this.config       = FORM_CONFIGS[type];
         this.buildForm();
-        this.submitted = false;
-        this.submitting = false;
-        this.submitError = false;
+        this.submitted    = false;
+        this.submitting   = false;
+        this.submitError  = false;
+        this.selectedDate  = '';
+        this.selectedSlot  = null;
+        this.availableSlots = [];
+        this.loadingSlots  = false;
         this.cdr.markForCheck();
       });
-  }
-
-  private async initCal(): Promise<void> {
-    if (this.calInitialized) return;
-    this.calInitialized = true;
-
-    const cal = await getCalApi();
-
-    cal('inline', {
-      elementOrSelector: '#my-cal-inline',
-      calLink: CAL_LINK,
-    });
-
-    cal('ui', {
-      theme: 'light',
-      cssVarsPerTheme: {
-        light: { 'cal-brand': CAL_BRAND_COLOR },
-        dark:  { 'cal-brand': CAL_BRAND_COLOR },
-      },
-      hideEventTypeDetails: false,
-      layout: 'month_view',
-    });
   }
 
   ngOnDestroy(): void {
@@ -618,26 +513,36 @@ export class ContactFormComponent implements OnInit, OnDestroy {
       this.cdr.markForCheck();
       return;
     }
-    this.submitting = true;
+    this.submitting  = true;
     this.submitError = false;
     this.cdr.markForCheck();
 
+    const { fullName, email, notes } = this.form.value;
+    const slotLabel = this.selectedSlot
+      ? new Date(this.selectedSlot).toLocaleString('en-US', { timeZone: CAL_TIMEZONE, dateStyle: 'medium', timeStyle: 'short' })
+      : 'Not scheduled';
+
     const payload = {
       ...this.form.value,
-      _form_type: this.config.type,
-      _subject: `Hirably Form: ${this.config.right.formTitle}`,
+      _form_type:      this.config.type,
+      _subject:        `Hirably Form: ${this.config.right.formTitle}`,
+      _scheduled_slot: slotLabel,
     };
 
     this.http.post(FORMSPREE_ENDPOINT, payload)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: () => {
-          this.submitting = false;
-          this.submitted = true;
-          this.cdr.markForCheck();
+          if (this.selectedSlot && fullName && email) {
+            this.createCalBooking(fullName, email, notes ?? '');
+          } else {
+            this.submitting = false;
+            this.submitted  = true;
+            this.cdr.markForCheck();
+          }
         },
         error: () => {
-          this.submitting = false;
+          this.submitting  = false;
           this.submitError = true;
           this.cdr.markForCheck();
         },
@@ -653,5 +558,68 @@ export class ContactFormComponent implements OnInit, OnDestroy {
 
   goHome(): void {
     this.location.back();
+  }
+
+  // ── Cal.com slot picker ─────────────────────────────────────────────────
+
+  onDateChange(event: Event): void {
+    const date = (event.target as HTMLInputElement).value;
+    if (!date) return;
+    this.selectedDate   = date;
+    this.selectedSlot   = null;
+    this.availableSlots = [];
+    this.loadingSlots   = true;
+    this.cdr.markForCheck();
+
+    // Cover the full Hermosillo calendar day (UTC-7 → start at 07:00 UTC)
+    const startTime = `${date}T07:00:00.000Z`;
+    const next = new Date(date); next.setDate(next.getDate() + 1);
+    const endTime = `${next.toISOString().split('T')[0]}T06:59:59.000Z`;
+
+    this.http.get<{ slots: Record<string, { time: string }[]> }>(
+      'https://api.cal.com/v1/slots',
+      { params: { apiKey: CAL_API_KEY, eventTypeId: String(CAL_EVENT_ID), startTime, endTime, timeZone: CAL_TIMEZONE } }
+    ).pipe(takeUntil(this.destroy$)).subscribe({
+      next: (res) => {
+        this.availableSlots = (res.slots?.[date] ?? []).map(s => s.time);
+        this.loadingSlots   = false;
+        this.cdr.markForCheck();
+      },
+      error: () => {
+        this.loadingSlots = false;
+        this.cdr.markForCheck();
+      },
+    });
+  }
+
+  selectSlot(slot: string): void {
+    this.selectedSlot = slot;
+    this.cdr.markForCheck();
+  }
+
+  formatSlotTime(iso: string): string {
+    return new Date(iso).toLocaleTimeString('en-US', {
+      hour: 'numeric', minute: '2-digit', hour12: true, timeZone: CAL_TIMEZONE,
+    });
+  }
+
+  private createCalBooking(name: string, email: string, notes: string): void {
+    const end = new Date(new Date(this.selectedSlot!).getTime() + 30 * 60 * 1000).toISOString();
+    this.http.post(
+      `https://api.cal.com/v1/bookings?apiKey=${CAL_API_KEY}`,
+      {
+        eventTypeId: CAL_EVENT_ID,
+        start: this.selectedSlot,
+        end,
+        responses: { name, email, notes },
+        timeZone: CAL_TIMEZONE,
+        language: 'en',
+        metadata: { formType: this.config.type },
+      }
+    ).pipe(takeUntil(this.destroy$)).subscribe({
+      next:  () => { this.submitting = false; this.submitted = true; this.cdr.markForCheck(); },
+      // Even if Cal fails, Formspree already captured the data — show success
+      error: () => { this.submitting = false; this.submitted = true; this.cdr.markForCheck(); },
+    });
   }
 }
