@@ -5,7 +5,6 @@ import {
   OnInit,
   OnDestroy
 } from '@angular/core';
-import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -490,7 +489,6 @@ export class ContactFormComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private location: Location,
     private fb: FormBuilder,
     private http: HttpClient,
     private cdr: ChangeDetectorRef
@@ -596,7 +594,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
   }
 
   goHome(): void {
-    this.location.back();
+    this.router.navigate(['/']);
   }
 
   // ── Mini calendar navigation ─────────────────────────────────────────────

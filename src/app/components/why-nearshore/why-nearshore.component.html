@@ -166,10 +166,10 @@
     <!-- ═══════════════════════════════════════════════
          DESKTOP (≥ 1200px): 3-column Figma layout
          ═══════════════════════════════════════════════ -->
-    <div class="hidden min-[1200px]:flex flex-row gap-[30px] items-end justify-center">
+    <div class="hidden min-[1200px]:flex flex-row gap-[30px] items-stretch justify-center">
 
       <!-- LEFT: Title + Subtitle + Yellow card -->
-      <div class="flex flex-col w-[380px] flex-shrink-0">
+      <div class="flex flex-col w-[380px] flex-shrink-0 justify-between">
 
         <h2 class="font-display font-normal text-[34px] leading-[127%] text-navy-dark mb-4 text-left">
           Why <span class="font-medium">top companies</span> are moving from offshore to <span class="text-primary-blue font-medium">nearshore</span>.
@@ -193,7 +193,7 @@
       </div>
 
       <!-- CENTER: Handshake image — fills remaining space -->
-      <div class="h-[446px] rounded-[12px] overflow-hidden" style="flex: 1 1 0%; min-width: 0;">
+      <div class="rounded-[12px] overflow-hidden" style="flex: 1 1 0%; min-width: 0; min-height: 446px;">
         <img src="assets/img/manos.png" alt="Professional handshake" class="w-full h-full object-cover" loading="lazy">
       </div>
 
