@@ -659,12 +659,10 @@ export class ContactFormComponent implements OnInit, OnDestroy {
         eventTypeId: CAL_EVENT_ID,
         start: this.selectedSlot,
         end,
-        name,
-        email,
-        notes,
+        responses: { name, email },
         timeZone: CAL_TIMEZONE,
         language: 'en',
-        metadata: { formType: this.config.type },
+        metadata: {},
       }
     ).pipe(takeUntil(this.destroy$)).subscribe({
       next:  () => { this.submitting = false; this.submitted = true; this.cdr.markForCheck(); },
