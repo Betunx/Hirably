@@ -11,8 +11,8 @@
   </div>
 
   <!-- ── 1. HERO ─────────────────────────────────────────────────────── -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 lg:py-16">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-center">
 
       <!-- Left: copy -->
       <div class="flex flex-col gap-5 items-center">
@@ -25,6 +25,11 @@
         <p class="font-body font-light text-[16px] lg:text-[18px] leading-[1.7] text-dark-purple whitespace-pre-line text-center">
           {{ dept.heroSubtitle }}
         </p>
+        <!-- Mobile image — below subtitle -->
+        <div class="flex lg:hidden items-center justify-center w-full">
+          <img [src]="dept.heroImage" [alt]="dept.title"
+            class="w-full max-w-[300px] h-auto object-cover rounded-2xl drop-shadow-xl">
+        </div>
         <!-- Proof bullets -->
         <div class="flex flex-col gap-2 pt-1">
           <div class="flex items-center gap-2">
@@ -47,7 +52,7 @@
           </div>
         </div>
         <!-- CTAs -->
-        <div class="flex flex-wrap gap-3 pt-2 justify-center">
+        <div class="flex flex-wrap gap-3 pt-2 pb-8 justify-center">
           <button (click)="goHire()"
             class="px-7 py-3.5 rounded-[8px] bg-navy-dark text-white font-display font-semibold text-[15px] hover:opacity-90 transition-opacity shadow-[0_4px_14px_rgba(17,31,120,0.35)] cursor-pointer">
             {{ dept.ctaButtonText }}
@@ -59,7 +64,7 @@
         </div>
       </div>
 
-      <!-- Right: image -->
+      <!-- Right: image (desktop only) -->
       <div class="hidden lg:flex items-center justify-center">
         <img [src]="dept.heroImage" [alt]="dept.title"
           class="w-full max-w-[480px] h-auto object-cover rounded-2xl drop-shadow-xl">
@@ -97,8 +102,8 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
         <div>
-          <h2 class="font-display font-semibold text-[24px] lg:text-[30px] text-navy-dark mb-4">{{ dept.whyTitle }}</h2>
-          <p class="font-body font-light text-[15px] lg:text-[16px] leading-[1.75] text-dark-purple">{{ dept.whyText }}</p>
+          <h2 class="font-display font-semibold text-[24px] lg:text-[30px] text-navy-dark mb-4 text-center">{{ dept.whyTitle }}</h2>
+          <p class="font-body font-light text-[15px] lg:text-[16px] leading-[1.75] text-dark-purple text-center">{{ dept.whyText }}</p>
         </div>
         <div class="flex flex-col gap-3">
           <div *ngFor="let point of dept.whyPoints"
@@ -117,8 +122,8 @@
   <!-- ── 4. SALARY COMPARISON ───────────────────────────────────────── -->
   <section class="bg-white py-12 lg:py-16">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="font-display font-semibold text-[24px] lg:text-[30px] text-navy-dark mb-2">Salary comparison</h2>
-      <p class="font-body text-[14px] text-dark-purple/70 mb-8">Annual salaries in USD. Hirably handles all compliance and employer costs.</p>
+      <h2 class="font-display font-semibold text-[24px] lg:text-[30px] text-navy-dark mb-2 text-center">Salary comparison</h2>
+      <p class="font-body text-[14px] text-dark-purple/70 mb-8 text-center">Annual salaries in USD. Hirably handles all compliance and employer costs.</p>
 
       <div class="flex flex-col gap-6">
         <div *ngFor="let item of dept.salaryComparisons" class="flex flex-col gap-2">
@@ -156,9 +161,9 @@
   <!-- ── 5. TOOLS & SKILLS ──────────────────────────────────────────── -->
   <section class="py-12 lg:py-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="font-display font-semibold text-[24px] lg:text-[30px] text-navy-dark mb-2">Tools & skills</h2>
-      <p class="font-body text-[14px] text-dark-purple/70 mb-6">Common technologies our vetted candidates work with.</p>
-      <div class="flex flex-wrap gap-2">
+      <h2 class="font-display font-semibold text-[24px] lg:text-[30px] text-navy-dark mb-2 text-center">Tools & skills</h2>
+      <p class="font-body text-[14px] text-dark-purple/70 mb-6 text-center">Common technologies our vetted candidates work with.</p>
+      <div class="flex flex-wrap gap-2 justify-center">
         <span *ngFor="let tool of dept.tools"
           class="px-3.5 py-1.5 bg-gray-100 rounded-lg font-body text-[13px] text-dark-purple hover:bg-primary-blue/10 transition-colors">
           {{ tool }}
@@ -170,7 +175,7 @@
   <!-- ── 6. FAQ ─────────────────────────────────────────────────────── -->
   <section class="bg-white py-12 lg:py-16">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="font-display font-semibold text-[24px] lg:text-[30px] text-navy-dark mb-8">Frequently asked questions</h2>
+      <h2 class="font-display font-semibold text-[24px] lg:text-[30px] text-navy-dark mb-8 text-center">Frequently asked questions</h2>
       <div *ngFor="let faq of dept.faqs; let i = index; let last = last">
         <div class="py-4 cursor-pointer" (click)="toggleFaq(i)">
           <div class="flex items-center justify-between gap-4">
