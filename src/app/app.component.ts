@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ElementRef, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -12,4 +12,10 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent {}
+export class AppComponent implements AfterViewInit {
+  constructor(private el: ElementRef<HTMLElement>) {}
+
+  ngAfterViewInit(): void {
+    this.el.nativeElement.style.opacity = '1';
+  }
+}
