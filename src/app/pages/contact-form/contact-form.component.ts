@@ -446,8 +446,44 @@ export class ContactFormComponent implements OnInit, OnDestroy {
   selectedSlot: string | null = null;
   loadingSlots   = false;
 
+  // Mini calendar state
+  calMonth = new Date().getMonth();
+  calYear  = new Date().getFullYear();
+  readonly calWeekDays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+
   get isBookACall(): boolean { return this.config?.type === 'book-a-call'; }
-  get today(): string { return new Date().toISOString().split('T')[0]; }
+
+  get calMonthName(): string {
+    return new Date(this.calYear, this.calMonth).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  }
+
+  get calDays(): (number | null)[] {
+    const firstWeekday = new Date(this.calYear, this.calMonth, 1).getDay();
+    const totalDays    = new Date(this.calYear, this.calMonth + 1, 0).getDate();
+    const cells: (number | null)[] = Array(firstWeekday).fill(null);
+    for (let d = 1; d <= totalDays; d++) cells.push(d);
+    while (cells.length % 7 !== 0) cells.push(null);
+    return cells;
+  }
+
+  get canGoPrevMonth(): boolean {
+    const now = new Date();
+    return this.calYear > now.getFullYear() || (this.calYear === now.getFullYear() && this.calMonth > now.getMonth());
+  }
+
+  isDayPast(day: number): boolean {
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    return new Date(this.calYear, this.calMonth, day) < today;
+  }
+
+  isDaySelected(day: number): boolean {
+    return this.selectedDate === `${this.calYear}-${String(this.calMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+  }
+
+  isDayToday(day: number): boolean {
+    const n = new Date();
+    return day === n.getDate() && this.calMonth === n.getMonth() && this.calYear === n.getFullYear();
+  }
 
   private readonly destroy$ = new Subject<void>();
 
@@ -474,10 +510,12 @@ export class ContactFormComponent implements OnInit, OnDestroy {
         this.submitted    = false;
         this.submitting   = false;
         this.submitError  = false;
-        this.selectedDate  = '';
-        this.selectedSlot  = null;
+        this.selectedDate   = '';
+        this.selectedSlot   = null;
         this.availableSlots = [];
-        this.loadingSlots  = false;
+        this.loadingSlots   = false;
+        this.calMonth = new Date().getMonth();
+        this.calYear  = new Date().getFullYear();
         this.cdr.markForCheck();
       });
   }
@@ -526,6 +564,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
       ...this.form.value,
       _form_type:      this.config.type,
       _subject:        `Hirably Form: ${this.config.right.formTitle}`,
+      _replyto:        email ?? '',
       _scheduled_slot: slotLabel,
     };
 
@@ -560,22 +599,34 @@ export class ContactFormComponent implements OnInit, OnDestroy {
     this.location.back();
   }
 
-  // ── Cal.com slot picker ─────────────────────────────────────────────────
+  // ── Mini calendar navigation ─────────────────────────────────────────────
 
-  onDateChange(event: Event): void {
-    const date = (event.target as HTMLInputElement).value;
-    if (!date) return;
+  prevMonth(): void {
+    if (!this.canGoPrevMonth) return;
+    this.calMonth === 0 ? (this.calMonth = 11, this.calYear--) : this.calMonth--;
+    this.cdr.markForCheck();
+  }
+
+  nextMonth(): void {
+    this.calMonth === 11 ? (this.calMonth = 0, this.calYear++) : this.calMonth++;
+    this.cdr.markForCheck();
+  }
+
+  selectDay(day: number): void {
+    if (this.isDayPast(day)) return;
+    const date = `${this.calYear}-${String(this.calMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
     this.selectedDate   = date;
     this.selectedSlot   = null;
     this.availableSlots = [];
     this.loadingSlots   = true;
     this.cdr.markForCheck();
+    this.fetchSlots(date);
+  }
 
-    // Cover the full Hermosillo calendar day (UTC-7 → start at 07:00 UTC)
+  private fetchSlots(date: string): void {
     const startTime = `${date}T07:00:00.000Z`;
     const next = new Date(date); next.setDate(next.getDate() + 1);
     const endTime = `${next.toISOString().split('T')[0]}T06:59:59.000Z`;
-
     this.http.get<{ slots: Record<string, { time: string }[]> }>(
       'https://api.cal.com/v1/slots',
       { params: { apiKey: CAL_API_KEY, eventTypeId: String(CAL_EVENT_ID), startTime, endTime, timeZone: CAL_TIMEZONE } }
@@ -585,10 +636,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
         this.loadingSlots   = false;
         this.cdr.markForCheck();
       },
-      error: () => {
-        this.loadingSlots = false;
-        this.cdr.markForCheck();
-      },
+      error: () => { this.loadingSlots = false; this.cdr.markForCheck(); },
     });
   }
 
@@ -611,7 +659,9 @@ export class ContactFormComponent implements OnInit, OnDestroy {
         eventTypeId: CAL_EVENT_ID,
         start: this.selectedSlot,
         end,
-        responses: { name, email, notes },
+        name,
+        email,
+        notes,
         timeZone: CAL_TIMEZONE,
         language: 'en',
         metadata: { formType: this.config.type },

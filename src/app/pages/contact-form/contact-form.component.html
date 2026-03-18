@@ -187,7 +187,7 @@
           <div *ngIf="submitError"
             class="mb-5 px-4 py-3 rounded-lg bg-red-50 border border-red-200 font-body text-[13px] text-red-600">
             Something went wrong. Please try again or email us at
-            <a href="mailto:info&#64;hirably.com" class="underline">info&#64;hirably.com</a>.
+            <a href="mailto:chrystian.moreno&#64;hirablystaffing.com" class="underline">chrystian.moreno&#64;hirablystaffing.com</a>.
           </div>
 
           <!-- Reactive form — 2-column responsive grid -->
@@ -301,12 +301,50 @@
                 </div>
               </div>
 
-              <!-- Date picker -->
-              <label class="font-display font-medium text-[13px] text-carbon-black block mb-1.5">
-                Select a Date <span class="font-body font-normal text-dark-purple opacity-40">(optional)</span>
-              </label>
-              <input type="date" [min]="today" (change)="onDateChange($event)"
-                class="w-full h-9 px-3 rounded-md border border-gray-neutral font-body text-[14px] text-carbon-black bg-white outline-none focus:ring-2 focus:ring-offset-1 mb-4 cursor-pointer">
+              <!-- Mini month calendar -->
+              <div class="mb-4">
+                <!-- Month nav header -->
+                <div class="flex items-center justify-between mb-2 px-0.5">
+                  <button type="button" (click)="prevMonth()" [disabled]="!canGoPrevMonth"
+                    class="w-7 h-7 rounded-md flex items-center justify-center text-dark-purple/40 hover:text-dark-purple hover:bg-gray-100 transition-all disabled:opacity-20 disabled:cursor-not-allowed cursor-pointer">
+                    <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+                      <path d="M9 11L5 7l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                  <span class="font-display font-semibold text-[13px] text-navy-dark">{{ calMonthName }}</span>
+                  <button type="button" (click)="nextMonth()"
+                    class="w-7 h-7 rounded-md flex items-center justify-center text-dark-purple/40 hover:text-dark-purple hover:bg-gray-100 transition-all cursor-pointer">
+                    <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
+                      <path d="M5 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                </div>
+
+                <!-- Weekday labels -->
+                <div class="grid grid-cols-7 mb-0.5">
+                  <div *ngFor="let h of calWeekDays"
+                    class="text-center font-body text-[10px] text-dark-purple/35 py-1 leading-none select-none">{{ h }}</div>
+                </div>
+
+                <!-- Day cells -->
+                <div class="grid grid-cols-7 gap-y-0.5">
+                  <ng-container *ngFor="let day of calDays">
+                    <button *ngIf="day !== null" type="button" (click)="selectDay(day)"
+                      [disabled]="isDayPast(day)"
+                      class="h-8 w-8 mx-auto rounded-full flex items-center justify-center font-body text-[12px] transition-all duration-100 leading-none"
+                      [ngClass]="{
+                        'text-dark-purple/20 cursor-not-allowed': isDayPast(day),
+                        'hover:bg-gray-100 cursor-pointer text-navy-dark': !isDayPast(day) && !isDaySelected(day),
+                        'text-white cursor-pointer': isDaySelected(day)
+                      }"
+                      [style.background]="isDaySelected(day) ? config.theme.accentHex : ''"
+                      [style.color]="isDayToday(day) && !isDaySelected(day) ? config.theme.accentHex : ''">
+                      <span [class.font-semibold]="isDayToday(day) && !isDaySelected(day)">{{ day }}</span>
+                    </button>
+                    <div *ngIf="day === null" class="h-8"></div>
+                  </ng-container>
+                </div>
+              </div>
 
               <!-- Loading -->
               <div *ngIf="loadingSlots" class="flex items-center justify-center gap-2 py-5 text-dark-purple/60">
