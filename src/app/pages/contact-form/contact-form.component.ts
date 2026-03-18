@@ -11,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 // ── Formspree ─────────────────────────────────────────────────────────────
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xqeypgpb';
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xzdjkqnd';
 
 // ── Cal.com ────────────────────────────────────────────────────────────────
 const CAL_API_KEY    = 'cal_live_a594cf0e99e01ae505a0bd39b000f222';
@@ -547,6 +547,10 @@ export class ContactFormComponent implements OnInit, OnDestroy {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       this.cdr.markForCheck();
+      setTimeout(() => {
+        const el = document.querySelector('input.ng-invalid, select.ng-invalid, textarea.ng-invalid') as HTMLElement;
+        if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); el.focus(); }
+      }, 50);
       return;
     }
     this.submitting  = true;
