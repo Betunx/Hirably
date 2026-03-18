@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Benefit, Service, PricingPlan, Step, RoleCategory } from '@models';
+import { Benefit, Service, PricingPlan, Step, RoleCategory, DepartmentDetail } from '@models';
 
 @Injectable({
   providedIn: 'root'
@@ -168,5 +168,57 @@ export class DataService {
 
   getRoleCategories(): RoleCategory[] {
     return this.roleCategoriesData;
+  }
+
+  // ── Department pages ──────────────────────────────────────────────────────
+
+  private departmentsData: { [key: string]: DepartmentDetail } = {
+    technology: {
+      id: 'technology',
+      title: 'Technology & Engineering',
+      heroTitle: 'World-class developers from Mexico',
+      heroSubtitle: 'Pre-vetted engineers ready to join your team in under 14 days.\nSame timezone, up to 60% cost savings, zero compliance headaches.',
+      heroImage: 'assets/img/developer.jpg',
+      roles: ['Full-Stack Developers', 'QA Engineers', 'DevOps Engineers', 'UI/UX Designers', 'Data Analysts', 'Mobile Developers', 'Frontend Developers', 'Backend Developers'],
+      whyTitle: 'Why hire tech talent in Mexico?',
+      whyText: 'Mexico produces over 130,000 engineering graduates annually. Cities like Guadalajara, Monterrey, and Mexico City are established tech hubs with professionals experienced in modern stacks. Same timezone alignment means real-time collaboration — no async delays.',
+      whyPoints: [
+        '130,000+ engineering graduates per year',
+        'Guadalajara, Monterrey & CDMX tech hubs',
+        'Same timezone as US teams (CST, MST, PST)',
+        'Modern stacks: React, Node, AWS, Python, and more'
+      ],
+      salaryComparisons: [
+        { role: 'Full-Stack Developer', usSalary: 125000, mxSalary: 45000 },
+        { role: 'QA Engineer',          usSalary: 95000,  mxSalary: 32000 },
+        { role: 'DevOps Engineer',      usSalary: 135000, mxSalary: 50000 },
+        { role: 'UI/UX Designer',       usSalary: 105000, mxSalary: 38000 }
+      ],
+      tools: ['React', 'Angular', 'Vue.js', 'Node.js', 'Python', 'TypeScript', 'AWS', 'Docker', 'Kubernetes', 'PostgreSQL', 'MongoDB', 'Figma'],
+      faqs: [
+        {
+          question: 'What tech stacks do your developers know?',
+          answer: 'Our talent pool covers React, Angular, Vue, Node.js, Python, Java, .NET, AWS, GCP, and more. We match the specific stack your team uses.'
+        },
+        {
+          question: 'Can developers work in US timezones?',
+          answer: 'Yes. Mexico shares timezones with the US (CST, MST, PST), so your developers work the same hours as your local team — no scheduling friction.'
+        },
+        {
+          question: 'What does the vetting process look like?',
+          answer: 'Every candidate goes through technical assessments, English proficiency checks, cultural fit interviews, and reference verification before being presented to you.'
+        }
+      ],
+      ctaTitle: 'Ready to hire your next developer?',
+      ctaButtonText: 'Start Hiring Today'
+    }
+  };
+
+  getDepartment(id: string): DepartmentDetail | undefined {
+    return this.departmentsData[id];
+  }
+
+  getDepartmentIds(): string[] {
+    return Object.keys(this.departmentsData);
   }
 }

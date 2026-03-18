@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Router } from '@angular/router';
 import { DataService } from '@services/data.service';
 import { RoleCategory } from '@models';
 
@@ -9,14 +10,20 @@ import { RoleCategory } from '@models';
 })
 export class RolesSectionComponent {
   readonly categories: RoleCategory[];
+  readonly deptIds: Set<string>;
   expandedSection: string | null = null;
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService, private router: Router) {
     this.categories = this.dataService.getRoleCategories();
+    this.deptIds = new Set(this.dataService.getDepartmentIds());
   }
 
   toggleAccordion(sectionId: string): void {
-    this.expandedSection = this.expandedSection === sectionId ? null : sectionId;
+    if (this.deptIds.has(sectionId)) {
+      this.router.navigate(['/roles', sectionId]);
+    } else {
+      this.expandedSection = this.expandedSection === sectionId ? null : sectionId;
+    }
   }
 
   trackByCategory(_index: number, category: RoleCategory): string {

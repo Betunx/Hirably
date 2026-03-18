@@ -1,0 +1,219 @@
+<div class="min-h-screen bg-floral-white pt-[72px]" *ngIf="dept">
+
+  <!-- ── BACK TO HOME ─────────────────────────────────────────────────── -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
+    <a (click)="goHome()" class="inline-flex items-center gap-1.5 font-body text-[13px] text-dark-purple opacity-50 hover:opacity-100 transition-opacity cursor-pointer">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>
+      </svg>
+      Back to Home
+    </a>
+  </div>
+
+  <!-- ── 1. HERO ─────────────────────────────────────────────────────── -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+
+      <!-- Left: copy -->
+      <div class="flex flex-col gap-5 items-center">
+        <span class="px-3 py-1 rounded-full bg-primary-blue/10 font-display font-semibold text-[11px] uppercase tracking-widest text-primary-blue">
+          {{ dept.title }}
+        </span>
+        <h1 class="font-display font-semibold text-[28px] sm:text-[34px] lg:text-[40px] leading-[1.15] text-navy-dark text-center">
+          {{ dept.heroTitle }}
+        </h1>
+        <p class="font-body font-light text-[16px] lg:text-[18px] leading-[1.7] text-dark-purple whitespace-pre-line text-center">
+          {{ dept.heroSubtitle }}
+        </p>
+        <!-- Proof bullets -->
+        <div class="flex flex-col gap-2 pt-1">
+          <div class="flex items-center gap-2">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2291EA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M13 6l6 6-6 6"/>
+            </svg>
+            <span class="font-body text-[13px] text-dark-purple font-medium">Up to 60% cost savings</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2291EA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M13 6l6 6-6 6"/>
+            </svg>
+            <span class="font-body text-[13px] text-dark-purple font-medium">14-day avg. hire</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2291EA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M13 6l6 6-6 6"/>
+            </svg>
+            <span class="font-body text-[13px] text-dark-purple font-medium">Same timezone</span>
+          </div>
+        </div>
+        <!-- CTAs -->
+        <div class="flex flex-wrap gap-3 pt-2 justify-center">
+          <button (click)="goHire()"
+            class="px-7 py-3.5 rounded-[8px] bg-navy-dark text-white font-display font-semibold text-[15px] hover:opacity-90 transition-opacity shadow-[0_4px_14px_rgba(17,31,120,0.35)] cursor-pointer">
+            {{ dept.ctaButtonText }}
+          </button>
+          <button (click)="goCall()"
+            class="px-7 py-3.5 rounded-[8px] border border-navy-dark/25 text-navy-dark font-display font-medium text-[15px] hover:border-navy-dark transition-colors cursor-pointer">
+            Book a Discovery Call
+          </button>
+        </div>
+      </div>
+
+      <!-- Right: image -->
+      <div class="hidden lg:flex items-center justify-center">
+        <img [src]="dept.heroImage" [alt]="dept.title"
+          class="w-full max-w-[480px] h-auto object-cover rounded-2xl drop-shadow-xl">
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 2. ROLES WE FILL ───────────────────────────────────────────── -->
+  <section class="bg-white py-12 lg:py-16 overflow-hidden">
+    <h2 class="font-display font-semibold text-[28px] lg:text-[38px] text-navy-dark mb-3 text-center">Roles we fill</h2>
+    <p class="font-body text-[15px] text-dark-purple/70 mb-10 text-center">Every role backed by a specialist recruiter who knows this field.</p>
+
+    <!-- Marquee -->
+    <div class="max-w-3xl mx-auto overflow-hidden">
+      <div style="mask-image: linear-gradient(to right, transparent 0%, black 22%, black 78%, transparent 100%);
+                  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 22%, black 78%, transparent 100%);">
+        <div class="flex gap-2.5 animate-marquee" style="width: max-content;">
+          <!-- SET 1 -->
+          <span *ngFor="let role of dept.roles"
+            class="px-4 py-1.5 rounded-full border border-[#C2E7FF] bg-white font-body text-[13px] text-carbon-black whitespace-nowrap flex-shrink-0 shadow-sm">
+            {{ role }}
+          </span>
+          <!-- SET 2 — duplicate for seamless loop -->
+          <span *ngFor="let role of dept.roles"
+            class="px-4 py-1.5 rounded-full border border-[#C2E7FF] bg-white font-body text-[13px] text-carbon-black whitespace-nowrap flex-shrink-0 shadow-sm">
+            {{ role }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 3. WHY MEXICO ──────────────────────────────────────────────── -->
+  <section class="py-12 lg:py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+        <div>
+          <h2 class="font-display font-semibold text-[24px] lg:text-[30px] text-navy-dark mb-4">{{ dept.whyTitle }}</h2>
+          <p class="font-body font-light text-[15px] lg:text-[16px] leading-[1.75] text-dark-purple">{{ dept.whyText }}</p>
+        </div>
+        <div class="flex flex-col gap-3">
+          <div *ngFor="let point of dept.whyPoints"
+            class="flex items-start gap-3 p-4 bg-white rounded-xl border border-gray-100 shadow-sm">
+            <svg class="flex-shrink-0 mt-0.5" width="18" height="18" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="10" fill="#2291EA" opacity="0.12"/>
+              <path d="M6 10.5L8.5 13L14 7" stroke="#2291EA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="font-body text-[14px] text-carbon-black">{{ point }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 4. SALARY COMPARISON ───────────────────────────────────────── -->
+  <section class="bg-white py-12 lg:py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="font-display font-semibold text-[24px] lg:text-[30px] text-navy-dark mb-2">Salary comparison</h2>
+      <p class="font-body text-[14px] text-dark-purple/70 mb-8">Annual salaries in USD. Hirably handles all compliance and employer costs.</p>
+
+      <div class="flex flex-col gap-6">
+        <div *ngFor="let item of dept.salaryComparisons" class="flex flex-col gap-2">
+          <div class="flex items-center justify-between mb-1">
+            <span class="font-display font-medium text-[14px] text-navy-dark">{{ item.role }}</span>
+            <span class="font-display font-semibold text-[13px] text-[#10B981] bg-[#10B981]/10 px-2.5 py-0.5 rounded-full">
+              Save {{ getSavings(item.usSalary, item.mxSalary) }}%
+            </span>
+          </div>
+          <!-- US bar -->
+          <div class="flex items-center gap-3">
+            <span class="font-body text-[11px] text-dark-purple/50 w-6">US</span>
+            <div class="flex-1 h-6 bg-gray-100 rounded-md overflow-hidden">
+              <div class="h-full bg-[#FDA29B] rounded-md flex items-center justify-end pr-2 transition-all duration-500"
+                [style.width.%]="getBarPct(item.usSalary)">
+                <span class="font-body font-semibold text-[11px] text-white">{{ formatSalary(item.usSalary) }}</span>
+              </div>
+            </div>
+          </div>
+          <!-- MX bar -->
+          <div class="flex items-center gap-3">
+            <span class="font-body text-[11px] text-dark-purple/50 w-6">MX</span>
+            <div class="flex-1 h-6 bg-gray-100 rounded-md overflow-hidden">
+              <div class="h-full bg-[#10B981] rounded-md flex items-center justify-end pr-2 transition-all duration-500"
+                [style.width.%]="getBarPct(item.mxSalary)">
+                <span class="font-body font-semibold text-[11px] text-white">{{ formatSalary(item.mxSalary) }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 5. TOOLS & SKILLS ──────────────────────────────────────────── -->
+  <section class="py-12 lg:py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="font-display font-semibold text-[24px] lg:text-[30px] text-navy-dark mb-2">Tools & skills</h2>
+      <p class="font-body text-[14px] text-dark-purple/70 mb-6">Common technologies our vetted candidates work with.</p>
+      <div class="flex flex-wrap gap-2">
+        <span *ngFor="let tool of dept.tools"
+          class="px-3.5 py-1.5 bg-gray-100 rounded-lg font-body text-[13px] text-dark-purple hover:bg-primary-blue/10 transition-colors">
+          {{ tool }}
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 6. FAQ ─────────────────────────────────────────────────────── -->
+  <section class="bg-white py-12 lg:py-16">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="font-display font-semibold text-[24px] lg:text-[30px] text-navy-dark mb-8">Frequently asked questions</h2>
+      <div *ngFor="let faq of dept.faqs; let i = index; let last = last">
+        <div class="py-4 cursor-pointer" (click)="toggleFaq(i)">
+          <div class="flex items-center justify-between gap-4">
+            <span class="font-display font-medium text-[15px] lg:text-[16px] text-navy-dark">{{ faq.question }}</span>
+            <svg class="flex-shrink-0 transition-transform duration-200" [class.rotate-45]="openFaqIndex === i"
+              width="16" height="16" viewBox="0 0 17 17" fill="none">
+              <line x1="8.5" y1="0" x2="8.5" y2="17" stroke="#2291EA" stroke-width="2.5"/>
+              <line x1="17" y1="8.5" x2="0" y2="8.5" stroke="#2291EA" stroke-width="2.5"/>
+            </svg>
+          </div>
+          <div class="overflow-hidden transition-all duration-300"
+            [class.max-h-0]="openFaqIndex !== i"
+            [class.max-h-96]="openFaqIndex === i"
+            [class.opacity-0]="openFaqIndex !== i"
+            [class.opacity-100]="openFaqIndex === i">
+            <p class="font-body font-light text-[14px] text-dark-purple leading-[1.7] pt-3">{{ faq.answer }}</p>
+          </div>
+        </div>
+        <div *ngIf="!last" class="h-px bg-primary-blue/20"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 7. CTA ─────────────────────────────────────────────────────── -->
+  <section class="py-16 lg:py-20">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="bg-navy-dark rounded-2xl px-8 py-12 sm:py-14">
+        <h2 class="font-display font-semibold text-[26px] sm:text-[32px] text-white mb-4">{{ dept.ctaTitle }}</h2>
+        <p class="font-body font-light text-[15px] text-white/70 mb-8 max-w-md mx-auto">
+          Hirably handles recruitment, compliance, payroll, and HR — so you can focus on building.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+          <button (click)="goHire()"
+            class="px-8 py-3.5 rounded-[8px] bg-white text-navy-dark font-display font-semibold text-[15px] hover:opacity-90 transition-opacity shadow-sm cursor-pointer">
+            {{ dept.ctaButtonText }}
+          </button>
+          <button (click)="goCall()"
+            class="px-8 py-3.5 rounded-[8px] border border-white/30 text-white font-display font-medium text-[15px] hover:border-white/70 transition-colors cursor-pointer">
+            Book a Discovery Call
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>

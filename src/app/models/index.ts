@@ -40,3 +40,31 @@ export interface Step {
   color?: string;
   icon?: string;
 }
+
+export interface SalaryComparison {
+  role: string;
+  usSalary: number;
+  mxSalary: number;
+}
+
+export interface DeptFAQ {
+  question: string;
+  answer: string;
+}
+
+export interface DepartmentDetail {
+  id: string;
+  title: string;
+  heroTitle: string;
+  heroSubtitle: string;
+  heroImage: string;
+  roles: string[];
+  whyTitle: string;
+  whyText: string;
+  whyPoints: string[];
+  salaryComparisons: SalaryComparison[];
+  tools: string[];
+  faqs: DeptFAQ[];
+  ctaTitle: string;
+  ctaButtonText: string;
+}
