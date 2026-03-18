@@ -18,7 +18,9 @@
   <div *ngIf="submitted" class="min-h-[calc(100vh-120px)] flex items-center justify-center px-5 py-12">
     <div class="w-full max-w-sm text-center">
 
-      <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5"
+        <h2 class="font-display font-semibold text-[26px] sm:text-[32px] text-navy-dark mb-4">You're all set!</h2>
+
+      <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
         [style.background]="config.theme.bulletBg + '22'">
         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none"
           [attr.stroke]="config.theme.accentHex" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -26,7 +28,6 @@
         </svg>
       </div>
 
-      <h2 class="font-display font-semibold text-[26px] sm:text-[32px] text-navy-dark mb-3">You're all set!</h2>
       <p class="font-body text-[15px] sm:text-[17px] text-dark-purple/80 mb-5 leading-relaxed">
         We received your info and will be in touch within 24 hours.
       </p>
@@ -43,14 +44,14 @@
         </p>
       </div>
 
-      <div class="flex flex-col gap-3">
+      <div class="flex flex-col items-center gap-3">
         <button (click)="goHome()"
-          class="w-full py-3.5 rounded-[7px] font-display font-medium text-[15px] transition-all duration-200 cursor-pointer shadow-sm hover:opacity-90"
+          class="px-8 py-3 rounded-[7px] font-display font-medium text-[15px] transition-all duration-200 cursor-pointer shadow-sm hover:opacity-90"
           [style.background]="config.theme.submitBg" [style.color]="config.theme.submitText">
           Back to Home
         </button>
         <button (click)="onSubmitAnother()"
-          class="w-full py-3 rounded-[7px] border border-navy-dark/30 font-display font-medium text-[14px] text-navy-dark hover:border-navy-dark transition-all duration-200 cursor-pointer">
+          class="px-6 py-2.5 rounded-[7px] border border-navy-dark/30 font-display font-medium text-[13px] text-navy-dark hover:border-navy-dark transition-all duration-200 cursor-pointer">
           Submit Another
         </button>
       </div>
@@ -183,6 +184,10 @@
 
         <!-- Accent top bar — color changes per theme -->
         <div class="h-[5px] w-full" [style.background]="config.theme.accentHex"></div>
+
+        <!-- EOR image — mobile only (desktop shows it in left panel) -->
+        <img *ngIf="config.includedItems" src="assets/img/eor-route.jpg" alt="EOR Services"
+          class="block lg:hidden w-full object-cover h-[160px]">
 
         <!-- ── FORM (all types) ───────────────────────────────────────────── -->
         <div class="p-5 sm:p-6 lg:p-9">
