@@ -15,33 +15,47 @@
   </div>
 
   <!-- ── SUCCESS STATE ──────────────────────────────────────────────────── -->
-  <div *ngIf="submitted" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
+  <div *ngIf="submitted" class="min-h-[calc(100vh-120px)] flex items-center justify-center px-5 py-12">
+    <div class="w-full max-w-sm text-center">
 
-    <div class="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6"
-      [style.background]="config.theme.bulletBg + '22'">
-      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none"
-        [attr.stroke]="config.theme.accentHex" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="20 6 9 17 4 12" />
-      </svg>
+      <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-5"
+        [style.background]="config.theme.bulletBg + '22'">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none"
+          [attr.stroke]="config.theme.accentHex" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12" />
+        </svg>
+      </div>
+
+      <h2 class="font-display font-semibold text-[26px] sm:text-[32px] text-navy-dark mb-3">You're all set!</h2>
+      <p class="font-body text-[15px] sm:text-[17px] text-dark-purple/80 mb-5 leading-relaxed">
+        We received your info and will be in touch within 24 hours.
+      </p>
+
+      <!-- Cal.com booking error notice -->
+      <div *ngIf="calBookingError"
+        class="flex items-start gap-3 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3.5 mb-5 text-left">
+        <svg class="flex-shrink-0 mt-0.5" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+        </svg>
+        <p class="font-body text-[12px] text-amber-800 leading-snug">
+          Your info was saved, but the calendar slot couldn't be confirmed automatically.
+          <strong>Reply to the confirmation email</strong> or try again.
+        </p>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <button (click)="goHome()"
+          class="w-full py-3.5 rounded-[7px] font-display font-medium text-[15px] transition-all duration-200 cursor-pointer shadow-sm hover:opacity-90"
+          [style.background]="config.theme.submitBg" [style.color]="config.theme.submitText">
+          Back to Home
+        </button>
+        <button (click)="onSubmitAnother()"
+          class="w-full py-3 rounded-[7px] border border-navy-dark/30 font-display font-medium text-[14px] text-navy-dark hover:border-navy-dark transition-all duration-200 cursor-pointer">
+          Submit Another
+        </button>
+      </div>
+
     </div>
-
-    <h2 class="font-display font-semibold text-[32px] text-navy-dark mb-3">You're all set!</h2>
-    <p class="font-body text-[18px] text-dark-purple mb-8 max-w-md mx-auto">
-      We received your submission and will be in touch within 24 hours.
-    </p>
-
-    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <button (click)="onSubmitAnother()"
-        class="px-8 py-3 rounded-[7px] border-2 border-navy-dark font-display font-medium text-[16px] text-navy-dark hover:bg-navy-dark hover:text-white transition-all duration-200 cursor-pointer">
-        Submit Another
-      </button>
-      <button (click)="goHome()"
-        class="px-8 py-3 rounded-[7px] font-display font-medium text-[16px] transition-all duration-200 cursor-pointer shadow-md hover:opacity-90"
-        [style.background]="config.theme.submitBg" [style.color]="config.theme.submitText">
-        Back to Home
-      </button>
-    </div>
-
   </div>
 
   <!-- ── MAIN FORM VIEW ─────────────────────────────────────────────────── -->

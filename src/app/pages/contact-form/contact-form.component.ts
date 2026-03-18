@@ -438,6 +438,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
   submitting    = false;
   submitted     = false;
   submitError   = false;
+  calBookingError = false;
 
   // Cal.com slot picker state
   selectedDate   = '';
@@ -668,8 +669,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
       }
     ).pipe(takeUntil(this.destroy$)).subscribe({
       next:  () => { this.submitting = false; this.submitted = true; this.cdr.markForCheck(); },
-      // Even if Cal fails, Formspree already captured the data — show success
-      error: () => { this.submitting = false; this.submitted = true; this.cdr.markForCheck(); },
+      error: () => { this.submitting = false; this.submitted = true; this.calBookingError = true; this.cdr.markForCheck(); },
     });
   }
 }
