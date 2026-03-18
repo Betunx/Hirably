@@ -19,10 +19,12 @@ export class RolesSectionComponent {
   }
 
   toggleAccordion(sectionId: string): void {
-    if (this.deptIds.has(sectionId)) {
-      this.router.navigate(['/roles', sectionId]);
-    } else {
-      this.expandedSection = this.expandedSection === sectionId ? null : sectionId;
+    this.expandedSection = this.expandedSection === sectionId ? null : sectionId;
+  }
+
+  onRoleClick(categoryId: string): void {
+    if (this.deptIds.has(categoryId)) {
+      this.router.navigate(['/roles', categoryId]);
     }
   }
 

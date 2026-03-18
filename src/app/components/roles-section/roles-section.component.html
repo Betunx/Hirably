@@ -64,7 +64,11 @@
               <div class="pt-2 pb-1">
                 <div class="flex flex-wrap gap-[7px] min-[1400px]:gap-[10px]">
                   <span *ngFor="let role of category.roles"
-                    class="px-[10px] min-[1400px]:px-[17px] py-[5px] min-[1400px]:py-[9px] bg-white border border-light-sky rounded-lg font-body font-normal text-[12px] min-[1400px]:text-[16px] text-carbon-black">
+                    (click)="onRoleClick(category.id)"
+                    [class.cursor-pointer]="deptIds.has(category.id)"
+                    [class.hover:bg-primary-blue]="deptIds.has(category.id)"
+                    [class.hover:text-white]="deptIds.has(category.id)"
+                    class="px-[10px] min-[1400px]:px-[17px] py-[5px] min-[1400px]:py-[9px] bg-white border border-light-sky rounded-lg font-body font-normal text-[12px] min-[1400px]:text-[16px] text-carbon-black transition-colors">
                     {{ role }}
                   </span>
                 </div>
