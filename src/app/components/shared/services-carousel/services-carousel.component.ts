@@ -22,7 +22,9 @@ export class ServicesCarouselComponent implements AfterViewInit {
   activeIndex = 1;
 
   private startX = 0;
+  private startY = 0;
   private isDragging = false;
+  private lockAxis: 'horizontal' | 'vertical' | null = null;
   private swipeThreshold = 50;
 
   constructor(private cdr: ChangeDetectorRef) {}
@@ -60,16 +62,28 @@ export class ServicesCarouselComponent implements AfterViewInit {
   // Touch handling
   onTouchStart(event: TouchEvent): void {
     this.isDragging = true;
+    this.lockAxis = null;
     this.startX = event.touches[0].clientX;
+    this.startY = event.touches[0].clientY;
   }
 
   onTouchMove(event: TouchEvent): void {
     if (!this.isDragging) return;
-    event.preventDefault();
+    const dx = Math.abs(event.touches[0].clientX - this.startX);
+    const dy = Math.abs(event.touches[0].clientY - this.startY);
+    if (!this.lockAxis) {
+      this.lockAxis = dx > dy ? 'horizontal' : 'vertical';
+    }
+    if (this.lockAxis === 'horizontal') {
+      event.preventDefault();
+    }
   }
 
   onTouchEnd(event: TouchEvent): void {
-    if (!this.isDragging) return;
+    if (!this.isDragging || this.lockAxis !== 'horizontal') {
+      this.isDragging = false;
+      return;
+    }
     this.isDragging = false;
 
     const endX = event.changedTouches[0].clientX;

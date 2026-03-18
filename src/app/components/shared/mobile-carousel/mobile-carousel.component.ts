@@ -34,6 +34,8 @@ export class MobileCarouselComponent implements AfterViewInit, OnDestroy {
   isDragging = false;
 
   private startX = 0;
+  private startY = 0;
+  private lockAxis: 'horizontal' | 'vertical' | null = null;
   private currentTranslate = 0;
   private prevTranslate = 0;
   private containerWidth = 0;
@@ -73,23 +75,34 @@ export class MobileCarouselComponent implements AfterViewInit, OnDestroy {
 
   onTouchStart(event: TouchEvent): void {
     this.isDragging = true;
+    this.lockAxis = null;
     this.startX = event.touches[0].clientX;
+    this.startY = event.touches[0].clientY;
     this.prevTranslate = this.translateX;
   }
 
   onTouchMove(event: TouchEvent): void {
     if (!this.isDragging) return;
-    const currentX = event.touches[0].clientX;
-    const diff = currentX - this.startX;
+
+    const dx = Math.abs(event.touches[0].clientX - this.startX);
+    const dy = Math.abs(event.touches[0].clientY - this.startY);
+
+    if (!this.lockAxis) {
+      this.lockAxis = dx > dy ? 'horizontal' : 'vertical';
+    }
+
+    if (this.lockAxis === 'vertical') return; // let the page scroll normally
+
+    event.preventDefault();
+
+    const diff = event.touches[0].clientX - this.startX;
     this.currentTranslate = this.prevTranslate + diff;
 
-    // Clamp with resistance at edges
     const minTranslate = -this.slideWidth * (this.totalSlides - 1);
     if (this.currentTranslate > 0) {
       this.currentTranslate = this.currentTranslate * 0.3;
     } else if (this.currentTranslate < minTranslate) {
-      const over = this.currentTranslate - minTranslate;
-      this.currentTranslate = minTranslate + over * 0.3;
+      this.currentTranslate = minTranslate + (this.currentTranslate - minTranslate) * 0.3;
     }
 
     this.translateX = this.currentTranslate;
@@ -99,6 +112,10 @@ export class MobileCarouselComponent implements AfterViewInit, OnDestroy {
   onTouchEnd(): void {
     if (!this.isDragging) return;
     this.isDragging = false;
+
+    if (this.lockAxis !== 'horizontal') {
+      return;
+    }
 
     const diff = this.translateX - this.prevTranslate;
 
