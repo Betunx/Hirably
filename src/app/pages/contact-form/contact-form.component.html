@@ -185,7 +185,10 @@
         <!-- Accent top bar — color changes per theme -->
         <div class="h-[5px] w-full" [style.background]="config.theme.accentHex"></div>
 
-        <!-- EOR image — mobile only (desktop shows it in left panel) -->
+        <!-- Image — mobile only (desktop shows it in left panel) -->
+        <img *ngIf="config.left.imageSrc && !config.includedItems" [src]="config.left.imageSrc" [alt]="config.left.imageAlt"
+          class="block lg:hidden w-full object-cover h-[160px]">
+        <!-- EOR image — mobile only -->
         <img *ngIf="config.includedItems" src="assets/img/eor-route.jpg" alt="EOR Services"
           class="block lg:hidden w-full object-cover h-[160px]">
 

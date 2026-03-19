@@ -75,7 +75,7 @@
   <!-- ── 2. ROLES WE FILL ───────────────────────────────────────────── -->
   <section class="bg-white py-12 lg:py-16 overflow-hidden">
     <h2 class="font-display font-semibold text-[28px] lg:text-[38px] text-navy-dark mb-3 text-center">Roles we fill</h2>
-    <p class="font-body text-[15px] text-dark-purple/70 mb-10 text-center">Every role backed by a specialist recruiter who knows this field.</p>
+    <p class="font-body text-[15px] text-dark-purple/70 mb-10 text-center">{{ dept.rolesSubtitle }}</p>
 
     <!-- Marquee -->
     <div class="max-w-3xl mx-auto overflow-hidden">
@@ -123,7 +123,7 @@
   <section class="bg-white py-12 lg:py-16">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="font-display font-semibold text-[24px] lg:text-[30px] text-navy-dark mb-2 text-center">Salary comparison</h2>
-      <p class="font-body text-[14px] text-dark-purple/70 mb-8 text-center">Annual salaries in USD. Hirably handles all compliance and employer costs.</p>
+      <p class="font-body text-[14px] text-dark-purple/70 mb-8 text-center">See what you could save. These are real market rates — and Hirably handles compliance, payroll, and benefits on top.</p>
 
       <div class="flex flex-col gap-6">
         <div *ngFor="let item of dept.salaryComparisons" class="flex flex-col gap-2">
@@ -204,9 +204,7 @@
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <div class="bg-navy-dark rounded-2xl px-8 py-12 sm:py-14">
         <h2 class="font-display font-semibold text-[26px] sm:text-[32px] text-white mb-4">{{ dept.ctaTitle }}</h2>
-        <p class="font-body font-light text-[15px] text-white/70 mb-8 max-w-md mx-auto">
-          Hirably handles recruitment, compliance, payroll, and HR — so you can focus on building.
-        </p>
+        <p class="font-body font-light text-[15px] text-white/70 mb-8 max-w-md mx-auto">{{ dept.ctaBody }}</p>
         <div class="flex flex-col sm:flex-row gap-3 justify-center">
           <button (click)="goHire()"
             class="px-8 py-3.5 rounded-[8px] bg-white text-navy-dark font-display font-semibold text-[15px] hover:opacity-90 transition-opacity shadow-sm cursor-pointer">

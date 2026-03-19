@@ -59,6 +59,7 @@ export interface DepartmentDetail {
   heroSubtitle: string;
   heroImage: string;
   roles: string[];
+  rolesSubtitle: string;
   whyTitle: string;
   whyText: string;
   whyPoints: string[];
@@ -66,5 +67,6 @@ export interface DepartmentDetail {
   tools: string[];
   faqs: DeptFAQ[];
   ctaTitle: string;
+  ctaBody: string;
   ctaButtonText: string;
 }

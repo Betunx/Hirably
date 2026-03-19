@@ -176,17 +176,19 @@ export class DataService {
     technology: {
       id: 'technology',
       title: 'Technology & Engineering',
-      heroTitle: 'World-class developers from Mexico',
-      heroSubtitle: 'Pre-vetted engineers ready to join your team in under 14 days.\nSame timezone, up to 60% cost savings, zero compliance headaches.',
+      heroTitle: 'Your next senior engineer is already in Mexico',
+      heroSubtitle: 'Pre-vetted engineers who ship production code from day one.\nSame timezone as your team, up to 60% savings, zero compliance headaches.',
       heroImage: 'assets/img/developer.jpg',
       roles: ['Full-Stack Developers', 'QA Engineers', 'DevOps Engineers', 'UI/UX Designers', 'Data Analysts', 'Mobile Developers', 'Frontend Developers', 'Backend Developers'],
+      rolesSubtitle: "Not just recruiters — specialists who've placed hundreds of technology professionals.",
       whyTitle: 'Why hire tech talent in Mexico?',
-      whyText: 'Mexico produces over 130,000 engineering graduates annually. Cities like Guadalajara, Monterrey, and Mexico City are established tech hubs with professionals experienced in modern stacks. Same timezone alignment means real-time collaboration — no async delays.',
+      whyText: "Mexico graduates over 130,000 engineers every year — and cities like Guadalajara, Monterrey, and CDMX have become serious tech hubs where developers work with the same stacks, agile workflows, and tools your team already uses. This isn't offshoring. It's adding a teammate in your timezone.",
       whyPoints: [
         '130,000+ engineering graduates per year',
         'Guadalajara, Monterrey & CDMX tech hubs',
         'Same timezone as US teams (CST, MST, PST)',
-        'Modern stacks: React, Node, AWS, Python, and more'
+        'Modern stacks: React, Node, AWS, Python, and more',
+        'Experienced in agile/scrum workflows and US team culture'
       ],
       salaryComparisons: [
         { role: 'Full-Stack Developer', usSalary: 125000, mxSalary: 45000 },
@@ -206,22 +208,24 @@ export class DataService {
         },
         {
           question: 'What does the vetting process look like?',
-          answer: 'Every candidate goes through technical assessments, English proficiency checks, cultural fit interviews, and reference verification before being presented to you.'
+          answer: 'Every candidate completes a live coding challenge, a technical deep-dive interview, English proficiency assessment, cultural fit evaluation, and reference verification. Only the top 5% make it to your inbox.'
         }
       ],
-      ctaTitle: 'Ready to hire your next developer?',
+      ctaTitle: 'Stop searching. Start building.',
+      ctaBody: 'Hirably handles recruitment, compliance, payroll, and HR — so you can focus on shipping.',
       ctaButtonText: 'Start Hiring Today'
     },
 
     finance: {
       id: 'finance',
       title: 'Finance & Accounting',
-      heroTitle: 'World-class finance talent from Mexico',
-      heroSubtitle: 'Vetted accountants and analysts ready to join your team in under 14 days.',
-      heroImage: 'assets/img/hire.jpg',
+      heroTitle: 'Accurate books, half the cost',
+      heroSubtitle: 'Bilingual accountants and analysts trained in US GAAP, fluent in your tools, and ready to join your team in under 14 days — at up to 64% less than a US hire.',
+      heroImage: 'assets/img/finance.jpg',
       roles: ['Accountants', 'Bookkeepers', 'FP&A Analysts', 'Payroll Specialists', 'Controllers', 'Tax Specialists', 'CFO Support'],
+      rolesSubtitle: "Not just recruiters — specialists who've placed hundreds of finance professionals.",
       whyTitle: 'Why hire finance talent in Mexico?',
-      whyText: 'Mexico produces thousands of bilingual finance professionals trained to US GAAP and IFRS standards every year. From bookkeepers to controllers, our candidates bring precision, compliance knowledge, and real-world experience — at a fraction of the US cost.',
+      whyText: "Mexico produces thousands of bilingual finance professionals trained to US GAAP and IFRS standards every year. From bookkeepers to controllers, our candidates bring precision, compliance knowledge, and real-world experience — at a fraction of the US cost. From QuickBooks bookkeeping to FP&A modeling in NetSuite, our candidates don't need ramp-up time — they've already done this work for US-based companies.",
       whyPoints: [
         'US GAAP & IFRS-trained professionals',
         'Bilingual English-Spanish fluency',
@@ -249,24 +253,27 @@ export class DataService {
           answer: 'Every candidate goes through technical assessments specific to their finance role, English proficiency checks, and reference verification before being presented to you.'
         }
       ],
-      ctaTitle: 'Ready to build your finance team?',
+      ctaTitle: 'Your next accountant is one call away.',
+      ctaBody: 'Hirably handles recruitment, compliance, payroll, and HR — so you can focus on growing.',
       ctaButtonText: 'Start Hiring Today'
     },
 
     sales: {
       id: 'sales',
       title: 'Sales & Customer Support',
-      heroTitle: 'Bilingual sales & support pros from Mexico',
-      heroSubtitle: 'High-performing SDRs and CSRs ready to join your team in under 14 days.',
-      heroImage: 'assets/img/handshake.jpg',
+      heroTitle: 'Fill your pipeline without draining your budget',
+      heroSubtitle: "Hungry, bilingual SDRs and support reps who prospect, qualify, and close — working your hours, speaking your customers' language, at a fraction of US cost.",
+      heroImage: 'assets/img/sales-suport.jpg',
       roles: ['Bilingual CSRs', 'SDRs', 'BDRs', 'Account Managers', 'Billing Specialists', 'Sales Coordinators', 'Customer Success'],
+      rolesSubtitle: "Not just recruiters — specialists who've placed hundreds of sales professionals.",
       whyTitle: 'Why hire sales & support talent in Mexico?',
-      whyText: 'Mexican sales and support professionals are known for their bilingual fluency, strong communication skills, and North American business culture alignment. They operate in the same timezone as your customers — delivering real-time support without the offshore lag.',
+      whyText: "Mexican sales and support professionals are known for their bilingual fluency, strong communication skills, and North American business culture alignment. They operate in the same timezone as your customers — delivering real-time support without the offshore lag. For companies serving the US Hispanic market — a $3.4 trillion spending power — having native Spanish speakers on your sales team isn't a nice-to-have, it's a competitive advantage.",
       whyPoints: [
         'Native-level English and Spanish fluency',
         'North American business culture and communication style',
         'Same timezone for real-time customer interactions',
-        'Proven experience with US CRM and support tools'
+        'Proven experience with US CRM and support tools',
+        'Access the $3.4T US Hispanic market with native speakers'
       ],
       salaryComparisons: [
         { role: 'Account Manager',    usSalary: 85000, mxSalary: 30000 },
@@ -282,29 +289,31 @@ export class DataService {
         },
         {
           question: 'Can they work US business hours?',
-          answer: 'Yes. Mexico shares timezones with the US (CST, MST, PST), so your sales and support reps are available during your customers\' peak hours — no overnight shifts required.'
+          answer: "Yes. Mexico shares timezones with the US (CST, MST, PST), so your sales and support reps are available during your customers' peak hours — no overnight shifts required."
         },
         {
           question: 'What CRM tools do they know?',
           answer: 'Our candidates are experienced with Salesforce, HubSpot, Zendesk, Intercom, and Freshdesk. We match candidates to the specific stack your team uses.'
         }
       ],
-      ctaTitle: 'Ready to grow your sales team?',
+      ctaTitle: 'More reps. More pipeline. Less overhead.',
+      ctaBody: 'Hirably handles recruitment, compliance, payroll, and HR — so you can focus on closing.',
       ctaButtonText: 'Start Hiring Today'
     },
 
     marketing: {
       id: 'marketing',
       title: 'Marketing',
-      heroTitle: 'Creative marketing talent from Mexico',
-      heroSubtitle: 'Digital marketers and creatives ready to grow your brand in under 14 days.',
-      heroImage: 'assets/img/man2.png',
+      heroTitle: 'Creative firepower your budget can actually handle',
+      heroSubtitle: 'Content creators, paid media specialists, and designers who understand US audiences — and deliver at 60% less than hiring locally.',
+      heroImage: 'assets/img/marketing.jpg',
       roles: ['Digital Marketers', 'Content Writers', 'Graphic Designers', 'SEO Specialists', 'Social Media Managers', 'Email Marketers', 'Paid Media Buyers'],
+      rolesSubtitle: "Not just recruiters — specialists who've placed hundreds of marketing professionals.",
       whyTitle: 'Why hire marketing talent in Mexico?',
-      whyText: 'Mexico is home to a thriving creative economy with design schools, digital agencies, and marketing talent that rivals any North American market — at 60% lower cost. With shared cultural context and fluent English, your brand voice stays consistent across every market.',
+      whyText: "Mexico's creative economy is booming — with world-class design schools, thriving digital agencies, and marketers who've run campaigns for US brands across every channel. Your brand voice stays consistent because our talent thinks bilingually and understands North American consumer behavior natively.",
       whyPoints: [
         'Bilingual content creation for US and LATAM markets',
-        'Design and creative talent at world-class standards',
+        'Portfolio-vetted designers and creatives — no guesswork',
         'Same timezone for real-time campaign collaboration',
         'Deep knowledge of US platforms and consumer behavior'
       ],
@@ -329,24 +338,26 @@ export class DataService {
           answer: 'Every marketing candidate submits a portfolio, completes a practical skills assessment, and passes an English proficiency check before being presented to you.'
         }
       ],
-      ctaTitle: 'Ready to grow your marketing team?',
+      ctaTitle: "Great campaigns need great people. Let's find yours.",
+      ctaBody: 'Hirably handles recruitment, compliance, payroll, and HR — so you can focus on growing your brand.',
       ctaButtonText: 'Start Hiring Today'
     },
 
     operations: {
       id: 'operations',
       title: 'Operations',
-      heroTitle: 'Reliable operations talent from Mexico',
-      heroSubtitle: 'Skilled ops professionals ready to streamline your business in under 14 days.',
-      heroImage: 'assets/img/eor-route.jpg',
+      heroTitle: 'The team behind your team',
+      heroSubtitle: 'From executive assistants to project managers — ops professionals who bring structure to your chaos, on your timezone, at a fraction of US cost.',
+      heroImage: 'assets/img/operations.jpg',
       roles: ['Virtual Assistants', 'Project Managers', 'HR Specialists', 'Supply Chain Coordinators', 'Data Analysts', 'Executive Assistants', 'Operations Managers'],
+      rolesSubtitle: "Not just recruiters — specialists who've placed hundreds of operations professionals.",
       whyTitle: 'Why hire operations talent in Mexico?',
-      whyText: 'Operations talent from Mexico brings the organizational discipline, bilingual communication, and nearshore availability that US companies need to run efficiently. Whether you need a detail-oriented VA or a seasoned project manager, Mexico delivers at a cost that makes sense.',
+      whyText: "Operations talent from Mexico brings the organizational discipline, bilingual communication, and nearshore availability that US companies need to run efficiently. Whether you need a detail-oriented VA or a seasoned project manager, Mexico delivers at a cost that makes sense. A senior Executive Assistant in Mexico can free up 20+ hours per week for your leadership team. That's not a cost — it's an ROI multiplier.",
       whyPoints: [
         'Bilingual coordination across US and LATAM teams',
         'Strong project management and organizational skills',
         'Same timezone for real-time decision-making',
-        'Experience with US business tools and workflows'
+        'Trained in Asana, Jira, Notion, Monday, and your existing stack'
       ],
       salaryComparisons: [
         { role: 'Project Manager',           usSalary: 95000, mxSalary: 34000 },
@@ -369,7 +380,8 @@ export class DataService {
           answer: 'Every operations candidate is assessed on role-specific skills, English proficiency, and cultural fit. References are verified and background checks completed before any introduction.'
         }
       ],
-      ctaTitle: 'Ready to build your operations team?',
+      ctaTitle: 'Less chaos. More leverage. Let\'s talk.',
+      ctaBody: 'Hirably handles recruitment, compliance, payroll, and HR — so you can focus on scaling.',
       ctaButtonText: 'Start Hiring Today'
     }
   };
