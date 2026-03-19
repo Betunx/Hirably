@@ -52,13 +52,13 @@
           </div>
         </div>
         <!-- CTAs -->
-        <div class="flex flex-wrap gap-3 pt-2 pb-8 justify-center">
+        <div class="flex flex-col sm:flex-row gap-3 pt-2 pb-8 w-full sm:w-auto items-center">
           <button (click)="goHire()"
-            class="px-7 py-3.5 rounded-[8px] bg-navy-dark text-white font-display font-semibold text-[15px] hover:opacity-90 transition-opacity shadow-[0_4px_14px_rgba(17,31,120,0.35)] cursor-pointer">
+            class="w-full sm:w-auto px-7 py-3.5 rounded-[8px] bg-navy-dark text-white font-display font-semibold text-[15px] hover:opacity-90 transition-opacity shadow-[0_4px_14px_rgba(17,31,120,0.35)] cursor-pointer">
             {{ dept.ctaButtonText }}
           </button>
           <button (click)="goCall()"
-            class="px-7 py-3.5 rounded-[8px] border border-navy-dark/25 text-navy-dark font-display font-medium text-[15px] hover:border-navy-dark transition-colors cursor-pointer">
+            class="w-full sm:w-auto px-7 py-3.5 rounded-[8px] border border-navy-dark/25 text-navy-dark font-display font-medium text-[15px] hover:border-navy-dark transition-colors cursor-pointer">
             Book a Discovery Call
           </button>
         </div>

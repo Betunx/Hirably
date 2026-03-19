@@ -90,14 +90,14 @@
           {{ config.left.description }}
         </p>
 
-        <!-- Image (optional) -->
+        <!-- Image (optional) — desktop only; mobile version lives in right panel -->
         <img *ngIf="config.left.imageSrc" [src]="config.left.imageSrc" [alt]="config.left.imageAlt"
-          class="w-full rounded-xl object-cover h-[200px] lg:h-[230px]" />
+          class="hidden lg:block w-full rounded-xl object-cover h-[230px]" />
 
         <!-- EOR: Image + What's included card -->
         <ng-container *ngIf="config.includedItems">
           <img src="assets/img/eor-route.jpg" alt="EOR Services"
-            class="w-full rounded-xl object-cover h-[200px] lg:h-[230px]">
+            class="hidden lg:block w-full rounded-xl object-cover h-[230px]">
           <div class="p-5 bg-white rounded-xl border border-gray-100">
             <p class="font-display font-semibold text-[14px] text-navy-dark mb-3">
               What's included at $499/mo per employee:
