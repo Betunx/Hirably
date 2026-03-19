@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs';
 // ── Formspree ─────────────────────────────────────────────────────────────
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xzdjkqnd';
 

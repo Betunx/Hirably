@@ -1,6 +1,6 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Subject, filter, takeUntil } from 'rxjs';
 
 interface NavLink {
   label: string;
@@ -46,8 +46,9 @@ interface NavLink {
     }
   `]
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnDestroy {
   isMenuOpen = false;
+  private readonly destroy$ = new Subject<void>();
 
   navLinks: NavLink[] = [
     { label: 'HOW IT WORKS', route: '/', fragment: 'how-it-works' },
@@ -58,7 +59,8 @@ export class NavbarComponent {
 
   constructor(private router: Router) {
     this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
+      filter(event => event instanceof NavigationEnd),
+      takeUntil(this.destroy$)
     ).subscribe(() => {
       const tree = this.router.parseUrl(this.router.url);
       if (tree.fragment) {
@@ -74,6 +76,11 @@ export class NavbarComponent {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   trackByLabel(_index: number, link: NavLink): string {

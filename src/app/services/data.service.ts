@@ -211,6 +211,166 @@ export class DataService {
       ],
       ctaTitle: 'Ready to hire your next developer?',
       ctaButtonText: 'Start Hiring Today'
+    },
+
+    finance: {
+      id: 'finance',
+      title: 'Finance & Accounting',
+      heroTitle: 'World-class finance talent from Mexico',
+      heroSubtitle: 'Vetted accountants and analysts ready to join your team in under 14 days.',
+      heroImage: 'assets/img/hire.jpg',
+      roles: ['Accountants', 'Bookkeepers', 'FP&A Analysts', 'Payroll Specialists', 'Controllers', 'Tax Specialists', 'CFO Support'],
+      whyTitle: 'Why hire finance talent in Mexico?',
+      whyText: 'Mexico produces thousands of bilingual finance professionals trained to US GAAP and IFRS standards every year. From bookkeepers to controllers, our candidates bring precision, compliance knowledge, and real-world experience — at a fraction of the US cost.',
+      whyPoints: [
+        'US GAAP & IFRS-trained professionals',
+        'Bilingual English-Spanish fluency',
+        'Same timezone as US teams (CST, MST, PST)',
+        'Deep experience with US payroll, tax, and compliance'
+      ],
+      salaryComparisons: [
+        { role: 'Controller',         usSalary: 130000, mxSalary: 48000 },
+        { role: 'FP&A Analyst',       usSalary: 95000,  mxSalary: 35000 },
+        { role: 'Staff Accountant',   usSalary: 75000,  mxSalary: 27000 },
+        { role: 'Payroll Specialist', usSalary: 65000,  mxSalary: 23000 }
+      ],
+      tools: ['QuickBooks', 'Xero', 'NetSuite', 'SAP', 'Excel', 'Sage', 'Bill.com', 'Gusto', 'ADP', 'Avalara', 'Expensify'],
+      faqs: [
+        {
+          question: 'Are your finance candidates familiar with US accounting standards?',
+          answer: 'Yes. Our vetted candidates are trained in US GAAP and have experience with US-based clients, software, and compliance requirements.'
+        },
+        {
+          question: 'Can they handle US payroll and tax filings?',
+          answer: 'Absolutely. Many of our finance professionals have direct experience with US payroll platforms like Gusto, ADP, and Rippling, as well as state and federal tax filing processes.'
+        },
+        {
+          question: 'What does the vetting process look like?',
+          answer: 'Every candidate goes through technical assessments specific to their finance role, English proficiency checks, and reference verification before being presented to you.'
+        }
+      ],
+      ctaTitle: 'Ready to build your finance team?',
+      ctaButtonText: 'Start Hiring Today'
+    },
+
+    sales: {
+      id: 'sales',
+      title: 'Sales & Customer Support',
+      heroTitle: 'Bilingual sales & support pros from Mexico',
+      heroSubtitle: 'High-performing SDRs and CSRs ready to join your team in under 14 days.',
+      heroImage: 'assets/img/handshake.jpg',
+      roles: ['Bilingual CSRs', 'SDRs', 'BDRs', 'Account Managers', 'Billing Specialists', 'Sales Coordinators', 'Customer Success'],
+      whyTitle: 'Why hire sales & support talent in Mexico?',
+      whyText: 'Mexican sales and support professionals are known for their bilingual fluency, strong communication skills, and North American business culture alignment. They operate in the same timezone as your customers — delivering real-time support without the offshore lag.',
+      whyPoints: [
+        'Native-level English and Spanish fluency',
+        'North American business culture and communication style',
+        'Same timezone for real-time customer interactions',
+        'Proven experience with US CRM and support tools'
+      ],
+      salaryComparisons: [
+        { role: 'Account Manager',    usSalary: 85000, mxSalary: 30000 },
+        { role: 'SDR',                usSalary: 65000, mxSalary: 22000 },
+        { role: 'Customer Success',   usSalary: 90000, mxSalary: 32000 },
+        { role: 'Billing Specialist', usSalary: 55000, mxSalary: 19000 }
+      ],
+      tools: ['Salesforce', 'HubSpot', 'Zendesk', 'Intercom', 'Freshdesk', 'Gong', 'Outreach', 'Slack', 'Zoom', 'Monday.com'],
+      faqs: [
+        {
+          question: 'How strong is their English?',
+          answer: 'All candidates pass a bilingual proficiency assessment. Most operate at a C1–C2 level, meaning they can handle complex customer conversations, negotiations, and written communication with ease.'
+        },
+        {
+          question: 'Can they work US business hours?',
+          answer: 'Yes. Mexico shares timezones with the US (CST, MST, PST), so your sales and support reps are available during your customers\' peak hours — no overnight shifts required.'
+        },
+        {
+          question: 'What CRM tools do they know?',
+          answer: 'Our candidates are experienced with Salesforce, HubSpot, Zendesk, Intercom, and Freshdesk. We match candidates to the specific stack your team uses.'
+        }
+      ],
+      ctaTitle: 'Ready to grow your sales team?',
+      ctaButtonText: 'Start Hiring Today'
+    },
+
+    marketing: {
+      id: 'marketing',
+      title: 'Marketing',
+      heroTitle: 'Creative marketing talent from Mexico',
+      heroSubtitle: 'Digital marketers and creatives ready to grow your brand in under 14 days.',
+      heroImage: 'assets/img/man2.png',
+      roles: ['Digital Marketers', 'Content Writers', 'Graphic Designers', 'SEO Specialists', 'Social Media Managers', 'Email Marketers', 'Paid Media Buyers'],
+      whyTitle: 'Why hire marketing talent in Mexico?',
+      whyText: 'Mexico is home to a thriving creative economy with design schools, digital agencies, and marketing talent that rivals any North American market — at 60% lower cost. With shared cultural context and fluent English, your brand voice stays consistent across every market.',
+      whyPoints: [
+        'Bilingual content creation for US and LATAM markets',
+        'Design and creative talent at world-class standards',
+        'Same timezone for real-time campaign collaboration',
+        'Deep knowledge of US platforms and consumer behavior'
+      ],
+      salaryComparisons: [
+        { role: 'Digital Marketer',      usSalary: 80000, mxSalary: 28000 },
+        { role: 'SEO Specialist',        usSalary: 75000, mxSalary: 26000 },
+        { role: 'Graphic Designer',      usSalary: 70000, mxSalary: 24000 },
+        { role: 'Social Media Manager',  usSalary: 65000, mxSalary: 22000 }
+      ],
+      tools: ['HubSpot', 'Mailchimp', 'Google Ads', 'Meta Ads', 'Figma', 'Adobe Creative Suite', 'Canva', 'SEMrush', 'Ahrefs', 'Hootsuite', 'Webflow'],
+      faqs: [
+        {
+          question: 'Can they create content in English?',
+          answer: 'Yes. Our marketing candidates are bilingual and produce high-quality English content — from blog posts and email campaigns to ad copy and social media — that resonates with US audiences.'
+        },
+        {
+          question: 'Do they have experience with US ad platforms?',
+          answer: 'Our candidates have hands-on experience running campaigns on Google Ads, Meta, LinkedIn, and TikTok, including US market targeting, pixel setup, and performance optimization.'
+        },
+        {
+          question: 'What does the vetting process look like?',
+          answer: 'Every marketing candidate submits a portfolio, completes a practical skills assessment, and passes an English proficiency check before being presented to you.'
+        }
+      ],
+      ctaTitle: 'Ready to grow your marketing team?',
+      ctaButtonText: 'Start Hiring Today'
+    },
+
+    operations: {
+      id: 'operations',
+      title: 'Operations',
+      heroTitle: 'Reliable operations talent from Mexico',
+      heroSubtitle: 'Skilled ops professionals ready to streamline your business in under 14 days.',
+      heroImage: 'assets/img/eor-route.jpg',
+      roles: ['Virtual Assistants', 'Project Managers', 'HR Specialists', 'Supply Chain Coordinators', 'Data Analysts', 'Executive Assistants', 'Operations Managers'],
+      whyTitle: 'Why hire operations talent in Mexico?',
+      whyText: 'Operations talent from Mexico brings the organizational discipline, bilingual communication, and nearshore availability that US companies need to run efficiently. Whether you need a detail-oriented VA or a seasoned project manager, Mexico delivers at a cost that makes sense.',
+      whyPoints: [
+        'Bilingual coordination across US and LATAM teams',
+        'Strong project management and organizational skills',
+        'Same timezone for real-time decision-making',
+        'Experience with US business tools and workflows'
+      ],
+      salaryComparisons: [
+        { role: 'Project Manager',           usSalary: 95000, mxSalary: 34000 },
+        { role: 'HR Specialist',             usSalary: 75000, mxSalary: 26000 },
+        { role: 'Supply Chain Coordinator',  usSalary: 80000, mxSalary: 28000 },
+        { role: 'Virtual Assistant',         usSalary: 55000, mxSalary: 18000 }
+      ],
+      tools: ['Asana', 'Monday.com', 'Notion', 'Jira', 'Trello', 'Slack', 'Google Workspace', 'Excel', 'Tableau', 'Power BI', 'SAP', 'Workday'],
+      faqs: [
+        {
+          question: 'Can a virtual assistant handle executive-level tasks?',
+          answer: 'Yes. Our VAs are experienced in calendar management, travel coordination, research, reporting, and cross-functional communication — many have supported C-suite executives at US companies.'
+        },
+        {
+          question: 'Do project managers follow US methodologies?',
+          answer: 'Our project managers are experienced in Agile, Scrum, and Waterfall methodologies, and hold certifications such as PMP and Scrum Master. They integrate seamlessly with US-based teams.'
+        },
+        {
+          question: 'What does the vetting process look like?',
+          answer: 'Every operations candidate is assessed on role-specific skills, English proficiency, and cultural fit. References are verified and background checks completed before any introduction.'
+        }
+      ],
+      ctaTitle: 'Ready to build your operations team?',
+      ctaButtonText: 'Start Hiring Today'
     }
   };
 
