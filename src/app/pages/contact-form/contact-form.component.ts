@@ -12,6 +12,8 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
+declare global { interface Window { dataLayer: unknown[]; } }
+
 // ── Formspree ─────────────────────────────────────────────────────────────
 const FORMSPREE_ENDPOINT = environment.formspreeEndpoint;
 
@@ -581,6 +583,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
           } else {
             this.submitting = false;
             this.submitted  = true;
+            this.pushGtmEvent('form_submit', this.config.type);
             this.cdr.markForCheck();
           }
         },
@@ -601,6 +604,11 @@ export class ContactFormComponent implements OnInit, OnDestroy {
 
   goHome(): void {
     this.router.navigate(['/']);
+  }
+
+  private pushGtmEvent(event: string, formType: string): void {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event, form_type: formType });
   }
 
   // ── Mini calendar navigation ─────────────────────────────────────────────
@@ -669,7 +677,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
         metadata: {},
       }
     ).pipe(takeUntil(this.destroy$)).subscribe({
-      next:  () => { this.submitting = false; this.submitted = true; this.cdr.markForCheck(); },
+      next:  () => { this.submitting = false; this.submitted = true; this.pushGtmEvent('booking_confirmed', this.config.type); this.cdr.markForCheck(); },
       error: () => { this.submitting = false; this.submitted = true; this.calBookingError = true; this.cdr.markForCheck(); },
     });
   }

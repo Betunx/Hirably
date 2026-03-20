@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Meta, Title } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs';
 import { DataService } from '@services/data.service';
@@ -21,7 +22,9 @@ export class DepartmentPageComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private dataService: DataService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private meta: Meta,
+    private titleService: Title
   ) {}
 
   ngOnInit(): void {
@@ -34,6 +37,10 @@ export class DepartmentPageComponent implements OnInit, OnDestroy {
         this.dept = dept;
         this.openFaqIndex = null;
         window.scrollTo(0, 0);
+        this.titleService.setTitle(`${dept.title} Roles — Hirably`);
+        this.meta.updateTag({ property: 'og:title', content: `${dept.title} Roles — Hirably` });
+        this.meta.updateTag({ property: 'og:description', content: dept.heroSubtitle.split('\n')[0] });
+        this.meta.updateTag({ property: 'og:url', content: `https://hirablystaffing.com/roles/${dept.id}` });
         this.cdr.markForCheck();
       });
   }

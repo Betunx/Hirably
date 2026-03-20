@@ -5,7 +5,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:prod": "ng build --configuration production --base-href /"
+    "build:prod": "ng build --configuration production --base-href /",
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {
@@ -27,11 +28,14 @@
     "@angular/compiler-cli": "^17.0.0",
     "@types/node": "^20.0.0",
     "@vercel/node": "^5.6.18",
+    "angular-eslint": "21.0.1",
     "autoprefixer": "^10.4.21",
     "baseline-browser-mapping": "^2.9.19",
+    "eslint": "^9.39.1",
     "postcss": "^8.5.6",
     "sharp": "^0.34.5",
     "tailwindcss": "^3.4.18",
-    "typescript": "~5.2.2"
+    "typescript": "~5.2.2",
+    "typescript-eslint": "8.46.4"
   }
 }
