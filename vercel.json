@@ -2,31 +2,31 @@
   "version": 2,
   "buildCommand": "ng build --configuration production --base-href /",
   "outputDirectory": "dist/hirably/browser",
-  "framework": null,
-  "routes": [
+  "headers": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
+      "source": "/index.html",
+      "headers": [
+        { "key": "cache-control", "value": "no-cache, no-store, must-revalidate" }
+      ]
     },
     {
-      "src": "/index.html",
-      "headers": {
-        "cache-control": "no-cache, no-store, must-revalidate"
-      },
-      "dest": "/index.html"
+      "source": "/:path((?!api/).*)",
+      "has": [{ "type": "header", "key": "accept", "value": "text/html.*" }],
+      "headers": [
+        { "key": "cache-control", "value": "no-cache, no-store, must-revalidate" }
+      ]
     },
     {
-      "src": "/(.*\\.(js|css|ico|png|jpg|jpeg|webp|svg|woff|woff2|ttf|eot|xml|txt))",
-      "headers": {
-        "cache-control": "public, max-age=31536000, immutable"
-      }
-    },
+      "source": "/:file*.(js|css|ico|png|jpg|jpeg|webp|svg|woff|woff2|ttf|eot|xml|txt)",
+      "headers": [
+        { "key": "cache-control", "value": "public, max-age=31536000, immutable" }
+      ]
+    }
+  ],
+  "rewrites": [
     {
-      "src": "/(.*)",
-      "headers": {
-        "cache-control": "no-cache, no-store, must-revalidate"
-      },
-      "dest": "/index.html"
+      "source": "/((?!api/).*)",
+      "destination": "/index.html"
     }
   ]
 }
