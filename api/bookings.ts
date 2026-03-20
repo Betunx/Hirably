@@ -1,11 +1,11 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import * as https from 'https';
 
-export default function handler(req: VercelRequest, res: VercelResponse) {
-  if (req.method !== 'POST') return res.status(405).end();
+export default function handler(req: VercelRequest, res: VercelResponse): void {
+  if (req.method !== 'POST') { res.status(405).end(); return; }
 
   const apiKey = process.env['CAL_API_KEY'];
-  if (!apiKey) return res.status(500).json({ error: 'CAL_API_KEY not set' });
+  if (!apiKey) { res.status(500).json({ error: 'CAL_API_KEY not set' }); return; }
 
   const body = JSON.stringify(req.body);
   const options = {

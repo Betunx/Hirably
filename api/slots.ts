@@ -1,11 +1,11 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import * as https from 'https';
 
-export default function handler(req: VercelRequest, res: VercelResponse) {
-  if (req.method !== 'GET') return res.status(405).end();
+export default function handler(req: VercelRequest, res: VercelResponse): void {
+  if (req.method !== 'GET') { res.status(405).end(); return; }
 
   const apiKey = process.env['CAL_API_KEY'];
-  if (!apiKey) return res.status(500).json({ error: 'CAL_API_KEY not set' });
+  if (!apiKey) { res.status(500).json({ error: 'CAL_API_KEY not set' }); return; }
 
   const { eventTypeId, startTime, endTime, timeZone } = req.query;
 
@@ -16,9 +16,7 @@ export default function handler(req: VercelRequest, res: VercelResponse) {
   if (endTime)     params.set('endTime', String(endTime));
   if (timeZone)    params.set('timeZone', String(timeZone));
 
-  const url = `https://api.cal.com/v1/slots?${params.toString()}`;
-
-  https.get(url, (upstream) => {
+  https.get(`https://api.cal.com/v1/slots?${params.toString()}`, (upstream) => {
     let data = '';
     upstream.on('data', chunk => data += chunk);
     upstream.on('end', () => {
