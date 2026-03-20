@@ -10,13 +10,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs';
+import { environment } from '../../../environments/environment';
+
 // ── Formspree ─────────────────────────────────────────────────────────────
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xzdjkqnd';
+const FORMSPREE_ENDPOINT = environment.formspreeEndpoint;
 
 // ── Cal.com ────────────────────────────────────────────────────────────────
-const CAL_API_KEY    = 'cal_live_a594cf0e99e01ae505a0bd39b000f222';
-const CAL_EVENT_ID   = 4585757;
-const CAL_TIMEZONE   = 'America/Hermosillo';
+const CAL_EVENT_ID   = environment.calEventId;
+const CAL_TIMEZONE   = environment.calTimezone;
 
 export type ContactFormType = 'book-a-call' | 'start-hiring' | 'eor-services' | 'get-a-quote';
 const VALID_TYPES: ContactFormType[] = ['book-a-call', 'start-hiring', 'eor-services', 'get-a-quote'];
@@ -631,8 +632,8 @@ export class ContactFormComponent implements OnInit, OnDestroy {
     const next = new Date(date); next.setDate(next.getDate() + 1);
     const endTime = `${next.toISOString().split('T')[0]}T06:59:59.000Z`;
     this.http.get<{ slots: Record<string, { time: string }[]> }>(
-      'https://api.cal.com/v1/slots',
-      { params: { apiKey: CAL_API_KEY, eventTypeId: String(CAL_EVENT_ID), startTime, endTime, timeZone: CAL_TIMEZONE } }
+      '/api/slots',
+      { params: { eventTypeId: String(CAL_EVENT_ID), startTime, endTime, timeZone: CAL_TIMEZONE } }
     ).pipe(takeUntil(this.destroy$)).subscribe({
       next: (res) => {
         this.availableSlots = (res.slots?.[date] ?? []).map(s => s.time);
@@ -657,7 +658,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
   private createCalBooking(name: string, email: string, notes: string): void {
     const end = new Date(new Date(this.selectedSlot!).getTime() + 30 * 60 * 1000).toISOString();
     this.http.post(
-      `https://api.cal.com/v1/bookings?apiKey=${CAL_API_KEY}`,
+      '/api/bookings',
       {
         eventTypeId: CAL_EVENT_ID,
         start: this.selectedSlot,

@@ -14,6 +14,7 @@ import { FooterComponent } from '@core/footer/footer.component';
 import { HomeComponent } from '@app/pages/home/home.component';
 import { ContactFormComponent } from '@app/pages/contact-form/contact-form.component';
 import { DepartmentPageComponent } from '@app/pages/department/department-page.component';
+import { NotFoundComponent } from '@app/pages/not-found/not-found.component';
 
 // Section components
 import { HeroSectionComponent } from '@components/hero-section/hero-section.component';
@@ -37,6 +38,7 @@ import { ServicesCarouselComponent } from '@components/shared/services-carousel/
     HomeComponent,
     ContactFormComponent,
     DepartmentPageComponent,
+    NotFoundComponent,
     HeroSectionComponent,
     WhyNearshoreComponent,
     ServicesSectionComponent,
