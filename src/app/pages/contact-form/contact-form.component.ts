@@ -8,6 +8,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { Title } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -495,7 +496,8 @@ export class ContactFormComponent implements OnInit, OnDestroy {
     private router: Router,
     private fb: FormBuilder,
     private http: HttpClient,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private titleService: Title
   ) {}
 
   ngOnInit(): void {
@@ -508,6 +510,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
           return;
         }
         this.config       = FORM_CONFIGS[type];
+        this.titleService.setTitle(`${this.config.right.formTitle} — Hirably`);
         this.buildForm();
         this.submitted    = false;
         this.submitting   = false;
