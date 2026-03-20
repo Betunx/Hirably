@@ -2,16 +2,14 @@
   "version": 2,
   "buildCommand": "ng build --configuration production --base-href /",
   "outputDirectory": "dist/hirably/browser",
+  "functions": {
+    "api/*.ts": {
+      "runtime": "nodejs20.x"
+    }
+  },
   "headers": [
     {
       "source": "/index.html",
-      "headers": [
-        { "key": "cache-control", "value": "no-cache, no-store, must-revalidate" }
-      ]
-    },
-    {
-      "source": "/:path((?!api/).*)",
-      "has": [{ "type": "header", "key": "accept", "value": "text/html.*" }],
       "headers": [
         { "key": "cache-control", "value": "no-cache, no-store, must-revalidate" }
       ]
