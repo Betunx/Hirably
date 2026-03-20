@@ -19,6 +19,7 @@ declare global { interface Window { dataLayer: unknown[]; } }
 const FORMSPREE_ENDPOINT = environment.formspreeEndpoint;
 
 // ── Cal.com ────────────────────────────────────────────────────────────────
+const CAL_API_KEY    = environment.calApiKey;
 const CAL_EVENT_ID   = environment.calEventId;
 const CAL_TIMEZONE   = environment.calTimezone;
 
@@ -643,8 +644,8 @@ export class ContactFormComponent implements OnInit, OnDestroy {
     const next = new Date(date); next.setDate(next.getDate() + 1);
     const endTime = `${next.toISOString().split('T')[0]}T06:59:59.000Z`;
     this.http.get<{ slots: Record<string, { time: string }[]> }>(
-      '/api/slots',
-      { params: { eventTypeId: String(CAL_EVENT_ID), startTime, endTime, timeZone: CAL_TIMEZONE } }
+      'https://api.cal.com/v1/slots',
+      { params: { apiKey: CAL_API_KEY, eventTypeId: String(CAL_EVENT_ID), startTime, endTime, timeZone: CAL_TIMEZONE } }
     ).pipe(takeUntil(this.destroy$)).subscribe({
       next: (res) => {
         this.availableSlots = (res.slots?.[date] ?? []).map(s => s.time);
@@ -669,7 +670,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
   private createCalBooking(name: string, email: string, notes: string): void {
     const end = new Date(new Date(this.selectedSlot!).getTime() + 30 * 60 * 1000).toISOString();
     this.http.post(
-      '/api/bookings',
+      `https://api.cal.com/v1/bookings?apiKey=${CAL_API_KEY}`,
       {
         eventTypeId: CAL_EVENT_ID,
         start: this.selectedSlot,
