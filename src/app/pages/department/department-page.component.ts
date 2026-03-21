@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
@@ -9,6 +10,8 @@ import { DepartmentDetail } from '@models';
 @Component({
   selector: 'app-department-page',
   templateUrl: './department-page.component.html',
+  standalone: true,
+  imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DepartmentPageComponent implements OnInit, OnDestroy {

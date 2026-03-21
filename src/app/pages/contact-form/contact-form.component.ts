@@ -5,9 +5,10 @@ import {
   OnInit,
   OnDestroy
 } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs';
@@ -19,7 +20,6 @@ declare global { interface Window { dataLayer: unknown[]; } }
 const FORMSPREE_ENDPOINT = environment.formspreeEndpoint;
 
 // ── Cal.com ────────────────────────────────────────────────────────────────
-const CAL_API_KEY    = environment.calApiKey;
 const CAL_EVENT_ID   = environment.calEventId;
 const CAL_TIMEZONE   = environment.calTimezone;
 
@@ -434,6 +434,8 @@ const FORM_CONFIGS: Record<ContactFormType, ContactFormConfig> = {
 @Component({
   selector: 'app-contact-form',
   templateUrl: './contact-form.component.html',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContactFormComponent implements OnInit, OnDestroy {
@@ -644,8 +646,8 @@ export class ContactFormComponent implements OnInit, OnDestroy {
     const next = new Date(date); next.setDate(next.getDate() + 1);
     const endTime = `${next.toISOString().split('T')[0]}T06:59:59.000Z`;
     this.http.get<{ slots: Record<string, { time: string }[]> }>(
-      'https://api.cal.com/v1/slots',
-      { params: { apiKey: CAL_API_KEY, eventTypeId: String(CAL_EVENT_ID), startTime, endTime, timeZone: CAL_TIMEZONE } }
+      '/api/slots',
+      { params: { eventTypeId: String(CAL_EVENT_ID), startTime, endTime, timeZone: CAL_TIMEZONE } }
     ).pipe(takeUntil(this.destroy$)).subscribe({
       next: (res) => {
         this.availableSlots = (res.slots?.[date] ?? []).map(s => s.time);
@@ -670,7 +672,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
   private createCalBooking(name: string, email: string, notes: string): void {
     const end = new Date(new Date(this.selectedSlot!).getTime() + 30 * 60 * 1000).toISOString();
     this.http.post(
-      `https://api.cal.com/v1/bookings?apiKey=${CAL_API_KEY}`,
+      '/api/bookings',
       {
         eventTypeId: CAL_EVENT_ID,
         start: this.selectedSlot,

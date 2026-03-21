@@ -7,6 +7,11 @@ export default function handler(req: VercelRequest, res: VercelResponse): void {
   const apiKey = process.env['CAL_API_KEY'];
   if (!apiKey) { res.status(500).json({ error: 'CAL_API_KEY not set' }); return; }
 
+  const { eventTypeId, start, end, responses } = req.body ?? {};
+  if (!eventTypeId || !start || !end || !responses?.name || !responses?.email) {
+    res.status(400).json({ error: 'Missing required fields' }); return;
+  }
+
   const body = JSON.stringify(req.body);
   const options = {
     hostname: 'api.cal.com',
