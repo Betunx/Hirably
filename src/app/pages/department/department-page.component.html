@@ -1,8 +1,9 @@
-<div class="min-h-screen bg-floral-white pt-[72px]" *ngIf="dept">
+@if (dept) {
+<div class="min-h-screen bg-floral-white pt-[72px]">
 
   <!-- ── BACK TO HOME ─────────────────────────────────────────────────── -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
-    <a (click)="goHome()" class="inline-flex items-center gap-1.5 font-body text-[13px] text-dark-purple opacity-50 hover:opacity-100 transition-opacity cursor-pointer">
+    <a (click)="goHome()" (keyup.enter)="goHome()" tabindex="0" class="inline-flex items-center gap-1.5 font-body text-[13px] text-dark-purple opacity-50 hover:opacity-100 transition-opacity cursor-pointer">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>
       </svg>
@@ -83,15 +84,17 @@
                   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 22%, black 78%, transparent 100%);">
         <div class="flex gap-2.5 animate-marquee" style="width: max-content;">
           <!-- SET 1 -->
-          <span *ngFor="let role of dept.roles"
-            class="px-4 py-1.5 rounded-full border border-[#C2E7FF] bg-white font-body text-[13px] text-carbon-black whitespace-nowrap flex-shrink-0 shadow-sm">
-            {{ role }}
-          </span>
+          @for (role of dept.roles; track role) {
+            <span class="px-4 py-1.5 rounded-full border border-[#C2E7FF] bg-white font-body text-[13px] text-carbon-black whitespace-nowrap flex-shrink-0 shadow-sm">
+              {{ role }}
+            </span>
+          }
           <!-- SET 2 — duplicate for seamless loop -->
-          <span *ngFor="let role of dept.roles"
-            class="px-4 py-1.5 rounded-full border border-[#C2E7FF] bg-white font-body text-[13px] text-carbon-black whitespace-nowrap flex-shrink-0 shadow-sm">
-            {{ role }}
-          </span>
+          @for (role of dept.roles; track role) {
+            <span class="px-4 py-1.5 rounded-full border border-[#C2E7FF] bg-white font-body text-[13px] text-carbon-black whitespace-nowrap flex-shrink-0 shadow-sm">
+              {{ role }}
+            </span>
+          }
         </div>
       </div>
     </div>
@@ -106,14 +109,15 @@
           <p class="font-body font-light text-[15px] lg:text-[16px] leading-[1.75] text-dark-purple text-center">{{ dept.whyText }}</p>
         </div>
         <div class="flex flex-col gap-3">
-          <div *ngFor="let point of dept.whyPoints"
-            class="flex items-start gap-3 p-4 bg-white rounded-xl border border-gray-100 shadow-sm">
-            <svg class="flex-shrink-0 mt-0.5" width="18" height="18" viewBox="0 0 20 20" fill="none">
-              <circle cx="10" cy="10" r="10" fill="#2291EA" opacity="0.12"/>
-              <path d="M6 10.5L8.5 13L14 7" stroke="#2291EA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span class="font-body text-[14px] text-carbon-black">{{ point }}</span>
-          </div>
+          @for (point of dept.whyPoints; track point) {
+            <div class="flex items-start gap-3 p-4 bg-white rounded-xl border border-gray-100 shadow-sm">
+              <svg class="flex-shrink-0 mt-0.5" width="18" height="18" viewBox="0 0 20 20" fill="none">
+                <circle cx="10" cy="10" r="10" fill="#2291EA" opacity="0.12"/>
+                <path d="M6 10.5L8.5 13L14 7" stroke="#2291EA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span class="font-body text-[14px] text-carbon-black">{{ point }}</span>
+            </div>
+          }
         </div>
       </div>
     </div>
@@ -126,34 +130,36 @@
       <p class="font-body text-[14px] text-dark-purple/70 mb-8 text-center">See what you could save. These are real market rates — and Hirably handles compliance, payroll, and benefits on top.</p>
 
       <div class="flex flex-col gap-6">
-        <div *ngFor="let item of dept.salaryComparisons" class="flex flex-col gap-2">
-          <div class="flex items-center justify-between mb-1">
-            <span class="font-display font-medium text-[14px] text-navy-dark">{{ item.role }}</span>
-            <span class="font-display font-semibold text-[13px] text-[#10B981] bg-[#10B981]/10 px-2.5 py-0.5 rounded-full">
-              Save {{ getSavings(item.usSalary, item.mxSalary) }}%
-            </span>
-          </div>
-          <!-- US bar -->
-          <div class="flex items-center gap-3">
-            <span class="font-body text-[11px] text-dark-purple/50 w-6">US</span>
-            <div class="flex-1 h-6 bg-gray-100 rounded-md overflow-hidden">
-              <div class="h-full bg-[#FDA29B] rounded-md flex items-center justify-end pr-2 transition-all duration-500"
-                [style.width.%]="getBarPct(item.usSalary)">
-                <span class="font-body font-semibold text-[11px] text-white">{{ formatSalary(item.usSalary) }}</span>
+        @for (item of dept.salaryComparisons; track item.role) {
+          <div class="flex flex-col gap-2">
+            <div class="flex items-center justify-between mb-1">
+              <span class="font-display font-medium text-[14px] text-navy-dark">{{ item.role }}</span>
+              <span class="font-display font-semibold text-[13px] text-[#10B981] bg-[#10B981]/10 px-2.5 py-0.5 rounded-full">
+                Save {{ getSavings(item.usSalary, item.mxSalary) }}%
+              </span>
+            </div>
+            <!-- US bar -->
+            <div class="flex items-center gap-3">
+              <span class="font-body text-[11px] text-dark-purple/50 w-6">US</span>
+              <div class="flex-1 h-6 bg-gray-100 rounded-md overflow-hidden">
+                <div class="h-full bg-[#FDA29B] rounded-md flex items-center justify-end pr-2 transition-all duration-500"
+                  [style.width.%]="getBarPct(item.usSalary)">
+                  <span class="font-body font-semibold text-[11px] text-white">{{ formatSalary(item.usSalary) }}</span>
+                </div>
+              </div>
+            </div>
+            <!-- MX bar -->
+            <div class="flex items-center gap-3">
+              <span class="font-body text-[11px] text-dark-purple/50 w-6">MX</span>
+              <div class="flex-1 h-6 bg-gray-100 rounded-md overflow-hidden">
+                <div class="h-full bg-[#10B981] rounded-md flex items-center justify-end pr-2 transition-all duration-500"
+                  [style.width.%]="getBarPct(item.mxSalary)">
+                  <span class="font-body font-semibold text-[11px] text-white">{{ formatSalary(item.mxSalary) }}</span>
+                </div>
               </div>
             </div>
           </div>
-          <!-- MX bar -->
-          <div class="flex items-center gap-3">
-            <span class="font-body text-[11px] text-dark-purple/50 w-6">MX</span>
-            <div class="flex-1 h-6 bg-gray-100 rounded-md overflow-hidden">
-              <div class="h-full bg-[#10B981] rounded-md flex items-center justify-end pr-2 transition-all duration-500"
-                [style.width.%]="getBarPct(item.mxSalary)">
-                <span class="font-body font-semibold text-[11px] text-white">{{ formatSalary(item.mxSalary) }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
+        }
       </div>
     </div>
   </section>
@@ -164,10 +170,11 @@
       <h2 class="font-display font-semibold text-[24px] lg:text-[30px] text-navy-dark mb-2 text-center">Tools & skills</h2>
       <p class="font-body text-[14px] text-dark-purple/70 mb-6 text-center">Common technologies our vetted candidates work with.</p>
       <div class="flex flex-wrap gap-2 justify-center">
-        <span *ngFor="let tool of dept.tools"
-          class="px-3.5 py-1.5 bg-gray-100 rounded-lg font-body text-[13px] text-dark-purple hover:bg-primary-blue/10 transition-colors">
-          {{ tool }}
-        </span>
+        @for (tool of dept.tools; track tool) {
+          <span class="px-3.5 py-1.5 bg-gray-100 rounded-lg font-body text-[13px] text-dark-purple hover:bg-primary-blue/10 transition-colors">
+            {{ tool }}
+          </span>
+        }
       </div>
     </div>
   </section>
@@ -176,8 +183,8 @@
   <section class="bg-white py-12 lg:py-16">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="font-display font-semibold text-[24px] lg:text-[30px] text-navy-dark mb-8 text-center">Frequently asked questions</h2>
-      <div *ngFor="let faq of dept.faqs; let i = index; let last = last">
-        <div class="py-4 cursor-pointer" (click)="toggleFaq(i)">
+      @for (faq of dept.faqs; track faq.question; let i = $index; let last = $last) {
+        <div class="py-4 cursor-pointer" (click)="toggleFaq(i)" (keyup.enter)="toggleFaq(i)" tabindex="0">
           <div class="flex items-center justify-between gap-4">
             <span class="font-display font-medium text-[15px] lg:text-[16px] text-navy-dark">{{ faq.question }}</span>
             <svg class="flex-shrink-0 transition-transform duration-200" [class.rotate-45]="openFaqIndex === i"
@@ -194,8 +201,10 @@
             <p class="font-body font-light text-[14px] text-dark-purple leading-[1.7] pt-3">{{ faq.answer }}</p>
           </div>
         </div>
-        <div *ngIf="!last" class="h-px bg-primary-blue/20"></div>
-      </div>
+        @if (!last) {
+          <div class="h-px bg-primary-blue/20"></div>
+        }
+      }
     </div>
   </section>
 
@@ -220,3 +229,4 @@
   </section>
 
 </div>
+}
