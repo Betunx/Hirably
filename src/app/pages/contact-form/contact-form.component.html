@@ -273,7 +273,7 @@
                 </textarea>
 
                 <!-- Validation message -->
-                <span *ngIf="isInvalid(field.key)" class="font-body text-[11px] text-red-400">
+                <span *ngIf="isInvalid(field.key)" role="alert" aria-live="polite" class="font-body text-[11px] text-red-400">
                   {{ field.label }} is required.
                 </span>
 
