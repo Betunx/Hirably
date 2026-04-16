@@ -6,13 +6,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
   const apiKey = process.env['CAL_API_KEY'];
   if (!apiKey) { res.status(500).json({ error: 'CAL_API_KEY not set' }); return; }
 
-  const { eventTypeId, startTime, endTime, timeZone } = req.query;
+  const { startTime, endTime, timeZone } = req.query;
 
   const params = new URLSearchParams();
-  if (eventTypeId) params.set('eventTypeId', String(eventTypeId));
-  if (startTime)   params.set('startTime', String(startTime));
-  if (endTime)     params.set('endTime', String(endTime));
-  if (timeZone)    params.set('timeZone', String(timeZone));
+  params.set('eventTypeSlug', '30min');
+  params.set('username', 'hirably');
+  if (startTime) params.set('startTime', String(startTime));
+  if (endTime)   params.set('endTime', String(endTime));
+  if (timeZone)  params.set('timeZone', String(timeZone));
 
   try {
     const upstream = await fetch(
