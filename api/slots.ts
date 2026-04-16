@@ -25,8 +25,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
       }
     );
     const parsed = await upstream.json() as { status?: string; data?: { slots?: unknown }; slots?: unknown };
+    if (!upstream.ok) {
+      res.status(200).json({ slots: {}, _calError: (parsed as { message?: string }).message ?? upstream.status });
+      return;
+    }
     const slots = (parsed?.data as { slots?: unknown })?.slots ?? parsed?.slots ?? {};
-    res.status(upstream.status).json({ slots });
+    res.status(200).json({ slots });
   } catch (err) {
     res.status(500).json({ error: err instanceof Error ? err.message : 'Unknown error' });
   }
