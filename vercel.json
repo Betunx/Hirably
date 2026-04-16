@@ -27,10 +27,6 @@
       ]
     }
   ],
-  "functions": {
-    "api/slots.ts":    { "runtime": "@vercel/node@5.x" },
-    "api/bookings.ts": { "runtime": "@vercel/node@5.x" }
-  },
   "rewrites": [
     {
       "source": "/((?!api/).*)",
