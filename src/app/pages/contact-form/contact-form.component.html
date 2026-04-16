@@ -144,12 +144,19 @@
           </p>
         </div>
 
-        <!-- Testimonial (start-hiring only) -->
-        <div *ngIf="config.testimonial" class="p-5 bg-white rounded-xl border border-gray-100">
-          <p class="font-body font-light text-[14px] leading-[1.6] text-dark-purple italic mb-3 text-justify">
-            {{ config.testimonial.quote }}
-          </p>
-          <p class="font-body text-[13px] text-dark-purple opacity-50">{{ config.testimonial.attribution }}</p>
+        <!-- Promo note (start-hiring only) -->
+        <div *ngIf="config.promoNote" class="p-5 bg-white rounded-xl border border-gray-100 flex items-start gap-3.5">
+          <div class="flex-shrink-0 mt-0.5 w-8 h-8 rounded-full flex items-center justify-center"
+            [style.background]="config.theme.accentHex + '22'">
+            <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+              <path d="M10 2L12.5 7.5H18L13.5 11L15.5 17L10 13.5L4.5 17L6.5 11L2 7.5H7.5L10 2Z"
+                [attr.fill]="config.theme.accentHex" />
+            </svg>
+          </div>
+          <div>
+            <p class="font-display font-semibold text-[14px] text-navy-dark mb-1">{{ config.promoNote.headline }}</p>
+            <p class="font-body text-[13px] leading-[1.6] text-dark-purple/70">{{ config.promoNote.body }}</p>
+          </div>
         </div>
 
         <!-- Call Details card (book-a-call only) -->

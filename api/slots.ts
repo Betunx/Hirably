@@ -10,18 +10,30 @@ export default function handler(req: VercelRequest, res: VercelResponse): void {
   const { eventTypeId, startTime, endTime, timeZone } = req.query;
 
   const params = new URLSearchParams();
-  params.set('apiKey', apiKey);
   if (eventTypeId) params.set('eventTypeId', String(eventTypeId));
   if (startTime)   params.set('startTime', String(startTime));
   if (endTime)     params.set('endTime', String(endTime));
   if (timeZone)    params.set('timeZone', String(timeZone));
 
-  https.get(`https://api.cal.com/v1/slots?${params.toString()}`, (upstream) => {
+  const options = {
+    hostname: 'api.cal.com',
+    path: `/v2/slots/available?${params.toString()}`,
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${apiKey}`,
+      'cal-api-version': '2024-09-04',
+    },
+  };
+
+  https.get(options, (upstream) => {
     let data = '';
     upstream.on('data', chunk => data += chunk);
     upstream.on('end', () => {
       try {
-        res.status(upstream.statusCode ?? 200).json(JSON.parse(data));
+        const parsed = JSON.parse(data);
+        // v2 wraps response in { status, data } — normalize to { slots } for the frontend
+        const slots = parsed?.data?.slots ?? parsed?.slots ?? {};
+        res.status(upstream.statusCode ?? 200).json({ slots });
       } catch {
         res.status(500).json({ error: 'Invalid response from Cal.com' });
       }

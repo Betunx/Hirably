@@ -7,19 +7,33 @@ export default function handler(req: VercelRequest, res: VercelResponse): void {
   const apiKey = process.env['CAL_API_KEY'];
   if (!apiKey) { res.status(500).json({ error: 'CAL_API_KEY not set' }); return; }
 
-  const { eventTypeId, start, end, responses } = req.body ?? {};
-  if (!eventTypeId || !start || !end || !responses?.name || !responses?.email) {
+  const { eventTypeId, start, responses, timeZone, language, metadata } = req.body ?? {};
+  if (!eventTypeId || !start || !responses?.name || !responses?.email) {
     res.status(400).json({ error: 'Missing required fields' }); return;
   }
 
-  const body = JSON.stringify(req.body);
+  // v2 uses `attendee` instead of `responses` + top-level timeZone/language
+  const v2Body = JSON.stringify({
+    eventTypeId,
+    start,
+    attendee: {
+      name: responses.name,
+      email: responses.email,
+      timeZone: timeZone ?? 'America/Hermosillo',
+      language: language ?? 'en',
+    },
+    metadata: metadata ?? {},
+  });
+
   const options = {
     hostname: 'api.cal.com',
-    path: `/v1/bookings?apiKey=${apiKey}`,
+    path: '/v2/bookings',
     method: 'POST',
     headers: {
+      'Authorization': `Bearer ${apiKey}`,
+      'cal-api-version': '2024-09-04',
       'Content-Type': 'application/json',
-      'Content-Length': Buffer.byteLength(body),
+      'Content-Length': Buffer.byteLength(v2Body),
     },
   };
 
@@ -39,6 +53,6 @@ export default function handler(req: VercelRequest, res: VercelResponse): void {
     res.status(500).json({ error: err.message });
   });
 
-  upstream.write(body);
+  upstream.write(v2Body);
   upstream.end();
 }

@@ -49,14 +49,11 @@ export interface ContactFormConfig {
   };
   includedItems?: string[];
   tipNote?: string;
+  promoNote?: { headline: string; body: string };
   callDetails?: {
     duration: string;
     platform: string;
     confirmationNote: string;
-  };
-  testimonial?: {
-    quote: string;
-    attribution: string;
   };
   right: {
     formTitle: string;
@@ -312,9 +309,9 @@ export const FORM_CONFIGS: Record<ContactFormType, ContactFormConfig> = {
       imageSrc: 'assets/img/hire.jpg',
       imageAlt: 'Start hiring talent in Mexico',
     },
-    testimonial: {
-      quote: '"Hirably built a plan that fit exactly what we needed — three developers and a designer, all compliant, one invoice. It felt like they were part of our team from day one."',
-      attribution: '— Head of Operations, Growth-Stage Fintech',
+    promoNote: {
+      headline: 'Your team, built around you.',
+      body: 'No templates, no guesswork. Every Hirably plan is custom — matched to your roles, timeline, and budget. Zero upfront cost, one transparent invoice.',
     },
     right: {
       formTitle: 'Hirably Complete',
