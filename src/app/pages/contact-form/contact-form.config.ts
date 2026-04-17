@@ -259,7 +259,7 @@ export const FORM_CONFIGS: Record<ContactFormType, ContactFormConfig> = {
     left: {
       badgeText: 'Schedule a Call',
       title: "Let's Talk About Your\nHiring Needs",
-      description: "Book a free 20-minute discovery call with one of our nearshore specialists. We'll walk you through how Hirably works and give you a tailored recommendation — no pressure, no commitment.",
+      description: "Book a free 30-minute discovery call with one of our nearshore specialists. We'll walk you through how Hirably works and give you a tailored recommendation — no pressure, no commitment.",
       bullets: [
         { text: 'Get answers to all your hiring-in-Mexico questions' },
         { text: 'Learn about our process, timelines, and pricing' },
@@ -270,16 +270,16 @@ export const FORM_CONFIGS: Record<ContactFormType, ContactFormConfig> = {
       imageAlt: 'Schedule a consultation',
     },
     callDetails: {
-      duration: '20 minutes',
-      platform: 'Google Meet or Zoom — your choice',
-      confirmationNote: "We'll confirm your slot within 24 hours via email.",
+      duration: '30 minutes',
+      platform: 'Google Meet',
+      confirmationNote: "Pick a time below — you'll get an instant confirmation email.",
     },
     right: {
       formTitle: 'Schedule Your Call',
-      formSubtitle: "Fill in your details and we'll confirm your slot within 24 hours.",
+      formSubtitle: 'Fill in your details and pick a time that works for you.',
       submitLabel: 'Book My Call',
       fields: BOOK_A_CALL_FIELDS,
-      footerNote: "Free 20-minute call. No commitment. We'll confirm via email within 24 hours.",
+      footerNote: 'Free 30-minute call. No commitment.',
     },
   },
 
@@ -315,10 +315,10 @@ export const FORM_CONFIGS: Record<ContactFormType, ContactFormConfig> = {
     },
     right: {
       formTitle: 'Hirably Complete',
-      formSubtitle: 'Tell us about your hiring needs and schedule a call to build your custom plan.',
+      formSubtitle: 'Fill in your details and pick a time — we\'ll come prepared with a custom plan.',
       submitLabel: 'Book My Consultation',
       fields: START_HIRING_FIELDS,
-      footerNote: "Free 30-minute consultation. We'll confirm your slot within 24 hours and come prepared with a custom plan.",
+      footerNote: "Free 30-minute consultation. No commitment.",
     },
   },
 
@@ -350,10 +350,10 @@ export const FORM_CONFIGS: Record<ContactFormType, ContactFormConfig> = {
     tipNote: 'Already paying contractors in Mexico? We can help you convert them to full-time employees compliantly — often within 2 weeks.',
     right: {
       formTitle: 'Hirably EOR',
-      formSubtitle: 'Tell us about your situation and schedule a call to walk through how EOR works for you.',
+      formSubtitle: 'Fill in your details and pick a time — we\'ll walk you through the full EOR process.',
       submitLabel: 'Book My EOR Consultation',
       fields: EOR_FIELDS,
-      footerNote: "Free 20-minute call. We'll confirm your slot within 24 hours and walk you through the full EOR process.",
+      footerNote: "Free 30-minute call. No commitment.",
     },
   },
 
@@ -385,10 +385,10 @@ export const FORM_CONFIGS: Record<ContactFormType, ContactFormConfig> = {
     tipNote: "Don't have a Mexican entity? No problem — check out Hirably Complete where we handle recruitment AND employment under one all-inclusive rate.",
     right: {
       formTitle: 'Hirably Recruitment',
-      formSubtitle: 'Tell us about the roles you need to fill and schedule a call to get a tailored quote.',
+      formSubtitle: 'Fill in your details and pick a time — we\'ll come prepared with a tailored quote.',
       submitLabel: 'Book My Call & Get a Quote',
       fields: GET_QUOTE_FIELDS,
-      footerNote: "Free 20-minute call. We'll confirm your slot within 24 hours and come prepared with a quote.",
+      footerNote: "Free 30-minute call. No commitment.",
     },
   },
 

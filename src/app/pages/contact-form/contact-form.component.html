@@ -32,17 +32,6 @@
         We received your info and will be in touch within 24 hours.
       </p>
 
-      <!-- Cal.com embed for book-a-call (pick a time right after submitting) -->
-      <div *ngIf="isBookACall" class="w-full mb-6 rounded-xl overflow-hidden border border-gray-100 shadow-sm">
-        <iframe
-          src="https://cal.com/hirably/30min?embed=true"
-          width="100%"
-          height="500"
-          frameborder="0"
-          title="Schedule your call with Hirably">
-        </iframe>
-      </div>
-
       <div class="flex flex-col items-center gap-3 w-full">
         <button (click)="goHome()"
           class="w-full px-8 py-3 rounded-[7px] font-display font-medium text-[15px] transition-all duration-200 cursor-pointer shadow-sm hover:opacity-90"
@@ -219,7 +208,7 @@
           </div>
 
           <!-- Reactive form — 2-column responsive grid -->
-          <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate
+          <form [formGroup]="form" novalidate
             class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-4">
 
             <ng-container *ngFor="let field of config.right.fields; trackBy: trackByKey">
@@ -286,35 +275,28 @@
               </div>
             </ng-container>
 
-            <!-- Submit button — full width, spans both columns -->
+            <!-- Cal.com embed — all form types -->
             <div class="sm:col-span-2 mt-2">
-              <button type="submit" [disabled]="submitting" [style.background]="config.theme.submitBg"
-                [style.color]="config.theme.submitText"
-                class="w-full h-12 rounded-md font-display font-medium text-[15px] transition-all duration-200 shadow-sm cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 hover:opacity-90">
-                <!-- Send icon -->
-                <ng-container *ngIf="!submitting">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path
-                      d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z">
-                    </path>
-                    <path d="m21.854 2.147-10.94 10.939"></path>
-                  </svg>
-                </ng-container>
-                <!-- Spinner while submitting -->
-                <svg *ngIf="submitting" class="animate-spin" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="12" cy="12" r="10" stroke-opacity="0.25" />
-                  <path d="M12 2a10 10 0 0 1 10 10" />
-                </svg>
-                {{ submitting ? 'Sending…' : config.right.submitLabel }}
-              </button>
-
-              <!-- Footer note (book-a-call only) -->
-              <p *ngIf="config.right.footerNote"
-                class="font-body text-[12px] text-dark-purple opacity-50 text-center mt-3 leading-[1.5]">
-                {{ config.right.footerNote }}
+              <div class="border-t border-gray-100 mb-4"></div>
+              <p class="font-body font-semibold text-[11px] uppercase tracking-[0.08em] mb-1"
+                [style.color]="config.theme.accentHex">Pick a Time (Optional)</p>
+              <p class="font-body text-[12px] text-dark-purple/55 mb-4 leading-relaxed">
+                Select a slot now or we'll reach out within 24 hours to confirm a time.
               </p>
+              <div class="rounded-xl overflow-hidden border border-gray-100">
+                <div id="cal-booking-placeholder" style="min-height:480px;width:100%;"></div>
+              </div>
+            </div>
+
+            <!-- Sending indicator (shown while Formspree call is in flight after Cal.com confirms) -->
+            <div *ngIf="submitting" class="sm:col-span-2 flex items-center justify-center gap-2 py-3 text-dark-purple/60">
+              <svg class="animate-spin w-4 h-4 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10" stroke-opacity="0.25"/>
+                <path d="M12 2a10 10 0 0 1 10 10"/>
+              </svg>
+              <span class="font-body text-[13px]">Saving your booking…</span>
+            </div>
+            <div class="sm:col-span-2">
             </div>
 
           </form>
