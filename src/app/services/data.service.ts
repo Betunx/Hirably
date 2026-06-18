@@ -29,8 +29,8 @@ export class DataService {
   private servicesData: Service[] = [
     {
       title: 'Recruit',
-      subtitle: 'Find top 1% talent',
-      description: 'Deep Sourcing: We screen thousands to find the top 1%. Culture Fit: Technical skills matched with your company values. Speed: Qualified candidates in under 5 days.',
+      subtitle: 'Top 4% acceptance rate',
+      description: 'Deep Sourcing: We screen thousands and only the top 4% make the cut. Culture Fit: Technical skills matched with your company values. Speed: Qualified candidates in under 5 days.',
       icon: 'megaphone',
       color: '#fff1cf'
     },
@@ -42,7 +42,7 @@ export class DataService {
       color: '#e3e1ff'
     },
     {
-      title: 'Pay',
+      title: 'Payroll',
       subtitle: 'One Invoice. Total Control.',
       description: 'Simple Billing: One consolidated monthly invoice in USD. Tax & Benefits: We handle all withholdings and benefits. Transparency: Full visibility into every cost.',
       icon: 'currency',
@@ -56,9 +56,9 @@ export class DataService {
       badge: 'Headhunting',
       name: 'Hirably Recruitment',
       subtitle: 'Hiring for Your Entity',
-      price: '$2,499',
+      price: '$3,999',
       pricePrefix: 'Starting at',
-      priceUnit: ' flat fee',
+      priceUnit: '',
       priceNote: 'Starting rate — tiered based on seniority of the role.',
       tagline: 'For companies that already have a Mexican legal entity and just need the right people.',
       features: [
@@ -96,7 +96,7 @@ export class DataService {
       badge: 'Employer of Record',
       name: 'Hirably EOR',
       subtitle: 'Bring Your Own Talent',
-      price: '$499',
+      price: '$799',
       pricePrefix: 'Starting at',
       priceUnit: '/mo per employee',
       tagline: 'You found the talent — we make it legal.',
@@ -105,7 +105,8 @@ export class DataService {
         'Contracts & Labor Compliance',
         'Tax Filing & Withholding',
         'Social Security & Benefits',
-        'Ongoing HR Support',
+        'Dedicated In-Country HR Support',
+        'Hardware Logistics & Asset Tracking',
         'One Simple USD Invoice'
       ],
       cta: 'Get Started',

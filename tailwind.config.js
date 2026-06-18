@@ -5,49 +5,43 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // ==========================================
-        // COLORES EXACTOS DEL FIGMA (2025)
-        // Extraídos via Figma API
-        // ==========================================
 
         // PRIMARY COLORS
-        'primary-blue': '#2291ea',     // Botones, links, acentos principales
-        'navy-dark': '#111f78',        // Títulos, footer, texto oscuro
-        'bright-amber': '#FFCF25',     // CTA principal (Book a call)
-        'amber-dark': '#e7ae00',       // Amber alternativo
-        'amber-gold': '#fccb37',       // Badges amarillos
+        'primary-blue': '#2291ea',
+        'navy-dark': '#111f78',
+        'bright-amber': '#FFCF25',
+        'amber-dark': '#e7ae00',
+        'amber-gold': '#fccb37',
 
         // TEXT COLORS
-        'carbon-black': '#1B1B1B',     // Texto principal
-        'dark-purple': '#201148',      // Texto secundario/subtítulos
+        'carbon-black': '#1B1B1B',
+        'dark-purple': '#201148',
 
         // BACKGROUND COLORS
-        'floral-white': '#FFFBF4',     // Fondo crema claro
-        'cream-light': '#fff1cf',      // Fondo crema más claro
+        'floral-white': '#FFFBF4',
+        'cream-light': '#fff1cf',
 
         // ACCENT COLORS
-        'sky-blue': '#bbe2fd',         // Backgrounds suaves
-        'light-sky': '#c2e7ff',        // Step 01 / Light Sky Blue
-        'mint-green': '#d1f9e5',       // Step 02 / Mint Green
-        'lavender': '#e3e1ff',         // Step 03 / Lavender
-        'emerald': '#10b981',          // Success, checks
-        'purple-accent': '#6c59d8',    // Badge morado (Recruitment)
+        'sky-blue': '#bbe2fd',
+        'light-sky': '#c2e7ff',
+        'mint-green': '#d1f9e5',
+        'lavender': '#e3e1ff',
+        'emerald': '#10b981',
+        'purple-accent': '#6c59d8',
 
         // UI COLORS
-        'blue-soft': '#77bbf2',        // Azul suave
-        'blue-light': '#e0eeff',       // Azul muy claro
-        'green-teal': '#7fd4b8',       // Verde teal
-        'green-soft': '#d7fbe4',       // Verde suave
-        'gray-neutral': '#d9d9d9',     // Gris neutral
+        'blue-soft': '#77bbf2',
+        'blue-light': '#e0eeff',
+        'green-teal': '#7fd4b8',
+        'green-soft': '#d7fbe4',
+        'gray-neutral': '#d9d9d9',
       },
       fontFamily: {
-        // Fuentes del Figma
         sans: ['DM Sans', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
         display: ['Poppins', 'sans-serif'],  // Títulos
         body: ['DM Sans', 'sans-serif'],      // Texto
       },
       fontSize: {
-        // Tamaños exactos del Figma
         'hero': ['50px', { lineHeight: '65px', fontWeight: '500' }],
         'hero-sub': ['25px', { lineHeight: '40px', fontWeight: '400' }],
         'section-title': ['50px', { lineHeight: '60px', fontWeight: '500' }],

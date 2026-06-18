@@ -1,5 +1,6 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AnalyticsService } from '@services/analytics.service';
 
 @Component({
   selector: 'app-not-found',
@@ -20,7 +21,8 @@ import { Router } from '@angular/router';
     </div>
   `,
 })
-export class NotFoundComponent {
-  constructor(private router: Router) {}
+export class NotFoundComponent implements OnInit {
+  constructor(private router: Router, private analytics: AnalyticsService) {}
+  ngOnInit(): void { this.analytics.pageNotFound(); }
   goHome(): void { this.router.navigate(['/']); }
 }

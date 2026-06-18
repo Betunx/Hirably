@@ -25,6 +25,7 @@ import { WhyHirablyComponent } from '@components/why-hirably/why-hirably.compone
 
 // Standalone components
 import { AllIncludedPlatformComponent } from '@components/all-included-platform/all-included-platform.component';
+import { TrustBarComponent } from '@components/trust-bar/trust-bar.component';
 import { MobileCarouselComponent } from '@components/shared/mobile-carousel/mobile-carousel.component';
 import { ServicesCarouselComponent } from '@components/shared/services-carousel/services-carousel.component';
 
@@ -49,6 +50,7 @@ import { ServicesCarouselComponent } from '@components/shared/services-carousel/
     ReactiveFormsModule,
     HttpClientModule,
     AllIncludedPlatformComponent,
+    TrustBarComponent,
     MobileCarouselComponent,
     ServicesCarouselComponent
   ],

@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subject, filter, takeUntil } from 'rxjs';
+import { AnalyticsService } from '@services/analytics.service';
 
 interface NavLink {
   label: string;
@@ -57,7 +58,7 @@ export class NavbarComponent implements OnDestroy {
     { label: 'PRICING', route: '/', fragment: 'pricing' }
   ];
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private analytics: AnalyticsService) {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd),
       takeUntil(this.destroy$)
@@ -110,6 +111,7 @@ export class NavbarComponent implements OnDestroy {
   }
 
   navigateToContact(type: string): void {
+    this.analytics.ctaClick('Start Hiring', type);
     this.router.navigate(['/contact', type]);
     this.closeMenu();
   }

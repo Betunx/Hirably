@@ -1,4 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { AnalyticsService } from '@services/analytics.service';
 
 @Component({
   selector: 'app-footer',
@@ -7,4 +8,14 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 })
 export class FooterComponent {
   currentYear = new Date().getFullYear();
+
+  constructor(private analytics: AnalyticsService) {}
+
+  trackContact(method: 'email' | 'phone'): void {
+    this.analytics.contactClick(method);
+  }
+
+  trackOutbound(url: string): void {
+    this.analytics.outboundClick(url);
+  }
 }

@@ -39,3 +39,6 @@ FIGMA_CONTENT.md
 extract_figma.js
 figma_*.json
 .claude/settings.local.json
+
+# Private dev notes (never commit) — local-only TODO/triage
+docs/TODO-DEV.md

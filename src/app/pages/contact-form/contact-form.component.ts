@@ -13,6 +13,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
 import { Subject, takeUntil, debounceTime } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { AnalyticsService } from '@services/analytics.service';
 import {
   ContactFormType,
   ContactFormConfig,
@@ -23,7 +24,6 @@ import {
 
 declare global {
   interface Window {
-    dataLayer: unknown[];
     Cal: ((...args: unknown[]) => void) & { loaded?: boolean; queue?: unknown[]; ns?: Record<string, unknown> };
   }
 }
@@ -49,6 +49,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
 
   private readonly destroy$ = new Subject<void>();
   private calEventsRegistered = false;
+  private formStarted = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -57,7 +58,8 @@ export class ContactFormComponent implements OnInit, OnDestroy {
     private http: HttpClient,
     private cdr: ChangeDetectorRef,
     private titleService: Title,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private analytics: AnalyticsService
   ) {}
 
   ngOnInit(): void {
@@ -71,6 +73,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
         }
         this.config               = FORM_CONFIGS[type];
         this.calEventsRegistered  = false;
+        this.formStarted          = false;
         this.titleService.setTitle(`${this.config.right.formTitle} — Hirably`);
         this.buildForm();
         this.submitted   = false;
@@ -177,7 +180,8 @@ export class ContactFormComponent implements OnInit, OnDestroy {
         next: () => {
           this.submitting = false;
           this.submitted  = true;
-          this.pushGtmEvent('form_submit', this.config.type);
+          this.analytics.formSubmit(this.config.type, this.config.type);
+          this.analytics.generateLead('cal_booking', this.config.type);
           this.cdr.markForCheck();
         },
         error: () => {
@@ -186,6 +190,17 @@ export class ContactFormComponent implements OnInit, OnDestroy {
           this.cdr.markForCheck();
         },
       });
+  }
+
+  // Fires once when the user first interacts with any form field.
+  onFormStart(): void {
+    if (this.formStarted) return;
+    this.formStarted = true;
+    this.analytics.formStart(this.config.type, 'contact');
+  }
+
+  onContactEmail(): void {
+    this.analytics.contactClick('email');
   }
 
   // kept for template binding (error banner uses submitError set by onCalBookingConfirmed)
@@ -207,10 +222,5 @@ export class ContactFormComponent implements OnInit, OnDestroy {
 
   goHome(): void {
     this.router.navigate(['/']);
-  }
-
-  private pushGtmEvent(event: string, formType: string): void {
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ event, form_type: formType });
   }
 }

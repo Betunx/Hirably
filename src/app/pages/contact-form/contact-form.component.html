@@ -204,11 +204,11 @@
           <div *ngIf="submitError"
             class="mb-5 px-4 py-3 rounded-lg bg-red-50 border border-red-200 font-body text-[13px] text-red-600">
             Something went wrong. Please try again or email us at
-            <a href="mailto:chrystian.moreno&#64;hirablystaffing.com" class="underline">chrystian.moreno&#64;hirablystaffing.com</a>.
+            <a href="mailto:chrystian.moreno&#64;hirablystaffing.com" (click)="onContactEmail()" class="underline">chrystian.moreno&#64;hirablystaffing.com</a>.
           </div>
 
           <!-- Reactive form — 2-column responsive grid -->
-          <form [formGroup]="form" novalidate
+          <form [formGroup]="form" novalidate (focusin)="onFormStart()"
             class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-4">
 
             <ng-container *ngFor="let field of config.right.fields; trackBy: trackByKey">

@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '@services/data.service';
+import { AnalyticsService } from '@services/analytics.service';
 import { PricingPlan } from '@models';
 
 @Component({
@@ -11,7 +12,11 @@ import { PricingPlan } from '@models';
 export class PricingSectionComponent {
   readonly plans: PricingPlan[];
 
-  constructor(private dataService: DataService, private router: Router) {
+  constructor(
+    private dataService: DataService,
+    private router: Router,
+    private analytics: AnalyticsService
+  ) {
     this.plans = this.dataService.getPricingPlans();
   }
 
@@ -20,14 +25,17 @@ export class PricingSectionComponent {
   }
 
   onEorServices(): void {
+    this.analytics.ctaClick('Get Started', 'eor-services');
     this.router.navigate(['/contact', 'eor-services']);
   }
 
   onStartHiring(): void {
+    this.analytics.ctaClick('Start Hiring', 'start-hiring');
     this.router.navigate(['/contact', 'start-hiring']);
   }
 
   onGetAQuote(): void {
+    this.analytics.ctaClick('Get a Quote', 'get-a-quote');
     this.router.navigate(['/contact', 'get-a-quote']);
   }
 }

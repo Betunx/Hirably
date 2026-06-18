@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
+import { AnalyticsService } from '@services/analytics.service';
 
 @Component({
   selector: 'app-hero-section',
@@ -8,9 +9,10 @@ import { Router } from '@angular/router';
 })
 export class HeroSectionComponent {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private analytics: AnalyticsService) {}
 
   onBookConsultation(): void {
+    this.analytics.ctaClick('Book a call', 'book-a-call');
     this.router.navigate(['/contact', 'book-a-call']);
   }
 }
