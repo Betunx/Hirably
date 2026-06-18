@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ElementRef, AfterViewInit, OnInit, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ElementRef, AfterViewInit, OnInit, OnDestroy, inject } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subject, filter, takeUntil } from 'rxjs';
 import { AnalyticsService, PageType } from '@services/analytics.service';
@@ -17,14 +17,11 @@ import { EngagementTrackerService } from '@services/engagement-tracker.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
+  private readonly el: ElementRef<HTMLElement> = inject(ElementRef);
+  private readonly router = inject(Router);
+  private readonly analytics = inject(AnalyticsService);
+  private readonly engagement = inject(EngagementTrackerService);
   private readonly destroy$ = new Subject<void>();
-
-  constructor(
-    private el: ElementRef<HTMLElement>,
-    private router: Router,
-    private analytics: AnalyticsService,
-    private engagement: EngagementTrackerService
-  ) {}
 
   ngOnInit(): void {
     // On every route change (incl. the initial load): emit a virtual pageview and

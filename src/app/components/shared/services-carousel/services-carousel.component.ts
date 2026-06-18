@@ -3,14 +3,15 @@ import {
   Input,
   AfterViewInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  inject
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-services-carousel',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './services-carousel.component.html',
   styleUrls: ['./services-carousel.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -27,7 +28,7 @@ export class ServicesCarouselComponent implements AfterViewInit {
   private lockAxis: 'horizontal' | 'vertical' | null = null;
   private swipeThreshold = 50;
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  private readonly cdr = inject(ChangeDetectorRef);
 
   ngAfterViewInit(): void {
     this.activeIndex = this.initialIndex;

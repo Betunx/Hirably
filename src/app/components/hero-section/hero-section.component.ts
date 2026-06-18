@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AnalyticsService } from '@services/analytics.service';
 
@@ -8,8 +8,8 @@ import { AnalyticsService } from '@services/analytics.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeroSectionComponent {
-
-  constructor(private router: Router, private analytics: AnalyticsService) {}
+  private readonly router = inject(Router);
+  private readonly analytics = inject(AnalyticsService);
 
   onBookConsultation(): void {
     this.analytics.ctaClick('Book a call', 'book-a-call');

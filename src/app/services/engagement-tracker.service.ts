@@ -1,4 +1,4 @@
-import { Injectable, NgZone, OnDestroy } from '@angular/core';
+import { Injectable, NgZone, OnDestroy, inject } from '@angular/core';
 import { AnalyticsService } from './analytics.service';
 
 /**
@@ -22,7 +22,8 @@ export class EngagementTrackerService implements OnDestroy {
   private scrollHandler?: () => void;
   private ticking = false;
 
-  constructor(private analytics: AnalyticsService, private zone: NgZone) {}
+  private readonly analytics = inject(AnalyticsService);
+  private readonly zone = inject(NgZone);
 
   startPage(): void {
     this.reset();

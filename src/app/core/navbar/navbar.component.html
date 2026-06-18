@@ -1,34 +1,37 @@
 <!-- ====================================
-     NAVBAR - Figma Pixel Perfect
-     - Nav Links: Poppins 14px weight 500 (medium looks like bold)
-     - Button: bg #111f78, text white
-     ==================================== -->
+NAVBAR - Figma Pixel Perfect
+- Nav Links: Poppins 14px weight 500 (medium looks like bold)
+- Button: bg #111f78, text white
+==================================== -->
 <nav class="fixed top-0 w-full bg-white py-4 px-6 md:px-12 z-[1000] shadow-md">
   <div class="flex justify-between items-center max-w-7xl mx-auto">
 
     <!-- Logo (Left) -->
-    <div (click)="navigateToHome()" class="cursor-pointer flex-shrink-0 transition-all duration-300 hover:opacity-80">
+    <button type="button" (click)="navigateToHome()" aria-label="Go to home"
+      class="cursor-pointer flex-shrink-0 bg-transparent border-none p-0 transition-all duration-300 hover:opacity-80">
       <img src="assets/logos/logo 2.svg" alt="Hirably Logo" class="h-8" />
-    </div>
+    </button>
 
     <!-- Nav Links (Center) - Figma: Poppins 14px/21px weight 500 -->
     <ul class="hidden lg:flex gap-10 list-none items-center justify-center flex-1">
-      <li *ngFor="let link of navLinks; trackBy: trackByLabel">
-        <a (click)="navigateToSection(link.route!, link.fragment)"
-          class="text-carbon-black font-display font-semibold text-[14px] leading-[21px] cursor-pointer transition-all duration-300 hover:text-primary-blue">
-          {{ link.label }}
-        </a>
-      </li>
+      @for (link of navLinks; track link.label) {
+        <li>
+          <button type="button" (click)="navigateToSection(link.route!, link.fragment)"
+            class="bg-transparent border-none p-0 text-carbon-black font-display font-semibold text-[14px] leading-[21px] cursor-pointer transition-all duration-300 hover:text-primary-blue">
+            {{ link.label }}
+          </button>
+        </li>
+      }
     </ul>
 
     <!-- Right side: CTA + Hamburger grouped -->
     <div class="flex items-center gap-3">
       <!-- CTA Button - always visible, smaller on mobile -->
-      <a (click)="navigateToContact('start-hiring')"
-        class="bg-navy-dark text-white font-display font-medium py-2 px-4 lg:py-3 lg:px-6 rounded-lg text-[12px] lg:text-[14px] cursor-pointer transition-all duration-300 hover:bg-primary-blue shadow-lg">
+      <button type="button" (click)="navigateToContact('start-hiring')"
+        class="bg-navy-dark text-white font-display font-medium py-2 px-4 lg:py-3 lg:px-6 rounded-lg text-[12px] lg:text-[14px] border-none cursor-pointer transition-all duration-300 hover:bg-primary-blue shadow-lg">
         <span class="lg:hidden">Start Hiring</span>
         <span class="hidden lg:inline">Start Hiring Today</span>
-      </a>
+      </button>
 
       <!-- Hamburger Menu (Mobile Only) -->
       <button class="flex flex-col gap-1.5 bg-transparent border-none cursor-pointer p-1.5 z-[1001] lg:hidden"
@@ -36,11 +39,11 @@
         [attr.aria-expanded]="isMenuOpen"
         aria-label="Toggle navigation menu">
         <span class="w-6 h-0.5 bg-navy-dark rounded transition-all duration-300"
-          [ngClass]="{'rotate-45 translate-x-2 translate-y-2': isMenuOpen}"></span>
+        [ngClass]="{'rotate-45 translate-x-2 translate-y-2': isMenuOpen}"></span>
         <span class="w-6 h-0.5 bg-navy-dark rounded transition-all duration-300"
-          [ngClass]="{'opacity-0': isMenuOpen}"></span>
+        [ngClass]="{'opacity-0': isMenuOpen}"></span>
         <span class="w-6 h-0.5 bg-navy-dark rounded transition-all duration-300"
-          [ngClass]="{'-rotate-45 translate-x-2 -translate-y-2': isMenuOpen}"></span>
+        [ngClass]="{'-rotate-45 translate-x-2 -translate-y-2': isMenuOpen}"></span>
       </button>
     </div>
 
@@ -51,19 +54,21 @@
 
       <!-- Mobile Nav Links -->
       <ul class="flex flex-col gap-4 w-full list-none px-6">
-        <li *ngFor="let link of navLinks; trackBy: trackByLabel">
-          <a (click)="navigateToSection(link.route!, link.fragment)"
-            class="text-carbon-black block py-3 font-display font-semibold text-[16px] cursor-pointer transition-colors duration-300 hover:text-primary-blue">
-            {{ link.label }}
-          </a>
-        </li>
+        @for (link of navLinks; track link.label) {
+          <li>
+            <button type="button" (click)="navigateToSection(link.route!, link.fragment)"
+              class="bg-transparent border-none w-full text-carbon-black block py-3 font-display font-semibold text-[16px] cursor-pointer transition-colors duration-300 hover:text-primary-blue">
+              {{ link.label }}
+            </button>
+          </li>
+        }
       </ul>
 
       <!-- Mobile CTA Button - bg #111f78 -->
-      <a (click)="navigateToContact('start-hiring')"
-        class="bg-navy-dark text-white font-display font-medium py-3 px-8 rounded-lg text-base cursor-pointer transition-all duration-300 hover:bg-primary-blue shadow-lg w-4/5 mx-auto text-center inline-block">
+      <button type="button" (click)="navigateToContact('start-hiring')"
+        class="bg-navy-dark text-white font-display font-medium py-3 px-8 rounded-lg text-base border-none cursor-pointer transition-all duration-300 hover:bg-primary-blue shadow-lg w-4/5 mx-auto text-center block">
         Start Hiring
-      </a>
+      </button>
     </div>
   </div>
 </nav>

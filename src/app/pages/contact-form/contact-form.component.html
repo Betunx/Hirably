@@ -1,310 +1,314 @@
 <!-- CONTACT FORM PAGE — split layout, per-type theme, OnPush safe -->
-<div class="min-h-screen bg-floral-white pt-[72px]" *ngIf="config">
-
-  <!-- ── BACK TO HOME ────────────────────────────────────────────────────── -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
-    <a (click)="goHome()"
-      class="inline-flex items-center gap-1.5 font-body text-[13px] text-dark-purple opacity-50 hover:opacity-100 transition-opacity duration-200 cursor-pointer">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-3.5">
-        <path d="m12 19-7-7 7-7"></path>
-        <path d="M19 12H5"></path>
-      </svg>
-      Back to Home
-    </a>
-  </div>
-
-  <!-- ── SUCCESS STATE ──────────────────────────────────────────────────── -->
-  <div *ngIf="submitted" class="min-h-[calc(100vh-120px)] flex items-center justify-center px-5 py-12">
-    <div class="w-full max-w-sm text-center">
-
-        <h2 class="font-display font-semibold text-[26px] sm:text-[32px] text-navy-dark mb-4">You're all set!</h2>
-
-      <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
-        [style.background]="config.theme.bulletBg + '22'">
-        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none"
-          [attr.stroke]="config.theme.accentHex" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="20 6 9 17 4 12" />
+@if (config) {
+  <div class="min-h-screen bg-floral-white pt-[72px]">
+    <!-- ── BACK TO HOME ────────────────────────────────────────────────────── -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
+      <button type="button" (click)="goHome()"
+        class="inline-flex items-center gap-1.5 bg-transparent border-none p-0 font-body text-[13px] text-dark-purple opacity-50 hover:opacity-100 transition-opacity duration-200 cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-3.5">
+          <path d="m12 19-7-7 7-7"></path>
+          <path d="M19 12H5"></path>
         </svg>
-      </div>
-
-      <p class="font-body text-[15px] sm:text-[17px] text-dark-purple/80 mb-5 leading-relaxed">
-        We received your info and will be in touch within 24 hours.
-      </p>
-
-      <div class="flex flex-col items-center gap-3 w-full">
-        <button (click)="goHome()"
-          class="w-full px-8 py-3 rounded-[7px] font-display font-medium text-[15px] transition-all duration-200 cursor-pointer shadow-sm hover:opacity-90"
-          [style.background]="config.theme.submitBg" [style.color]="config.theme.submitText">
-          Back to Home
-        </button>
-        <button (click)="onSubmitAnother()"
-          class="w-full px-8 py-3 rounded-[7px] border border-navy-dark/30 font-display font-medium text-[15px] text-navy-dark hover:border-navy-dark transition-all duration-200 cursor-pointer">
-          Submit Another
-        </button>
-      </div>
-
+        Back to Home
+      </button>
     </div>
-  </div>
-
-  <!-- ── MAIN FORM VIEW ─────────────────────────────────────────────────── -->
-  <div *ngIf="!submitted" class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-8 pt-0 pb-16">
-    <div class="max-w-xl mx-auto lg:max-w-none grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-6 lg:gap-16 items-start">
-
-      <!-- ── LEFT PANEL ────────────────────────────────────────────────── -->
-      <div class="flex flex-col gap-6 pt-0 pl-2 lg:pl-4 lg:sticky lg:top-[100px]">
-
-        <!-- Badge (+ optional secondary badge) -->
-        <div class="flex items-center gap-2.5 flex-wrap justify-center">
-          <span
-            class="inline-flex px-4 py-1.5 rounded-full font-display font-semibold text-[12px] uppercase tracking-widest"
-            [ngClass]="[config.badgeBgClass, config.badgeTextClass]">
-            {{ config.left.badgeText }}
-          </span>
-          <span *ngIf="config.secondaryBadge"
-            class="inline-flex items-center gap-1 px-4 py-1.5 rounded-full font-display font-semibold text-[12px] uppercase tracking-widest text-navy-dark"
-            style="background: #FFCF25;">
-            {{ config.secondaryBadge }}
-          </span>
-        </div>
-
-        <!-- Title -->
-        <h1 class="font-display font-semibold text-[32px] leading-[1.15] text-navy-dark lg:text-[38px] text-center">
-          {{ config.left.title }}
-        </h1>
-
-        <!-- Description -->
-        <p class="font-body font-light text-[17px] leading-[27px] text-dark-purple text-pretty text-justify">
-          {{ config.left.description }}
-        </p>
-
-        <!-- Image (optional) — desktop only; mobile version lives in right panel -->
-        <img *ngIf="config.left.imageSrc" [src]="config.left.imageSrc" [alt]="config.left.imageAlt"
-          class="hidden lg:block w-full rounded-xl object-cover h-[230px]" />
-
-        <!-- EOR: Image + What's included card -->
-        <ng-container *ngIf="config.includedItems">
-          <img src="assets/img/eor-route.jpg" alt="EOR Services"
-            class="hidden lg:block w-full rounded-xl object-cover h-[230px]">
-          <div class="p-5 bg-white rounded-xl border border-gray-100">
-            <p class="font-display font-semibold text-[14px] text-navy-dark mb-3">
-              What's included at $499/mo per employee:
-            </p>
-            <div class="flex flex-col gap-2.5">
-              <div *ngFor="let item of config.includedItems"
-                class="flex items-center gap-2.5 font-body text-[14px] text-dark-purple">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="flex-shrink-0">
-                  <circle cx="10" cy="10" r="10" fill="#12B981" opacity="0.15" />
-                  <path d="M6 10.5L8.5 13L14 7" stroke="#12B981" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                </svg>
-                {{ item }}
-              </div>
-            </div>
-          </div>
-          <div *ngIf="config.tipNote" class="p-4 rounded-[10px] border border-[#FFCF25]" style="background: #FFF0CF;">
-            <p class="font-body text-[13px] text-navy-dark leading-[1.55]">
-              <strong>Already paying contractors in Mexico?</strong> {{ config.tipNote.replace('Already paying
-              contractors in Mexico? ', '') }}
-            </p>
-          </div>
-        </ng-container>
-
-        <!-- Bullet rows (skip if empty) -->
-        <ul *ngIf="config.left.bullets.length > 0" class="flex flex-col gap-2.5 pl-4">
-          <li *ngFor="let bullet of config.left.bullets" class="flex items-start gap-2.5">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-              [attr.stroke]="config.theme.bulletBg" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
-              class="mt-1 flex-shrink-0">
+    <!-- ── SUCCESS STATE ──────────────────────────────────────────────────── -->
+    @if (submitted) {
+      <div class="min-h-[calc(100vh-120px)] flex items-center justify-center px-5 py-12">
+        <div class="w-full max-w-sm text-center">
+          <h2 class="font-display font-semibold text-[26px] sm:text-[32px] text-navy-dark mb-4">You're all set!</h2>
+          <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+            [style.background]="config.theme.bulletBg + '22'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none"
+              [attr.stroke]="config.theme.accentHex" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="20 6 9 17 4 12" />
             </svg>
-            <span class="font-body text-[14px] leading-[22px] text-dark-purple">{{ bullet.text }}</span>
-          </li>
-        </ul>
-
-
-        <!-- Accent tip note (get-a-quote etc.) — themed purple/accent card -->
-        <div *ngIf="config.tipNote && !config.includedItems" class="p-4 rounded-[10px]"
-          [style.background]="config.theme.accentHex + '18'"
-          [style.border]="'1px solid ' + config.theme.accentHex + '44'">
-          <p class="font-body text-[13px] text-navy-dark leading-[1.55]">
-            {{ config.tipNote }}
+          </div>
+          <p class="font-body text-[15px] sm:text-[17px] text-dark-purple/80 mb-5 leading-relaxed">
+            We received your info and will be in touch within 24 hours.
           </p>
-        </div>
-
-        <!-- Promo note (start-hiring only) -->
-        <div *ngIf="config.promoNote" class="p-5 bg-white rounded-xl border border-gray-100 flex items-start gap-3.5">
-          <div class="flex-shrink-0 mt-0.5 w-8 h-8 rounded-full flex items-center justify-center"
-            [style.background]="config.theme.accentHex + '22'">
-            <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
-              <path d="M10 2L12.5 7.5H18L13.5 11L15.5 17L10 13.5L4.5 17L6.5 11L2 7.5H7.5L10 2Z"
-                [attr.fill]="config.theme.accentHex" />
-            </svg>
-          </div>
-          <div>
-            <p class="font-display font-semibold text-[14px] text-navy-dark mb-1">{{ config.promoNote.headline }}</p>
-            <p class="font-body text-[13px] leading-[1.6] text-dark-purple/70">{{ config.promoNote.body }}</p>
+          <div class="flex flex-col items-center gap-3 w-full">
+            <button (click)="goHome()"
+              class="w-full px-8 py-3 rounded-[7px] font-display font-medium text-[15px] transition-all duration-200 cursor-pointer shadow-sm hover:opacity-90"
+              [style.background]="config.theme.submitBg" [style.color]="config.theme.submitText">
+              Back to Home
+            </button>
+            <button (click)="onSubmitAnother()"
+              class="w-full px-8 py-3 rounded-[7px] border border-navy-dark/30 font-display font-medium text-[15px] text-navy-dark hover:border-navy-dark transition-all duration-200 cursor-pointer">
+              Submit Another
+            </button>
           </div>
         </div>
-
-        <!-- Call Details card (book-a-call only) -->
-        <div *ngIf="config.callDetails"
-          class="flex flex-col gap-2 p-3.5 bg-white rounded-xl border border-gray-100 shadow-sm w-full">
-          <p class="font-display font-semibold text-[12px] text-navy-dark">Call Details</p>
-          <div class="flex items-center gap-2 font-body text-[13px] text-dark-purple">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-              <circle cx="8" cy="8" r="6.5" stroke="#999" stroke-width="1.2" />
-              <path d="M8 4.5V8L10.5 9.5" stroke="#999" stroke-width="1.2" stroke-linecap="round"
-                stroke-linejoin="round" />
-            </svg>
-            {{ config.callDetails.duration }}
-          </div>
-          <div class="flex items-center gap-2 font-body text-[13px] text-dark-purple">
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-              <rect x="1.5" y="3.5" width="9" height="9" rx="1.5" stroke="#999" stroke-width="1.2" />
-              <path d="M10.5 6.5L14.5 4.5V11.5L10.5 9.5" stroke="#999" stroke-width="1.2" stroke-linecap="round"
-                stroke-linejoin="round" />
-            </svg>
-            {{ config.callDetails.platform }}
-          </div>
-          <p class="font-body text-[12px] text-dark-purple opacity-60 leading-[1.5]">
-            {{ config.callDetails.confirmationNote }}
-          </p>
-        </div>
-
       </div>
-
-      <!-- ── RIGHT PANEL ───────────────────────────────────────────────── -->
-      <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
-
-        <!-- Accent top bar — color changes per theme -->
-        <div class="h-[5px] w-full" [style.background]="config.theme.accentHex"></div>
-
-        <!-- Image — mobile only (desktop shows it in left panel) -->
-        <img *ngIf="config.left.imageSrc && !config.includedItems" [src]="config.left.imageSrc" [alt]="config.left.imageAlt"
-          class="block lg:hidden w-full object-cover h-[160px]">
-        <!-- EOR image — mobile only -->
-        <img *ngIf="config.includedItems" src="assets/img/eor-route.jpg" alt="EOR Services"
-          class="block lg:hidden w-full object-cover h-[160px]">
-
-        <!-- ── FORM (all types) ───────────────────────────────────────────── -->
-        <div class="p-5 sm:p-6 lg:p-9">
-
-          <!-- Form title -->
-          <div class="mb-7">
-            <h2 class="font-display font-semibold text-[20px] text-navy-dark mb-1">
-              {{ config.right.formTitle }}
-            </h2>
-            <p class="font-body text-[13px] text-dark-purple/60">
-              {{ config.right.formSubtitle }}
+    }
+    <!-- ── MAIN FORM VIEW ─────────────────────────────────────────────────── -->
+    @if (!submitted) {
+      <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-8 pt-0 pb-16">
+        <div class="max-w-xl mx-auto lg:max-w-none grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-6 lg:gap-16 items-start">
+          <!-- ── LEFT PANEL ────────────────────────────────────────────────── -->
+          <div class="flex flex-col gap-6 pt-0 pl-2 lg:pl-4 lg:sticky lg:top-[100px]">
+            <!-- Badge (+ optional secondary badge) -->
+            <div class="flex items-center gap-2.5 flex-wrap justify-center">
+              <span
+                class="inline-flex px-4 py-1.5 rounded-full font-display font-semibold text-[12px] uppercase tracking-widest"
+                [ngClass]="[config.badgeBgClass, config.badgeTextClass]">
+                {{ config.left.badgeText }}
+              </span>
+              @if (config.secondaryBadge) {
+                <span
+                  class="inline-flex items-center gap-1 px-4 py-1.5 rounded-full font-display font-semibold text-[12px] uppercase tracking-widest text-navy-dark"
+                  style="background: #FFCF25;">
+                  {{ config.secondaryBadge }}
+                </span>
+              }
+            </div>
+            <!-- Title -->
+            <h1 class="font-display font-semibold text-[32px] leading-[1.15] text-navy-dark lg:text-[38px] text-center">
+              {{ config.left.title }}
+            </h1>
+            <!-- Description -->
+            <p class="font-body font-light text-[17px] leading-[27px] text-dark-purple text-pretty text-justify">
+              {{ config.left.description }}
             </p>
-          </div>
-
-          <!-- Error banner -->
-          <div *ngIf="submitError"
-            class="mb-5 px-4 py-3 rounded-lg bg-red-50 border border-red-200 font-body text-[13px] text-red-600">
-            Something went wrong. Please try again or email us at
-            <a href="mailto:chrystian.moreno&#64;hirablystaffing.com" (click)="onContactEmail()" class="underline">chrystian.moreno&#64;hirablystaffing.com</a>.
-          </div>
-
-          <!-- Reactive form — 2-column responsive grid -->
-          <form [formGroup]="form" novalidate (focusin)="onFormStart()"
-            class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-4">
-
-            <ng-container *ngFor="let field of config.right.fields; trackBy: trackByKey">
-
-              <!-- Section divider + label (when sectionLabel is set) -->
-              <div *ngIf="field.sectionLabel" class="sm:col-span-2 mt-2">
-                <div class="border-t border-gray-100 mb-4"></div>
-                <p class="font-body font-semibold text-[11px] uppercase tracking-[0.08em]"
-                  [style.color]="config.theme.accentHex">
-                  {{ field.sectionLabel }}
-                </p>
-              </div>
-
-              <!-- Field wrapper -->
-              <div class="flex flex-col gap-1.5" [ngClass]="field.colSpan === 1 ? 'sm:col-span-1' : 'sm:col-span-2'">
-
-                <!-- Label -->
-                <label [for]="field.key"
-                  class="font-display font-medium text-[13px] leading-none text-carbon-black flex items-center gap-1.5">
-                  {{ field.label }}
-                  <span *ngIf="field.required" class="text-red-400 text-[13px]">*</span>
-                </label>
-
-                <!-- text / email / tel / date -->
-                <input *ngIf="field.type !== 'select' && field.type !== 'textarea'" [id]="field.key" [type]="field.type"
-                  [formControlName]="field.key" [placeholder]="field.placeholder ?? ''"
-                  class="w-full h-9 px-3 py-1 rounded-md border font-body text-[14px] text-carbon-black bg-white outline-none transition-colors duration-150 placeholder:text-gray-400 focus:ring-2 focus:ring-offset-1"
+            <!-- Image (optional) — desktop only; mobile version lives in right panel -->
+            @if (config.left.imageSrc) {
+              <img [src]="config.left.imageSrc" [alt]="config.left.imageAlt"
+                class="hidden lg:block w-full rounded-xl object-cover h-[230px]" />
+            }
+            <!-- EOR: Image + What's included card -->
+            @if (config.includedItems) {
+              <img src="assets/img/eor-route.jpg" alt="EOR Services"
+                class="hidden lg:block w-full rounded-xl object-cover h-[230px]">
+                <div class="p-5 bg-white rounded-xl border border-gray-100">
+                  <p class="font-display font-semibold text-[14px] text-navy-dark mb-3">
+                    What's included at $499/mo per employee:
+                  </p>
+                  <div class="flex flex-col gap-2.5">
+                    @for (item of config.includedItems; track item) {
+                      <div
+                        class="flex items-center gap-2.5 font-body text-[14px] text-dark-purple">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" class="flex-shrink-0">
+                          <circle cx="10" cy="10" r="10" fill="#12B981" opacity="0.15" />
+                          <path d="M6 10.5L8.5 13L14 7" stroke="#12B981" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                          </svg>
+                          {{ item }}
+                        </div>
+                      }
+                    </div>
+                  </div>
+                  @if (config.tipNote) {
+                    <div class="p-4 rounded-[10px] border border-[#FFCF25]" style="background: #FFF0CF;">
+                      <p class="font-body text-[13px] text-navy-dark leading-[1.55]">
+                        <strong>Already paying contractors in Mexico?</strong> {{ config.tipNote.replace('Already paying
+                        contractors in Mexico? ', '') }}
+                      </p>
+                    </div>
+                  }
+                }
+                <!-- Bullet rows (skip if empty) -->
+                @if (config.left.bullets.length > 0) {
+                  <ul class="flex flex-col gap-2.5 pl-4">
+                    @for (bullet of config.left.bullets; track bullet) {
+                      <li class="flex items-start gap-2.5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                          [attr.stroke]="config.theme.bulletBg" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                          class="mt-1 flex-shrink-0">
+                          <polyline points="20 6 9 17 4 12" />
+                        </svg>
+                        <span class="font-body text-[14px] leading-[22px] text-dark-purple">{{ bullet.text }}</span>
+                      </li>
+                    }
+                  </ul>
+                }
+                <!-- Accent tip note (get-a-quote etc.) — themed purple/accent card -->
+                @if (config.tipNote && !config.includedItems) {
+                  <div class="p-4 rounded-[10px]"
+                    [style.background]="config.theme.accentHex + '18'"
+                    [style.border]="'1px solid ' + config.theme.accentHex + '44'">
+                    <p class="font-body text-[13px] text-navy-dark leading-[1.55]">
+                      {{ config.tipNote }}
+                    </p>
+                  </div>
+                }
+                <!-- Promo note (start-hiring only) -->
+                @if (config.promoNote) {
+                  <div class="p-5 bg-white rounded-xl border border-gray-100 flex items-start gap-3.5">
+                    <div class="flex-shrink-0 mt-0.5 w-8 h-8 rounded-full flex items-center justify-center"
+                      [style.background]="config.theme.accentHex + '22'">
+                      <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+                        <path d="M10 2L12.5 7.5H18L13.5 11L15.5 17L10 13.5L4.5 17L6.5 11L2 7.5H7.5L10 2Z"
+                          [attr.fill]="config.theme.accentHex" />
+                        </svg>
+                      </div>
+                      <div>
+                        <p class="font-display font-semibold text-[14px] text-navy-dark mb-1">{{ config.promoNote.headline }}</p>
+                        <p class="font-body text-[13px] leading-[1.6] text-dark-purple/70">{{ config.promoNote.body }}</p>
+                      </div>
+                    </div>
+                  }
+                  <!-- Call Details card (book-a-call only) -->
+                  @if (config.callDetails) {
+                    <div
+                      class="flex flex-col gap-2 p-3.5 bg-white rounded-xl border border-gray-100 shadow-sm w-full">
+                      <p class="font-display font-semibold text-[12px] text-navy-dark">Call Details</p>
+                      <div class="flex items-center gap-2 font-body text-[13px] text-dark-purple">
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                          <circle cx="8" cy="8" r="6.5" stroke="#999" stroke-width="1.2" />
+                          <path d="M8 4.5V8L10.5 9.5" stroke="#999" stroke-width="1.2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                          </svg>
+                          {{ config.callDetails.duration }}
+                        </div>
+                        <div class="flex items-center gap-2 font-body text-[13px] text-dark-purple">
+                          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                            <rect x="1.5" y="3.5" width="9" height="9" rx="1.5" stroke="#999" stroke-width="1.2" />
+                            <path d="M10.5 6.5L14.5 4.5V11.5L10.5 9.5" stroke="#999" stroke-width="1.2" stroke-linecap="round"
+                              stroke-linejoin="round" />
+                            </svg>
+                            {{ config.callDetails.platform }}
+                          </div>
+                          <p class="font-body text-[12px] text-dark-purple opacity-60 leading-[1.5]">
+                            {{ config.callDetails.confirmationNote }}
+                          </p>
+                        </div>
+                      }
+                    </div>
+                    <!-- ── RIGHT PANEL ───────────────────────────────────────────────── -->
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
+                      <!-- Accent top bar — color changes per theme -->
+                      <div class="h-[5px] w-full" [style.background]="config.theme.accentHex"></div>
+                      <!-- Image — mobile only (desktop shows it in left panel) -->
+                      @if (config.left.imageSrc && !config.includedItems) {
+                        <img [src]="config.left.imageSrc" [alt]="config.left.imageAlt"
+                          class="block lg:hidden w-full object-cover h-[160px]">
+                      }
+                      <!-- EOR image — mobile only -->
+                      @if (config.includedItems) {
+                        <img src="assets/img/eor-route.jpg" alt="EOR Services"
+                          class="block lg:hidden w-full object-cover h-[160px]">
+                      }
+                      <!-- ── FORM (all types) ───────────────────────────────────────────── -->
+                      <div class="p-5 sm:p-6 lg:p-9">
+                        <!-- Form title -->
+                        <div class="mb-7">
+                          <h2 class="font-display font-semibold text-[20px] text-navy-dark mb-1">
+                            {{ config.right.formTitle }}
+                          </h2>
+                          <p class="font-body text-[13px] text-dark-purple/60">
+                            {{ config.right.formSubtitle }}
+                          </p>
+                        </div>
+                        <!-- Error banner -->
+                        @if (submitError) {
+                          <div
+                            class="mb-5 px-4 py-3 rounded-lg bg-red-50 border border-red-200 font-body text-[13px] text-red-600">
+                            Something went wrong. Please try again or email us at
+                            <a href="mailto:chrystian.moreno&#64;hirablystaffing.com" (click)="onContactEmail()" class="underline">chrystian.moreno&#64;hirablystaffing.com</a>.
+                          </div>
+                        }
+                        <!-- Reactive form — 2-column responsive grid -->
+                        <form [formGroup]="form" novalidate (focusin)="onFormStart()"
+                          class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-4">
+                          @for (field of config.right.fields; track field.key) {
+                            <!-- Section divider + label (when sectionLabel is set) -->
+                            @if (field.sectionLabel) {
+                              <div class="sm:col-span-2 mt-2">
+                                <div class="border-t border-gray-100 mb-4"></div>
+                                <p class="font-body font-semibold text-[11px] uppercase tracking-[0.08em]"
+                                  [style.color]="config.theme.accentHex">
+                                  {{ field.sectionLabel }}
+                                </p>
+                              </div>
+                            }
+                            <!-- Field wrapper -->
+                            <div class="flex flex-col gap-1.5" [ngClass]="field.colSpan === 1 ? 'sm:col-span-1' : 'sm:col-span-2'">
+                              <!-- Label -->
+                              <label [for]="field.key"
+                                class="font-display font-medium text-[13px] leading-none text-carbon-black flex items-center gap-1.5">
+                                {{ field.label }}
+                                @if (field.required) {
+                                  <span class="text-red-400 text-[13px]">*</span>
+                                }
+                              </label>
+                              <!-- text / email / tel / date -->
+                              @if (field.type !== 'select' && field.type !== 'textarea') {
+                                <input [id]="field.key" [type]="field.type"
+                                  [formControlName]="field.key" [placeholder]="field.placeholder ?? ''"
+                                  class="w-full h-9 px-3 py-1 rounded-md border font-body text-[14px] text-carbon-black bg-white outline-none transition-colors duration-150 placeholder:text-gray-400 focus:ring-2 focus:ring-offset-1"
                   [ngClass]="{
                     'border-gray-neutral': !isInvalid(field.key),
                     'border-red-400 bg-red-50': isInvalid(field.key)
                   }" />
-
-                <!-- select -->
-                <div class="relative">
-                  <select *ngIf="field.type === 'select'" [id]="field.key" [formControlName]="field.key"
-                    class="w-full h-9 px-3 pr-8 py-1 rounded-md border font-body text-[14px] text-carbon-black bg-white outline-none transition-colors duration-150 cursor-pointer appearance-none placeholder:text-gray-400 focus:ring-2 focus:ring-offset-1"
+                              }
+                              <!-- select -->
+                              <div class="relative">
+                                @if (field.type === 'select') {
+                                  <select [id]="field.key" [formControlName]="field.key"
+                                    class="w-full h-9 px-3 pr-8 py-1 rounded-md border font-body text-[14px] text-carbon-black bg-white outline-none transition-colors duration-150 cursor-pointer appearance-none placeholder:text-gray-400 focus:ring-2 focus:ring-offset-1"
                     [ngClass]="{
                       'border-gray-neutral': !isInvalid(field.key),
                       'border-red-400 bg-red-50': isInvalid(field.key)
                     }">
-                    <option value="" disabled>Select</option>
-                    <option *ngFor="let opt of (field.options ?? [])" [value]="opt.value">{{ opt.label }}</option>
-                  </select>
-                  <svg class="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-dark-purple/40" width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-
-                <!-- textarea -->
-                <textarea *ngIf="field.type === 'textarea'" [id]="field.key" [formControlName]="field.key"
-                  [placeholder]="field.placeholder ?? ''" [rows]="field.rows ?? 4"
-                  class="w-full px-3 py-2 rounded-md border font-body text-[14px] text-carbon-black bg-white outline-none transition-colors duration-150 resize-none placeholder:text-gray-400 focus:ring-2 focus:ring-offset-1"
+                                    <option value="" disabled>Select</option>
+                                    @for (opt of (field.options ?? []); track opt) {
+                                      <option [value]="opt.value">{{ opt.label }}</option>
+                                    }
+                                  </select>
+                                }
+                                <svg class="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-dark-purple/40" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                  <path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                              </div>
+                              <!-- textarea -->
+                              @if (field.type === 'textarea') {
+                                <textarea [id]="field.key" [formControlName]="field.key"
+                                  [placeholder]="field.placeholder ?? ''" [rows]="field.rows ?? 4"
+                                  class="w-full px-3 py-2 rounded-md border font-body text-[14px] text-carbon-black bg-white outline-none transition-colors duration-150 resize-none placeholder:text-gray-400 focus:ring-2 focus:ring-offset-1"
                   [ngClass]="{
                     'border-gray-neutral': !isInvalid(field.key),
                     'border-red-400 bg-red-50': isInvalid(field.key)
                   }">
-                </textarea>
-
-                <!-- Validation message -->
-                <span *ngIf="isInvalid(field.key)" role="alert" aria-live="polite" class="font-body text-[11px] text-red-400">
-                  {{ field.label }} is required.
-                </span>
-
-              </div>
-            </ng-container>
-
-            <!-- Cal.com embed — all form types -->
-            <div class="sm:col-span-2 mt-2">
-              <div class="border-t border-gray-100 mb-4"></div>
-              <p class="font-body font-semibold text-[11px] uppercase tracking-[0.08em] mb-1"
-                [style.color]="config.theme.accentHex">Pick a Time (Optional)</p>
-              <p class="font-body text-[12px] text-dark-purple/55 mb-4 leading-relaxed">
-                Select a slot now or we'll reach out within 24 hours to confirm a time.
-              </p>
-              <div class="rounded-xl overflow-hidden border border-gray-100">
-                <div id="cal-booking-placeholder" style="min-height:480px;width:100%;"></div>
-              </div>
+                                </textarea>
+                              }
+                              <!-- Validation message -->
+                              @if (isInvalid(field.key)) {
+                                <span role="alert" aria-live="polite" class="font-body text-[11px] text-red-400">
+                                  {{ field.label }} is required.
+                                </span>
+                              }
+                            </div>
+                          }
+                          <!-- Cal.com embed — all form types -->
+                          <div class="sm:col-span-2 mt-2">
+                            <div class="border-t border-gray-100 mb-4"></div>
+                            <p class="font-body font-semibold text-[11px] uppercase tracking-[0.08em] mb-1"
+                            [style.color]="config.theme.accentHex">Pick a Time (Optional)</p>
+                            <p class="font-body text-[12px] text-dark-purple/55 mb-4 leading-relaxed">
+                              Select a slot now or we'll reach out within 24 hours to confirm a time.
+                            </p>
+                            <div class="rounded-xl overflow-hidden border border-gray-100">
+                              <div id="cal-booking-placeholder" style="min-height:480px;width:100%;"></div>
+                            </div>
+                          </div>
+                          <!-- Sending indicator (shown while Formspree call is in flight after Cal.com confirms) -->
+                          @if (submitting) {
+                            <div class="sm:col-span-2 flex items-center justify-center gap-2 py-3 text-dark-purple/60">
+                              <svg class="animate-spin w-4 h-4 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10" stroke-opacity="0.25"/>
+                                <path d="M12 2a10 10 0 0 1 10 10"/>
+                              </svg>
+                              <span class="font-body text-[13px]">Saving your booking…</span>
+                            </div>
+                          }
+                          <div class="sm:col-span-2">
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              }
             </div>
-
-            <!-- Sending indicator (shown while Formspree call is in flight after Cal.com confirms) -->
-            <div *ngIf="submitting" class="sm:col-span-2 flex items-center justify-center gap-2 py-3 text-dark-purple/60">
-              <svg class="animate-spin w-4 h-4 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10" stroke-opacity="0.25"/>
-                <path d="M12 2a10 10 0 0 1 10 10"/>
-              </svg>
-              <span class="font-body text-[13px]">Saving your booking…</span>
-            </div>
-            <div class="sm:col-span-2">
-            </div>
-
-          </form>
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-
-</div>
+          }

@@ -1,8 +1,7 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '@services/data.service';
 import { AnalyticsService } from '@services/analytics.service';
-import { PricingPlan } from '@models';
 
 @Component({
   selector: 'app-pricing-section',
@@ -10,19 +9,11 @@ import { PricingPlan } from '@models';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PricingSectionComponent {
-  readonly plans: PricingPlan[];
+  private readonly dataService = inject(DataService);
+  private readonly router = inject(Router);
+  private readonly analytics = inject(AnalyticsService);
 
-  constructor(
-    private dataService: DataService,
-    private router: Router,
-    private analytics: AnalyticsService
-  ) {
-    this.plans = this.dataService.getPricingPlans();
-  }
-
-  trackByFeature(index: number): number {
-    return index;
-  }
+  readonly plans = this.dataService.getPricingPlans();
 
   onEorServices(): void {
     this.analytics.ctaClick('Get Started', 'eor-services');

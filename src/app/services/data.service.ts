@@ -173,7 +173,7 @@ export class DataService {
 
   // ── Department pages ──────────────────────────────────────────────────────
 
-  private departmentsData: { [key: string]: DepartmentDetail } = {
+  private departmentsData: Record<string, DepartmentDetail> = {
     technology: {
       id: 'technology',
       title: 'Technology & Engineering',

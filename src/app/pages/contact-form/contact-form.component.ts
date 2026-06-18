@@ -4,7 +4,8 @@ import {
   ChangeDetectorRef,
   OnInit,
   OnDestroy,
-  NgZone
+  NgZone,
+  inject
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -17,7 +18,6 @@ import { AnalyticsService } from '@services/analytics.service';
 import {
   ContactFormType,
   ContactFormConfig,
-  FormFieldDef,
   VALID_TYPES,
   FORM_CONFIGS,
 } from './contact-form.config';
@@ -51,16 +51,14 @@ export class ContactFormComponent implements OnInit, OnDestroy {
   private calEventsRegistered = false;
   private formStarted = false;
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private fb: FormBuilder,
-    private http: HttpClient,
-    private cdr: ChangeDetectorRef,
-    private titleService: Title,
-    private ngZone: NgZone,
-    private analytics: AnalyticsService
-  ) {}
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+  private readonly fb = inject(FormBuilder);
+  private readonly http = inject(HttpClient);
+  private readonly cdr = inject(ChangeDetectorRef);
+  private readonly titleService = inject(Title);
+  private readonly ngZone = inject(NgZone);
+  private readonly analytics = inject(AnalyticsService);
 
   ngOnInit(): void {
     this.route.paramMap
@@ -207,10 +205,6 @@ export class ContactFormComponent implements OnInit, OnDestroy {
   isInvalid(key: string): boolean {
     const ctrl = this.form.get(key);
     return !!(ctrl && ctrl.invalid && ctrl.touched);
-  }
-
-  trackByKey(_i: number, field: FormFieldDef): string {
-    return field.key;
   }
 
   onSubmitAnother(): void {

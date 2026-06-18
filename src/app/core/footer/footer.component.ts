@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { AnalyticsService } from '@services/analytics.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { AnalyticsService } from '@services/analytics.service';
 export class FooterComponent {
   currentYear = new Date().getFullYear();
 
-  constructor(private analytics: AnalyticsService) {}
+  private readonly analytics = inject(AnalyticsService);
 
   trackContact(method: 'email' | 'phone'): void {
     this.analytics.contactClick(method);

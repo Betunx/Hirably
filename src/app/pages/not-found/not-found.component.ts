@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AnalyticsService } from '@services/analytics.service';
 
@@ -22,7 +22,8 @@ import { AnalyticsService } from '@services/analytics.service';
   `,
 })
 export class NotFoundComponent implements OnInit {
-  constructor(private router: Router, private analytics: AnalyticsService) {}
+  private readonly router = inject(Router);
+  private readonly analytics = inject(AnalyticsService);
   ngOnInit(): void { this.analytics.pageNotFound(); }
   goHome(): void { this.router.navigate(['/']); }
 }

@@ -1,10 +1,5 @@
 # AGENTS.md — Hirably
 
-Guía para personas y agentes de IA que trabajan en este repositorio.
-Léela completa **antes** de editar. El objetivo es que puedas hacer cambios
-(sobre todo de texto y contenido) sin romper lo que ya funciona.
-
----
 
 ## 1. Qué es este proyecto
 
@@ -180,21 +175,24 @@ Notas para no romper el tracking:
 
 ## 7. Estado del proyecto — Pendientes
 
-> Última actualización: **2026-06-16**. Mantén esta sección al día al cerrar tareas.
+> Última actualización: **2026-06-18**. Mantén esta sección al día al cerrar tareas.
 
 **Hecho recientemente**
 - Migración del selector de horario propio al **embed de Cal.com** en todos los
   formularios (commit `a9d9928`).
 - Migración de gestor de paquetes **npm → pnpm**.
 - **FASE A — Data Layer / GTM completa** (todos los eventos en código). Ver Bitácora §10.
+- **FASE B — Cambios Página: contenido completo** (pricing, hero headline, pillars,
+  copy fixes ya en código). Falta solo lo de la Trust bar (logos). Ver Bitácora §10.
+- **Limpieza de ESLint a 0 errores** + reorden cerrado (`all-included-platform`
+  pausado). Ver Bitácora §10.
 
 **Pendiente / por trabajar**
-- [ ] **FASE B — Cambios Página** (doc `Cambios Pagina.docx`): pricing, headline del
-      hero, renombres de pillars, arreglos de copy y, **al final**, reorden de
-      secciones + Trust bar. Plan: `~/.claude/plans/docs-aqui-meti-2-quiet-globe.md`.
-- [ ] **Decisiones abiertas de Fase B:** posición de Services/All-included en el nuevo
-      orden; qué hacer con la mención de "90 days" del card Risk-Free Trial; logos de
-      la Trust bar (los entrega el dueño).
+- [ ] **Trust bar (Fase B):** agregar los logos de empresas cuando el dueño los
+      entregue. Ese es el único pendiente real de Fase B.
+- [ ] **Reactivar `all-included-platform`** si se decide volver a mostrarlo:
+      descomentar su uso en [home.component.html](src/app/pages/home/home.component.html)
+      (el componente sigue declarado y disponible).
 - [ ] **Validar Fase A en GTM Preview / GA4 DebugView** y configurar variables/triggers/
       tags/conversiones en el panel de GTM (lado no-código, lo hace el dueño).
 - [ ] Revisar el flujo de los 4 formularios en móvil tras el cambio a Cal.com.
@@ -240,6 +238,34 @@ Notas para no romper el tracking:
 
 Registro cronológico para validar que lo planeado se implementó y dónde quedó.
 Una entrada por bloque de trabajo. Más reciente arriba.
+
+### 2026-06-18 — Cierre de reorder (Fase B) + limpieza de ESLint a 0 ✅
+
+**Qué se hizo:**
+- **Reorder cerrado:** se dejó de renderizar `<app-all-included-platform>` en
+  [home.component.html](src/app/pages/home/home.component.html) (componente **no** borrado,
+  solo comentado; se reactiva descomentando). Services se mantiene en su posición. Orden
+  final: Hero → Trust bar → Services → Why Nearshore → How It Works → Why Hirably →
+  Roles → Pricing. Solo falta la Trust bar (logos del dueño).
+- **Verificación Fase B:** se confirmó que el contenido de Fase B ya estaba en código
+  (pricing $799 EOR + bullets, "Starting at $3,999", hero headline, Pay→Payroll,
+  "Zero Noise", "4% acceptance rate", copy fixes). No requería cambios.
+- **ESLint: de 100 errores a 0.** En pasos:
+  - **Control flow** (`*ngIf/*ngFor/ngSwitch` → `@if/@for/@switch`) vía schematic
+    `ng generate @angular/core:control-flow`. Se corrigieron a mano los `track` (el
+    schematic generaba `track trackByX($index, item)`, se cambió a la expresión directa,
+    p. ej. `track link.label`) y se eliminaron los `trackBy*` ya sin uso.
+  - **`inject()`** en vez de inyección por constructor en 15 archivos (el schematic
+    `@angular/core:inject` no existe en Angular 17.3 → conversión manual).
+  - **Accesibilidad:** elementos `(click)` no enfocables → `<button type="button">`
+    (navbar logo/links/CTAs, back-to-home del form) o `role`+`tabindex`+`keydown` en
+    los spans de roles-section.
+  - **Tipos:** `{ [key: string]: T }` → `Record<string, T>` en
+    [data.service.ts](src/app/services/data.service.ts).
+
+**Build de desarrollo: OK. `pnpm run lint`: 0 errores.**
+**Cómo validar:** `pnpm start` → el home ya no muestra la sección All-included; el resto
+se ve igual; navbar (logo + links + CTA) es navegable con teclado (Tab + Enter/Espacio).
 
 ### 2026-06-16 — FASE A: Data Layer / GTM (todos los eventos en código) ✅
 

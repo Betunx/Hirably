@@ -46,8 +46,4 @@ export class WhyHirablyComponent {
       borderColor: '#D1FAE5'
     }
   ];
-
-  trackByTitle(_index: number, item: AdvantageCard): string {
-    return item.title;
-  }
 }
