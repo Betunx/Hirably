@@ -4,16 +4,16 @@ NAVBAR - Figma Pixel Perfect
 - Button: bg #111f78, text white
 ==================================== -->
 <nav class="fixed top-0 w-full bg-white py-4 px-6 md:px-12 z-[1000] shadow-md">
-  <div class="flex justify-between items-center max-w-7xl mx-auto">
+  <div class="grid grid-cols-[1fr_auto_1fr] items-center max-w-7xl mx-auto">
 
     <!-- Logo (Left) -->
     <button type="button" (click)="navigateToHome()" aria-label="Go to home"
-      class="cursor-pointer flex-shrink-0 bg-transparent border-none p-0 transition-all duration-300 hover:opacity-80">
+      class="justify-self-start cursor-pointer flex-shrink-0 bg-transparent border-none p-0 transition-all duration-300 hover:opacity-80">
       <img src="assets/logos/logo 2.svg" alt="Hirably Logo" class="h-8" />
     </button>
 
     <!-- Nav Links (Center) - Figma: Poppins 14px/21px weight 500 -->
-    <ul class="hidden lg:flex gap-10 list-none items-center justify-center flex-1">
+    <ul class="hidden lg:flex gap-10 list-none items-center justify-center">
       @for (link of navLinks; track link.label) {
         <li>
           <button type="button" (click)="navigateToSection(link.route!, link.fragment)"
@@ -25,7 +25,7 @@ NAVBAR - Figma Pixel Perfect
     </ul>
 
     <!-- Right side: CTA + Hamburger grouped -->
-    <div class="flex items-center gap-3">
+    <div class="justify-self-end flex items-center gap-3">
       <!-- CTA Button - always visible, smaller on mobile -->
       <button type="button" (click)="navigateToContact('start-hiring')"
         class="bg-navy-dark text-white font-display font-medium py-2 px-4 lg:py-3 lg:px-6 rounded-lg text-[12px] lg:text-[14px] border-none cursor-pointer transition-all duration-300 hover:bg-primary-blue shadow-lg">

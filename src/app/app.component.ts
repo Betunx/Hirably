@@ -49,6 +49,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     if (path === '/' || path === '') return 'home';
     if (path.startsWith('/contact')) return 'contact';
     if (path.startsWith('/roles')) return 'department';
+    if (path === '/privacy-policy' || path === '/terms-of-service') return 'legal';
     if (path === '/404') return 'not_found';
     return 'other';
   }

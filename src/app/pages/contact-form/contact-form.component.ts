@@ -178,7 +178,8 @@ export class ContactFormComponent implements OnInit, OnDestroy {
         next: () => {
           this.submitting = false;
           this.submitted  = true;
-          this.analytics.formSubmit(this.config.type, this.config.type);
+          // The booking IS the conversion (the form can't be sent without booking),
+          // so a single generate_lead represents it — no separate form_submit event.
           this.analytics.generateLead('cal_booking', this.config.type);
           this.cdr.markForCheck();
         },

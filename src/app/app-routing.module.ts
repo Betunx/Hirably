@@ -17,6 +17,16 @@ const routes: Routes = [
     path: 'roles/:departmentId',
     loadComponent: () => import('@app/pages/department/department-page.component').then(m => m.DepartmentPageComponent)
   },
+  {
+    path: 'privacy-policy',
+    loadComponent: () => import('@app/pages/legal/privacy-policy.component').then(m => m.PrivacyPolicyComponent),
+    title: 'Privacy Policy — Hirably'
+  },
+  {
+    path: 'terms-of-service',
+    loadComponent: () => import('@app/pages/legal/terms-of-service.component').then(m => m.TermsOfServiceComponent),
+    title: 'Terms of Service — Hirably'
+  },
   { path: '404', component: NotFoundComponent, title: 'Page Not Found — Hirably' },
   { path: '**',  component: NotFoundComponent, title: 'Page Not Found — Hirably' },
 ];

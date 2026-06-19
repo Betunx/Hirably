@@ -7,7 +7,7 @@ declare global {
   }
 }
 
-export type PageType = 'home' | 'contact' | 'department' | 'not_found' | 'other';
+export type PageType = 'home' | 'contact' | 'department' | 'legal' | 'not_found' | 'other';
 
 /**
  * Central wrapper around window.dataLayer for Google Tag Manager.
@@ -76,21 +76,10 @@ export class AnalyticsService {
     this.push('outbound_click', { link: { url }, page: { path: this.path } });
   }
 
-  buttonClick(text: string): void {
-    this.push('button_click', { button: { text }, page: { path: this.path } });
-  }
-
   // ── Forms / leads ─────────────────────────────────────────────────────────
 
   formStart(formId: string, pageType: PageType): void {
     this.push('form_start', { form: { id: formId }, page: { type: pageType } });
-  }
-
-  formSubmit(formId: string, serviceType: string): void {
-    this.push('form_submit', {
-      form: { id: formId, service_type: serviceType },
-      page: { path: this.path },
-    });
   }
 
   generateLead(source: string, serviceType: string): void {

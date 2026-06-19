@@ -160,8 +160,15 @@ Todo el tracking del sitio pasa por **un solo servicio**:
   en cada navegación desde [app.component.ts](src/app/app.component.ts).
 
 Eventos que emite el data layer: `page_data`, `cta_click`, `contact_click`,
-`outbound_click`, `form_start`, `form_submit`, `generate_lead`, `scroll_depth`,
+`outbound_click`, `form_start`, `generate_lead`, `scroll_depth`,
 `time_on_page`, `section_view`, `page_not_found`.
+
+> Modelo de conversión: en este sitio el formulario solo se envía **al completar una
+> reserva en Cal.com**, así que "form enviado = llamada agendada = lead" son la misma
+> acción. Por eso **`generate_lead` (`lead.source = 'cal_booking'`) es la única conversión
+> de lead**; se eliminaron `form_submit` (duplicaba a `generate_lead`) y `button_click`
+> (no se emitía). La guía de configuración del panel está en
+> [docs/GTM-SETUP.md](docs/GTM-SETUP.md) (reemplaza los Pasos 3–7 del Data Layer.docx).
 
 Notas para no romper el tracking:
 - Las secciones de la home llevan `data-section="..."` en su `<section>` raíz —
@@ -175,9 +182,16 @@ Notas para no romper el tracking:
 
 ## 7. Estado del proyecto — Pendientes
 
-> Última actualización: **2026-06-18**. Mantén esta sección al día al cerrar tareas.
+> Última actualización: **2026-06-19**. Mantén esta sección al día al cerrar tareas.
 
 **Hecho recientemente**
+- **Páginas legales:** `/privacy-policy` y `/terms-of-service` (standalone lazy), enlazadas
+  desde el footer, en sitemap; texto boilerplate marcado para revisión legal. Ver Bitácora §10.
+- **Data Layer — modelo de conversión única:** se eliminaron `form_submit` (duplicaba a
+  `generate_lead`) y `button_click` (no se emitía); se generó [docs/GTM-SETUP.md](docs/GTM-SETUP.md).
+  Ver Bitácora §10.
+- **Roles (department) — fondo beige:** las 3 bandas `bg-white` pasaron a `bg-floral-white`
+  para quitar las "barreras" blancas. Ver Bitácora §10.
 - Migración del selector de horario propio al **embed de Cal.com** en todos los
   formularios (commit `a9d9928`).
 - Migración de gestor de paquetes **npm → pnpm**.
@@ -188,13 +202,29 @@ Notas para no romper el tracking:
   pausado). Ver Bitácora §10.
 
 **Pendiente / por trabajar**
-- [ ] **Trust bar (Fase B):** agregar los logos de empresas cuando el dueño los
-      entregue. Ese es el único pendiente real de Fase B.
+
+_Data Layer / GTM_ ⏭️ **PRÓXIMA SESIÓN**
+- [ ] **Configurar el panel de GTM/GA4** siguiendo [docs/GTM-SETUP.md](docs/GTM-SETUP.md)
+      (variables, triggers, tags, conversiones) y **validar en GTM Preview / GA4 DebugView**.
+      Lado no-código, lo hace el dueño. El lado código ya quedó (modelo de conversión única).
+      **Empezar aquí la siguiente sesión.**
+
+_Contenido / contacto_ (los hace el dueño)
+- [ ] **Teléfono real:** reemplazar el placeholder `+1 (623) 123-4569`
+      (`tel:+16231234569`) en [footer.component.html](src/app/core/footer/footer.component.html).
+- [ ] **Correo real:** confirmar/ajustar `hello@hirablystaffing.com` (footer + páginas legales).
+
+_UI / UX_
+- [x] **Navbar — distribución equitativa:** resuelto con grid `[1fr_auto_1fr]`
+      (zonas izq./der. iguales → links al centro real). Ver Bitácora §10.
+- [x] **Trust bar — carrusel:** los logos giran en marquee como el hero
+      ([trust-bar.component.ts](src/app/components/trust-bar/trust-bar.component.ts)).
+      Falta solo **cambiar los placeholders por logos reales** cuando el dueño los entregue
+      (subir a `assets/logos/clients/` y mapear en `placeholderLogos[]`).
+
+_Otros_
 - [ ] **Reactivar `all-included-platform`** si se decide volver a mostrarlo:
-      descomentar su uso en [home.component.html](src/app/pages/home/home.component.html)
-      (el componente sigue declarado y disponible).
-- [ ] **Validar Fase A en GTM Preview / GA4 DebugView** y configurar variables/triggers/
-      tags/conversiones en el panel de GTM (lado no-código, lo hace el dueño).
+      descomentar su uso en [home.component.html](src/app/pages/home/home.component.html).
 - [ ] Revisar el flujo de los 4 formularios en móvil tras el cambio a Cal.com.
 - [ ] No hay tests automatizados — la verificación es manual (ver §8).
 
@@ -238,6 +268,47 @@ Notas para no romper el tracking:
 
 Registro cronológico para validar que lo planeado se implementó y dónde quedó.
 Una entrada por bloque de trabajo. Más reciente arriba.
+
+### 2026-06-19 — UI: navbar equitativo + carrusel del trust bar ✅
+
+**Qué se hizo:**
+- **Navbar — centrado real:** el contenedor pasó de `flex justify-between` (con links en
+  `flex-1 justify-center`) a **grid `grid-cols-[1fr_auto_1fr]`**. Como las zonas izquierda
+  (logo, `justify-self-start`) y derecha (CTA+hamburguesa, `justify-self-end`) son ambas
+  `1fr`, la zona central (links, `auto`) queda en el **centro real** de la página, no entre
+  dos anchos distintos. Adiós al descentrado aparente. [navbar.component.html](src/app/core/navbar/navbar.component.html).
+- **Trust bar — carrusel marquee:** se reemplazó el `flex-wrap` estático por el **mismo
+  patrón del hero** (wrapper `overflow-hidden` + máscara de gradiente + `flex animate-marquee`
+  con `width: max-content`). Los placeholders se duplican (`marqueeLogos` = set ×2) para que
+  el `translateX(-50%)` del keyframe `marquee` haga loop sin costura.
+  [trust-bar.component.ts](src/app/components/trust-bar/trust-bar.component.ts). Pendiente solo
+  cambiar placeholders por logos reales (dueño).
+
+**Cómo validar:** `pnpm start` → navbar con links centrados respecto a la página en desktop;
+trust bar con los placeholders desplazándose en loop continuo.
+
+### 2026-06-19 — Páginas legales + Data Layer (conversión única) + roles beige ✅
+
+**Qué se hizo:**
+- **Privacy Policy + Terms of Service:** dos componentes standalone lazy en
+  `src/app/pages/legal/`, con su propio Title/Meta y scroll-to-top, banner visible de
+  "template — review with legal counsel". Rutas `/privacy-policy` y `/terms-of-service`
+  en [app-routing.module.ts](src/app/app-routing.module.ts); los 4 enlaces del footer
+  (2 móvil + 2 desktop) pasaron de `href="#"` a `routerLink`. Añadidas al
+  [sitemap.xml](src/sitemap.xml) y tipo de página `'legal'` en analytics/app.component.
+- **Data Layer — análisis + modelo de conversión única:** se detectó que el form solo se
+  envía al reservar en Cal.com, por lo que `form_submit` y `generate_lead` eran la misma
+  acción (doble conteo) y `button_click` no se emitía. Se **eliminaron `form_submit` y
+  `button_click`**; `generate_lead` (`source = 'cal_booking'`) queda como única conversión.
+  Se generó [docs/GTM-SETUP.md](docs/GTM-SETUP.md) reconciliado con el código (reemplaza
+  Pasos 3–7 del Data Layer.docx).
+- **Roles (department) — fondo beige:** secciones "Roles we fill", "Salary comparison" y
+  "FAQ" de [department-page.component.html](src/app/pages/department/department-page.component.html)
+  cambiaron `bg-white` → `bg-floral-white`; las tarjetas blancas quedan como cards sobre beige.
+
+**Cómo validar:** `pnpm start` → footer enlaza a las dos páginas legales; `/roles/technology`
+sin bandas blancas; en consola `window.dataLayer` ya no muestra `form_submit`/`button_click`
+y sí `generate_lead` al completar una reserva.
 
 ### 2026-06-18 — Cierre de reorder (Fase B) + limpieza de ESLint a 0 ✅
 
