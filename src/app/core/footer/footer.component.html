@@ -34,8 +34,9 @@
 
         <!-- Mobile links row -->
         <div class="flex lg:hidden justify-center gap-4 mt-2 mb-4">
-          <a routerLink="/privacy-policy" class="font-body font-normal text-[12px] text-white underline hover:text-primary-blue transition-colors">Privacy Policy</a>
-          <a routerLink="/terms-of-service" class="font-body font-normal text-[12px] text-white underline hover:text-primary-blue transition-colors">Terms of Service</a>
+          <!-- TEMP: legal pages hidden until reviewed — restore these two links when approved -->
+          <!-- <a routerLink="/privacy-policy" class="font-body font-normal text-[12px] text-white underline hover:text-primary-blue transition-colors">Privacy Policy</a>
+          <a routerLink="/terms-of-service" class="font-body font-normal text-[12px] text-white underline hover:text-primary-blue transition-colors">Terms of Service</a> -->
           <a href="mailto:hello@hirablystaffing.com" (click)="trackContact('email')" class="font-body font-normal text-[12px] text-white underline hover:text-primary-blue transition-colors">Contact</a>
         </div>
       </div>
@@ -69,7 +70,8 @@
     <div class="hidden lg:block w-[1260px] max-w-full h-px bg-white/30 mx-auto"></div>
 
     <!-- Footer Bottom - all inline, centered, DM Sans 12px/400/120% -->
-    <p class="text-center font-body font-normal text-[12px] leading-[120%] text-white">© {{ currentYear }} Hirably. All rights reserved.<span class="hidden lg:inline"> | <a routerLink="/privacy-policy" class="underline hover:text-primary-blue transition-colors">Privacy Policy</a> | <a routerLink="/terms-of-service" class="underline hover:text-primary-blue transition-colors">Terms of Service</a></span></p>
+    <!-- TEMP: legal links hidden until reviewed — restore the <span> when approved -->
+    <p class="text-center font-body font-normal text-[12px] leading-[120%] text-white">© {{ currentYear }} Hirably. All rights reserved.<!-- <span class="hidden lg:inline"> | <a routerLink="/privacy-policy" class="underline hover:text-primary-blue transition-colors">Privacy Policy</a> | <a routerLink="/terms-of-service" class="underline hover:text-primary-blue transition-colors">Terms of Service</a></span> --></p>
 
   </div>
 </footer>

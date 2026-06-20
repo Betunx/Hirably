@@ -148,32 +148,6 @@
                       </div>
                     </div>
                   }
-                  <!-- Call Details card (book-a-call only) -->
-                  @if (config.callDetails) {
-                    <div
-                      class="flex flex-col gap-2 p-3.5 bg-white rounded-xl border border-gray-100 shadow-sm w-full">
-                      <p class="font-display font-semibold text-[12px] text-navy-dark">Call Details</p>
-                      <div class="flex items-center gap-2 font-body text-[13px] text-dark-purple">
-                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                          <circle cx="8" cy="8" r="6.5" stroke="#999" stroke-width="1.2" />
-                          <path d="M8 4.5V8L10.5 9.5" stroke="#999" stroke-width="1.2" stroke-linecap="round"
-                            stroke-linejoin="round" />
-                          </svg>
-                          {{ config.callDetails.duration }}
-                        </div>
-                        <div class="flex items-center gap-2 font-body text-[13px] text-dark-purple">
-                          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                            <rect x="1.5" y="3.5" width="9" height="9" rx="1.5" stroke="#999" stroke-width="1.2" />
-                            <path d="M10.5 6.5L14.5 4.5V11.5L10.5 9.5" stroke="#999" stroke-width="1.2" stroke-linecap="round"
-                              stroke-linejoin="round" />
-                            </svg>
-                            {{ config.callDetails.platform }}
-                          </div>
-                          <p class="font-body text-[12px] text-dark-purple opacity-60 leading-[1.5]">
-                            {{ config.callDetails.confirmationNote }}
-                          </p>
-                        </div>
-                      }
                     </div>
                     <!-- ── RIGHT PANEL ───────────────────────────────────────────────── -->
                     <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
@@ -200,6 +174,31 @@
                             {{ config.right.formSubtitle }}
                           </p>
                         </div>
+                        <!-- Call meta strip (book-a-call) — fills the compact form with context -->
+                        @if (config.callDetails) {
+                          <div class="flex flex-wrap items-center gap-x-5 gap-y-2 mb-7 -mt-2">
+                            <div class="flex items-center gap-2 font-body text-[13px] text-dark-purple/80">
+                              <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                                <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.2" />
+                                <path d="M8 4.5V8L10.5 9.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+                              </svg>
+                              {{ config.callDetails.duration }}
+                            </div>
+                            <div class="flex items-center gap-2 font-body text-[13px] text-dark-purple/80">
+                              <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                                <rect x="1.5" y="3.5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.2" />
+                                <path d="M10.5 6.5L14.5 4.5V11.5L10.5 9.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+                              </svg>
+                              {{ config.callDetails.platform }}
+                            </div>
+                            <div class="flex items-center gap-2 font-body text-[13px]" [style.color]="config.theme.accentHex">
+                              <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                                <path d="M3.5 8.5L6.5 11.5L12.5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                              </svg>
+                              <span class="text-dark-purple/80">Free — no commitment</span>
+                            </div>
+                          </div>
+                        }
                         <!-- Error banner -->
                         @if (submitError) {
                           <div
@@ -242,9 +241,9 @@
                     'border-red-400 bg-red-50': isInvalid(field.key)
                   }" />
                               }
-                              <!-- select -->
-                              <div class="relative">
-                                @if (field.type === 'select') {
+                              <!-- select (chevron only renders for actual dropdowns) -->
+                              @if (field.type === 'select') {
+                                <div class="relative">
                                   <select [id]="field.key" [formControlName]="field.key"
                                     class="w-full h-9 px-3 pr-8 py-1 rounded-md border font-body text-[14px] text-carbon-black bg-white outline-none transition-colors duration-150 cursor-pointer appearance-none placeholder:text-gray-400 focus:ring-2 focus:ring-offset-1"
                     [ngClass]="{
@@ -256,11 +255,11 @@
                                       <option [value]="opt.value">{{ opt.label }}</option>
                                     }
                                   </select>
-                                }
-                                <svg class="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-dark-purple/40" width="14" height="14" viewBox="0 0 14 14" fill="none">
-                                  <path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                              </div>
+                                  <svg class="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-dark-purple/40" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                    <path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                  </svg>
+                                </div>
+                              }
                               <!-- textarea -->
                               @if (field.type === 'textarea') {
                                 <textarea [id]="field.key" [formControlName]="field.key"
@@ -275,23 +274,63 @@
                               <!-- Validation message -->
                               @if (isInvalid(field.key)) {
                                 <span role="alert" aria-live="polite" class="font-body text-[11px] text-red-400">
-                                  {{ field.label }} is required.
+                                  @if (form.get(field.key)?.errors?.['required']) {
+                                    {{ field.label }} is required.
+                                  } @else if (form.get(field.key)?.errors?.['email']) {
+                                    Please enter a valid email address.
+                                  } @else if (form.get(field.key)?.errors?.['workEmail']) {
+                                    Please use your work email (no Gmail, Outlook, etc.).
+                                  } @else {
+                                    {{ field.label }} is required.
+                                  }
                                 </span>
                               }
                             </div>
                           }
-                          <!-- Cal.com embed — all form types -->
-                          <div class="sm:col-span-2 mt-2">
-                            <div class="border-t border-gray-100 mb-4"></div>
-                            <p class="font-body font-semibold text-[11px] uppercase tracking-[0.08em] mb-1"
-                            [style.color]="config.theme.accentHex">Pick a Time (Optional)</p>
-                            <p class="font-body text-[12px] text-dark-purple/55 mb-4 leading-relaxed">
-                              Select a slot now or we'll reach out within 24 hours to confirm a time.
-                            </p>
-                            <div class="rounded-xl overflow-hidden border border-gray-100">
-                              <div id="cal-booking-placeholder" style="min-height:480px;width:100%;"></div>
+                          <!-- ── Cal.com booking ─────────────────────────────── -->
+                          @if (isBookACall) {
+                            <!-- Compact gate: button reveals the calendar once name + work email validate -->
+                            @if (!calendarRevealed) {
+                              <div class="sm:col-span-2 mt-2">
+                                <button type="button" (click)="onChooseDateTime()"
+                                  class="w-full px-8 py-3 rounded-[7px] font-display font-medium text-[15px] transition-all duration-200 cursor-pointer shadow-sm hover:opacity-90"
+                                  [style.background]="config.theme.submitBg" [style.color]="config.theme.submitText">
+                                  {{ config.right.submitLabel }}
+                                </button>
+                                @if (config.right.footerNote) {
+                                  <p class="font-body text-[12px] text-dark-purple/55 mt-3 text-center leading-relaxed">
+                                    {{ config.right.footerNote }}
+                                  </p>
+                                }
+                              </div>
+                            }
+                            @if (calendarRevealed) {
+                              <div class="sm:col-span-2 mt-2">
+                                <div class="border-t border-gray-100 mb-4"></div>
+                                <p class="font-body font-semibold text-[11px] uppercase tracking-[0.08em] mb-1"
+                                [style.color]="config.theme.accentHex">Pick a Time</p>
+                                <p class="font-body text-[12px] text-dark-purple/55 mb-4 leading-relaxed">
+                                  Choose a slot below — you'll get an instant confirmation email.
+                                </p>
+                                <div class="rounded-xl overflow-hidden border border-gray-100">
+                                  <div id="cal-booking-placeholder" style="min-height:480px;width:100%;"></div>
+                                </div>
+                              </div>
+                            }
+                          } @else {
+                            <!-- Other types: calendar inline, always visible -->
+                            <div class="sm:col-span-2 mt-2">
+                              <div class="border-t border-gray-100 mb-4"></div>
+                              <p class="font-body font-semibold text-[11px] uppercase tracking-[0.08em] mb-1"
+                              [style.color]="config.theme.accentHex">Pick a Time (Optional)</p>
+                              <p class="font-body text-[12px] text-dark-purple/55 mb-4 leading-relaxed">
+                                Select a slot now or we'll reach out within 24 hours to confirm a time.
+                              </p>
+                              <div class="rounded-xl overflow-hidden border border-gray-100">
+                                <div id="cal-booking-placeholder" style="min-height:480px;width:100%;"></div>
+                              </div>
                             </div>
-                          </div>
+                          }
                           <!-- Sending indicator (shown while Formspree call is in flight after Cal.com confirms) -->
                           @if (submitting) {
                             <div class="sm:col-span-2 flex items-center justify-center gap-2 py-3 text-dark-purple/60">
