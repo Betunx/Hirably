@@ -17,6 +17,21 @@ const routes: Routes = [
     path: 'roles/:departmentId',
     loadComponent: () => import('@app/pages/department/department-page.component').then(m => m.DepartmentPageComponent)
   },
+  {
+    path: 'careers',
+    loadComponent: () => import('@app/pages/careers/careers-page.component').then(m => m.CareersPageComponent),
+    title: 'Careers — Hirably'
+  },
+  {
+    path: 'careers/admin',
+    loadComponent: () => import('@app/pages/careers/careers-admin.component').then(m => m.CareersAdminComponent),
+    title: 'Careers Admin — Hirably'
+  },
+  {
+    path: 'careers/:id/apply',
+    loadComponent: () => import('@app/pages/careers/careers-apply.component').then(m => m.CareersApplyComponent),
+    title: 'Apply — Hirably'
+  },
   // TEMP: legal routes disabled until the pages are reviewed. The components still
   // exist; restore these two route blocks (and the footer links) once approved.
   // {

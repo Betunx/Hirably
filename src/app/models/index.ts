@@ -52,6 +52,29 @@ export interface DeptFAQ {
   answer: string;
 }
 
+export interface Vacancy {
+  id: string;
+  title: string;
+  description: string;
+  location?: string;
+  status: 'published' | 'draft';
+  createdAt: string;
+  updatedAt: string;
+}
+
+/** Payload sent from the apply form to /api/applications (CV already on Blob). */
+export interface JobApplication {
+  vacancyId: string;
+  vacancyTitle: string;
+  name: string;
+  email: string;
+  phone?: string;
+  message?: string;
+  cvUrl: string;
+  /** Honeypot — must stay empty; bots tend to fill it. */
+  company?: string;
+}
+
 export interface DepartmentDetail {
   id: string;
   title: string;

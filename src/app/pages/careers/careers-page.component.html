@@ -1,0 +1,68 @@
+<section class="min-h-screen bg-floral-white px-4 sm:px-6 lg:px-12 pt-[100px] pb-20">
+  <div class="max-w-5xl mx-auto">
+
+    <!-- Header -->
+    <header class="text-center mb-8">
+      <h1 class="font-display font-semibold text-[32px] lg:text-[40px] text-navy-dark">Careers at Hirably</h1>
+      <p class="font-body text-[15px] lg:text-[16px] text-dark-purple/70 mt-3 max-w-2xl mx-auto">
+        Join our team. Browse open positions and apply in minutes.
+      </p>
+    </header>
+
+    <!-- Search with magnifier -->
+    <div class="relative max-w-xl mx-auto mb-10">
+      <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-dark-purple/40" fill="none"
+        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <circle cx="11" cy="11" r="7" />
+        <path stroke-linecap="round" d="m21 21-4.3-4.3" />
+      </svg>
+      <input type="search" [(ngModel)]="searchTerm" placeholder="Search positions…"
+        aria-label="Search positions"
+        class="w-full pl-12 pr-4 py-3 rounded-[10px] border border-dark-purple/15 bg-white font-body text-[15px] text-carbon-black placeholder:text-dark-purple/40 focus:outline-none focus:border-primary-blue transition-colors" />
+    </div>
+
+    <!-- Loading -->
+    @if (loading) {
+      <p class="text-center font-body text-[15px] text-dark-purple/60">Loading positions…</p>
+    }
+
+    <!-- Error -->
+    @if (errored) {
+      <p class="text-center font-body text-[15px] text-red-600">
+        Couldn't load positions. Please try again later.
+      </p>
+    }
+
+    <!-- Empty -->
+    @if (!loading && !errored && filtered.length === 0) {
+      <p class="text-center font-body text-[15px] text-dark-purple/60">
+        @if (vacancies.length === 0) { No open positions right now. Check back soon. }
+        @else { No positions match your search. }
+      </p>
+    }
+
+    <!-- List -->
+    @if (!loading && !errored && filtered.length > 0) {
+      <ul class="flex flex-col gap-4 list-none">
+        @for (job of filtered; track job.id) {
+          <li class="bg-white rounded-[12px] border border-dark-purple/10 p-6 shadow-sm hover:shadow-md transition-shadow">
+            <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+              <div class="min-w-0">
+                <h2 class="font-display font-semibold text-[18px] lg:text-[20px] text-navy-dark">{{ job.title }}</h2>
+                @if (job.location) {
+                  <p class="font-body text-[13px] text-primary-blue mt-1">{{ job.location }}</p>
+                }
+                <p class="font-body text-[14px] lg:text-[15px] text-dark-purple/80 mt-2 whitespace-pre-line">{{ job.description }}</p>
+              </div>
+              <a [routerLink]="['/careers', job.id, 'apply']"
+                class="shrink-0 self-start inline-block px-6 py-3 rounded-[8px] bg-navy-dark text-white font-display font-semibold text-[14px] hover:bg-primary-blue transition-colors shadow-lg">
+                Apply
+              </a>
+            </div>
+          </li>
+        }
+      </ul>
+    }
+
+  </div>
+</section>
