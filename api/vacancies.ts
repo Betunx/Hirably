@@ -40,10 +40,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
   try {
     switch (req.method) {
       case 'GET': {
-        const list = await readAll();
-        // Admins (with ?all=1) get drafts too; the public only sees published.
         const wantsAll = req.query['all'] === '1';
-        const result = wantsAll && isAdmin(req) ? list : list.filter(v => v.status === 'published');
+        // The admin editor calls ?all=1 to validate its token and see drafts.
+        // Reject a bad/absent token here so the login fails loudly instead of
+        // silently falling back to the public list.
+        if (wantsAll && !isAdmin(req)) { res.status(401).json({ error: 'Unauthorized' }); return; }
+        const list = await readAll();
+        const result = wantsAll ? list : list.filter(v => v.status === 'published');
         res.status(200).json(result);
         return;
       }

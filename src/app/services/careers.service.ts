@@ -3,13 +3,15 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { upload } from '@vercel/blob/client';
 import { Vacancy, JobApplication } from '@models';
+import { environment } from '../../environments/environment';
 
 /**
- * Hostnames where the public, production site is served. The admin editor is
- * hidden on these (UX only — real protection is the server-side ADMIN_TOKEN,
- * which is unset in production so all writes are rejected there).
+ * Hostname substrings where the admin editor UI is shown: the preproduction
+ * branch deploy and local dev. This is UX only — real protection is the
+ * server-side ADMIN_TOKEN, which is unset in production so all writes are
+ * rejected there regardless. Add a custom preprod domain here if one is set up.
  */
-const PRODUCTION_HOSTS = ['hirablystaffing.com', 'www.hirablystaffing.com'];
+const EDIT_HOSTS_INCLUDES = ['git-preproduction', 'localhost', '127.0.0.1'];
 
 type VacancyInput = Pick<Vacancy, 'title' | 'description' | 'status'> & { location?: string };
 
@@ -52,13 +54,32 @@ export class CareersService {
     return blob.url;
   }
 
-  submitApplication(payload: JobApplication): Observable<void> {
-    return this.http.post<void>('/api/applications', payload);
+  /**
+   * Sends the application to the careers Formspree form (same provider used by
+   * the contact forms). The CV has already been uploaded to Blob; only its URL
+   * is sent. `_gotcha` is Formspree's native honeypot — if a bot fills it,
+   * Formspree silently drops the submission.
+   */
+  submitApplication(payload: JobApplication): Observable<unknown> {
+    const body = {
+      _subject: `New application: ${payload.vacancyTitle}`,
+      _replyto: payload.email,
+      _gotcha: payload.company ?? '',
+      vacancyId: payload.vacancyId,
+      vacancyTitle: payload.vacancyTitle,
+      name: payload.name,
+      email: payload.email,
+      phone: payload.phone ?? '',
+      message: payload.message ?? '',
+      cvUrl: payload.cvUrl,
+    };
+    return this.http.post(environment.careersFormspreeEndpoint, body);
   }
 
-  /** True on preview/local hosts; false on the production domain. */
+  /** True only on the preproduction branch deploy and local dev; false elsewhere. */
   isAdminUiVisible(): boolean {
-    return !PRODUCTION_HOSTS.includes(window.location.hostname);
+    const host = window.location.hostname;
+    return EDIT_HOSTS_INCLUDES.some(s => host.includes(s));
   }
 
   private adminHeaders(token: string): Record<string, string> {

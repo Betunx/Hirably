@@ -38,6 +38,9 @@
           <!-- <a routerLink="/privacy-policy" class="font-body font-normal text-[12px] text-white underline hover:text-primary-blue transition-colors">Privacy Policy</a>
           <a routerLink="/terms-of-service" class="font-body font-normal text-[12px] text-white underline hover:text-primary-blue transition-colors">Terms of Service</a> -->
           <a routerLink="/careers" class="font-body font-normal text-[12px] text-white underline hover:text-primary-blue transition-colors">Careers</a>
+          @if (showAdminLink) {
+            <a routerLink="/careers/admin" class="font-body font-normal text-[12px] text-white underline hover:text-primary-blue transition-colors">Edit careers</a>
+          }
           <a href="mailto:hello@hirablystaffing.com" (click)="trackContact('email')" class="font-body font-normal text-[12px] text-white underline hover:text-primary-blue transition-colors">Contact</a>
         </div>
       </div>
@@ -53,6 +56,13 @@
         <a routerLink="/careers" class="font-display font-normal text-[15px] leading-[120%] text-white hover:text-primary-blue transition-colors">
           Careers
         </a>
+
+        <!-- Edit careers (admin) - only on preproduction/local -->
+        @if (showAdminLink) {
+          <a routerLink="/careers/admin" class="font-display font-normal text-[15px] leading-[120%] text-white hover:text-primary-blue transition-colors">
+            Edit careers
+          </a>
+        }
 
         <!-- Phone - Poppins 15px/400/120% -->
         <a href="tel:+16231234569" (click)="trackContact('phone')" class="font-display font-normal text-[15px] leading-[120%] text-white hover:text-primary-blue transition-colors">

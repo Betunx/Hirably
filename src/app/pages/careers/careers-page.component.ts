@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnInit, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -14,6 +14,7 @@ import { Vacancy } from '@models';
 })
 export class CareersPageComponent implements OnInit {
   private readonly careers = inject(CareersService);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   vacancies: Vacancy[] = [];
   loading = true;
@@ -22,8 +23,8 @@ export class CareersPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.careers.listPublished().subscribe({
-      next: list => { this.vacancies = list; this.loading = false; },
-      error: () => { this.errored = true; this.loading = false; },
+      next: list => { this.vacancies = list; this.loading = false; this.cdr.markForCheck(); },
+      error: () => { this.errored = true; this.loading = false; this.cdr.markForCheck(); },
     });
   }
 
