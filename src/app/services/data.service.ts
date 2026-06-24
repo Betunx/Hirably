@@ -6,7 +6,7 @@ import { Benefit, Service, PricingPlan, Step, RoleCategory, DepartmentDetail } f
 })
 export class DataService {
 
-  // Why Nearshore - Figma
+  // Why Nearshore 
   private benefitsData: Benefit[] = [
     {
       icon: 'clock',
@@ -25,7 +25,7 @@ export class DataService {
     }
   ];
 
-  // Services - Figma (Hire/Employ/Pay)
+  // Services - Recruit, Onboard, Payroll
   private servicesData: Service[] = [
     {
       title: 'Recruit',
@@ -50,7 +50,7 @@ export class DataService {
     }
   ];
 
-  // Pricing - Figma
+  // Pricing 
   private pricingPlansData: PricingPlan[] = [
     {
       badge: 'Headhunting',
@@ -144,7 +144,7 @@ export class DataService {
     }
   ];
 
-  // Roles - Figma (5 categories with accordion)
+  // Roles 
   private roleCategoriesData: RoleCategory[] = [
     { id: 'technology', title: 'Technology', roles: ['Full-Stack Developers', 'QA Engineers', 'DevOps', 'UI/UX Designers', 'Data Analysts'] },
     { id: 'finance', title: 'Finance', roles: ['Accountants', 'Bookkeepers', 'FP&A Analysts', 'Payroll Specialists', 'Controllers'] },

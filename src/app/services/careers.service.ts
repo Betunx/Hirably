@@ -3,15 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { upload } from '@vercel/blob/client';
 import { Vacancy, JobApplication } from '@models';
+import { isPreprodHost } from '@core/preprod-host';
 import { environment } from '../../environments/environment';
-
-/**
- * Hostname substrings where the admin editor UI is shown: the preproduction
- * branch deploy and local dev. This is UX only — real protection is the
- * server-side ADMIN_TOKEN, which is unset in production so all writes are
- * rejected there regardless. Add a custom preprod domain here if one is set up.
- */
-const EDIT_HOSTS_INCLUDES = ['git-preproduction', 'localhost', '127.0.0.1'];
 
 type VacancyInput = Pick<Vacancy, 'title' | 'description' | 'status'> & { location?: string };
 
@@ -76,10 +69,13 @@ export class CareersService {
     return this.http.post(environment.careersFormspreeEndpoint, body);
   }
 
-  /** True only on the preproduction branch deploy and local dev; false elsewhere. */
+  /**
+   * Whether to show the admin editor UI. Visible only on preproduction/local;
+   * real protection is the server-side ADMIN_TOKEN (unset in production, so all
+   * writes are rejected there regardless).
+   */
   isAdminUiVisible(): boolean {
-    const host = window.location.hostname;
-    return EDIT_HOSTS_INCLUDES.some(s => host.includes(s));
+    return isPreprodHost();
   }
 
   private adminHeaders(token: string): Record<string, string> {

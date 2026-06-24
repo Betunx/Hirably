@@ -31,10 +31,8 @@
     "@vercel/node": "^5.6.18",
     "angular-eslint": "21.0.1",
     "autoprefixer": "^10.4.21",
-    "baseline-browser-mapping": "^2.9.19",
     "eslint": "^9.39.1",
     "postcss": "^8.5.6",
-    "sharp": "^0.34.5",
     "tailwindcss": "^3.4.18",
     "typescript": "~5.2.2",
     "typescript-eslint": "8.46.4"

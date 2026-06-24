@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { AnalyticsService } from '@services/analytics.service';
 import { CareersService } from '@services/careers.service';
+import { isPreprodHost } from '@core/preprod-host';
 
 @Component({
   selector: 'app-footer',
@@ -12,6 +13,9 @@ export class FooterComponent {
 
   /** Admin editor link shown only on preproduction/local (see CareersService). */
   readonly showAdminLink = inject(CareersService).isAdminUiVisible();
+
+  /** Legal page links shown only on preproduction/local until legal approves. */
+  readonly showLegalLinks = isPreprodHost();
 
   private readonly analytics = inject(AnalyticsService);
 
