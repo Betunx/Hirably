@@ -16,7 +16,7 @@ import { NotFoundComponent } from '@app/pages/not-found/not-found.component';
 
 // Section components
 import { HeroSectionComponent } from '@components/hero-section/hero-section.component';
-import { StatsCarouselComponent } from '@components/hero-section/stats-carousel/stats-carousel.component';
+import { StatsCarouselComponent } from '@app/components/stats-carousel/stats-carousel.component';
 import { WhyNearshoreComponent } from '@components/why-nearshore/why-nearshore.component';
 import { ServicesSectionComponent } from '@components/services-section/services-section.component';
 import { HowItWorksStepsComponent } from '@components/how-it-works-steps/how-it-works-steps.component';

@@ -7,12 +7,8 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section data-section="trust_bar" class="bg-floral-white pt-8 pb-10 lg:pt-10 lg:pb-12">
+    <section data-section="trust_bar" class="bg-floral-white pt-12 pb-12 lg:pt-12 lg:pb-10">
       <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-[100px]">
-    
-        <p class="text-center font-display font-medium text-[13px] lg:text-[15px] uppercase tracking-[0.12em] text-navy-dark/50 mb-6 lg:mb-8">
-          Trusted by 125+ companies hiring in Mexico
-        </p>
     
         <!-- Marquee carousel (same pattern as the hero stats carousel). -->
         <div class="flex justify-center">
@@ -31,7 +27,9 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
             </div>
           </div>
         </div>
-
+        <p class="text-center font-display font-medium text-[13px] lg:text-[15px] uppercase tracking-[0.12em] text-navy-dark/50 mt-4 lg:mt-5">
+          Trusted by 125+ companies hiring in Mexico
+        </p>
       </div>
     </section>
     `
@@ -41,12 +39,12 @@ export class TrustBarComponent {
   // maxH = max image height as % of the card (default 68). Bump per-logo for
   // logos that read too small at the default (e.g. Novel has internal padding).
   readonly brandLogos = [
-    { src: 'assets/logos/brands-logos/alakai-capital.png',    alt: 'Alakai Capital' },
+    { src: 'assets/logos/brands-logos/alakai-capital.png', alt: 'Alakai Capital' },
     { src: 'assets/logos/brands-logos/buxton-consulting.jpg', alt: 'Buxton Consulting' },
-    { src: 'assets/logos/brands-logos/ferrosource.jpg',       alt: 'Ferrosource' },
+    { src: 'assets/logos/brands-logos/ferrosource.jpg', alt: 'Ferrosource' },
     { src: 'assets/logos/brands-logos/novel-engineering.jpg', alt: 'Novel Engineering', maxH: 95 },
-    { src: 'assets/logos/brands-logos/outlook-tax.jpg',       alt: 'Outlook Tax' },
-    { src: 'assets/logos/brands-logos/young-basile.png',      alt: 'Young Basile' },
+    { src: 'assets/logos/brands-logos/outlook-tax.jpg', alt: 'Outlook Tax' },
+    { src: 'assets/logos/brands-logos/young-basile.png', alt: 'Young Basile' },
   ];
 
   // Duplicated set (SET 1 + SET 2) so the -50% marquee loops seamlessly.
