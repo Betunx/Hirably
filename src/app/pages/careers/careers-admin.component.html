@@ -1,0 +1,129 @@
+<section class="min-h-screen bg-floral-white px-4 sm:px-6 lg:px-12 pt-[100px] pb-20">
+  <div class="max-w-4xl mx-auto">
+
+    <header class="flex items-center justify-between mb-6">
+      <h1 class="font-display font-semibold text-[26px] lg:text-[32px] text-navy-dark">Careers Admin</h1>
+      @if (authed) {
+        <button type="button" (click)="lock()"
+          class="font-display text-[13px] text-dark-purple/70 underline hover:text-primary-blue transition-colors">
+          Lock
+        </button>
+      }
+    </header>
+
+    @if (!adminEnabledHere) {
+      <p class="mb-6 rounded-[10px] bg-amber-50 border border-amber-200 px-4 py-3 font-body text-[13px] text-amber-800">
+        Editing is only enabled on the preproduction environment. Changes here will be rejected.
+      </p>
+    }
+
+    <!-- Key gate -->
+    @if (!authed) {
+      <div class="max-w-md bg-white rounded-[12px] border border-dark-purple/10 p-6 shadow-sm">
+        <label for="admin-key" class="block font-display font-semibold text-[14px] text-navy-dark mb-2">Admin key</label>
+        <input id="admin-key" type="password" [(ngModel)]="token" (keyup.enter)="unlock()"
+          placeholder="Enter admin key"
+          class="w-full px-4 py-3 rounded-[8px] border border-dark-purple/15 bg-white font-body text-[15px] text-carbon-black focus:outline-none focus:border-primary-blue transition-colors" />
+        @if (authError) {
+          <p class="mt-2 font-body text-[13px] text-red-600">Invalid key.</p>
+        }
+        <button type="button" (click)="unlock()" [disabled]="loading || !token.trim()"
+          class="mt-4 w-full px-6 py-3 rounded-[8px] bg-navy-dark text-white font-display font-semibold text-[14px] hover:bg-primary-blue transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+          {{ loading ? 'Checking…' : 'Unlock' }}
+        </button>
+      </div>
+    }
+
+    <!-- Editor -->
+    @if (authed) {
+      <!-- Create / edit form -->
+      <div class="bg-white rounded-[12px] border border-dark-purple/10 p-6 shadow-sm mb-8">
+        <h2 class="font-display font-semibold text-[18px] text-navy-dark mb-4">
+          {{ editingId ? 'Edit position' : 'New position' }}
+        </h2>
+
+        <div class="flex flex-col gap-4">
+          <div>
+            <label for="adm-title" class="block font-display text-[13px] text-navy-dark mb-1">Title *</label>
+            <input id="adm-title" type="text" [(ngModel)]="form.title"
+              class="w-full px-4 py-2.5 rounded-[8px] border border-dark-purple/15 font-body text-[15px] focus:outline-none focus:border-primary-blue" />
+          </div>
+          <div>
+            <label for="adm-location" class="block font-display text-[13px] text-navy-dark mb-1">Location</label>
+            <input id="adm-location" type="text" [(ngModel)]="form.location" placeholder="e.g. Remote · Hermosillo, MX"
+              class="w-full px-4 py-2.5 rounded-[8px] border border-dark-purple/15 font-body text-[15px] focus:outline-none focus:border-primary-blue" />
+          </div>
+          <div>
+            <label for="adm-description" class="block font-display text-[13px] text-navy-dark mb-1">Description *</label>
+            <textarea id="adm-description" [(ngModel)]="form.description" rows="6"
+              class="w-full px-4 py-2.5 rounded-[8px] border border-dark-purple/15 font-body text-[15px] focus:outline-none focus:border-primary-blue resize-y"></textarea>
+          </div>
+          <div>
+            <label for="adm-status" class="block font-display text-[13px] text-navy-dark mb-1">Status</label>
+            <select id="adm-status" [(ngModel)]="form.status"
+              class="px-4 py-2.5 rounded-[8px] border border-dark-purple/15 font-body text-[15px] bg-white focus:outline-none focus:border-primary-blue">
+              <option value="draft">Draft (hidden)</option>
+              <option value="published">Published (public)</option>
+            </select>
+          </div>
+
+          @if (saveError) {
+            <p class="font-body text-[13px] text-red-600">{{ saveError }}</p>
+          }
+
+          <div class="flex gap-3">
+            <button type="button" (click)="save()" [disabled]="saving"
+              class="px-6 py-2.5 rounded-[8px] bg-navy-dark text-white font-display font-semibold text-[14px] hover:bg-primary-blue transition-colors disabled:opacity-50">
+              {{ saving ? 'Saving…' : (editingId ? 'Update' : 'Create') }}
+            </button>
+            @if (editingId) {
+              <button type="button" (click)="cancelEdit()"
+                class="px-6 py-2.5 rounded-[8px] border border-dark-purple/20 font-display font-semibold text-[14px] text-navy-dark hover:bg-dark-purple/5 transition-colors">
+                Cancel
+              </button>
+            }
+          </div>
+        </div>
+      </div>
+
+      <!-- Existing positions -->
+      <h2 class="font-display font-semibold text-[18px] text-navy-dark mb-4">
+        Positions ({{ vacancies.length }})
+      </h2>
+      @if (vacancies.length === 0) {
+        <p class="font-body text-[14px] text-dark-purple/60">No positions yet. Create one above.</p>
+      } @else {
+        <ul class="flex flex-col gap-3 list-none">
+          @for (v of vacancies; track v.id) {
+            <li class="bg-white rounded-[10px] border border-dark-purple/10 p-4 flex items-start justify-between gap-4">
+              <div class="min-w-0">
+                <div class="flex items-center gap-2">
+                  <span class="font-display font-semibold text-[15px] text-navy-dark">{{ v.title }}</span>
+                  <span class="text-[11px] px-2 py-0.5 rounded-full font-display"
+                    [ngClass]="v.status === 'published' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'">
+                    {{ v.status }}
+                  </span>
+                </div>
+                @if (v.location) {
+                  <p class="font-body text-[12px] text-primary-blue mt-0.5">{{ v.location }}</p>
+                }
+                <p class="font-body text-[13px] text-dark-purple/70 mt-1 line-clamp-2">{{ v.description }}</p>
+              </div>
+              <div class="shrink-0 flex flex-col items-end gap-2">
+                <button type="button" (click)="togglePublish(v)"
+                  class="font-display text-[12px] text-primary-blue hover:underline">
+                  {{ v.status === 'published' ? 'Unpublish' : 'Publish' }}
+                </button>
+                <button type="button" (click)="startEdit(v)"
+                  class="font-display text-[12px] text-navy-dark hover:underline">Edit</button>
+                <button type="button" (click)="remove(v)"
+                  class="font-display text-[12px] text-red-600 hover:underline">Delete</button>
+              </div>
+            </li>
+          }
+        </ul>
+      }
+    }
+
+  </div>
+</section>

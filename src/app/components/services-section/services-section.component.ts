@@ -1,6 +1,5 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { DataService } from '@services/data.service';
-import { Service } from '@models';
 
 @Component({
   selector: 'app-services-section',
@@ -8,9 +7,5 @@ import { Service } from '@models';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ServicesSectionComponent {
-  readonly services: Service[];
-
-  constructor(private dataService: DataService) {
-    this.services = this.dataService.getServices();
-  }
+  readonly services = inject(DataService).getServices();
 }

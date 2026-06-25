@@ -1,6 +1,5 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { DataService } from '@services/data.service';
-import { Step } from '@models';
 
 @Component({
   selector: 'app-how-it-works-steps',
@@ -8,7 +7,7 @@ import { Step } from '@models';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HowItWorksStepsComponent {
-  readonly steps: Step[];
+  readonly steps = inject(DataService).getHowItWorksSteps();
   // Staircase goes UP: 01 lowest (left), 03 highest (right) — equal 105px gaps
   readonly stepOffsets = ['lg:mt-[210px]', 'lg:mt-[105px]', 'lg:mt-0'];
   // Mobile: all cards centered in column (no staircase)
@@ -19,12 +18,4 @@ export class HowItWorksStepsComponent {
   // Card centers: 01=433px, 02=328px, 03=223px (step_mt + 105 + 118)
   // SVG 71×107: path (0,106)→(71,1). container_mt = card_next_center - 1
   readonly arrowOffsets = ['mt-[327px]', 'mt-[222px]'];
-
-  constructor(private dataService: DataService) {
-    this.steps = this.dataService.getHowItWorksSteps();
-  }
-
-  trackByNumber(_index: number, step: Step): number {
-    return step.number;
-  }
 }

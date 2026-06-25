@@ -1,5 +1,5 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, OnInit, OnDestroy, inject } from '@angular/core';
+
 import { ActivatedRoute, Router } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
@@ -11,7 +11,7 @@ import { DepartmentDetail } from '@models';
   selector: 'app-department-page',
   templateUrl: './department-page.component.html',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DepartmentPageComponent implements OnInit, OnDestroy {
@@ -19,16 +19,14 @@ export class DepartmentPageComponent implements OnInit, OnDestroy {
   dept!: DepartmentDetail;
   openFaqIndex: number | null = null;
 
-  private readonly destroy$ = new Subject<void>();
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+  private readonly dataService = inject(DataService);
+  private readonly cdr = inject(ChangeDetectorRef);
+  private readonly meta = inject(Meta);
+  private readonly titleService = inject(Title);
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private dataService: DataService,
-    private cdr: ChangeDetectorRef,
-    private meta: Meta,
-    private titleService: Title
-  ) {}
+  private readonly destroy$ = new Subject<void>();
 
   ngOnInit(): void {
     this.route.paramMap

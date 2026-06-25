@@ -3,7 +3,10 @@
 <!-- 1. HERO SECTION - Fondo azul gradiente -->
 <app-hero-section></app-hero-section>
 
-<!-- 2. SERVICES SECTION (Hire / Employ / Pay) -->
+<!-- 2. TRUST BAR (stats + logos de empresas) -->
+<app-trust-bar></app-trust-bar>
+
+<!-- 3. SERVICES SECTION (Recruit / Onboard / Payroll) -->
 <app-services-section></app-services-section>
 
 <!-- CONTENEDOR BEIGE CON FIGURAS GEOMETRICAS -->
@@ -50,23 +53,28 @@
     </svg>
   </div>
 
-  <!-- CONTENIDO DE LAS SECCIONES -->
+  <!-- CONTENIDO DE LAS SECCIONES (orden del doc Cambios) -->
   <div class="relative z-10">
 
-    <!-- 3. ALL-IN-ONE PLATFORM -->
-    <app-all-included-platform></app-all-included-platform>
-
-    <!-- 4. THE HIRABLY WAY (3 pasos) -->
-    <app-how-it-works-steps></app-how-it-works-steps>
-
-    <!-- 5. WHY NEARSHORE -->
+    <!-- 4. WHY NEARSHORE -->
     <app-why-nearshore></app-why-nearshore>
 
-    <!-- 6. WORLD-CLASS TALENT (Roles) -->
+    <!-- 5. THE HIRABLY WAY (3 pasos) -->
+    <app-how-it-works-steps></app-how-it-works-steps>
+
+    <!-- 6. WHY TEAMS LOVE HIRABLY -->
+    <app-why-hirably></app-why-hirably>
+
+    <!-- 6b. STATS CAROUSEL (movido desde el hero) -->
+    <app-stats-carousel></app-stats-carousel>
+
+    <!-- 7. WORLD-CLASS TALENT (Roles) -->
     <app-roles-section></app-roles-section>
 
-    <!-- 7. WHY TEAMS LOVE HIRABLY -->
-    <app-why-hirably></app-why-hirably>
+    <!-- ALL-IN-ONE PLATFORM — pausado a propósito (Fase B). El componente sigue
+         declarado y disponible; solo dejamos de renderizarlo por ahora.
+         Para reactivarlo, descomentar la línea de abajo. -->
+    <!-- <app-all-included-platform></app-all-included-platform> -->
 
     <!-- 8. PRICING -->
     <app-pricing-section></app-pricing-section>

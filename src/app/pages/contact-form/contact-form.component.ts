@@ -4,26 +4,27 @@ import {
   ChangeDetectorRef,
   OnInit,
   OnDestroy,
-  NgZone
+  NgZone,
+  inject
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, ValidatorFn } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Title } from '@angular/platform-browser';
 import { Subject, takeUntil, debounceTime } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { AnalyticsService } from '@services/analytics.service';
 import {
   ContactFormType,
   ContactFormConfig,
-  FormFieldDef,
   VALID_TYPES,
   FORM_CONFIGS,
 } from './contact-form.config';
+import { workEmailValidator } from './work-email.validator';
 
 declare global {
   interface Window {
-    dataLayer: unknown[];
     Cal: ((...args: unknown[]) => void) & { loaded?: boolean; queue?: unknown[]; ns?: Record<string, unknown> };
   }
 }
@@ -44,21 +45,24 @@ export class ContactFormComponent implements OnInit, OnDestroy {
   submitting  = false;
   submitted   = false;
   submitError = false;
+  // book-a-call: the Cal.com calendar stays hidden until the (validated) name+email
+  // form is submitted via "Choose Date & Time". Other types show it inline always.
+  calendarRevealed = false;
 
   get isBookACall(): boolean { return this.config?.type === 'book-a-call'; }
 
   private readonly destroy$ = new Subject<void>();
   private calEventsRegistered = false;
+  private formStarted = false;
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private fb: FormBuilder,
-    private http: HttpClient,
-    private cdr: ChangeDetectorRef,
-    private titleService: Title,
-    private ngZone: NgZone
-  ) {}
+  private readonly route = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+  private readonly fb = inject(FormBuilder);
+  private readonly http = inject(HttpClient);
+  private readonly cdr = inject(ChangeDetectorRef);
+  private readonly titleService = inject(Title);
+  private readonly ngZone = inject(NgZone);
+  private readonly analytics = inject(AnalyticsService);
 
   ngOnInit(): void {
     this.route.paramMap
@@ -71,8 +75,11 @@ export class ContactFormComponent implements OnInit, OnDestroy {
         }
         this.config               = FORM_CONFIGS[type];
         this.calEventsRegistered  = false;
+        this.formStarted          = false;
+        this.calendarRevealed     = false;
         this.titleService.setTitle(`${this.config.right.formTitle} — Hirably`);
         this.buildForm();
+        this.applyPrefill();
         this.submitted   = false;
         this.submitting  = false;
         this.submitError = false;
@@ -88,15 +95,19 @@ export class ContactFormComponent implements OnInit, OnDestroy {
   private buildForm(): void {
     const controls: Record<string, ReturnType<typeof this.fb.control>> = {};
     for (const field of this.config.right.fields) {
-      controls[field.key] = this.fb.control(
-        '',
-        field.required ? [Validators.required] : []
-      );
+      const validators: ValidatorFn[] = [];
+      if (field.required) validators.push(Validators.required);
+      if (field.type === 'email') validators.push(Validators.email);
+      if (field.workEmail) validators.push(workEmailValidator());
+      controls[field.key] = this.fb.control('', validators);
     }
     this.form = this.fb.group(controls);
 
+    // Register the Cal.com booking-success listener for every type. For book-a-call
+    // the embed itself is created later (on "Choose Date & Time"); the other types
+    // render the calendar inline right away.
     setTimeout(() => {
-      this.initCalEmbed();
+      if (!this.isBookACall) this.initCalEmbed();
       this.registerCalEvents();
     }, 150);
 
@@ -104,11 +115,45 @@ export class ContactFormComponent implements OnInit, OnDestroy {
       debounceTime(800),
       takeUntil(this.destroy$)
     ).subscribe(v => {
-      this.initCalEmbed(v.fullName ?? '', v.email ?? '', v.notes ?? '');
+      this.initCalEmbed(this.displayName(v), v.email ?? '', v.notes ?? '');
     });
   }
 
+  /**
+   * Prefill from query params (e.g. the hero inline form passes
+   * ?firstName=&lastName=&email=). Generic across form types. For book-a-call,
+   * if the prefilled data is valid we auto-reveal the calendar so the user lands
+   * straight on scheduling.
+   */
+  private applyPrefill(): void {
+    const qp = this.route.snapshot.queryParamMap;
+    const patch: Record<string, string> = {};
+    for (const field of this.config.right.fields) {
+      const value = qp.get(field.key);
+      if (value) patch[field.key] = value;
+    }
+    if (Object.keys(patch).length === 0) return;
+
+    this.form.patchValue(patch);
+
+    if (this.isBookACall && this.form.valid) {
+      this.calendarRevealed = true;
+      const v = this.form.value;
+      // Mount after a tick so #cal-booking-placeholder exists; no aggressive scroll on load.
+      setTimeout(() => this.initCalEmbed(this.displayName(v), v.email ?? '', ''), 50);
+    }
+  }
+
+  /** Full name for Cal.com prefill / Formspree, handling both field layouts. */
+  private displayName(v: { firstName?: string; lastName?: string; fullName?: string }): string {
+    if (this.isBookACall) return `${v.firstName ?? ''} ${v.lastName ?? ''}`.trim();
+    return v.fullName ?? '';
+  }
+
   private initCalEmbed(name = '', email = '', notes = ''): void {
+    // book-a-call only mounts the calendar after the gate form is submitted.
+    if (this.isBookACall && !this.calendarRevealed) return;
+
     const container = document.getElementById('cal-booking-placeholder');
     if (!container) return;
 
@@ -165,6 +210,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
     const payload = {
       ...this.form.value,
       _form_type:        this.config.type,
+      _name:             this.displayName(this.form.value),
       _subject:          `Hirably Form: ${this.config.right.formTitle}`,
       _replyto:          email ?? '',
       _cal_booking_time: booking?.startTime ?? 'Scheduled via Cal.com',
@@ -177,7 +223,9 @@ export class ContactFormComponent implements OnInit, OnDestroy {
         next: () => {
           this.submitting = false;
           this.submitted  = true;
-          this.pushGtmEvent('form_submit', this.config.type);
+          // The booking IS the conversion (the form can't be sent without booking),
+          // so a single generate_lead represents it — no separate form_submit event.
+          this.analytics.generateLead('cal_booking', this.config.type);
           this.cdr.markForCheck();
         },
         error: () => {
@@ -188,29 +236,52 @@ export class ContactFormComponent implements OnInit, OnDestroy {
       });
   }
 
+  // Fires once when the user first interacts with any form field.
+  onFormStart(): void {
+    if (this.formStarted) return;
+    this.formStarted = true;
+    this.analytics.formStart(this.config.type, 'contact');
+  }
+
+  // book-a-call: validate the name + work-email gate, then reveal the calendar.
+  onChooseDateTime(): void {
+    this.form.markAllAsTouched();
+    if (this.form.invalid) {
+      this.cdr.markForCheck();
+      return;
+    }
+    this.calendarRevealed = true;
+    this.cdr.markForCheck();
+
+    const v = this.form.value;
+    // Wait a tick so the calendar container exists in the DOM, then mount + scroll.
+    setTimeout(() => {
+      this.initCalEmbed(this.displayName(v), v.email ?? '', '');
+      document.getElementById('cal-booking-placeholder')
+        ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 50);
+  }
+
+  onContactEmail(): void {
+    this.analytics.contactClick('email');
+  }
+
   // kept for template binding (error banner uses submitError set by onCalBookingConfirmed)
   isInvalid(key: string): boolean {
     const ctrl = this.form.get(key);
     return !!(ctrl && ctrl.invalid && ctrl.touched);
   }
 
-  trackByKey(_i: number, field: FormFieldDef): string {
-    return field.key;
-  }
-
   onSubmitAnother(): void {
     this.form.reset();
-    this.submitted   = false;
-    this.submitError = false;
+    this.submitted        = false;
+    this.submitError      = false;
+    this.calendarRevealed = false;
+    this.formStarted      = false;
     this.cdr.markForCheck();
   }
 
   goHome(): void {
     this.router.navigate(['/']);
-  }
-
-  private pushGtmEvent(event: string, formType: string): void {
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ event, form_type: formType });
   }
 }

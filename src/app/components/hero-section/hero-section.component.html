@@ -1,13 +1,13 @@
-<!-- HERO SECTION - Figma Pixel Perfect -->
-<section id="home" class="relative overflow-hidden">
+<!-- HERO SECTION - -->
+<section id="home" data-section="hero" class="relative">
 
   <!-- Background Gradient -->
   <div class="absolute inset-0"
     style="background: linear-gradient(180deg, #2291ea 0%, #2291ea 35%, #4691ea 55%, #c7e9f9 80%, #fffbf4 100%);">
   </div>
 
-  <!-- Figma Decorative Shapes (scaled down on mobile) -->
-  <div class="absolute inset-0 pointer-events-none overflow-hidden">
+  <!--  Decorative Shapes (scaled down on mobile) -->
+  <div class="absolute inset-0 pointer-events-none">
 
     <!-- Shape 1: Arriba izquierda -->
     <svg class="absolute top-0 left-0 w-[160px] h-[124px] md:w-[294px] md:h-[228px]" xmlns="http://www.w3.org/2000/svg"
@@ -41,269 +41,76 @@
     style="background: linear-gradient(to bottom, transparent, #fffbf4);"></div>
 
   <div
-    class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-[100px] md:pt-[140px] lg:pt-[168px] pb-[40px] md:pb-[60px] lg:pb-[86px]">
+    class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-[100px] md:pt-[140px] lg:pt-[168px] pb-[12px] md:pb-[14px] lg:pb-[16px]">
 
-    <!-- Hero Content - Centered -->
-    <div class="text-center max-w-[900px] mx-auto">
+    <!-- Hero Content: 2-column layout (text left, form right) -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
 
-      <!-- Main Headline (Figma SVG exact: line1 white medium, line2 navy bold, line3 white medium) -->
+      <!-- LEFT: Headline -->
       <h1
-        class="font-display font-normal text-[28px] md:text-[42px] lg:text-[50px] leading-[130%] text-white mb-4 md:mb-6">
-        The <span class="font-bold">Most Reliable Way</span> to<br>
-        <span class="text-cream-light font-bold text-[32px] md:text-[40px] lg:text-[56px]">Recruit,</span> <span
-          class="text-lavender font-bold text-[32px] md:text-[40px] lg:text-[56px]"> Onboard,</span> and <span
-          class="text-mint-green font-bold text-[32px] md:text-[40px] lg:text-[56px]">Pay</span><br>
-        Your Team in Mexico.
+        class="font-display font-bold text-[32px] md:text-[48px] lg:text-[56px] leading-[120%] text-center lg:text-left order-1">
+        <span class="text-white">You Pay Less,</span>
+        <span class="text-navy-dark">your People Earn More. Grow your team with Hirably.</span>
       </h1>
 
-      <!-- Subtitle -->
-      <!-- Subtitle - Figma: DM Sans 25px/40px 400, w-784, single line -->
-      <p
-        class="font-body font-light text-[18px] md:text-[22px] lg:text-[25px] leading-[28px] md:leading-[34px] lg:leading-[40px] text-white text-center max-w-[784px] mx-auto mb-[20px]">
-        Grow your company, knowing your people are taken care of.
-      </p>
+      <!-- RIGHT: Book-a-call form card -->
+      <div class="order-2 w-full max-w-[440px] mx-auto lg:mx-0 lg:ml-auto">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate
+          class="bg-white rounded-2xl shadow-lg p-6 md:p-8 flex flex-col gap-4">
 
-      <!-- CTA Button - Figma: 158×58, Poppins 22px/normal 500, rounded-[7px], #FFCF25 -->
-      <div class="mb-[40px]">
-        <button (click)="onBookConsultation()"
-          class="flex w-[140px] md:w-[158px] h-[48px] md:h-[58px] py-[10px] px-[15px] justify-center items-center gap-[10px] mx-auto bg-bright-amber text-navy-dark font-display font-medium text-[18px] md:text-[22px] leading-normal rounded-[7px] transition-all duration-300 hover:bg-amber-gold hover:scale-105 shadow-lg">
-          Book a call
-        </button>
-      </div>
+          <p class="font-display font-semibold text-[18px] md:text-[20px] text-navy-dark leading-tight">
+            Let's Talk About Your Hiring Needs
+          </p>
 
-      <!-- Stats Carousel -->
-      <!-- overflow-hidden and mask-image are on SEPARATE wrappers to avoid GPU compositing conflicts -->
-      <div class="flex justify-center mb-0">
-        <div class="overflow-hidden w-full max-w-[750px]">
-          <div
-            style="mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);">
-            <div class="flex gap-3 md:gap-4 animate-marquee" style="width: max-content;">
-
-              <!-- ── SET 1 ─────────────────────────────────────────── -->
-
-              <!-- Badge 1: Trusted by 750+ -->
-              <div
-                class="inline-flex items-center gap-2 md:gap-3 bg-white px-3 md:px-6 py-[6px] md:py-[8px] rounded-[7.5px] shadow-md flex-shrink-0">
-                <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"
-                  fill="none">
-                  <g clip-path="url(#cc-a1)">
-                    <path
-                      d="M9.02988 0.140015C4.11486 0.140015 0.129883 4.12499 0.129883 9.04002C0.129883 13.955 4.11486 17.94 9.02988 17.94C13.9449 17.94 17.9299 13.955 17.9299 9.04002C17.9299 4.12499 13.9449 0.140015 9.02988 0.140015ZM14.0042 7.33937L8.39724 12.9464C8.25781 13.0858 8.06943 13.1637 7.87288 13.1637C7.67634 13.1637 7.48722 13.0858 7.34853 12.9464L4.78755 10.3854C4.49756 10.0954 4.49756 9.62667 4.78755 9.33668C5.07754 9.04669 5.54628 9.04669 5.83627 9.33668L7.87288 11.3733L12.9555 6.29066C13.2455 6.00067 13.7143 6.00067 14.0042 6.29066C14.2942 6.58065 14.2942 7.04938 14.0042 7.33937Z"
-                      fill="#FFCF25" />
-                  </g>
-                  <defs>
-                    <clipPath id="cc-a1">
-                      <rect width="18" height="18" fill="white" />
-                    </clipPath>
-                  </defs>
-                </svg>
-                <span
-                  class="font-body font-normal text-[13px] md:text-[16px] leading-normal text-carbon-black whitespace-nowrap">
-                  Trusted by <span class="font-bold">750+ companies</span> hiring in Mexico
-                </span>
-              </div>
-
-              <!-- Badge 2: 97% retention rate -->
-              <div
-                class="inline-flex items-center gap-2 md:gap-3 bg-white px-3 md:px-6 py-[6px] md:py-[8px] rounded-[7.5px] shadow-md flex-shrink-0">
-                <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"
-                  fill="none">
-                  <g clip-path="url(#cc-a2)">
-                    <path
-                      d="M9.02988 0.140015C4.11486 0.140015 0.129883 4.12499 0.129883 9.04002C0.129883 13.955 4.11486 17.94 9.02988 17.94C13.9449 17.94 17.9299 13.955 17.9299 9.04002C17.9299 4.12499 13.9449 0.140015 9.02988 0.140015ZM14.0042 7.33937L8.39724 12.9464C8.25781 13.0858 8.06943 13.1637 7.87288 13.1637C7.67634 13.1637 7.48722 13.0858 7.34853 12.9464L4.78755 10.3854C4.49756 10.0954 4.49756 9.62667 4.78755 9.33668C5.07754 9.04669 5.54628 9.04669 5.83627 9.33668L7.87288 11.3733L12.9555 6.29066C13.2455 6.00067 13.7143 6.00067 14.0042 6.29066C14.2942 6.58065 14.2942 7.04938 14.0042 7.33937Z"
-                      fill="#FFCF25" />
-                  </g>
-                  <defs>
-                    <clipPath id="cc-a2">
-                      <rect width="18" height="18" fill="white" />
-                    </clipPath>
-                  </defs>
-                </svg>
-                <span
-                  class="font-body font-normal text-[13px] md:text-[16px] leading-normal text-carbon-black whitespace-nowrap">
-                  <span class="font-bold">97%</span> retention rate
-                </span>
-              </div>
-
-              <!-- Badge 3: 20 days average time to hire -->
-              <div
-                class="inline-flex items-center gap-2 md:gap-3 bg-white px-3 md:px-6 py-[6px] md:py-[8px] rounded-[7.5px] shadow-md flex-shrink-0">
-                <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"
-                  fill="none">
-                  <g clip-path="url(#cc-a3)">
-                    <path
-                      d="M9.02988 0.140015C4.11486 0.140015 0.129883 4.12499 0.129883 9.04002C0.129883 13.955 4.11486 17.94 9.02988 17.94C13.9449 17.94 17.9299 13.955 17.9299 9.04002C17.9299 4.12499 13.9449 0.140015 9.02988 0.140015ZM14.0042 7.33937L8.39724 12.9464C8.25781 13.0858 8.06943 13.1637 7.87288 13.1637C7.67634 13.1637 7.48722 13.0858 7.34853 12.9464L4.78755 10.3854C4.49756 10.0954 4.49756 9.62667 4.78755 9.33668C5.07754 9.04669 5.54628 9.04669 5.83627 9.33668L7.87288 11.3733L12.9555 6.29066C13.2455 6.00067 13.7143 6.00067 14.0042 6.29066C14.2942 6.58065 14.2942 7.04938 14.0042 7.33937Z"
-                      fill="#FFCF25" />
-                  </g>
-                  <defs>
-                    <clipPath id="cc-a3">
-                      <rect width="18" height="18" fill="white" />
-                    </clipPath>
-                  </defs>
-                </svg>
-                <span
-                  class="font-body font-normal text-[13px] md:text-[16px] leading-normal text-carbon-black whitespace-nowrap">
-                  <span class="font-bold">20 days</span> average time to hire
-                </span>
-              </div>
-
-              <!-- Badge 4: 100% compliance -->
-              <div
-                class="inline-flex items-center gap-2 md:gap-3 bg-white px-3 md:px-6 py-[6px] md:py-[8px] rounded-[7.5px] shadow-md flex-shrink-0">
-                <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"
-                  fill="none">
-                  <g clip-path="url(#cc-a4)">
-                    <path
-                      d="M9.02988 0.140015C4.11486 0.140015 0.129883 4.12499 0.129883 9.04002C0.129883 13.955 4.11486 17.94 9.02988 17.94C13.9449 17.94 17.9299 13.955 17.9299 9.04002C17.9299 4.12499 13.9449 0.140015 9.02988 0.140015ZM14.0042 7.33937L8.39724 12.9464C8.25781 13.0858 8.06943 13.1637 7.87288 13.1637C7.67634 13.1637 7.48722 13.0858 7.34853 12.9464L4.78755 10.3854C4.49756 10.0954 4.49756 9.62667 4.78755 9.33668C5.07754 9.04669 5.54628 9.04669 5.83627 9.33668L7.87288 11.3733L12.9555 6.29066C13.2455 6.00067 13.7143 6.00067 14.0042 6.29066C14.2942 6.58065 14.2942 7.04938 14.0042 7.33937Z"
-                      fill="#FFCF25" />
-                  </g>
-                  <defs>
-                    <clipPath id="cc-a4">
-                      <rect width="18" height="18" fill="white" />
-                    </clipPath>
-                  </defs>
-                </svg>
-                <span
-                  class="font-body font-normal text-[13px] md:text-[16px] leading-normal text-carbon-black whitespace-nowrap">
-                  <span class="font-bold">100%</span> compliance
-                </span>
-              </div>
-
-              <!-- Badge 5: $0 upfront fees -->
-              <div
-                class="inline-flex items-center gap-2 md:gap-3 bg-white px-3 md:px-6 py-[6px] md:py-[8px] rounded-[7.5px] shadow-md flex-shrink-0">
-                <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"
-                  fill="none">
-                  <g clip-path="url(#cc-a5)">
-                    <path
-                      d="M9.02988 0.140015C4.11486 0.140015 0.129883 4.12499 0.129883 9.04002C0.129883 13.955 4.11486 17.94 9.02988 17.94C13.9449 17.94 17.9299 13.955 17.9299 9.04002C17.9299 4.12499 13.9449 0.140015 9.02988 0.140015ZM14.0042 7.33937L8.39724 12.9464C8.25781 13.0858 8.06943 13.1637 7.87288 13.1637C7.67634 13.1637 7.48722 13.0858 7.34853 12.9464L4.78755 10.3854C4.49756 10.0954 4.49756 9.62667 4.78755 9.33668C5.07754 9.04669 5.54628 9.04669 5.83627 9.33668L7.87288 11.3733L12.9555 6.29066C13.2455 6.00067 13.7143 6.00067 14.0042 6.29066C14.2942 6.58065 14.2942 7.04938 14.0042 7.33937Z"
-                      fill="#FFCF25" />
-                  </g>
-                  <defs>
-                    <clipPath id="cc-a5">
-                      <rect width="18" height="18" fill="white" />
-                    </clipPath>
-                  </defs>
-                </svg>
-                <span
-                  class="font-body font-normal text-[13px] md:text-[16px] leading-normal text-carbon-black whitespace-nowrap">
-                  <span class="font-bold">$0</span> upfront fees
-                </span>
-              </div>
-
-              <!-- ── SET 2 (duplicate for seamless loop) ────────────── -->
-
-              <div
-                class="inline-flex items-center gap-2 md:gap-3 bg-white px-3 md:px-6 py-[6px] md:py-[8px] rounded-[7.5px] shadow-md flex-shrink-0">
-                <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"
-                  fill="none">
-                  <g clip-path="url(#cc-b1)">
-                    <path
-                      d="M9.02988 0.140015C4.11486 0.140015 0.129883 4.12499 0.129883 9.04002C0.129883 13.955 4.11486 17.94 9.02988 17.94C13.9449 17.94 17.9299 13.955 17.9299 9.04002C17.9299 4.12499 13.9449 0.140015 9.02988 0.140015ZM14.0042 7.33937L8.39724 12.9464C8.25781 13.0858 8.06943 13.1637 7.87288 13.1637C7.67634 13.1637 7.48722 13.0858 7.34853 12.9464L4.78755 10.3854C4.49756 10.0954 4.49756 9.62667 4.78755 9.33668C5.07754 9.04669 5.54628 9.04669 5.83627 9.33668L7.87288 11.3733L12.9555 6.29066C13.2455 6.00067 13.7143 6.00067 14.0042 6.29066C14.2942 6.58065 14.2942 7.04938 14.0042 7.33937Z"
-                      fill="#FFCF25" />
-                  </g>
-                  <defs>
-                    <clipPath id="cc-b1">
-                      <rect width="18" height="18" fill="white" />
-                    </clipPath>
-                  </defs>
-                </svg>
-                <span
-                  class="font-body font-normal text-[13px] md:text-[16px] leading-normal text-carbon-black whitespace-nowrap">
-                  Trusted by <span class="font-bold">125+ companies</span> hiring in Mexico
-                </span>
-              </div>
-
-              <div
-                class="inline-flex items-center gap-2 md:gap-3 bg-white px-3 md:px-6 py-[6px] md:py-[8px] rounded-[7.5px] shadow-md flex-shrink-0">
-                <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"
-                  fill="none">
-                  <g clip-path="url(#cc-b2)">
-                    <path
-                      d="M9.02988 0.140015C4.11486 0.140015 0.129883 4.12499 0.129883 9.04002C0.129883 13.955 4.11486 17.94 9.02988 17.94C13.9449 17.94 17.9299 13.955 17.9299 9.04002C17.9299 4.12499 13.9449 0.140015 9.02988 0.140015ZM14.0042 7.33937L8.39724 12.9464C8.25781 13.0858 8.06943 13.1637 7.87288 13.1637C7.67634 13.1637 7.48722 13.0858 7.34853 12.9464L4.78755 10.3854C4.49756 10.0954 4.49756 9.62667 4.78755 9.33668C5.07754 9.04669 5.54628 9.04669 5.83627 9.33668L7.87288 11.3733L12.9555 6.29066C13.2455 6.00067 13.7143 6.00067 14.0042 6.29066C14.2942 6.58065 14.2942 7.04938 14.0042 7.33937Z"
-                      fill="#FFCF25" />
-                  </g>
-                  <defs>
-                    <clipPath id="cc-b2">
-                      <rect width="18" height="18" fill="white" />
-                    </clipPath>
-                  </defs>
-                </svg>
-                <span
-                  class="font-body font-normal text-[13px] md:text-[16px] leading-normal text-carbon-black whitespace-nowrap">
-                  <span class="font-bold">97%</span> retention rate
-                </span>
-              </div>
-
-              <div
-                class="inline-flex items-center gap-2 md:gap-3 bg-white px-3 md:px-6 py-[6px] md:py-[8px] rounded-[7.5px] shadow-md flex-shrink-0">
-                <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"
-                  fill="none">
-                  <g clip-path="url(#cc-b3)">
-                    <path
-                      d="M9.02988 0.140015C4.11486 0.140015 0.129883 4.12499 0.129883 9.04002C0.129883 13.955 4.11486 17.94 9.02988 17.94C13.9449 17.94 17.9299 13.955 17.9299 9.04002C17.9299 4.12499 13.9449 0.140015 9.02988 0.140015ZM14.0042 7.33937L8.39724 12.9464C8.25781 13.0858 8.06943 13.1637 7.87288 13.1637C7.67634 13.1637 7.48722 13.0858 7.34853 12.9464L4.78755 10.3854C4.49756 10.0954 4.49756 9.62667 4.78755 9.33668C5.07754 9.04669 5.54628 9.04669 5.83627 9.33668L7.87288 11.3733L12.9555 6.29066C13.2455 6.00067 13.7143 6.00067 14.0042 6.29066C14.2942 6.58065 14.2942 7.04938 14.0042 7.33937Z"
-                      fill="#FFCF25" />
-                  </g>
-                  <defs>
-                    <clipPath id="cc-b3">
-                      <rect width="18" height="18" fill="white" />
-                    </clipPath>
-                  </defs>
-                </svg>
-                <span
-                  class="font-body font-normal text-[13px] md:text-[16px] leading-normal text-carbon-black whitespace-nowrap">
-                  <span class="font-bold">20 days</span> average time to hire
-                </span>
-              </div>
-
-              <div
-                class="inline-flex items-center gap-2 md:gap-3 bg-white px-3 md:px-6 py-[6px] md:py-[8px] rounded-[7.5px] shadow-md flex-shrink-0">
-                <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"
-                  fill="none">
-                  <g clip-path="url(#cc-b4)">
-                    <path
-                      d="M9.02988 0.140015C4.11486 0.140015 0.129883 4.12499 0.129883 9.04002C0.129883 13.955 4.11486 17.94 9.02988 17.94C13.9449 17.94 17.9299 13.955 17.9299 9.04002C17.9299 4.12499 13.9449 0.140015 9.02988 0.140015ZM14.0042 7.33937L8.39724 12.9464C8.25781 13.0858 8.06943 13.1637 7.87288 13.1637C7.67634 13.1637 7.48722 13.0858 7.34853 12.9464L4.78755 10.3854C4.49756 10.0954 4.49756 9.62667 4.78755 9.33668C5.07754 9.04669 5.54628 9.04669 5.83627 9.33668L7.87288 11.3733L12.9555 6.29066C13.2455 6.00067 13.7143 6.00067 14.0042 6.29066C14.2942 6.58065 14.2942 7.04938 14.0042 7.33937Z"
-                      fill="#FFCF25" />
-                  </g>
-                  <defs>
-                    <clipPath id="cc-b4">
-                      <rect width="18" height="18" fill="white" />
-                    </clipPath>
-                  </defs>
-                </svg>
-                <span
-                  class="font-body font-normal text-[13px] md:text-[16px] leading-normal text-carbon-black whitespace-nowrap">
-                  <span class="font-bold">100%</span> compliance
-                </span>
-              </div>
-
-              <div
-                class="inline-flex items-center gap-2 md:gap-3 bg-white px-3 md:px-6 py-[6px] md:py-[8px] rounded-[7.5px] shadow-md flex-shrink-0">
-                <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18"
-                  fill="none">
-                  <g clip-path="url(#cc-b5)">
-                    <path
-                      d="M9.02988 0.140015C4.11486 0.140015 0.129883 4.12499 0.129883 9.04002C0.129883 13.955 4.11486 17.94 9.02988 17.94C13.9449 17.94 17.9299 13.955 17.9299 9.04002C17.9299 4.12499 13.9449 0.140015 9.02988 0.140015ZM14.0042 7.33937L8.39724 12.9464C8.25781 13.0858 8.06943 13.1637 7.87288 13.1637C7.67634 13.1637 7.48722 13.0858 7.34853 12.9464L4.78755 10.3854C4.49756 10.0954 4.49756 9.62667 4.78755 9.33668C5.07754 9.04669 5.54628 9.04669 5.83627 9.33668L7.87288 11.3733L12.9555 6.29066C13.2455 6.00067 13.7143 6.00067 14.0042 6.29066C14.2942 6.58065 14.2942 7.04938 14.0042 7.33937Z"
-                      fill="#FFCF25" />
-                  </g>
-                  <defs>
-                    <clipPath id="cc-b5">
-                      <rect width="18" height="18" fill="white" />
-                    </clipPath>
-                  </defs>
-                </svg>
-                <span
-                  class="font-body font-normal text-[13px] md:text-[16px] leading-normal text-carbon-black whitespace-nowrap">
-                  <span class="font-bold">$0</span> upfront fees
-                </span>
-              </div>
-
+          <!-- First / Last name -->
+          <div class="grid grid-cols-2 gap-3">
+            <div class="flex flex-col gap-1.5">
+              <label for="hero-firstName"
+                class="font-display font-medium text-[13px] leading-none text-carbon-black">First name</label>
+              <input id="hero-firstName" type="text" formControlName="firstName" placeholder="Jane"
+                class="w-full h-9 px-3 py-1 rounded-md border font-body text-[14px] text-carbon-black bg-white outline-none transition-colors duration-150 placeholder:text-gray-400 focus:ring-2 focus:ring-offset-1"
+                [ngClass]="isInvalid('firstName') ? 'border-red-400 bg-red-50' : 'border-gray-neutral'" />
+            </div>
+            <div class="flex flex-col gap-1.5">
+              <label for="hero-lastName"
+                class="font-display font-medium text-[13px] leading-none text-carbon-black">Last name</label>
+              <input id="hero-lastName" type="text" formControlName="lastName" placeholder="Smith"
+                class="w-full h-9 px-3 py-1 rounded-md border font-body text-[14px] text-carbon-black bg-white outline-none transition-colors duration-150 placeholder:text-gray-400 focus:ring-2 focus:ring-offset-1"
+                [ngClass]="isInvalid('lastName') ? 'border-red-400 bg-red-50' : 'border-gray-neutral'" />
             </div>
           </div>
-        </div>
+
+          <!-- Work email -->
+          <div class="flex flex-col gap-1.5">
+            <label for="hero-email" class="font-display font-medium text-[13px] leading-none text-carbon-black">Work
+              email</label>
+            <input id="hero-email" type="email" formControlName="email" placeholder="jane@acme.com"
+              class="w-full h-9 px-3 py-1 rounded-md border font-body text-[14px] text-carbon-black bg-white outline-none transition-colors duration-150 placeholder:text-gray-400 focus:ring-2 focus:ring-offset-1"
+              [ngClass]="isInvalid('email') ? 'border-red-400 bg-red-50' : 'border-gray-neutral'" />
+            @if (isInvalid('email') && form.get('email')?.errors?.['workEmail']) {
+            <span role="alert" class="font-body text-[11px] text-red-400">Please use your work email.</span>
+            }
+          </div>
+
+          <!-- CTA Button (reused) -->
+          <button type="submit"
+            class="w-full h-[48px] md:h-[52px] flex justify-center items-center bg-bright-amber text-navy-dark font-display font-medium text-[18px] md:text-[20px] leading-normal rounded-[7px] transition-all duration-300 hover:bg-amber-gold hover:scale-[1.02] shadow-lg">
+            Book a call
+          </button>
+
+          <p class="font-body font-light text-[12px] text-dark-purple/55 text-center leading-relaxed">
+            Free 30-minute call. No commitment.
+          </p>
+        </form>
       </div>
 
     </div>
+
+    <!-- Discreet tagline below everything -->
+    <!-- <p
+      class="font-body font-light text-[14px] md:text-[16px] leading-relaxed text-white text-center mt-5 md:mt-6 max-w-[640px] mx-auto">
+      Grow your company, knowing your people are taken care of.
+    </p> -->
 
   </div>
 

@@ -6,7 +6,7 @@ import { Benefit, Service, PricingPlan, Step, RoleCategory, DepartmentDetail } f
 })
 export class DataService {
 
-  // Why Nearshore - Figma
+  // Why Nearshore 
   private benefitsData: Benefit[] = [
     {
       icon: 'clock',
@@ -25,12 +25,12 @@ export class DataService {
     }
   ];
 
-  // Services - Figma (Hire/Employ/Pay)
+  // Services - Recruit, Onboard, Payroll
   private servicesData: Service[] = [
     {
       title: 'Recruit',
-      subtitle: 'Find top 1% talent',
-      description: 'Deep Sourcing: We screen thousands to find the top 1%. Culture Fit: Technical skills matched with your company values. Speed: Qualified candidates in under 5 days.',
+      subtitle: '4% acceptance rate',
+      description: 'Deep Sourcing: We screen thousands and only the top 4% make the cut. Culture Fit: Technical skills matched with your company values. Speed: Qualified candidates in under 5 days.',
       icon: 'megaphone',
       color: '#fff1cf'
     },
@@ -42,7 +42,7 @@ export class DataService {
       color: '#e3e1ff'
     },
     {
-      title: 'Pay',
+      title: 'Payroll',
       subtitle: 'One Invoice. Total Control.',
       description: 'Simple Billing: One consolidated monthly invoice in USD. Tax & Benefits: We handle all withholdings and benefits. Transparency: Full visibility into every cost.',
       icon: 'currency',
@@ -50,15 +50,15 @@ export class DataService {
     }
   ];
 
-  // Pricing - Figma
+  // Pricing 
   private pricingPlansData: PricingPlan[] = [
     {
       badge: 'Headhunting',
       name: 'Hirably Recruitment',
       subtitle: 'Hiring for Your Entity',
-      price: '$2,499',
+      price: '$3,999',
       pricePrefix: 'Starting at',
-      priceUnit: ' flat fee',
+      priceUnit: '',
       priceNote: 'Starting rate — tiered based on seniority of the role.',
       tagline: 'For companies that already have a Mexican legal entity and just need the right people.',
       features: [
@@ -67,7 +67,7 @@ export class DataService {
         'Technical & Cultural Vetting',
         'Salary Benchmarking & Market Data',
         'Simple USD Invoice',
-        '90-Day Replacement Guarantee'
+
       ],
       cta: 'Get a Quote',
       recommended: false
@@ -87,7 +87,9 @@ export class DataService {
         '$0 Upfront Recruitment Fees',
         'Lifetime Replacement Guarantee',
         'Full Payroll, Benefits & HR',
-        'Hardware Logistics & Asset Tracking'
+        'Hardware Logistics & Asset Tracking',
+        '90-Day Replacement Guarantee'
+
       ],
       cta: 'Start Hiring',
       recommended: true
@@ -96,7 +98,7 @@ export class DataService {
       badge: 'Employer of Record',
       name: 'Hirably EOR',
       subtitle: 'Bring Your Own Talent',
-      price: '$499',
+      price: '$799',
       pricePrefix: 'Starting at',
       priceUnit: '/mo per employee',
       tagline: 'You found the talent — we make it legal.',
@@ -105,7 +107,8 @@ export class DataService {
         'Contracts & Labor Compliance',
         'Tax Filing & Withholding',
         'Social Security & Benefits',
-        'Ongoing HR Support',
+        'Dedicated In-Country HR Support',
+        'Hardware Logistics & Asset Tracking',
         'One Simple USD Invoice'
       ],
       cta: 'Get Started',
@@ -141,7 +144,7 @@ export class DataService {
     }
   ];
 
-  // Roles - Figma (5 categories with accordion)
+  // Roles 
   private roleCategoriesData: RoleCategory[] = [
     { id: 'technology', title: 'Technology', roles: ['Full-Stack Developers', 'QA Engineers', 'DevOps', 'UI/UX Designers', 'Data Analysts'] },
     { id: 'finance', title: 'Finance', roles: ['Accountants', 'Bookkeepers', 'FP&A Analysts', 'Payroll Specialists', 'Controllers'] },
@@ -172,7 +175,7 @@ export class DataService {
 
   // ── Department pages ──────────────────────────────────────────────────────
 
-  private departmentsData: { [key: string]: DepartmentDetail } = {
+  private departmentsData: Record<string, DepartmentDetail> = {
     technology: {
       id: 'technology',
       title: 'Technology & Engineering',
@@ -192,9 +195,9 @@ export class DataService {
       ],
       salaryComparisons: [
         { role: 'Full-Stack Developer', usSalary: 125000, mxSalary: 45000 },
-        { role: 'QA Engineer',          usSalary: 95000,  mxSalary: 32000 },
-        { role: 'DevOps Engineer',      usSalary: 135000, mxSalary: 50000 },
-        { role: 'UI/UX Designer',       usSalary: 105000, mxSalary: 38000 }
+        { role: 'QA Engineer', usSalary: 95000, mxSalary: 32000 },
+        { role: 'DevOps Engineer', usSalary: 135000, mxSalary: 50000 },
+        { role: 'UI/UX Designer', usSalary: 105000, mxSalary: 38000 }
       ],
       tools: ['React', 'Angular', 'Vue.js', 'Node.js', 'Python', 'TypeScript', 'AWS', 'Docker', 'Kubernetes', 'PostgreSQL', 'MongoDB', 'Figma'],
       faqs: [
@@ -233,10 +236,10 @@ export class DataService {
         'Deep experience with US payroll, tax, and compliance'
       ],
       salaryComparisons: [
-        { role: 'Controller',         usSalary: 130000, mxSalary: 48000 },
-        { role: 'FP&A Analyst',       usSalary: 95000,  mxSalary: 35000 },
-        { role: 'Staff Accountant',   usSalary: 75000,  mxSalary: 27000 },
-        { role: 'Payroll Specialist', usSalary: 65000,  mxSalary: 23000 }
+        { role: 'Controller', usSalary: 130000, mxSalary: 48000 },
+        { role: 'FP&A Analyst', usSalary: 95000, mxSalary: 35000 },
+        { role: 'Staff Accountant', usSalary: 75000, mxSalary: 27000 },
+        { role: 'Payroll Specialist', usSalary: 65000, mxSalary: 23000 }
       ],
       tools: ['QuickBooks', 'Xero', 'NetSuite', 'SAP', 'Excel', 'Sage', 'Bill.com', 'Gusto', 'ADP', 'Avalara', 'Expensify'],
       faqs: [
@@ -276,9 +279,9 @@ export class DataService {
         'Access the $3.4T US Hispanic market with native speakers'
       ],
       salaryComparisons: [
-        { role: 'Account Manager',    usSalary: 85000, mxSalary: 30000 },
-        { role: 'SDR',                usSalary: 65000, mxSalary: 22000 },
-        { role: 'Customer Success',   usSalary: 90000, mxSalary: 32000 },
+        { role: 'Account Manager', usSalary: 85000, mxSalary: 30000 },
+        { role: 'SDR', usSalary: 65000, mxSalary: 22000 },
+        { role: 'Customer Success', usSalary: 90000, mxSalary: 32000 },
         { role: 'Billing Specialist', usSalary: 55000, mxSalary: 19000 }
       ],
       tools: ['Salesforce', 'HubSpot', 'Zendesk', 'Intercom', 'Freshdesk', 'Gong', 'Outreach', 'Slack', 'Zoom', 'Monday.com'],
@@ -318,10 +321,10 @@ export class DataService {
         'Deep knowledge of US platforms and consumer behavior'
       ],
       salaryComparisons: [
-        { role: 'Digital Marketer',      usSalary: 80000, mxSalary: 28000 },
-        { role: 'SEO Specialist',        usSalary: 75000, mxSalary: 26000 },
-        { role: 'Graphic Designer',      usSalary: 70000, mxSalary: 24000 },
-        { role: 'Social Media Manager',  usSalary: 65000, mxSalary: 22000 }
+        { role: 'Digital Marketer', usSalary: 80000, mxSalary: 28000 },
+        { role: 'SEO Specialist', usSalary: 75000, mxSalary: 26000 },
+        { role: 'Graphic Designer', usSalary: 70000, mxSalary: 24000 },
+        { role: 'Social Media Manager', usSalary: 65000, mxSalary: 22000 }
       ],
       tools: ['HubSpot', 'Mailchimp', 'Google Ads', 'Meta Ads', 'Figma', 'Adobe Creative Suite', 'Canva', 'SEMrush', 'Ahrefs', 'Hootsuite', 'Webflow'],
       faqs: [
@@ -360,10 +363,10 @@ export class DataService {
         'Trained in Asana, Jira, Notion, Monday, and your existing stack'
       ],
       salaryComparisons: [
-        { role: 'Project Manager',           usSalary: 95000, mxSalary: 34000 },
-        { role: 'HR Specialist',             usSalary: 75000, mxSalary: 26000 },
-        { role: 'Supply Chain Coordinator',  usSalary: 80000, mxSalary: 28000 },
-        { role: 'Virtual Assistant',         usSalary: 55000, mxSalary: 18000 }
+        { role: 'Project Manager', usSalary: 95000, mxSalary: 34000 },
+        { role: 'HR Specialist', usSalary: 75000, mxSalary: 26000 },
+        { role: 'Supply Chain Coordinator', usSalary: 80000, mxSalary: 28000 },
+        { role: 'Virtual Assistant', usSalary: 55000, mxSalary: 18000 }
       ],
       tools: ['Asana', 'Monday.com', 'Notion', 'Jira', 'Trello', 'Slack', 'Google Workspace', 'Excel', 'Tableau', 'Power BI', 'SAP', 'Workday'],
       faqs: [

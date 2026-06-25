@@ -16,6 +16,7 @@ import { NotFoundComponent } from '@app/pages/not-found/not-found.component';
 
 // Section components
 import { HeroSectionComponent } from '@components/hero-section/hero-section.component';
+import { StatsCarouselComponent } from '@app/components/stats-carousel/stats-carousel.component';
 import { WhyNearshoreComponent } from '@components/why-nearshore/why-nearshore.component';
 import { ServicesSectionComponent } from '@components/services-section/services-section.component';
 import { HowItWorksStepsComponent } from '@components/how-it-works-steps/how-it-works-steps.component';
@@ -25,6 +26,7 @@ import { WhyHirablyComponent } from '@components/why-hirably/why-hirably.compone
 
 // Standalone components
 import { AllIncludedPlatformComponent } from '@components/all-included-platform/all-included-platform.component';
+import { TrustBarComponent } from '@components/trust-bar/trust-bar.component';
 import { MobileCarouselComponent } from '@components/shared/mobile-carousel/mobile-carousel.component';
 import { ServicesCarouselComponent } from '@components/shared/services-carousel/services-carousel.component';
 
@@ -36,6 +38,7 @@ import { ServicesCarouselComponent } from '@components/shared/services-carousel/
     HomeComponent,
     NotFoundComponent,
     HeroSectionComponent,
+    StatsCarouselComponent,
     WhyNearshoreComponent,
     ServicesSectionComponent,
     HowItWorksStepsComponent,
@@ -49,6 +52,7 @@ import { ServicesCarouselComponent } from '@components/shared/services-carousel/
     ReactiveFormsModule,
     HttpClientModule,
     AllIncludedPlatformComponent,
+    TrustBarComponent,
     MobileCarouselComponent,
     ServicesCarouselComponent
   ],

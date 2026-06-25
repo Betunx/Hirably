@@ -1,6 +1,10 @@
-import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnDestroy, inject } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subject, filter, takeUntil } from 'rxjs';
+import { AnalyticsService } from '@services/analytics.service';
+
+/** Pixels to offset scroll by so sections clear the fixed navbar. */
+const NAV_SCROLL_OFFSET = -80;
 
 interface NavLink {
   label: string;
@@ -47,33 +51,31 @@ interface NavLink {
   `]
 })
 export class NavbarComponent implements OnDestroy {
-  isMenuOpen = false;
+  private readonly router = inject(Router);
+  private readonly analytics = inject(AnalyticsService);
   private readonly destroy$ = new Subject<void>();
 
+  isMenuOpen = false;
+
+  // Order mirrors the section order on the home page.
   navLinks: NavLink[] = [
-    { label: 'HOW IT WORKS', route: '/', fragment: 'how-it-works' },
     { label: 'WHY NEARSHORE?', route: '/', fragment: 'key-benefits' },
+    { label: 'HOW IT WORKS', route: '/', fragment: 'how-it-works' },
     { label: 'BENEFITS', route: '/', fragment: 'why-hirably' },
     { label: 'PRICING', route: '/', fragment: 'pricing' }
   ];
 
-  constructor(private router: Router) {
+  constructor() {
+    // After every navigation, sync the scroll position with the URL fragment.
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd),
       takeUntil(this.destroy$)
     ).subscribe(() => {
-      const tree = this.router.parseUrl(this.router.url);
-      if (tree.fragment) {
-        setTimeout(() => {
-          const element = document.getElementById(tree.fragment!);
-          if (element) {
-            const yOffset = -80;
-            const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
-            window.scrollTo({ top: y, behavior: 'smooth' });
-          }
-        }, 100);
+      const { fragment } = this.router.parseUrl(this.router.url);
+      if (fragment) {
+        this.scrollToFragment(fragment);
       } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        this.scrollToTop();
       }
     });
   }
@@ -81,10 +83,6 @@ export class NavbarComponent implements OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-  }
-
-  trackByLabel(_index: number, link: NavLink): string {
-    return link.label;
   }
 
   toggleMenu(): void {
@@ -96,21 +94,43 @@ export class NavbarComponent implements OnDestroy {
   }
 
   navigateToHome(): void {
-    if (this.router.url === '/' || this.router.url.startsWith('/#')) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    const { root, fragment } = this.router.parseUrl(this.router.url);
+    const onHome = root.children['primary'] == null;
+
+    if (onHome && fragment == null) {
+      // Already home with a clean URL: nothing to navigate, just scroll up.
+      this.scrollToTop();
     } else {
-      this.router.navigate(['/']);
+      // Navigate home clearing any fragment; the NavigationEnd handler scrolls to top.
+      this.router.navigate(['/'], { fragment: undefined });
     }
     this.closeMenu();
   }
 
   navigateToSection(route: string, fragment?: string): void {
-    this.router.navigate([route], { fragment: fragment });
+    this.router.navigate([route], { fragment });
     this.closeMenu();
   }
 
   navigateToContact(type: string): void {
+    this.analytics.ctaClick('Start Hiring', type);
     this.router.navigate(['/contact', type]);
     this.closeMenu();
+  }
+
+  private scrollToTop(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  private scrollToFragment(fragment: string): void {
+    // Wait a tick so the target section is rendered before measuring it.
+    setTimeout(() => {
+      const element = document.getElementById(fragment);
+      if (!element) {
+        return;
+      }
+      const y = element.getBoundingClientRect().top + window.pageYOffset + NAV_SCROLL_OFFSET;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }, 100);
   }
 }

@@ -19,6 +19,8 @@ export interface FormFieldDef {
   rows?: number;
   colSpan?: 1 | 2;
   sectionLabel?: string;
+  /** Require a corporate email (rejects gmail/hotmail/etc.). Only for type 'email'. */
+  workEmail?: boolean;
 }
 
 export interface FormBullet {
@@ -65,22 +67,6 @@ export interface ContactFormConfig {
 }
 
 // ── Select option lists ───────────────────────────────────────────────────────
-
-const HIRING_INTERESTS: SelectOption[] = [
-  { value: 'full-service',  label: 'Hirably Complete (Staffing + EOR)' },
-  { value: 'eor',           label: 'Hirably EOR (Bring My Own Talent)' },
-  { value: 'recruitment',   label: 'Hirably Recruitment (Headhunting)' },
-  { value: 'not-sure',      label: 'Not sure yet — help me decide' },
-];
-
-const CALL_TOPICS: SelectOption[] = [
-  { value: 'general',    label: 'General overview / How it works' },
-  { value: 'pricing',    label: 'Pricing & plan comparison' },
-  { value: 'compliance', label: 'Compliance & legal questions' },
-  { value: 'scaling',    label: 'Scaling an existing team in Mexico' },
-  { value: 'migration',  label: 'Migrating contractors to full-time' },
-  { value: 'other',      label: 'Other' },
-];
 
 const HEADCOUNTS: SelectOption[] = [
   { value: '1',    label: '1' },
@@ -179,13 +165,6 @@ const ENTITY_STATUS: SelectOption[] = [
   { value: 'no',          label: 'No — I might need EOR too' },
 ];
 
-const EMPLOYEE_COUNTS: SelectOption[] = [
-  { value: '1-10',   label: '1–10 employees' },
-  { value: '11-50',  label: '11–50 employees' },
-  { value: '51-200', label: '51–200 employees' },
-  { value: '200+',   label: '200+ employees' },
-];
-
 // ── Field definitions ─────────────────────────────────────────────────────────
 
 const GET_QUOTE_FIELDS: FormFieldDef[] = [
@@ -231,14 +210,9 @@ const START_HIRING_FIELDS: FormFieldDef[] = [
 ];
 
 const BOOK_A_CALL_FIELDS: FormFieldDef[] = [
-  { key: 'fullName',       label: 'Full Name',                   type: 'text',     placeholder: 'Jane Smith',                                                              required: true,  colSpan: 1 },
-  { key: 'company',        label: 'Company Name',                type: 'text',     placeholder: 'Acme Corp',                                                               required: false, colSpan: 1 },
-  { key: 'email',          label: 'Email Address',               type: 'email',    placeholder: 'jane@acme.com',                                                           required: true,  colSpan: 1 },
-  { key: 'phone',          label: 'Phone Number',                type: 'tel',      placeholder: '+1 (555) 000-0000',                                                       required: true,  colSpan: 1 },
-  { key: 'companySize',    label: 'Company Size',                type: 'select',   options: EMPLOYEE_COUNTS,                                                               required: false, colSpan: 1, sectionLabel: 'Help Us Prepare' },
-  { key: 'hiringInterest', label: 'What Are You Interested In?', type: 'select',   options: HIRING_INTERESTS,                                                              required: false, colSpan: 1 },
-  { key: 'topic',          label: 'Topic of Discussion',         type: 'select',   options: CALL_TOPICS,                                                                   required: false, colSpan: 2 },
-  { key: 'notes',          label: 'Additional Notes',            type: 'textarea', placeholder: "Anything specific you'd like to discuss? Let us know so we can prepare…", required: false, colSpan: 2, rows: 3 },
+  { key: 'firstName', label: 'First Name', type: 'text',  placeholder: 'Jane',          required: true, colSpan: 1 },
+  { key: 'lastName',  label: 'Last Name',  type: 'text',  placeholder: 'Smith',         required: true, colSpan: 1 },
+  { key: 'email',     label: 'Work Email', type: 'email', placeholder: 'jane@acme.com', required: true, colSpan: 2, workEmail: true },
 ];
 
 // ── Static config map ─────────────────────────────────────────────────────────
@@ -266,8 +240,6 @@ export const FORM_CONFIGS: Record<ContactFormType, ContactFormConfig> = {
         { text: 'Receive a tailored recommendation for your team' },
         { text: 'No sales pressure — just a real conversation' },
       ],
-      imageSrc: 'assets/img/handshake.jpg',
-      imageAlt: 'Schedule a consultation',
     },
     callDetails: {
       duration: '30 minutes',
@@ -276,8 +248,8 @@ export const FORM_CONFIGS: Record<ContactFormType, ContactFormConfig> = {
     },
     right: {
       formTitle: 'Schedule Your Call',
-      formSubtitle: 'Fill in your details and pick a time that works for you.',
-      submitLabel: 'Book My Call',
+      formSubtitle: 'Just your name and work email — then pick a time.',
+      submitLabel: 'Choose Date & Time',
       fields: BOOK_A_CALL_FIELDS,
       footerNote: 'Free 30-minute call. No commitment.',
     },

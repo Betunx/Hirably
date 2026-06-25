@@ -32,12 +32,12 @@ export class WhyHirablyComponent {
     },
     {
       title: 'Month-to-Month',
-      description: 'Flexibility No long-term lock-ins. Our service is strictly month-to-month, giving you the freedom to scale your team up or down instantly.',
+      description: 'Flexibility. No long-term lock-ins. Our service is strictly month-to-month, giving you the freedom to scale your team up or down instantly.',
       borderColor: '#FFF1CF'
     },
     {
       title: 'Candidates in <5 Days',
-      description: 'Days We move at the speed of your roadmap. Receive a shortlist of qualified, pre-vetted candidates in less than a business week.',
+      description: 'We move at the speed of your roadmap. Receive a shortlist of qualified, pre-vetted candidates in less than a business week.',
       borderColor: '#E3E1FF'
     },
     {
@@ -46,8 +46,4 @@ export class WhyHirablyComponent {
       borderColor: '#D1FAE5'
     }
   ];
-
-  trackByTitle(_index: number, item: AdvantageCard): string {
-    return item.title;
-  }
 }

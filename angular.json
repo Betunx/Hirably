@@ -25,6 +25,12 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+            "allowedCommonJsDependencies": [
+              "@vercel/oidc",
+              "async-retry",
+              "is-buffer",
+              "throttleit"
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets",

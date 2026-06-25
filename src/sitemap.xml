@@ -10,4 +10,7 @@
   <url><loc>https://hirablystaffing.com/contact/start-hiring</loc><priority>0.7</priority></url>
   <url><loc>https://hirablystaffing.com/contact/eor-services</loc><priority>0.7</priority></url>
   <url><loc>https://hirablystaffing.com/contact/get-a-quote</loc><priority>0.7</priority></url>
+  <url><loc>https://hirablystaffing.com/careers</loc><priority>0.6</priority></url>
+  <!-- Legal pages (privacy-policy, terms-of-service) intentionally omitted until
+       legal counsel approves publishing them; they are preprod-only for now. -->
 </urlset>

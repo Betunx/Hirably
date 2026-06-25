@@ -7,14 +7,15 @@ import {
   ViewChild,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  NgZone
+  NgZone,
+  inject
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-mobile-carousel',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './mobile-carousel.component.html',
   styleUrls: ['./mobile-carousel.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -44,7 +45,8 @@ export class MobileCarouselComponent implements AfterViewInit, OnDestroy {
   private swipeThreshold = 50;
   private resizeObserver: ResizeObserver | null = null;
 
-  constructor(private cdr: ChangeDetectorRef, private zone: NgZone) {}
+  private readonly cdr = inject(ChangeDetectorRef);
+  private readonly zone = inject(NgZone);
 
   ngAfterViewInit(): void {
     // Delay one frame so projected content is fully rendered and measurable

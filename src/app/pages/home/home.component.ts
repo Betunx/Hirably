@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, OnDestroy, inject } from '@angular/core';
 import { Router, NavigationStart } from '@angular/router';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs';
@@ -11,9 +11,8 @@ const SCROLL_KEY = 'hirably_home_scroll';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent implements OnInit, OnDestroy {
+  private readonly router = inject(Router);
   private destroy$ = new Subject<void>();
-
-  constructor(private router: Router) {}
 
   ngOnInit(): void {
     // Restore scroll instantly (no two-step animation)
