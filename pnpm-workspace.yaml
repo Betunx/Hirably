@@ -1,5 +1,8 @@
-allowBuilds:
-  esbuild: true
-  # sharp is a transitive dependency of @angular-devkit/build-angular (build-time
-  # image optimization); allow its native build so installs don't error.
-  sharp: true
+# Native dependencies whose build (postinstall) scripts pnpm is allowed to run.
+# pnpm v10+ blocks build scripts by default; these are required at build time.
+# - esbuild / sharp: pulled in by @angular-devkit/build-angular
+# - nice-napi: native addon used during the Angular production build
+onlyBuiltDependencies:
+  - esbuild
+  - sharp
+  - nice-napi
