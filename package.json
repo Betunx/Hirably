@@ -1,6 +1,7 @@
 {
   "name": "hirably",
   "version": "1.0.0",
+  "packageManager": "pnpm@11.3.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --host 0.0.0.0 --port 4200",
