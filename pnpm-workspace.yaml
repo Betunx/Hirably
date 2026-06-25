@@ -1,8 +1,8 @@
-# Native dependencies whose build (postinstall) scripts pnpm is allowed to run.
-# pnpm v10+ blocks build scripts by default; these are required at build time.
-# - esbuild / sharp: pulled in by @angular-devkit/build-angular
-# - nice-napi: native addon used during the Angular production build
-onlyBuiltDependencies:
-  - esbuild
-  - sharp
-  - nice-napi
+# pnpm v11 gate for dependency build (postinstall) scripts.
+# v11 replaced onlyBuiltDependencies/neverBuiltDependencies with `allowBuilds`
+# (a map of package -> true|false). See https://pnpm.io/settings
+# true = run its build script. All three are native deps needed by the Angular build.
+allowBuilds:
+  esbuild: true
+  sharp: true
+  nice-napi: true
