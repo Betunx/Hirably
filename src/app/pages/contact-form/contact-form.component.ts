@@ -79,6 +79,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
         this.calendarRevealed     = false;
         this.titleService.setTitle(`${this.config.right.formTitle} — Hirably`);
         this.buildForm();
+        this.applyPrefill();
         this.submitted   = false;
         this.submitting  = false;
         this.submitError = false;
@@ -116,6 +117,31 @@ export class ContactFormComponent implements OnInit, OnDestroy {
     ).subscribe(v => {
       this.initCalEmbed(this.displayName(v), v.email ?? '', v.notes ?? '');
     });
+  }
+
+  /**
+   * Prefill from query params (e.g. the hero inline form passes
+   * ?firstName=&lastName=&email=). Generic across form types. For book-a-call,
+   * if the prefilled data is valid we auto-reveal the calendar so the user lands
+   * straight on scheduling.
+   */
+  private applyPrefill(): void {
+    const qp = this.route.snapshot.queryParamMap;
+    const patch: Record<string, string> = {};
+    for (const field of this.config.right.fields) {
+      const value = qp.get(field.key);
+      if (value) patch[field.key] = value;
+    }
+    if (Object.keys(patch).length === 0) return;
+
+    this.form.patchValue(patch);
+
+    if (this.isBookACall && this.form.valid) {
+      this.calendarRevealed = true;
+      const v = this.form.value;
+      // Mount after a tick so #cal-booking-placeholder exists; no aggressive scroll on load.
+      setTimeout(() => this.initCalEmbed(this.displayName(v), v.email ?? '', ''), 50);
+    }
   }
 
   /** Full name for Cal.com prefill / Formspree, handling both field layouts. */
