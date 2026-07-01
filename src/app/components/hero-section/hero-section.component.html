@@ -1,10 +1,6 @@
-<!-- HERO SECTION - -->
-<section id="home" data-section="hero" class="relative">
-
-  <!-- Background Gradient -->
-  <div class="absolute inset-0"
-    style="background: linear-gradient(180deg, #2291ea 0%, #2291ea 35%, #4691ea 55%, #c7e9f9 80%, #fffbf4 100%);">
-  </div>
+<!-- HERO SECTION -->
+<section id="home" data-section="hero" class="relative overflow-hidden"
+  style="background: linear-gradient(180deg, #2291ea 0%, #4ba6ee 38%, #bbe2fd 74%, #FFFBF4 100%);">
 
   <!--  Decorative Shapes (scaled down on mobile) -->
   <div class="absolute inset-0 pointer-events-none">
@@ -36,81 +32,109 @@
 
   </div>
 
-  <!-- Fade to floral-white at bottom (smooth section transition on mobile/mid) -->
-  <div class="absolute bottom-0 left-0 right-0 h-[80px] md:h-[120px] lg:hidden pointer-events-none"
-    style="background: linear-gradient(to bottom, transparent, #fffbf4);"></div>
+  <div class="relative z-[5] px-6 md:px-12 pt-[110px] md:pt-[130px] lg:pt-[140px] pb-[80px] lg:pb-[120px]">
 
-  <div
-    class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-[100px] md:pt-[140px] lg:pt-[168px] pb-[12px] md:pb-[14px] lg:pb-[16px]">
+    <!-- Hero Content: aligned to the navbar container (max-w-7xl + outer padding) so
+         the left headline starts at the same X as the logo and the form reaches the right edge -->
+    <div
+      class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_320px] lg:grid-cols-[minmax(0,1fr)_460px] gap-10 md:gap-6 lg:gap-12 items-center">
 
-    <!-- Hero Content: 2-column layout (text left, form right) -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+      <!-- LEFT: headline -->
+      <div>
 
-      <!-- LEFT: Headline -->
-      <h1
-        class="font-display font-bold text-[32px] md:text-[48px] lg:text-[56px] leading-[120%] text-center lg:text-left order-1">
-        <span class="text-white">You Pay Less,</span>
-        <span class="text-navy-dark">your People Earn More. Grow your team with Hirably.</span>
-      </h1>
+        <!-- Headline (staggered / staircase lines) -->
+        <h1
+          class="font-display font-bold text-[40px] lg:text-[76px] leading-[1.05] tracking-[-1.8px] mb-6 text-center md:text-left">
+          <span class="block text-white">You Pay Less,</span>
+          <span class="block text-primary-blue  mt-2 lg:mt-3">your People</span>
+          <span class="block text-navy-dark  mt-2 lg:mt-3">Earn More.</span>
+        </h1>
+
+        <!-- Subtitle -->
+        <p
+          class="font-display font-semibold text-[20px] lg:text-[28px] leading-[1.25] tracking-[-0.4px] text-navy-dark max-w-[520px] mx-auto md:mx-0 mb-9 text-center md:text-left">
+          Grow your team with <span class="text-primary-blue"><span class="text-navy-dark">Hira</span>bly.</span>
+        </p>
+
+        <!-- Social proof -->
+        <div class="flex items-center justify-center md:justify-start gap-7 flex-wrap">
+          <div class="flex items-center gap-3">
+            <div class="flex">
+              <div class="w-10 h-10 rounded-full border-[2.5px] border-floral-white bg-bright-amber"></div>
+              <div class="w-10 h-10 rounded-full border-[2.5px] border-floral-white bg-green-teal -ml-3"></div>
+              <div class="w-10 h-10 rounded-full border-[2.5px] border-floral-white bg-purple-accent -ml-3"></div>
+              <div class="w-10 h-10 rounded-full border-[2.5px] border-floral-white bg-primary-blue -ml-3"></div>
+            </div>
+            <div class="leading-tight">
+              <div class="font-body font-bold text-[15px] text-dark-purple">500+ teams hired</div>
+              <div class="font-body font-medium text-[13px] text-dark-purple/70">across Latam</div>
+            </div>
+          </div>
+
+          <div class="w-px h-10 bg-dark-purple/15"></div>
+
+          <div class="leading-tight">
+            <div class="font-body font-bold text-[15px] text-dark-purple">Save up to 60%</div>
+            <div class="font-body font-medium text-[13px] text-dark-purple/70">vs. local hires</div>
+          </div>
+        </div>
+
+      </div>
 
       <!-- RIGHT: Book-a-call form card -->
-      <div class="order-2 w-full max-w-[440px] mx-auto lg:mx-0 lg:ml-auto">
-        <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate
-          class="bg-white rounded-2xl shadow-lg p-6 md:p-8 flex flex-col gap-4">
+      <div
+        class="w-full max-w-[460px] mx-auto md:max-w-none md:mx-0 bg-white rounded-[22px] p-6 md:p-5 lg:p-9 shadow-[0_30px_70px_rgba(17,31,120,0.28)] border border-white/60">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate class="flex flex-col">
 
-          <p class="font-display font-semibold text-[18px] md:text-[20px] text-navy-dark leading-tight">
+          <h2
+            class="font-display font-bold text-[24px] text-navy-dark tracking-[-0.4px] mb-6 text-center lg:whitespace-nowrap">
             Let's Talk About Your Hiring Needs
-          </p>
+          </h2>
 
           <!-- First / Last name -->
-          <div class="grid grid-cols-2 gap-3">
-            <div class="flex flex-col gap-1.5">
-              <label for="hero-firstName"
-                class="font-display font-medium text-[13px] leading-none text-carbon-black">First name</label>
+          <div class="grid grid-cols-2 gap-4 mb-[18px]">
+            <div>
+              <label for="hero-firstName" class="block font-body font-bold text-[14px] text-carbon-black mb-2">First
+                name</label>
               <input id="hero-firstName" type="text" formControlName="firstName" placeholder="Jane"
-                class="w-full h-9 px-3 py-1 rounded-md border font-body text-[14px] text-carbon-black bg-white outline-none transition-colors duration-150 placeholder:text-gray-400 focus:ring-2 focus:ring-offset-1"
+                class="w-full px-3.5 py-3 rounded-[11px] border-[1.5px] font-body text-[15px] text-carbon-black bg-white outline-none transition-all duration-150 placeholder:text-gray-400 focus:border-primary-blue focus:ring-[3px] focus:ring-primary-blue/10"
                 [ngClass]="isInvalid('firstName') ? 'border-red-400 bg-red-50' : 'border-gray-neutral'" />
             </div>
-            <div class="flex flex-col gap-1.5">
-              <label for="hero-lastName"
-                class="font-display font-medium text-[13px] leading-none text-carbon-black">Last name</label>
+            <div>
+              <label for="hero-lastName" class="block font-body font-bold text-[14px] text-carbon-black mb-2">Last
+                name</label>
               <input id="hero-lastName" type="text" formControlName="lastName" placeholder="Smith"
-                class="w-full h-9 px-3 py-1 rounded-md border font-body text-[14px] text-carbon-black bg-white outline-none transition-colors duration-150 placeholder:text-gray-400 focus:ring-2 focus:ring-offset-1"
+                class="w-full px-3.5 py-3 rounded-[11px] border-[1.5px] font-body text-[15px] text-carbon-black bg-white outline-none transition-all duration-150 placeholder:text-gray-400 focus:border-primary-blue focus:ring-[3px] focus:ring-primary-blue/10"
                 [ngClass]="isInvalid('lastName') ? 'border-red-400 bg-red-50' : 'border-gray-neutral'" />
             </div>
           </div>
 
           <!-- Work email -->
-          <div class="flex flex-col gap-1.5">
-            <label for="hero-email" class="font-display font-medium text-[13px] leading-none text-carbon-black">Work
+          <div class="mb-[26px]">
+            <label for="hero-email" class="block font-body font-bold text-[14px] text-carbon-black mb-2">Work
               email</label>
             <input id="hero-email" type="email" formControlName="email" placeholder="jane@acme.com"
-              class="w-full h-9 px-3 py-1 rounded-md border font-body text-[14px] text-carbon-black bg-white outline-none transition-colors duration-150 placeholder:text-gray-400 focus:ring-2 focus:ring-offset-1"
+              class="w-full px-3.5 py-3 rounded-[11px] border-[1.5px] font-body text-[15px] text-carbon-black bg-white outline-none transition-all duration-150 placeholder:text-gray-400 focus:border-primary-blue focus:ring-[3px] focus:ring-primary-blue/10"
               [ngClass]="isInvalid('email') ? 'border-red-400 bg-red-50' : 'border-gray-neutral'" />
             @if (isInvalid('email') && form.get('email')?.errors?.['workEmail']) {
-            <span role="alert" class="font-body text-[11px] text-red-400">Please use your work email.</span>
+            <span role="alert" class="block mt-1.5 font-body text-[11px] text-red-400">Please use your work
+              email.</span>
             }
           </div>
 
-          <!-- CTA Button (reused) -->
+          <!-- CTA Button -->
           <button type="submit"
-            class="w-full h-[48px] md:h-[52px] flex justify-center items-center bg-bright-amber text-navy-dark font-display font-medium text-[18px] md:text-[20px] leading-normal rounded-[7px] transition-all duration-300 hover:bg-amber-gold hover:scale-[1.02] shadow-lg">
+            class="w-full bg-bright-amber text-navy-dark font-body font-bold text-[17px] py-4 rounded-xl cursor-pointer transition-all duration-300 hover:bg-amber-gold hover:-translate-y-px shadow-[0_10px_24px_rgba(231,174,0,0.32)] hover:shadow-[0_14px_30px_rgba(231,174,0,0.42)]">
             Book a call
           </button>
 
-          <p class="font-body font-light text-[12px] text-dark-purple/55 text-center leading-relaxed">
+          <p class="text-center font-body font-medium text-[13.5px] text-dark-purple/50 mt-4">
             Free 30-minute call. No commitment.
           </p>
         </form>
       </div>
 
     </div>
-
-    <!-- Discreet tagline below everything -->
-    <!-- <p
-      class="font-body font-light text-[14px] md:text-[16px] leading-relaxed text-white text-center mt-5 md:mt-6 max-w-[640px] mx-auto">
-      Grow your company, knowing your people are taken care of.
-    </p> -->
 
   </div>
 
