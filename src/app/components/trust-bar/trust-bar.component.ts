@@ -7,7 +7,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <section data-section="trust_bar" class="bg-floral-white pt-12 pb-12 lg:pt-[80px] lg:pb-[72px]">
+    <section data-section="trust_bar" class="bg-floral-white pt-8 pb-12 lg:pt-[40px] lg:pb-[72px]">
       <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-[100px]">
     
         <!-- Marquee carousel (same pattern as the hero stats carousel). -->

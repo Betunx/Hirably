@@ -11,7 +11,7 @@ import { Title } from '@angular/platform-browser';
 import { AnalyticsService } from '@services/analytics.service';
 import { ContactFormType, ContactFormConfig, VALID_TYPES, FORM_CONFIGS } from './contact-form.config';
 import { BookingStateService, BookingState } from './booking-state.service';
-import { BookingEmbedComponent, CalBooking } from './booking-embed.component';
+import { BookingEmbedComponent } from './booking-embed.component';
 
 /**
  * Dedicated scheduling step (/contact/:type/agendar). Reached after the form
@@ -58,7 +58,7 @@ export class BookingPageComponent implements OnInit {
     this.titleService.setTitle(`Schedule — ${this.config.right.formTitle} — Hirably`);
   }
 
-  onBookingConfirmed(_booking: CalBooking): void {
+  onBookingConfirmed(): void {
     if (this.booked) return;
     this.booked = true;
     // The booking IS the conversion (the lead was already captured on the form step).
