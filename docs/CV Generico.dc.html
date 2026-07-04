@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: #dcdcda; font-family: 'Archivo', sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  * { box-sizing: border-box; }
+</style>
+</helmet>
+
+<div style="display:flex; justify-content:center; padding:56px;">
+
+  <div style="width:816px; min-height:1056px; background:#fff; padding:30px 52px; box-shadow:0 18px 50px rgba(0,0,0,0.14); display:flex; flex-direction:column;">
+    <!-- Header -->
+    <header style="text-align:center; margin-bottom:11px;">
+      <h1 style="margin:0; font-size:28px; font-weight:800; letter-spacing:0.05em; text-transform:uppercase; color:#17181a; line-height:1;">Nombre Apellido</h1>
+      <p style="margin:7px 0 0; font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:500; letter-spacing:0.26em; text-transform:uppercase; color:#3a3d43;">Desarrollador Full Stack</p>
+      <div style="width:46px; height:2px; background:#17181a; margin:10px auto 10px;"></div>
+      <div style="display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:5px 14px;">
+        <span style="display:inline-flex; align-items:center; gap:5px; font-size:11px; color:#33353a; white-space:nowrap;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#8a8d93" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m2 7 10 6 10-6"></path></svg><span style="display:inline-flex;"><span>tu.correo</span><span>&#64;</span><span>ejemplo</span><span>&#46;</span><span>com</span></span></span>
+        <span style="display:inline-flex; align-items:center; gap:5px; font-size:11px; color:#33353a; white-space:nowrap;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#8a8d93" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>+00 000 000 0000</span>
+        <span style="display:inline-flex; align-items:center; gap:5px; font-size:11px; color:#33353a; white-space:nowrap;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#8a8d93" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>Ciudad, País · Remoto</span>
+        <a href="#" style="display:inline-flex; align-items:center; gap:5px; font-size:11px; color:#33353a; text-decoration:none; white-space:nowrap;"><svg width="11" height="11" viewBox="0 0 16 16" fill="#8a8d93"><path d="M0 1.15C0 .52.53 0 1.18 0h13.64C15.47 0 16 .52 16 1.15v13.7c0 .63-.53 1.15-1.18 1.15H1.18C.53 16 0 15.48 0 14.85V1.15zM4.94 13.4V6.16H2.54v7.24h2.4zM3.74 5.17c.84 0 1.36-.55 1.36-1.25-.02-.7-.52-1.24-1.35-1.24-.82 0-1.36.54-1.36 1.24 0 .7.52 1.25 1.33 1.25h.02zm4.11 8.23V9.36c0-.22.02-.44.08-.59.17-.43.57-.88 1.23-.88.87 0 1.21.66 1.21 1.63v3.88h2.41V9.25c0-2.22-1.18-3.26-2.76-3.26-1.27 0-1.84.7-2.16 1.2h.02V6.16h-2.4c.03.68 0 7.24 0 7.24h2.37z"></path></svg>linkedin.com/in/usuario</a>
+        <a href="#" style="display:inline-flex; align-items:center; gap:5px; font-size:11px; color:#33353a; text-decoration:none; white-space:nowrap;"><svg width="11.5" height="11.5" viewBox="0 0 16 16" fill="#8a8d93"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg>github.com/usuario</a>
+        <a href="#" style="display:inline-flex; align-items:center; gap:5px; font-size:11px; color:#33353a; text-decoration:none; white-space:nowrap;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#8a8d93" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>tusitio.com</a>
+      </div>
+    </header>
+
+    <!-- Summary -->
+    <p style="margin:0 0 7px; font-size:11.5px; line-height:1.4; color:#33353a; text-align:justify; hyphens:none;">Desarrollador Full Stack con X años de experiencia construyendo aplicaciones web en producción de principio a fin. Perfil orientado al aprendizaje continuo y a la entrega de productos con calidad. Sólidos fundamentos en JavaScript/TypeScript en frontend y backend, diseño de APIs, bases de datos relacionales y no relacionales, y buenas prácticas de seguridad y rendimiento. Cómodo trabajando en solitario o en equipo, con responsabilidad de extremo a extremo sobre la arquitectura, el despliegue y el mantenimiento.</p>
+
+    <!-- Skills band -->
+    <section style="border-top:1px solid #e4e5e8; border-bottom:1px solid #e4e5e8; padding:7px 0; margin-bottom:8px;">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px 36px;">
+        <div style="font-size:10.5px; line-height:1.35; color:#4a4d53;"><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: rgb(23, 24, 26);">FRONTEND:&nbsp;</span>React, Next.js, Angular, TypeScript, RxJS, Tailwind, HTML, CSS.</div>
+        <div style="font-size:10.5px; line-height:1.35; color:#4a4d53;"><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: rgb(23, 24, 26);">BACKEND:&nbsp;</span>Node.js, NestJS, Express, Serverless, REST, GraphQL.</div>
+        <div style="font-size:10.5px; line-height:1.35; color:#4a4d53;"><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: rgb(23, 24, 26);">DATOS:&nbsp;</span>PostgreSQL, MongoDB, MySQL, Supabase, Redis.</div>
+        <div style="font-size:10.5px; line-height:1.35; color:#4a4d53;"><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: rgb(23, 24, 26);">CLOUD Y DEVOPS:&nbsp;</span>Vercel, Cloudflare, Docker, GitHub Actions (CI/CD), AWS.</div>
+        <div style="font-size:10.5px; line-height:1.35; color:#4a4d53;"><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: rgb(23, 24, 26);">TESTING:&nbsp;</span>Vitest, Jest, Playwright, Testing Library.</div>
+        <div style="font-size:10.5px; line-height:1.35; color:#4a4d53;"><span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: rgb(23, 24, 26);">HERRAMIENTAS:&nbsp;</span>Git, GitHub, Jira, Figma, Postman, VS Code.</div>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section style="flex:1;">
+      <p style="margin:0 0 9px; font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:#a2a4a9; font-weight:500;">Experiencia</p>
+
+      <div style="margin-bottom:5px;">
+        <div style="display:flex; justify-content:space-between; align-items:baseline; gap:10px;">
+          <span style="font-size:14px; font-weight:700; color:#17181a;">Empresa Uno <span style="font-size:11.5px; font-weight:500; color:#5a5d63;">Desarrollador Full Stack</span></span>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:9.5px; color:#8a8d93; white-space:nowrap;">2024 — Actualidad</span>
+        </div>
+        <p style="margin:0; font-size:11.5px; line-height:1.28; color:#3a3d43; text-align:justify; hyphens:none; margin-top:4px;">Descripción de responsabilidades y logros clave en el rol. Desarrollo de nuevas funcionalidades de principio a fin, diseño de APIs, mejora de rendimiento y colaboración con el equipo de producto. Incluye un resultado medible (por ejemplo, reducción de X% en tiempos de carga o incremento de conversión). <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 9px; color: rgb(122, 125, 131);">Stack: React, Next.js, Node.js, PostgreSQL, Vercel.</span></p>
+      </div>
+
+      <div style="margin-bottom:5px;">
+        <div style="display:flex; justify-content:space-between; align-items:baseline; gap:10px;">
+          <span style="font-size:14px; font-weight:700; color:#17181a;">Freelance <span style="font-size:11.5px; font-weight:500; color:#5a5d63;">&nbsp;Desarrollador Full Stack</span></span>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:9.5px; color:#8a8d93; white-space:nowrap;">2021 — Actualidad</span>
+        </div>
+        <div style="margin-top:5px; display:flex; flex-direction:column; gap:4px;">
+          <p style="margin:0; font-size:11.5px; line-height:1.28; color:#3a3d43; text-align:justify; hyphens:none;"><span style="font-weight: 700; color: rgb(23, 24, 26);">Proyecto A</span>&nbsp;Descripción breve del proyecto y del problema que resuelve. Arquitectura, integraciones principales y decisiones técnicas destacadas. <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 9px; color: rgb(122, 125, 131);">Stack: TypeScript, Next.js, React, Supabase.</span></p>
+          <p style="margin:0; font-size:11.5px; line-height:1.28; color:#3a3d43; text-align:justify; hyphens:none;"><span style="font-weight: 700; color: rgb(23, 24, 26);">Proyecto B</span>&nbsp;Descripción breve del proyecto, construido y desplegado en producción. Enfoque en CI/CD, caché, búsqueda y seguridad de la API pública. <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 9px; color: rgb(122, 125, 131);">Stack: TypeScript, Angular, Node.js, Express, Cloudflare.</span></p>
+          <p style="margin:0; font-size:11.5px; line-height:1.28; color:#3a3d43; text-align:justify; hyphens:none;"><span style="font-weight: 700; color: rgb(23, 24, 26);">Proyecto C</span>&nbsp;Descripción breve del proyecto. Detalle de una funcionalidad interesante y de las pruebas o buenas prácticas aplicadas. <span style="font-family: &quot;JetBrains Mono&quot;, monospace; font-size: 9px; color: rgb(122, 125, 131);">Stack: TypeScript, Next.js, React, Tailwind.</span></p>
+        </div>
+      </div>
+
+      <div style="margin-bottom:5px;">
+        <div style="display:flex; justify-content:space-between; align-items:baseline; gap:10px;">
+          <span style="font-size:14px; font-weight:700; color:#17181a;">Empresa Dos <span style="font-size:11.5px; font-weight:500; color:#5a5d63;">&nbsp;Desarrollador Web</span></span>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:9.5px; color:#8a8d93; white-space:nowrap;">2023 — 2024</span>
+        </div>
+        <p style="margin:0; font-size:11.5px; line-height:1.28; color:#3a3d43; text-align:justify; hyphens:none; margin-top:4px;">Mantenimiento técnico y desarrollo de nuevas funcionalidades del portal principal y herramientas internas. Resolución de bugs críticos, optimización de tiempos de carga y coordinación de releases con el equipo mediante control de versiones. <span style="font-family:'JetBrains Mono',monospace; font-size:9px; color:#7a7d83;">Stack: JavaScript, PHP, MySQL, Git.</span></p>
+      </div>
+
+      <div>
+        <div style="display:flex; justify-content:space-between; align-items:baseline; gap:10px;">
+          <span style="font-size:14px; font-weight:700; color:#17181a;">Empresa Tres <span style="font-size:11.5px; font-weight:500; color:#5a5d63;">&nbsp;Puesto Anterior</span></span>
+          <span style="font-family:'JetBrains Mono',monospace; font-size:9.5px; color:#8a8d93; white-space:nowrap;">2020 — 2021</span>
+        </div>
+        <p style="margin:5px 0 0; font-size:11.5px; line-height:1.28; color:#3a3d43; text-align:justify; hyphens:none;">Descripción breve de la experiencia previa y de las competencias transferibles relevantes para el perfil de desarrollo (resolución de problemas, mejora continua, trabajo en equipo).</p>
+      </div>
+    </section>
+
+    <!-- Footer: Education / Certs / Languages -->
+    <footer style="border-top:1px solid #e4e5e8; padding-top:7px; margin-top:7px; display:grid; grid-template-columns:1.5fr 1fr; gap:24px;">
+      <div>
+        <p style="margin:0 0 6px; font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.16em; text-transform:uppercase; color:#a2a4a9; font-weight:500;">Educación</p>
+        <div style="font-size:10.5px; line-height:1.35; color:#4a4d53;"><span style="font-weight:700; color:#17181a;">Máster / Grado en Desarrollo (Año)</span> — Universidad, País<br><span style="font-weight:700; color:#17181a;">Ingeniería / Carrera (Año)</span> — Universidad, País</div>
+      </div>
+      <div>
+        <p style="margin:0 0 6px; font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.16em; text-transform:uppercase; color:#a2a4a9; font-weight:500;">Certificaciones · Idiomas</p>
+        <div style="font-size:10.5px; line-height:1.35; color:#4a4d53;">Certificación relevante (Año)<br>Español (Nativo) · Inglés (Nivel)</div>
+      </div>
+    </footer>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>
