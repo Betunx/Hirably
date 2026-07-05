@@ -269,6 +269,41 @@ _Otros_
 Registro cronológico para validar que lo planeado se implementó y dónde quedó.
 Una entrada por bloque de trabajo. Más reciente arriba.
 
+### 2026-07-04 — Careers: CV en Blob privado + URLs prefirmadas ✅
+
+**Contexto / diagnóstico (subida de CV rota en producción):** en
+`hirablystaffing.com` la subida fallaba con CORS + `400 "Cannot get store id
+from token or header"`. Se descartó CSP (el `PUT` sí llegaba al gateway
+`https://vercel.com/api/blob`, host normal del SDK `@vercel/blob` v2). Raíz en
+dos capas: **(1)** `BLOB_READ_WRITE_TOKEN` estaba **vacío/incorrecto en
+Production** → se corrigió en Vercel (env var + redeploy); **(2)** el **store se
+había cambiado a acceso privado**, pero el cliente subía con `access: 'public'`
+→ `"Cannot use public access on a private store"`. Se verificó el backend
+llamando al endpoint real: genera client tokens válidos con el store id correcto
+(`dk19jM6RLlIDZDWz`). Decisión: **mantener el store privado** (PII) y adaptar el
+código — cierra el §5 del TODO-DEV.
+
+**Qué se hizo:**
+- **Subida privada.** [careers.service.ts](src/app/services/careers.service.ts):
+  `upload(..., { access: 'private' })`. Como un blob privado no abre por su URL,
+  `uploadCv` ahora devuelve un enlace estable `…/api/cv?p=<pathname>` (usando
+  `DOCUMENT.defaultView.location.origin`), que es el que viaja en el email de
+  Formspree.
+- **Ruta nueva [api/cv.ts](api/cv.ts).** En cada apertura emite una **URL
+  prefirmada de 5 min** (`issueSignedToken` + `presignUrl` con el RW token
+  server-side) y redirige (302). Rate-limit 60/h por IP reusando
+  [_rate-limit.ts](api/_rate-limit.ts). El `pathname` (con sufijo aleatorio) actúa
+  como capability URL; el blob nunca es público y queda margen para gating
+  admin/logging/revocación.
+- **CSP.** Se añadió `https://*.blob.vercel-storage.com` (host de stores privados)
+  a `connect-src` en [vercel.json](vercel.json).
+
+**Verificación:** `npx tsc -p api/tsconfig.json --noEmit` limpio; `issueSignedToken`
+/`presignUrl`/`res.redirect(302,url)` confirmados en runtime/tipos.
+**Cómo validar:** deploy → subir un CV en `/careers` → el email trae
+`…/api/cv?p=…`; al abrirlo redirige al PDF (URL prefirmada 5 min) y el store
+permanece privado.
+
 ### 2026-07-04 — UI responsive: breakpoints por-componente (hero + how-it-works) ✅
 
 **Qué se hizo:**

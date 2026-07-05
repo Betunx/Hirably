@@ -42,3 +42,4 @@ figma_*.json
 
 # Private dev notes (never commit) — local-only TODO/triage
 docs/TODO-DEV.md
+.env*
