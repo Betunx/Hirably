@@ -9,7 +9,7 @@ import { DataService } from '@services/data.service';
 export class HowItWorksStepsComponent {
   readonly steps = inject(DataService).getHowItWorksSteps();
   // Staircase goes UP: 01 lowest (left), 03 highest (right) — equal 105px gaps
-  readonly stepOffsets = ['lg:mt-[210px]', 'lg:mt-[105px]', 'lg:mt-0'];
+  readonly stepOffsets = ['min-[1300px]:mt-[210px]', 'min-[1300px]:mt-[105px]', 'min-[1300px]:mt-0'];
   // Mobile: all cards centered in column (no staircase)
   readonly mobileStepAlignments = ['', '', ''];
   readonly numberColors = ['text-[#C2E7FF]', 'text-[#D1F9E5]', 'text-[#E3E1FF]'];
