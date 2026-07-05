@@ -15,6 +15,10 @@ const routes: Routes = [
     loadComponent: () => import('@app/pages/contact-form/contact-form.component').then(m => m.ContactFormComponent)
   },
   {
+    path: 'contact/:type/agendar',
+    loadComponent: () => import('@app/pages/contact-form/booking-page.component').then(m => m.BookingPageComponent)
+  },
+  {
     path: 'roles/:departmentId',
     loadComponent: () => import('@app/pages/department/department-page.component').then(m => m.DepartmentPageComponent)
   },

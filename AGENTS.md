@@ -269,6 +269,29 @@ _Otros_
 Registro cronológico para validar que lo planeado se implementó y dónde quedó.
 Una entrada por bloque de trabajo. Más reciente arriba.
 
+### 2026-07-04 — UI responsive: breakpoints por-componente (hero + how-it-works) ✅
+
+**Qué se hizo:**
+- **Hero — corte a 1178px:** el layout de 2 columnas (headline + form) dejó de activarse
+  en `md`/`lg` y ahora lo hace en **1178px** vía variante arbitraria `min-[1178px]:` (sin
+  tocar `tailwind.config.js`, para no alterar otros componentes). Debajo de 1178 se usa el
+  diseño "chico" (una columna, centrado): el **formulario recupera su ancho cómodo**
+  (`max-w-[460px]`, `p-6`) en vez de la vista media flaca/alargada, y el **social proof** se
+  fuerza a un solo renglón en la vista grande (`min-[1178px]:flex-nowrap`) con gap reducido
+  en la chica. Además se subió el **top-padding** del contenedor
+  (`pt-[140px] md:pt-[164px] lg:pt-[178px]`) para despegar el form card del navbar.
+  [hero-section.component.html](src/app/components/hero-section/hero-section.component.html).
+- **How It Works — corte a 1300px:** la escalera horizontal se apretaba entre 1024–1300. El
+  interruptor stack↔escalera pasó de `lg` (1024) a **1300px** (`min-[1300px]:`) en el HTML y
+  en los `stepOffsets` del
+  [how-it-works-steps.component.ts](src/app/components/how-it-works-steps/how-it-works-steps.component.ts).
+  Debajo de 1300 se mantiene la pila vertical legible; la escalera diagonal solo aparece
+  cuando cabe. Header/tipografía sin cambios (fuera del alcance).
+
+**Cómo validar:** `pnpm start` → redimensionar alrededor de 1178px (hero pasa a 1 columna,
+social proof en un renglón, form ancho) y 1300px (how-it-works pasa de pila vertical a
+escalera). Ningún otro componente cambia (variantes arbitrarias, config global intacta).
+
 ### 2026-06-19 — UI: navbar equitativo + carrusel del trust bar ✅
 
 **Qué se hizo:**

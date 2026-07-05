@@ -1,0 +1,74 @@
+<!-- BOOKING PAGE — dedicated scheduling step (/contact/:type/agendar) -->
+@if (config) {
+  <div class="min-h-screen bg-floral-white pt-[72px]">
+    <!-- ── BACK TO HOME ────────────────────────────────────────────────────── -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
+      <button type="button" (click)="goHome()"
+        class="inline-flex items-center gap-1.5 bg-transparent border-none p-0 font-body text-[13px] text-dark-purple opacity-50 hover:opacity-100 transition-opacity duration-200 cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-3.5">
+          <path d="m12 19-7-7 7-7"></path>
+          <path d="M19 12H5"></path>
+        </svg>
+        Back to Home
+      </button>
+    </div>
+
+    <!-- ── SUCCESS STATE ──────────────────────────────────────────────────── -->
+    @if (booked) {
+      <div class="min-h-[calc(100vh-120px)] flex items-center justify-center px-5 py-12">
+        <div class="w-full max-w-sm text-center">
+          <h2 class="font-display font-semibold text-[26px] sm:text-[32px] text-navy-dark mb-4">You're all set!</h2>
+          <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+            [style.background]="config.theme.bulletBg + '22'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none"
+              [attr.stroke]="config.theme.accentHex" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+          </div>
+          <p class="font-body text-[15px] sm:text-[17px] text-dark-purple/80 mb-5 leading-relaxed">
+            Your call is booked — check your inbox for the confirmation. We'll see you soon.
+          </p>
+          <div class="flex flex-col items-center gap-3 w-full">
+            <button (click)="goHome()"
+              class="w-full px-8 py-3 rounded-[7px] font-display font-medium text-[15px] transition-all duration-200 cursor-pointer shadow-sm hover:opacity-90"
+              [style.background]="config.theme.submitBg" [style.color]="config.theme.submitText">
+              Back to Home
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- ── SCHEDULING STATE ───────────────────────────────────────────────── -->
+    @if (!booked) {
+      <div class="max-w-3xl mx-auto px-5 sm:px-8 pt-0 pb-16">
+        <div class="text-center mb-7">
+          <span
+            class="inline-flex px-4 py-1.5 rounded-full font-display font-semibold text-[12px] uppercase tracking-widest"
+            [ngClass]="[config.badgeBgClass, config.badgeTextClass]">
+            {{ config.left.badgeText }}
+          </span>
+          <h1 class="font-display font-semibold text-[28px] leading-[1.15] text-navy-dark lg:text-[34px] mt-4">
+            Pick a time that works for you
+          </h1>
+          <p class="font-body text-[14px] text-dark-purple/60 mt-2">
+            You'll get an instant confirmation email. Free — no commitment.
+          </p>
+        </div>
+        <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
+          <div class="h-[5px] w-full" [style.background]="config.theme.accentHex"></div>
+          <div class="p-4 sm:p-6">
+            <div class="rounded-xl overflow-hidden border border-gray-100">
+              <app-booking-embed
+                [name]="state.name"
+                [email]="state.email"
+                [notes]="state.notes"
+                (bookingConfirmed)="onBookingConfirmed()" />
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+}

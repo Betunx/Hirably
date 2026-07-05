@@ -13,38 +13,8 @@
         Back to Home
       </button>
     </div>
-    <!-- ── SUCCESS STATE ──────────────────────────────────────────────────── -->
-    @if (submitted) {
-      <div class="min-h-[calc(100vh-120px)] flex items-center justify-center px-5 py-12">
-        <div class="w-full max-w-sm text-center">
-          <h2 class="font-display font-semibold text-[26px] sm:text-[32px] text-navy-dark mb-4">You're all set!</h2>
-          <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
-            [style.background]="config.theme.bulletBg + '22'">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none"
-              [attr.stroke]="config.theme.accentHex" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12" />
-            </svg>
-          </div>
-          <p class="font-body text-[15px] sm:text-[17px] text-dark-purple/80 mb-5 leading-relaxed">
-            We received your info and will be in touch within 24 hours.
-          </p>
-          <div class="flex flex-col items-center gap-3 w-full">
-            <button (click)="goHome()"
-              class="w-full px-8 py-3 rounded-[7px] font-display font-medium text-[15px] transition-all duration-200 cursor-pointer shadow-sm hover:opacity-90"
-              [style.background]="config.theme.submitBg" [style.color]="config.theme.submitText">
-              Back to Home
-            </button>
-            <button (click)="onSubmitAnother()"
-              class="w-full px-8 py-3 rounded-[7px] border border-navy-dark/30 font-display font-medium text-[15px] text-navy-dark hover:border-navy-dark transition-all duration-200 cursor-pointer">
-              Submit Another
-            </button>
-          </div>
-        </div>
-      </div>
-    }
-    <!-- ── MAIN FORM VIEW ─────────────────────────────────────────────────── -->
-    @if (!submitted) {
-      <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-8 pt-0 pb-16">
+    <!-- ── FORM VIEW ──────────────────────────────────────────────────────── -->
+    <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-8 pt-0 pb-16">
         <div class="max-w-xl mx-auto lg:max-w-none grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-6 lg:gap-16 items-start">
           <!-- ── LEFT PANEL ────────────────────────────────────────────────── -->
           <div class="flex flex-col gap-6 pt-0 pl-2 lg:pl-4 lg:sticky lg:top-[100px]">
@@ -199,14 +169,6 @@
                             </div>
                           </div>
                         }
-                        <!-- Error banner -->
-                        @if (submitError) {
-                          <div
-                            class="mb-5 px-4 py-3 rounded-lg bg-red-50 border border-red-200 font-body text-[13px] text-red-600">
-                            Something went wrong. Please try again or email us at
-                            <a href="mailto:chrystian.moreno&#64;hirablystaffing.com" (click)="onContactEmail()" class="underline">chrystian.moreno&#64;hirablystaffing.com</a>.
-                          </div>
-                        }
                         <!-- Reactive form — 2-column responsive grid -->
                         <form [formGroup]="form" novalidate (focusin)="onFormStart()"
                           class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-4">
@@ -287,67 +249,23 @@
                               }
                             </div>
                           }
-                          <!-- ── Cal.com booking ─────────────────────────────── -->
-                          @if (isBookACall) {
-                            <!-- Compact gate: button reveals the calendar once name + work email validate -->
-                            @if (!calendarRevealed) {
-                              <div class="sm:col-span-2 mt-2">
-                                <button type="button" (click)="onChooseDateTime()"
-                                  class="w-full px-8 py-3 rounded-[7px] font-display font-medium text-[15px] transition-all duration-200 cursor-pointer shadow-sm hover:opacity-90"
-                                  [style.background]="config.theme.submitBg" [style.color]="config.theme.submitText">
-                                  {{ config.right.submitLabel }}
-                                </button>
-                                @if (config.right.footerNote) {
-                                  <p class="font-body text-[12px] text-dark-purple/55 mt-3 text-center leading-relaxed">
-                                    {{ config.right.footerNote }}
-                                  </p>
-                                }
-                              </div>
-                            }
-                            @if (calendarRevealed) {
-                              <div class="sm:col-span-2 mt-2">
-                                <div class="border-t border-gray-100 mb-4"></div>
-                                <p class="font-body font-semibold text-[11px] uppercase tracking-[0.08em] mb-1"
-                                [style.color]="config.theme.accentHex">Pick a Time</p>
-                                <p class="font-body text-[12px] text-dark-purple/55 mb-4 leading-relaxed">
-                                  Choose a slot below — you'll get an instant confirmation email.
-                                </p>
-                                <div class="rounded-xl overflow-hidden border border-gray-100">
-                                  <div id="cal-booking-placeholder" style="min-height:480px;width:100%;"></div>
-                                </div>
-                              </div>
-                            }
-                          } @else {
-                            <!-- Other types: calendar inline, always visible -->
-                            <div class="sm:col-span-2 mt-2">
-                              <div class="border-t border-gray-100 mb-4"></div>
-                              <p class="font-body font-semibold text-[11px] uppercase tracking-[0.08em] mb-1"
-                              [style.color]="config.theme.accentHex">Pick a Time (Optional)</p>
-                              <p class="font-body text-[12px] text-dark-purple/55 mb-4 leading-relaxed">
-                                Select a slot now or we'll reach out within 24 hours to confirm a time.
+                          <!-- ── Continue to scheduling ──────────────────────── -->
+                          <div class="sm:col-span-2 mt-2">
+                            <button type="button" (click)="onContinue()"
+                              class="w-full px-8 py-3 rounded-[7px] font-display font-medium text-[15px] transition-all duration-200 cursor-pointer shadow-sm hover:opacity-90"
+                              [style.background]="config.theme.submitBg" [style.color]="config.theme.submitText">
+                              {{ config.right.submitLabel }}
+                            </button>
+                            @if (config.right.footerNote) {
+                              <p class="font-body text-[12px] text-dark-purple/55 mt-3 text-center leading-relaxed">
+                                {{ config.right.footerNote }}
                               </p>
-                              <div class="rounded-xl overflow-hidden border border-gray-100">
-                                <div id="cal-booking-placeholder" style="min-height:480px;width:100%;"></div>
-                              </div>
-                            </div>
-                          }
-                          <!-- Sending indicator (shown while Formspree call is in flight after Cal.com confirms) -->
-                          @if (submitting) {
-                            <div class="sm:col-span-2 flex items-center justify-center gap-2 py-3 text-dark-purple/60">
-                              <svg class="animate-spin w-4 h-4 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10" stroke-opacity="0.25"/>
-                                <path d="M12 2a10 10 0 0 1 10 10"/>
-                              </svg>
-                              <span class="font-body text-[13px]">Saving your booking…</span>
-                            </div>
-                          }
-                          <div class="sm:col-span-2">
+                            }
                           </div>
                         </form>
                       </div>
                     </div>
                   </div>
                 </div>
-              }
             </div>
           }
