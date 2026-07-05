@@ -1,4 +1,5 @@
 import { Injectable, inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { upload } from '@vercel/blob/client';
@@ -11,6 +12,7 @@ type VacancyInput = Pick<Vacancy, 'title' | 'description' | 'status'> & { locati
 @Injectable({ providedIn: 'root' })
 export class CareersService {
   private readonly http = inject(HttpClient);
+  private readonly doc = inject(DOCUMENT);
 
   /** Published vacancies — public, used by the careers list page. */
   listPublished(): Observable<Vacancy[]> {
@@ -38,13 +40,20 @@ export class CareersService {
     });
   }
 
-  /** Uploads the CV straight to Vercel Blob from the browser; returns its URL. */
+  /**
+   * Uploads the CV to a PRIVATE Vercel Blob store from the browser. A private
+   * blob's own URL is not directly openable, so instead of returning `blob.url`
+   * we return a stable link to our `/api/cv` route, which mints a short-lived
+   * presigned URL on each open. That link is what travels in the application
+   * email, so the recruiter can open the CV while the blob stays private.
+   */
   async uploadCv(file: File): Promise<string> {
     const blob = await upload(file.name, file, {
-      access: 'public',
+      access: 'private',
       handleUploadUrl: '/api/applications-upload',
     });
-    return blob.url;
+    const origin = this.doc.defaultView?.location.origin ?? '';
+    return `${origin}/api/cv?p=${encodeURIComponent(blob.pathname)}`;
   }
 
   /**
