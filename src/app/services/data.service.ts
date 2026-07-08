@@ -98,7 +98,7 @@ export class DataService {
       badge: 'Employer of Record',
       name: 'Hirably EOR',
       subtitle: 'Bring Your Own Talent',
-      price: '$799',
+      price: '$499',
       pricePrefix: 'Starting at',
       priceUnit: '/mo per employee',
       tagline: 'You found the talent — we make it legal.',
