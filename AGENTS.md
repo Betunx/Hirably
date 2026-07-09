@@ -207,7 +207,12 @@ _Data Layer / GTM_ ⏭️ **PRÓXIMA SESIÓN**
 - [ ] **Configurar el panel de GTM/GA4** siguiendo [docs/GTM-SETUP.md](docs/GTM-SETUP.md)
       (variables, triggers, tags, conversiones) y **validar en GTM Preview / GA4 DebugView**.
       Lado no-código, lo hace el dueño. El lado código ya quedó (modelo de conversión única).
-      **Empezar aquí la siguiente sesión.**
+- [ ] **Google Ads (conversiones + remarketing) vía GTM** — cuenta `AW-18242436369`.
+      **Lado código: HECHO** (2026-07-08) — dominios de Ads añadidos a la CSP de
+      [vercel.json](vercel.json). **Falta solo panel (dueño):** crear la acción de conversión
+      en Ads + los tags *Conversion Linker* / *Google Ads Conversion* (trigger `generate_lead`)
+      en GTM, y **desplegar antes** de publicar los tags. Paso a paso en
+      [docs/GTM-SETUP.md § Paso 6](docs/GTM-SETUP.md).
 
 _Contenido / contacto_ (los hace el dueño)
 - [ ] **Teléfono real:** reemplazar el placeholder `+1 (623) 123-4569`
@@ -268,6 +273,48 @@ _Otros_
 
 Registro cronológico para validar que lo planeado se implementó y dónde quedó.
 Una entrada por bloque de trabajo. Más reciente arriba.
+
+### 2026-07-08 — Google Ads (conversiones) vía GTM: solo CSP (no-code) ✅
+
+**Contexto:** Google Ads pedía pegar su etiqueta `gtag.js` (`AW-18242436369`) en el `<head>`.
+**No se hizo así:** ya hay una etiqueta de Google (GTM `GTM-57R63H9H`) y Google pide "una sola
+por página". La de Ads entra **por GTM** reutilizando el evento `generate_lead` que el sitio ya
+emite → **sin instrumentación nueva en el código**.
+
+**Qué se hizo (único cambio de código):** en [vercel.json](vercel.json) se añadieron a la CSP
+los dominios de Ads — `script-src`: `www.googleadservices.com`, `googleads.g.doubleclick.net`;
+`connect-src`: `googleads.g.doubleclick.net`, `www.google.com`, `www.googleadservices.com`;
+`frame-src`: `td.doubleclick.net`. Sin esto la conversión se dispara en local pero el navegador
+la **bloquea en producción**. `pnpm run lint`/`build` en verde.
+
+**Docs:** [docs/GTM-SETUP.md § Paso 6](docs/GTM-SETUP.md) adelgazado a solo lo de código; issue
+en `docs/TODO-DEV.md`.
+
+**Auditoría de seguridad de esta sesión:**
+- **Anti-bot:** careers ya tenía honeypot (`_gotcha`=`company`), rate-limit por IP y validación
+  de CV. Se **añadió honeypot `_honeypot`→`_gotcha` a los forms de `/contact/:type`**
+  ([contact-form.component.ts](src/app/pages/contact-form/contact-form.component.ts) + `.html`).
+- **Bug fix — leads de contacto no llegaban a Formspree:** el POST en `onContinue` estaba
+  atado a `takeUntil(destroy$)`; al navegar al calendario el componente se destruía y
+  **abortaba la petición** antes de que Formspree la recibiera (Cal sí funcionaba porque manda
+  su propio email). Se sacó el POST del ciclo de vida → los 4 forms de contacto ahora registran
+  el lead. **Validar:** enviar un form de contacto y ver el submission en Formspree `xzdjkqnd`.
+- **Bug fix (sistémico) — timeout sin rastrear en `EngagementTrackerService`:** el
+  `setTimeout(startSections, 300)` de `startPage()` (corre en **cada** navegación) no se
+  guardaba en `timers`, así que `reset()` no lo cancelaba → en navegación rápida dejaba un
+  `IntersectionObserver` huérfano, y además corría dentro de la zona (CD extra). Se rastrea en
+  `timers` y se movió a `runOutsideAngular`. Auditoría confirmó que el patrón HTTP-then-navigate
+  no se repite en ningún otro flujo.
+- **XSS/inyección:** limpio. Angular auto-escapa interpolación; sin `bypassSecurityTrust`,
+  `[innerHTML]` con datos de usuario, ni `eval` (el único `innerHTML=''` limpia el embed de
+  Cal). Validador de work-email por `Set` (sin ReDoS). Sin secretos en el bundle/logs.
+- **Hardening pendiente (no explotable hoy):** HSTS ausente, `ADMIN_TOKEN` compare no
+  constant-time, CSP con `unsafe-inline/eval`, `/api/cv` sin auth. Todo en TODO-DEV §P1.5.
+
+**Pendiente (panel, dueño):** acción de conversión en Ads + tags en GTM. **Deploy antes de
+publicar los tags.**
+**Cómo validar:** deploy → GTM Preview → una reserva de prueba dispara la conversión; consola
+sin errores de CSP hacia `googleadservices.com`/`doubleclick`.
 
 ### 2026-07-04 — Careers: CV en Blob privado + URLs prefirmadas ✅
 

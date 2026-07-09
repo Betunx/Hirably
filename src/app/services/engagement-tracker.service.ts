@@ -30,7 +30,11 @@ export class EngagementTrackerService implements OnDestroy {
     this.startScroll();
     this.startTimers();
     // Sections are rendered by the routed component; wait a tick for the DOM.
-    setTimeout(() => this.startSections(), 300);
+    // Tracked in `timers` + outside the zone, so a fast navigation cancels it via
+    // reset() (no orphaned observer) and it doesn't trigger change detection.
+    this.zone.runOutsideAngular(() =>
+      this.timers.push(setTimeout(() => this.startSections(), 300)),
+    );
   }
 
   private reset(): void {

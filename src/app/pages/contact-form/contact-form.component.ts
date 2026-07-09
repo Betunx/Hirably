@@ -87,6 +87,9 @@ export class ContactFormComponent implements OnInit, OnDestroy {
       if (field.workEmail) validators.push(workEmailValidator());
       controls[field.key] = this.fb.control('', validators);
     }
+    // Honeypot — not a real field; hidden in the template. Bots tend to autofill
+    // it, and a non-empty value makes Formspree silently drop the submission.
+    controls['_honeypot'] = this.fb.control('');
     this.form = this.fb.group(controls);
   }
 
@@ -134,16 +137,25 @@ export class ContactFormComponent implements OnInit, OnDestroy {
     const name = this.displayName(v);
     const email = v.email ?? '';
 
+    // Split the honeypot out of the real fields and forward it as Formspree's
+    // native `_gotcha`, so spam bots that fill it get dropped server-side.
+    const { _honeypot, ...fields } = v;
+
     const payload = {
-      ...v,
+      ...fields,
+      _gotcha:    _honeypot ?? '',
       _form_type: this.config.type,
       _name:      name,
       _subject:   `Hirably Form: ${this.config.right.formTitle}`,
       _replyto:   email,
     };
 
+    // Fire-and-forget, intentionally OFF the component lifecycle: we navigate to
+    // the Cal page on the next line, which destroys this component. A
+    // takeUntil(destroy$) here would abort the in-flight request before Formspree
+    // received it — that was why contact leads never showed up in Formspree.
+    // HttpClient completes after one response, so this subscription self-cleans.
     this.http.post(FORMSPREE_ENDPOINT, payload)
-      .pipe(takeUntil(this.destroy$))
       .subscribe({ error: err => console.error('Lead capture failed', err) });
 
     this.analytics.generateLead('contact_form', this.config.type);
