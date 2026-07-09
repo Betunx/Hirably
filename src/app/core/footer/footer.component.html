@@ -67,7 +67,7 @@
         }
 
         <!-- Phone - -->
-        <a href="tel:+16231234569" (click)="trackContact('phone')"
+        <a href="tel:+1909566-9759" (click)="trackContact('phone')"
           class="font-display font-normal text-[15px] leading-[120%] text-white hover:text-primary-blue transition-colors">
           +1 (909) 566-9759
         </a>
@@ -78,11 +78,33 @@
           hello&#64;hirablystaffing.com
         </a>
 
-        <!-- LinkedIn - 30×30 -->
-        <a href="https://www.linkedin.com/company/hirably-staffing/about/" target="_blank" rel="noopener noreferrer"
-          (click)="trackOutbound('https://www.linkedin.com/company/hirably-staffing/about/')">
-          <img src="assets/logos/linkedIN.png" alt="LinkedIn" class="w-[30px] h-[30px] object-contain" loading="lazy" />
-        </a>
+        <!-- Social Media horizontal list -->
+        <ul class="flex items-center gap-3 list-none p-0 m-0 mt-1">
+          <!-- LinkedIn - 30×30 -->
+          <li>
+            <a href="https://www.linkedin.com/company/hirably-staffing/about/" target="_blank" rel="noopener noreferrer"
+              (click)="trackOutbound('https://www.linkedin.com/company/hirably-staffing/about/')">
+              <img src="assets/logos/linkedin-white.png" alt="LinkedIn" class="w-[30px] h-[30px] object-contain"
+                loading="lazy" />
+            </a>
+          </li>
+          <!-- Instagram - 30×30 -->
+          <li>
+            <a href="https://www.instagram.com/hirablystaffing/" target="_blank" rel="noopener noreferrer"
+              (click)="trackOutbound('https://www.instagram.com/hirablystaffing/')">
+              <img src="assets/logos/insta-white.png" alt="Instagram" class="w-[30px] h-[30px] object-contain"
+                loading="lazy" />
+            </a>
+          </li>
+          <!-- Facebook - 30×30 -->
+          <li>
+            <a href="https://www.facebook.com/people/Hirably/61590907950455/" target="_blank" rel="noopener noreferrer"
+              (click)="trackOutbound('https://www.facebook.com/people/Hirably/61590907950455/')">
+              <img src="assets/logos/facebook-white.png" alt="Facebook" class="w-[30px] h-[30px] object-contain"
+                loading="lazy" />
+            </a>
+          </li>
+        </ul>
       </div>
 
     </div>

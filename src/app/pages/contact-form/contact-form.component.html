@@ -172,6 +172,9 @@
                         <!-- Reactive form — 2-column responsive grid -->
                         <form [formGroup]="form" novalidate (focusin)="onFormStart()"
                           class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-4">
+                          <!-- Honeypot: hidden from users, bots fill it. Must stay empty. -->
+                          <input type="text" formControlName="_honeypot" tabindex="-1"
+                            autocomplete="off" class="hidden" aria-hidden="true" />
                           @for (field of config.right.fields; track field.key) {
                             <!-- Section divider + label (when sectionLabel is set) -->
                             @if (field.sectionLabel) {

@@ -139,3 +139,29 @@ Marcar como conversión **solo**:
    - `generate_lead` al completar una reserva de prueba en Cal.com.
 3. En **GA4 DebugView**, verifica que los eventos lleguen con sus parámetros.
 4. En consola: `window.dataLayer` debe ir acumulando los `push`.
+
+---
+
+## Paso 6 — Google Ads (`AW-18242436369`): lo mínimo de código
+
+> La etiqueta de Ads **NO se pega en [../src/index.html](../src/index.html)** (ya hay una
+> etiqueta de Google = GTM; Google mismo pide "una sola por página"). Entra **por GTM** y
+> reutiliza el evento `generate_lead` que el sitio ya emite → **no hay que instrumentar nada
+> nuevo en el código**. La creación de tags en el panel de GTM/Ads la hace el dueño (efímero,
+> fuera de este doc). Lo único que toca el **código** es la CSP.
+
+**Único cambio de código:** añadir los dominios de Ads a la `Content-Security-Policy` de
+[../vercel.json](../vercel.json), o el navegador **bloquea la conversión en producción**
+(en local no se nota).
+
+| Directiva CSP | Añadir |
+|---|---|
+| `script-src`  | `https://www.googleadservices.com` · `https://googleads.g.doubleclick.net` |
+| `connect-src` | `https://googleads.g.doubleclick.net` · `https://www.google.com` · `https://www.googleadservices.com` |
+| `frame-src`   | `https://td.doubleclick.net` |
+| `img-src`     | ya es `https:` → sin cambio |
+
+**Enganche con el panel (contexto, no código):** el tag *Google Ads Conversion* en GTM se
+dispara con el trigger `generate_lead` del [Paso 2](#paso-2--triggers-gtm--activadores). El
+`dataLayer` ya emite ese evento (= reserva confirmada), así que el lado código se limita a la
+CSP de arriba.
