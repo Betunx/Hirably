@@ -39,6 +39,9 @@ export class CareersAdminComponent implements OnInit {
 
   vacancies: Vacancy[] = [];
 
+  /** Ids whose description is expanded in the list, so the editor can read it without entering edit. */
+  private readonly expanded = new Set<string>();
+
   /** id of the vacancy being edited; null while creating. */
   editingId: string | null = null;
   form: VacancyForm = emptyForm();
@@ -154,5 +157,20 @@ export class CareersAdminComponent implements OnInit {
       next: () => this.refresh(),
       error: () => this.cdr.markForCheck(),
     });
+  }
+
+  isExpanded(id: string): boolean {
+    return this.expanded.has(id);
+  }
+
+  toggleExpanded(id: string): void {
+    if (this.expanded.has(id)) this.expanded.delete(id);
+    else this.expanded.add(id);
+    this.cdr.markForCheck();
+  }
+
+  /** True when the (collapsed) description overflows its 2-line clamp and is worth expanding. */
+  isClamped(el: HTMLElement): boolean {
+    return el.scrollHeight > el.clientHeight;
   }
 }

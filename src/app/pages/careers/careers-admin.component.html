@@ -107,7 +107,14 @@
                 @if (v.location) {
                   <p class="font-body text-[12px] text-primary-blue mt-0.5">{{ v.location }}</p>
                 }
-                <p class="font-body text-[13px] text-dark-purple/70 mt-1 line-clamp-2">{{ v.description }}</p>
+                <p #desc class="font-body text-[13px] text-dark-purple/70 mt-1 whitespace-pre-line"
+                  [class.line-clamp-2]="!isExpanded(v.id)">{{ v.description }}</p>
+                @if (isExpanded(v.id) || isClamped(desc)) {
+                  <button type="button" (click)="toggleExpanded(v.id)"
+                    class="mt-1 font-display text-[12px] text-primary-blue hover:underline">
+                    {{ isExpanded(v.id) ? 'View less' : 'View more' }}
+                  </button>
+                }
               </div>
               <div class="shrink-0 flex flex-col items-end gap-2">
                 <button type="button" (click)="togglePublish(v)"
