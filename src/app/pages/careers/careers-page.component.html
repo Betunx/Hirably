@@ -57,7 +57,7 @@
                 @if (isExpanded(job.id) || isClamped(desc)) {
                   <button type="button" (click)="toggleExpanded(job.id)"
                     class="mt-2 inline-flex items-center gap-1 font-display font-semibold text-[13px] text-primary-blue hover:text-navy-dark transition-colors">
-                    {{ isExpanded(job.id) ? 'Ver menos' : 'Ver más' }}
+                    {{ isExpanded(job.id) ? 'View less' : 'View more' }}
                     <svg class="w-3.5 h-3.5 transition-transform" [class.rotate-180]="isExpanded(job.id)"
                       fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6" />
