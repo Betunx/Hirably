@@ -20,6 +20,22 @@ export class CareersPageComponent implements OnInit {
   loading = true;
   errored = false;
   searchTerm = '';
+  private readonly expanded = new Set<string>();
+
+  isExpanded(id: string): boolean {
+    return this.expanded.has(id);
+  }
+
+  /** True when the (collapsed) description overflows its 2-line clamp and is worth expanding. */
+  isClamped(el: HTMLElement): boolean {
+    return el.scrollHeight > el.clientHeight;
+  }
+
+  toggleExpanded(id: string): void {
+    if (this.expanded.has(id)) this.expanded.delete(id);
+    else this.expanded.add(id);
+    this.cdr.markForCheck();
+  }
 
   ngOnInit(): void {
     this.careers.listPublished().subscribe({

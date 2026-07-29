@@ -52,7 +52,18 @@
                 @if (job.location) {
                   <p class="font-body text-[13px] text-primary-blue mt-1">{{ job.location }}</p>
                 }
-                <p class="font-body text-[14px] lg:text-[15px] text-dark-purple/80 mt-2 whitespace-pre-line">{{ job.description }}</p>
+                <p #desc class="font-body text-[14px] lg:text-[15px] text-dark-purple/80 mt-2 whitespace-pre-line"
+                  [class.line-clamp-2]="!isExpanded(job.id)">{{ job.description }}</p>
+                @if (isExpanded(job.id) || isClamped(desc)) {
+                  <button type="button" (click)="toggleExpanded(job.id)"
+                    class="mt-2 inline-flex items-center gap-1 font-display font-semibold text-[13px] text-primary-blue hover:text-navy-dark transition-colors">
+                    {{ isExpanded(job.id) ? 'Ver menos' : 'Ver más' }}
+                    <svg class="w-3.5 h-3.5 transition-transform" [class.rotate-180]="isExpanded(job.id)"
+                      fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="m6 9 6 6 6-6" />
+                    </svg>
+                  </button>
+                }
               </div>
               <a [routerLink]="['/careers', job.id, 'apply']"
                 class="shrink-0 self-start inline-block px-6 py-3 rounded-[8px] bg-navy-dark text-white font-display font-semibold text-[14px] hover:bg-primary-blue transition-colors shadow-lg">
