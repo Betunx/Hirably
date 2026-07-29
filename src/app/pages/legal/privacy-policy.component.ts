@@ -108,7 +108,7 @@ import { Meta, Title } from '@angular/platform-browser';
             <h2 class="font-display font-semibold text-[20px] text-navy-dark mb-3">8. Contact Us</h2>
             <p>
               Questions about this policy? Email us at
-              <a href="mailto:hello@hirablystaffing.com" class="text-primary-blue underline hover:opacity-80">hello&#64;hirablystaffing.com</a>.
+              <a href="mailto:info@hirablystaffing.com" class="text-primary-blue underline hover:opacity-80">info&#64;hirablystaffing.com</a>.
             </p>
           </section>
 

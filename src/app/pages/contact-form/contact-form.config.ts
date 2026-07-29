@@ -170,7 +170,7 @@ const ENTITY_STATUS: SelectOption[] = [
 const GET_QUOTE_FIELDS: FormFieldDef[] = [
   { key: 'fullName',       label: 'Full Name',                       type: 'text',     placeholder: 'Jane Smith',                                                                           required: true,  colSpan: 1 },
   { key: 'company',        label: 'Company Name',                    type: 'text',     placeholder: 'Acme Corp',                                                                            required: true,  colSpan: 1 },
-  { key: 'email',          label: 'Work Email',                      type: 'email',    placeholder: 'jane@acme.com',                                                                        required: true,  colSpan: 1 },
+  { key: 'email',          label: 'Work Email',                      type: 'email',    placeholder: 'jane@acme.com',                                                                        required: true,  colSpan: 1, workEmail: true },
   { key: 'phone',          label: 'Phone Number',                    type: 'tel',      placeholder: '+1 (555) 000-0000',                                                                    required: false, colSpan: 1 },
   { key: 'roles',          label: "Role(s) You Need to Fill",        type: 'text',     placeholder: 'e.g. Accountant, Operations Manager, QA Engineer',                                    required: true,  colSpan: 2, sectionLabel: 'Hiring Details' },
   { key: 'headcount',      label: 'How Many Positions?',             type: 'select',   options: HEADCOUNTS,                                                                                 required: true,  colSpan: 1 },
@@ -184,7 +184,7 @@ const GET_QUOTE_FIELDS: FormFieldDef[] = [
 const EOR_FIELDS: FormFieldDef[] = [
   { key: 'fullName',         label: 'Full Name',                   type: 'text',     placeholder: 'Jane Smith',                                                             required: true,  colSpan: 1 },
   { key: 'company',          label: 'Company Name',                type: 'text',     placeholder: 'Acme Corp',                                                              required: true,  colSpan: 1 },
-  { key: 'email',            label: 'Work Email',                  type: 'email',    placeholder: 'jane@acme.com',                                                          required: true,  colSpan: 1 },
+  { key: 'email',            label: 'Work Email',                  type: 'email',    placeholder: 'jane@acme.com',                                                          required: true,  colSpan: 1, workEmail: true },
   { key: 'phone',            label: 'Phone Number',                type: 'tel',      placeholder: '+1 (555) 000-0000',                                                      required: false, colSpan: 1 },
   { key: 'headcount',        label: 'How Many Employees?',         type: 'select',   options: EOR_HEADCOUNTS,                                                               required: true,  colSpan: 1, sectionLabel: 'Employment Details' },
   { key: 'timeline',         label: 'When Do You Need to Start?',  type: 'select',   options: EOR_TIMELINES,                                                                required: true,  colSpan: 1 },
@@ -197,7 +197,7 @@ const EOR_FIELDS: FormFieldDef[] = [
 const START_HIRING_FIELDS: FormFieldDef[] = [
   { key: 'fullName',       label: 'Full Name',                     type: 'text',     placeholder: 'Jane Smith',                                                      required: true,  colSpan: 1 },
   { key: 'company',        label: 'Company Name',                  type: 'text',     placeholder: 'Acme Corp',                                                       required: true,  colSpan: 1 },
-  { key: 'email',          label: 'Work Email',                    type: 'email',    placeholder: 'jane@acme.com',                                                   required: true,  colSpan: 1 },
+  { key: 'email',          label: 'Work Email',                    type: 'email',    placeholder: 'jane@acme.com',                                                   required: true,  colSpan: 1, workEmail: true },
   { key: 'phone',          label: 'Phone Number',                  type: 'tel',      placeholder: '+1 (555) 000-0000',                                               required: false, colSpan: 1 },
   { key: 'roles',          label: "Role(s) You're Hiring For",     type: 'text',     placeholder: 'e.g. Full-Stack Developer, SDR, Customer Support',                required: true,  colSpan: 2, sectionLabel: 'Role Details' },
   { key: 'headcount',      label: 'How Many People?',              type: 'select',   options: HEADCOUNTS,                                                            required: true,  colSpan: 1 },

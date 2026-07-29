@@ -217,7 +217,8 @@ _Data Layer / GTM_ ⏭️ **PRÓXIMA SESIÓN**
 _Contenido / contacto_ (los hace el dueño)
 - [ ] **Teléfono real:** reemplazar el placeholder `+1 (623) 123-4569`
       (`tel:+16231234569`) en [footer.component.html](src/app/core/footer/footer.component.html).
-- [ ] **Correo real:** confirmar/ajustar `hello@hirablystaffing.com` (footer + páginas legales).
+- [x] **Correo real:** `info@hirablystaffing.com` (footer x2 + páginas legales). Las
+      aplicaciones de candidatos siguen llegando a `talent@hirablystaffing.com` vía Formspree.
 
 _UI / UX_
 - [x] **Navbar — distribución equitativa:** resuelto con grid `[1fr_auto_1fr]`
