@@ -5,7 +5,13 @@
     <div class="text-center mb-8 lg:mb-16">
       <h2
         class="font-display font-medium text-[32px] md:text-[44px] lg:text-[54px] leading-[120%] lg:leading-[64px] text-navy-dark mb-4">
-        Why teams love Hirably
+        Why teams <span class="relative inline-block">love<!-- Heart pops in when the section scrolls into view (absolute: no layout shift) --><svg
+            #heart aria-hidden="true" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+            class="absolute -top-[0.32em] -right-[0.42em] w-[0.46em] h-[0.46em] pointer-events-none"
+            style="transform-origin: 50% 90%; transform: rotate(12deg);">
+            <path fill="#2291EA"
+              d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+          </svg></span> Hirably
       </h2>
       <p
         class="font-body font-light text-[16px] lg:text-[20px] leading-[24px] lg:leading-[28px] text-dark-purple max-w-[540px] mx-auto">
@@ -15,10 +21,10 @@
 
     <!-- Benefits Grid - 6 cards (3×2) -->
     <!-- 3 cols only at ≥1400px: below that, 391px cards overflow the container -->
-    <div class="grid grid-cols-2 min-[1400px]:grid-cols-3 gap-3 min-[1400px]:gap-[44px]">
+    <div #cardGrid class="grid grid-cols-2 min-[1400px]:grid-cols-3 gap-3 min-[1400px]:gap-[44px]">
 
       @for (card of cards; track card.title; let i = $index) {
-      <div
+      <div data-love-card
         class="flex flex-col justify-center items-center rounded-xl bg-white w-full h-auto min-[1400px]:h-[277px] p-5 min-[1400px]:px-[33px] min-[1400px]:pt-[32px] min-[1400px]:pb-[34px] gap-3 min-[1400px]:gap-[18px]"
         [style.border]="'3px solid ' + card.borderColor">
         <!-- SVG Logo - centered, unique per card, scaled on mobile -->
