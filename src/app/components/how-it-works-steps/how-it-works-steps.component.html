@@ -14,8 +14,9 @@
       </p>
     </div>
 
-    <!-- 3 Steps with dashed arrows — staircase UP from left to right -->
-    <div class="relative max-w-6xl mx-auto">
+    <!-- 3 Steps with dashed arrows — staircase UP from left to right.
+         #hopStage is the positioning box for the hopping H (absolute, so no layout shift). -->
+    <div #hopStage class="relative max-w-6xl mx-auto">
       <div class="flex flex-col min-[1300px]:flex-row items-center min-[1300px]:items-start justify-center">
 
         @for (step of steps; track step.number; let i = $index; let last = $last) {
@@ -28,9 +29,9 @@
             {{ step.number | number:'2.0-0' }}
           </div>
           <!-- Card: 329×236, NO overflow-hidden (ellipses extend outside) -->
-          <div
-            class="w-full max-w-[329px] h-auto min-[1300px]:h-[236px] bg-white rounded-[12px] border-2 border-primary-blue p-6 relative"
-            style="box-shadow: 2px 2px 8px 0 rgba(0,0,0,0.25);">
+          <div data-hop-card
+            class="w-full max-w-[329px] h-auto min-[1300px]:h-[236px] bg-white rounded-[12px] border-2 border-primary-blue p-6 relative transition-shadow duration-500 motion-reduce:transition-none"
+            [style.box-shadow]="i < landed() ? cardGlow : cardShadow">
             <!-- Decorative ellipse + logo at BOTTOM-RIGHT, extending outside card -->
             <div
               class="absolute -bottom-5 -right-10 w-[80px] h-[80px] min-[1300px]:-bottom-[83px] min-[1300px]:-right-[77px] min-[1300px]:w-[137px] min-[1300px]:h-[136px]">
@@ -129,6 +130,22 @@
         }
         }
 
+      </div>
+
+      <!-- Hopping H (Hirably logomark, ~48px tall). Hidden until the steps scroll into view;
+           then it drops onto 01 and hops to 02 and 03 (see component). Decorative only. -->
+      <div #hopper aria-hidden="true" class="absolute left-0 top-0 z-20 pointer-events-none opacity-0"
+        style="width: 51px; height: 48px; will-change: transform;">
+        <div #hopBody class="w-full h-full" style="transform-origin: 50% 100%;">
+          <svg viewBox="0 0 221 207" class="w-full h-full overflow-visible" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#111f78"
+              d="M169.18,150.95l-.11.78c-1.25,10.14-4.48,15.16-5.59,16.09-.74-.28-2.59-1.38-3.96-3.63-2.9-4.76-3.92-11.99-4.79-19.6-5.24-45.74-4.98-92.08.78-137.75l.23-1.82L117.46.2l-.23,1.82c-3.13,24.81-4.74,50.17-4.81,75.41-4.38.71-8.12,1.26-11.67,1.71-20.31,2.55-41.22,3.2-62.17,1.95-.1-24.6,1.55-49.51,4.91-74.05l.25-1.81L5.52,0l-.25,1.81C-1.47,51.2-1.75,100.8,4.45,149.23c1.45,11.37,3.29,22.85,5.47,34.18l4.51,20.27,37.64-8.4-4.34-19.45c-1.99-10.39-3.69-20.99-5.03-31.49-1.02-8-1.87-16.24-2.53-24.53,6.4.32,12.75.48,18.9.48,15.56,0,31.19-.97,46.46-2.88,2.42-.3,5-.66,8-1.11.67,11,1.62,21.99,2.85,32.68,1.33,11.58,3.2,23.83,10.16,35.27,8.33,13.69,22.59,22.2,37.22,22.2,2.17,0,4.35-.19,6.46-.57,20.05-3.59,33.56-21.47,37.04-48.97l1.54-9.25-38.05-6.34-1.61,9.64Z" />
+            <g #hopDot>
+              <path fill="#2291ea"
+                d="M219.4,116.31l-17.3-24.56c-.53-.75-1.32-1.25-2.22-1.41-.9-.16-1.82.05-2.57.58l-24.56,17.3c-2.39,1.69-2.97,5.01-1.28,7.4l6.37,9.04c4.36,6.19,11.31,9.5,18.36,9.5,4.46,0,8.97-1.33,12.88-4.08l9.04-6.37c2.39-1.69,2.97-5.01,1.28-7.4Z" />
+            </g>
+          </svg>
+        </div>
       </div>
     </div>
 

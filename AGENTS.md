@@ -302,6 +302,27 @@ _Otros_
 Registro cronológico para validar que lo planeado se implementó y dónde quedó.
 Una entrada por bloque de trabajo. Más reciente arriba.
 
+### 2026-09-28 — Why teams love Hirably: animación de entrada ✅
+
+Una sola vez al entrar en pantalla (IntersectionObserver, 25 %): un corazón azul (#2291EA,
+SVG inline absoluto junto a "love") hace pop 0 → 1 con rebote (0.5 s); las 6 cards entran con
+fade + 40 px (columna izquierda desde la izquierda, derecha desde la derecha; en 3 columnas la
+del medio sube desde abajo), 0.4 s cada una, escalonadas 0.08 s. El estado oculto inicial lo
+pone el script, así que con `prefers-reduced-motion` (o sin JS) todo se ve en su sitio. Sin
+layout shift ni scroll horizontal. Código en
+[why-hirably.component.ts](src/app/components/why-hirably/why-hirably.component.ts).
+
+### 2026-09-28 — The Hirably Way: animación del H saltando ✅
+
+Al entrar la sección en pantalla (IntersectionObserver, una sola vez) el logomark H (SVG
+inline copiado de `assets/logos/logo 2.svg`, ~51×48 px) cae sobre el card 01 y salta al 02 y
+03 (0.6 s por salto, pausa 0.15 s, squash-and-stretch, el punto azul rebota al aterrizar). Cada
+card recibe un glow azul que se queda. Aterrizajes medidos ≈ 0.52 s / 1.29 s / 2.05 s. Solo
+transform/opacity y box-shadow, H en posición absoluta → sin layout shift. Posiciones medidas en
+vivo (escalera en desktop, pila en móvil: salta hacia abajo). `prefers-reduced-motion`: H ya
+sentado en el 03 y los 3 cards resaltados, sin animación. Código en
+[how-it-works-steps.component.ts](src/app/components/how-it-works-steps/how-it-works-steps.component.ts).
+
 ### 2026-09-28 — Calculadora de tarifas en el hero ✅
 
 **Qué se hizo:** el form "Let's Talk About Your Hiring Needs" del hero se reemplazó (mismo
