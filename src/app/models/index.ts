@@ -18,6 +18,11 @@ export interface Service {
   color?: string;
 }
 
+export interface PricingFeatureGroup {
+  title: string;
+  items: string[];
+}
+
 export interface PricingPlan {
   name: string;
   price: string;
@@ -28,6 +33,9 @@ export interface PricingPlan {
   tagline?: string;
   priceNote?: string;
   features: string[];
+  /** Checklist agrupado (lo usa Hirably Complete Staffing en lugar de `features`). */
+  featuresLabel?: string;
+  featureGroups?: PricingFeatureGroup[];
   recommended?: boolean;
   cta: string;
 }

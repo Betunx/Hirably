@@ -73,23 +73,39 @@ export class DataService {
       recommended: false
     },
     {
-      badge: 'Staffing + EOR',
-      name: 'Hirably Complete',
-      subtitle: 'We Build Your Team',
-      price: '$9',
+      name: 'Complete Staffing',
+      subtitle: 'in Mexico.',
+      price: '$11',
       pricePrefix: 'Starting at',
       priceUnit: '/hr all-inclusive',
-      priceNote: 'Starting rate — scales with seniority. Covers salary, benefits, and our service fee.',
-      tagline: 'Hiring, payroll, compliance — all handled. One rate, zero surprises.',
-      features: [
-        'Everything in EOR + Recruitment',
-        'Vetted Talent (4% acceptance rate)',
-        '$0 Upfront Recruitment Fees',
-        'Lifetime Replacement Guarantee',
-        'Full Payroll, Benefits & HR',
-        'Hardware Logistics & Asset Tracking',
-        '90-Day Replacement Guarantee'
-
+      // Esta tarjeta muestra su checklist en dos grupos (featureGroups), no en `features`.
+      features: [],
+      featuresLabel: 'Everything included',
+      featureGroups: [
+        {
+          title: 'Hiring',
+          items: [
+            'Vetted Talent (4% acceptance rate)',
+            'Sourcing & Screening',
+            'Bilingual Candidate Profiles',
+            'Technical & Cultural Vetting',
+            'Background Checks ($149 value)',
+            'Salary Benchmarking & Market Data',
+            'Zero Recruitment Fees'
+          ]
+        },
+        {
+          title: 'Employment',
+          items: [
+            'Legal Employer (Mexican Entity)',
+            'Contracts & Labor Compliance',
+            'Full Payroll, Social Security & Benefits',
+            'Dedicated In-Country HR Support',
+            'Equipment, Setup & IT Support',
+            'Lifetime Replacement Guarantee',
+            'One Simple USD Invoice'
+          ]
+        }
       ],
       cta: 'Start Hiring',
       recommended: true

@@ -38,7 +38,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ['DM Sans', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
-        display: ['Poppins', 'sans-serif'],  // Títulos
+        display: ['Momo Trust Display', 'DM Sans', 'sans-serif'],  // Títulos (solo peso 400, ver styles.scss)
         body: ['DM Sans', 'sans-serif'],      // Texto
       },
       fontSize: {

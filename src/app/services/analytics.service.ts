@@ -89,6 +89,16 @@ export class AnalyticsService {
     });
   }
 
+  // ── Rate calculator (hero) ─────────────────────────────────────────────────
+
+  /** Anonymous: which estimate was calculated. Nothing the visitor types is sent. */
+  rateCalculation(role: string, level: string, specialized: boolean): void {
+    this.push('rate_calculation', {
+      calculator: { role, level, specialized },
+      page: { path: this.path },
+    });
+  }
+
   // ── Engagement ──────────────────────────────────────────────────────────────
 
   scrollDepth(percent: number): void {

@@ -18,22 +18,27 @@
      (`lead.source = 'cal_booking'`).
    - **La única conversión "de lead" es `generate_lead`.** No marques otra cosa como
      conversión de lead o contarás la misma acción dos veces.
+   - **Desde 2026-09 hay dos fuentes de `generate_lead`** (mismo evento, distinto `lead.source`):
+     `cal_booking` (reserva en Cal.com) y `rate_calculator` (pedido de "sample profiles" en la
+     calculadora del hero, `lead.service_type = 'sample_profiles'`). Usa `lead_source` para
+     separarlas en GA4/Ads si quieres valorarlas distinto.
 2. **`button_click` se eliminó** (no se emitía en ninguna parte).
 3. **`page_data` se dispara en cada navegación SPA** (no solo en la carga inicial), porque
    es una single-page app de Angular.
 4. **Nombres de sección reales** (abajo) — el doc asumía `testimonials/about/contact`, que
    este sitio no tiene.
 
-## Eventos que el sitio emite hoy (10)
+## Eventos que el sitio emite hoy (11)
 
 | Evento | Cuándo | Dónde |
 |---|---|---|
 | `page_data` | cada navegación SPA | [app.component.ts](../src/app/app.component.ts) |
-| `cta_click` | clic en CTAs (navbar, hero, pricing) | navbar / hero / pricing |
+| `cta_click` | clic en CTAs (navbar, calculadora del hero, pricing) | navbar / rate-calculator / pricing |
 | `contact_click` | clic en email o teléfono | footer + contact-form |
 | `outbound_click` | clic en LinkedIn (externo) | footer |
 | `form_start` | primer campo tocado del form | contact-form |
-| `generate_lead` | **reserva confirmada + Formspree OK (CONVERSIÓN)** | contact-form |
+| `generate_lead` | **reserva confirmada + Formspree OK, o "sample profiles" enviado desde la calculadora (CONVERSIÓN)** | contact-form + rate-calculator |
+| `rate_calculation` | el visitante cambia rol / nivel / "Specialized" en la calculadora (una vez que la selección se asienta ~0.8 s; anónimo, no incluye texto escrito) | [rate-calculator](../src/app/components/rate-calculator/rate-calculator.component.ts) |
 | `scroll_depth` | scroll 25/50/75/90/100 % | engagement-tracker |
 | `time_on_page` | 30/60/120/180 s | engagement-tracker |
 | `section_view` | sección ≥30 % visible | engagement-tracker |
@@ -67,6 +72,9 @@ Crear como **"Variable de capa de datos"**, versión **v2** (notación con punto
 | DL - Scroll Percent | `scroll.percent` |
 | DL - Time Seconds | `engagement.seconds` |
 | DL - Section Name | `section.name` |
+| DL - Calc Role | `calculator.role` |
+| DL - Calc Level | `calculator.level` |
+| DL - Calc Specialized | `calculator.specialized` |
 
 > Quitadas vs. el doc: `DL - Form Service` (`form.service_type`) ya no se usa (vivía en el
 > `form_submit` eliminado).
@@ -88,6 +96,7 @@ Uno por evento, tipo **"Evento personalizado"**, con el nombre exacto del evento
 | Time on Page | `time_on_page` |
 | Section View | `section_view` |
 | Error 404 | `page_not_found` |
+| Rate Calculation | `rate_calculation` |
 
 > `page_data` normalmente no necesita un tag propio; sirve para poblar las variables de
 > página/usuario que leen los demás tags. Si quieres un pageview GA4 explícito por
@@ -110,6 +119,7 @@ Todas tipo **"Evento de Google Analytics: GA4"**, usando tu tag de configuració
 | `time_on_page` | `seconds`→{{DL - Time Seconds}}, `page_path`→{{DL - Page Path}} | Time on Page |
 | `section_view` | `section_name`→{{DL - Section Name}}, `page_path`→{{DL - Page Path}} | Section View |
 | `page_not_found` | `page_path`→{{DL - Page Path}} | Error 404 |
+| `rate_calculation` | `calc_role`→{{DL - Calc Role}}, `calc_level`→{{DL - Calc Level}}, `calc_specialized`→{{DL - Calc Specialized}}, `page_path`→{{DL - Page Path}} | Rate Calculation |
 
 ---
 
@@ -119,7 +129,7 @@ Marcar como conversión **solo**:
 
 | Evento | Prioridad |
 |---|---|
-| `generate_lead` | ⭐⭐⭐ Principal (= reserva de llamada) |
+| `generate_lead` | ⭐⭐⭐ Principal (reserva de llamada o pedido de sample profiles; ver `lead_source`) |
 | `contact_click` | ⭐⭐ |
 | `cta_click` | ⭐ |
 
@@ -137,6 +147,9 @@ Marcar como conversión **solo**:
    - `form_start` al tocar el primer campo del formulario.
    - `scroll_depth` (25/50/75/90/100) al hacer scroll; `section_view` al ver cada sección.
    - `generate_lead` al completar una reserva de prueba en Cal.com.
+   - `rate_calculation` al cambiar rol, nivel o "Specialized" en la calculadora del hero.
+   - `generate_lead` (`lead.source = rate_calculator`) al enviar "See sample profiles" con un
+     email de trabajo (la prueba sí llega a Formspree `xzdjkqnd`).
 3. En **GA4 DebugView**, verifica que los eventos lleguen con sus parámetros.
 4. En consola: `window.dataLayer` debe ir acumulando los `push`.
 

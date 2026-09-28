@@ -6,8 +6,9 @@
 <!-- 2. TRUST BAR (stats + logos de empresas) -->
 <app-trust-bar></app-trust-bar>
 
-<!-- 3. SERVICES SECTION (Recruit / Onboard / Payroll) -->
-<app-services-section></app-services-section>
+<!-- SERVICES SECTION (Recruit / Onboard / Payroll) — oculto a propósito. El componente
+     sigue declarado y disponible; para reactivarlo, descomentar la línea de abajo. -->
+<!-- <app-services-section></app-services-section> -->
 
 <!-- CONTENEDOR BEIGE CON FIGURAS GEOMETRICAS -->
 <div class="relative bg-floral-white overflow-hidden">
@@ -56,20 +57,22 @@
   <!-- CONTENIDO DE LAS SECCIONES (orden del doc Cambios) -->
   <div class="relative z-10">
 
-    <!-- 4. WHY NEARSHORE -->
-    <app-why-nearshore></app-why-nearshore>
-
-    <!-- 5. THE HIRABLY WAY (3 pasos) -->
+    <!-- 3. THE HIRABLY WAY (3 pasos) -->
     <app-how-it-works-steps></app-how-it-works-steps>
 
-    <!-- 6. WHY TEAMS LOVE HIRABLY -->
+    <!-- 4. WHY TEAMS LOVE HIRABLY -->
     <app-why-hirably></app-why-hirably>
 
-    <!-- 6b. STATS CAROUSEL (movido desde el hero) -->
+    <!-- 5. STATS CAROUSEL (movido desde el hero) -->
     <app-stats-carousel></app-stats-carousel>
 
-    <!-- 7. WORLD-CLASS TALENT (Roles) -->
-    <app-roles-section></app-roles-section>
+    <!-- 6. WHY NEARSHORE -->
+    <app-why-nearshore></app-why-nearshore>
+
+    <!-- WORLD-CLASS TALENT (Roles) — oculto a propósito. El componente sigue declarado y
+         disponible; los departamentos se enlazan desde el footer (columna "Roles").
+         Para reactivarlo, descomentar la línea de abajo. -->
+    <!-- <app-roles-section></app-roles-section> -->
 
     <!-- ALL-IN-ONE PLATFORM — pausado a propósito (Fase B). El componente sigue
          declarado y disponible; solo dejamos de renderizarlo por ahora.

@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { AnalyticsService } from '@services/analytics.service';
 import { CareersService } from '@services/careers.service';
+import { DataService } from '@services/data.service';
 import { isPreprodHost } from '@core/preprod-host';
 
 @Component({
@@ -16,6 +17,9 @@ export class FooterComponent {
 
   /** Legal page links shown only on preproduction/local until legal approves. */
   readonly showLegalLinks = isPreprodHost();
+
+  /** "Roles" column: one link per department page (/roles/:id), same list as the roles data. */
+  readonly departments = inject(DataService).getRoleCategories().map(c => ({ id: c.id, title: c.title }));
 
   private readonly analytics = inject(AnalyticsService);
 

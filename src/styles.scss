@@ -17,7 +17,7 @@
     flex-direction: column;
   }
 
-  /* Títulos usan Poppins */
+  /* Títulos usan Momo Trust Display */
   h1, h2, h3, h4, h5, h6 {
     @apply font-display;
   }
@@ -50,3 +50,15 @@
   }
 }
 
+
+/* Momo Trust Display solo existe en peso 400: se fuerza ese peso donde se usa la fuente
+   de títulos para que el navegador no genere una negrita falsa. Va fuera de @layer para
+   ganarle a las clases font-medium/semibold/bold de Tailwind. Los títulos con font-body
+   (DM Sans) conservan su peso.
+   Ojo: se usan selectores de atributo ([class~=...]) a propósito. Si se escribe
+   .font-display / .font-body aquí, el @apply de Tailwind de arriba reescribe esta regla
+   y acaba forzando 400 en todos los títulos. */
+[class~="font-display"],
+:is(h1, h2, h3, h4, h5, h6):not([class~="font-body"]):not([class~="font-sans"]) {
+  font-weight: 400;
+}

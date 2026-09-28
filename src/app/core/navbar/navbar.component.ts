@@ -59,9 +59,9 @@ export class NavbarComponent implements OnDestroy {
 
   // Order mirrors the section order on the home page.
   navLinks: NavLink[] = [
-    { label: 'WHY NEARSHORE?', route: '/', fragment: 'key-benefits' },
     { label: 'HOW IT WORKS', route: '/', fragment: 'how-it-works' },
     { label: 'BENEFITS', route: '/', fragment: 'why-hirably' },
+    { label: 'WHY NEARSHORE?', route: '/', fragment: 'key-benefits' },
     { label: 'PRICING', route: '/', fragment: 'pricing' }
   ];
 
