@@ -26,13 +26,13 @@ export class WhyHirablyComponent {
       borderColor: '#D1FAE5'
     },
     {
-      title: 'Risk-Free Trial',
-      description: 'If the fit isn\'t right within the first 90 days, we replace the candidate at no cost. We back our vetting with skin in the game.',
+      title: 'Background-Checked & Verified',
+      description: 'Live interviews, verified identity and references. Every candidate, before you ever meet them.',
       borderColor: '#FFF1CF'
     },
     {
       title: 'Month-to-Month',
-      description: 'Flexibility. No long-term lock-ins. Our service is strictly month-to-month, giving you the freedom to scale your team up or down instantly.',
+      description: 'No lock-ins, no fine print. Scale up, down, or out with 30 days\' notice.',
       borderColor: '#FFF1CF'
     },
     {

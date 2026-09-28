@@ -87,8 +87,7 @@ export class DataService {
         '$0 Upfront Recruitment Fees',
         'Lifetime Replacement Guarantee',
         'Full Payroll, Benefits & HR',
-        'Hardware Logistics & Asset Tracking',
-        '90-Day Replacement Guarantee'
+        'Hardware Logistics & Asset Tracking'
 
       ],
       cta: 'Start Hiring',
