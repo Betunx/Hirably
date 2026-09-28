@@ -1,11 +1,10 @@
 <!-- ====================================
-PRICING SECTION - Figma Pixel Perfect
-- Card 1 (EOR): 379×576, padding 18px 34px 34px 34px, gap 22px, border 2px #D1FAE5
-- Card 2 (Full-Service): 418×632, padding 0 34px 34px 34px, gap 40px, border 2px #2291EA
-- Card 3 (Headhunting): 379×576, padding 18px 34px 34px 34px, gap 22px, border 2px #E3E1FF
-- MOST POPULAR: width 203px, padding 5px 13px, gap 9px, radius 0 0 0 12px, right-aligned
-- Buttons: padding 10px 15px, radius 7px, bg #FFCF25, Poppins 16px/500
-- Cards 1 & 3 centered vertically relative to Card 2
+PRICING SECTION
+- Desktop (≥1024px): Hirably Complete Staffing dominante (2/3 del ancho) + EOR y
+  Recruitment como tarjetas compactas apiladas a la derecha (1/3).
+- Móvil/tablet (<1024px): una sola columna — Complete, luego EOR, luego Recruitment.
+- Tarjetas compactas: siempre muestran eyebrow, titular, línea, los 3 primeros ítems del checklist,
+  el precio y su botón abajo (sin desplegar). Sus textos viven en pricing-section.component.ts (compactPlans).
 ==================================== -->
 
 <section id="pricing" data-section="pricing" class="py-[64px] lg:py-[120px] bg-floral-white">
@@ -19,204 +18,131 @@ PRICING SECTION - Figma Pixel Perfect
       </h2>
     </div>
 
-    <!-- ========== Card Templates (shared between desktop & mobile) ========== -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 xl:gap-8">
 
-    <!-- Card 1: EOR Only (Green border) - plans[2] -->
-    <ng-template #pricingCard1>
+      <!-- ========== Hirably Complete Staffing (plans[1]) — MOST POPULAR, 2/3 en desktop ========== -->
       <div
-        class="flex flex-col items-start bg-white w-full h-full p-[14px_20px_20px_20px] min-[1450px]:p-[18px_30px_30px_30px] gap-[12px] min-[1450px]:gap-[16px]"
-        style="border-radius: 12px; border: 2px solid #D1FAE5;">
-        <!-- Badge + title + subtitle — same spacing relationship across all cards -->
-        <div class="flex flex-col gap-1">
-          <span class="font-body font-semibold text-[12px] leading-none uppercase tracking-[0.08em] text-emerald">{{
-            plans[2].badge }}</span>
-          <h3 class="font-display font-medium text-[28px] leading-[34px] text-navy-dark">{{ plans[2].name }}</h3>
-          <p class="font-display font-light text-[18px] leading-[26px] text-navy-dark">{{ plans[2].subtitle }}</p>
-        </div>
-        <!-- Price -->
-        <div>
-          <p class="font-body text-[12px] leading-none text-dark-purple opacity-50 mb-1">{{ plans[2].pricePrefix }}</p>
-          <div class="flex items-baseline gap-1.5 flex-nowrap">
-            <span class="font-display font-bold text-[44px] lg:text-[48px] leading-none text-navy-dark flex-shrink-0">{{
-              plans[2].price }}</span>
-            <span
-              class="font-body font-normal text-[13px] leading-none text-dark-purple opacity-70 whitespace-nowrap">{{
-              plans[2].priceUnit }}</span>
-          </div>
-          <!-- Invisible spacer: matches card 3's priceNote height so features start at same Y -->
-          <p class="font-body font-light text-[12px] leading-[18px] mt-1 opacity-0 select-none" aria-hidden="true">x</p>
-        </div>
-        <!-- Description -->
-        <p class="font-body font-light text-[14px] leading-[21px] text-dark-purple">{{ plans[2].tagline }}</p>
-        <!-- Divider + features -->
-        <div class="w-full border-t border-gray-200"></div>
-        <ul class="flex flex-col gap-2 lg:gap-2.5">
-          @for (feature of plans[2].features; track feature) {
-          <li class="flex items-start gap-3">
-            <img src="assets/img/arrowgreen.svg" alt="" class="w-[17px] h-[14px] mt-1 flex-shrink-0" loading="lazy">
-            <span class="font-body font-light text-[15px] leading-[22px] text-dark-purple">{{ feature }}</span>
-          </li>
-          }
-        </ul>
-        <!-- Button anchored to bottom -->
-        <button (click)="onEorServices()"
-          class="font-display font-medium text-[16px] text-emerald mt-auto w-full flex items-center justify-center gap-2 cursor-pointer transition-opacity duration-200 hover:opacity-80"
-          style="padding: 10px 15px; border-radius: 7px; background: white; border: 1.5px solid #D1FAE5;">
-          {{ plans[2].cta }}
-          <svg width="16" height="16" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 9H14M14 9L10 5M14 9L10 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round" />
-          </svg>
-        </button>
-      </div>
-    </ng-template>
-
-    <!-- Card 2: Full-Service (Blue border) - plans[1] - MOST POPULAR -->
-    <ng-template #pricingCard2>
-      <div
-        class="relative flex flex-col items-start w-full h-full px-5 pt-12 pb-5 min-[1450px]:px-[34px] min-[1450px]:pt-8 min-[1450px]:pb-[34px]"
-        style="border-radius: 12px; border: 2px solid rgba(255,255,255,0.3); background: #2291EA;">
-        <!-- Centered pill badge: inside card always in carousel, floats above only in desktop grid -->
+        class="relative lg:col-span-2 flex flex-col w-full px-5 pt-12 pb-5 sm:px-8 sm:pb-8 lg:px-10 lg:pt-10 lg:pb-10"
+        style="border-radius: 12px; border: 1.5px solid #102076; background: #C2E8FF;">
+        <!-- Centered pill badge -->
         <div
-          class="absolute top-3 min-[1450px]:-top-[2px] left-1/2 -translate-x-1/2 font-body font-bold text-[11px] uppercase tracking-[0.1em] text-white whitespace-nowrap"
+          class="absolute top-3 lg:-top-[2px] left-1/2 -translate-x-1/2 font-body font-bold text-[11px] uppercase tracking-[0.1em] text-white whitespace-nowrap"
           style="background: #102076; padding: 6px 18px; border-radius: 100px;">
           MOST POPULAR
         </div>
-        <div class="flex flex-col items-start flex-1 w-full gap-[12px] lg:gap-[16px]">
-          <!-- Badge + title + subtitle -->
-          <div class="flex flex-col gap-1">
-            <span
-              class="font-body font-semibold text-[12px] leading-none uppercase tracking-[0.08em] text-white opacity-80">{{
-              plans[1].badge }}</span>
-            <h3 class="font-display font-medium text-[30px] lg:text-[37px] leading-[36px] lg:leading-[44px] text-white">
-              {{ plans[1].name }}</h3>
-            <p class="font-display font-light text-[20px] lg:text-[24px] leading-[28px] text-white opacity-80">{{
-              plans[1].subtitle }}</p>
-          </div>
-          <!-- Price -->
-          <div>
-            <p class="font-body text-[12px] leading-none text-white opacity-60 mb-1">{{ plans[1].pricePrefix }}</p>
-            <div class="flex items-baseline gap-1.5">
-              <span class="font-display font-bold text-[44px] lg:text-[52px] leading-none text-white">{{ plans[1].price
-                }}</span>
-              <span class="font-body font-normal text-[13px] leading-none text-white opacity-80">{{ plans[1].priceUnit
-                }}</span>
+
+        <!-- Orden: título + "in Mexico." | precio (lado a lado ≥1024px, apilado en móvil), checklist (Hiring | Employment
+             lado a lado ≥768px), botón a todo el ancho + línea gris. ≥1024px: si la tarjeta se estira para
+             alinearse con las compactas, el espacio extra queda sobre el botón (mt-auto). -->
+        <div class="flex flex-col gap-5 lg:gap-7 flex-1">
+          <!-- Top: title + "in Mexico." on the left, price block on the right (top-aligned); stacked on mobile -->
+          <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 lg:gap-8">
+            <div class="min-w-0 lg:flex-1">
+              <h3 class="font-display font-medium text-[36px] leading-[42px] lg:text-[48px] lg:leading-[54px] text-[#102076]">
+                {{ plans[1].name }}</h3>
+              <p class="font-display font-medium text-[18px] leading-[24px] lg:text-[24px] lg:leading-[30px] text-[#102076] mt-1">{{
+                plans[1].subtitle }}</p>
             </div>
-            <p class="font-body font-light text-[12px] leading-[18px] text-white opacity-60 italic mt-1">{{
-              plans[1].priceNote }}</p>
+            <div #priceBlock class="flex-shrink-0">
+              <p class="font-body text-[16px] leading-none text-[#102076] opacity-70 mb-3">{{ plans[1].pricePrefix }}</p>
+              <div class="flex items-baseline gap-2">
+                <span class="font-display font-bold text-[80px] leading-none text-[#102076]">{{ plans[1].price }}</span>
+                <span class="font-body font-normal text-[20px] leading-none text-[#102076] opacity-80">{{ plans[1].priceUnit
+                  }}</span>
+              </div>
+            </div>
           </div>
-          <!-- Description + divider -->
-          <p class="font-body font-light text-[14px] leading-[21px] text-white opacity-85">{{ plans[1].tagline }}</p>
-          <div class="w-full border-t border-white opacity-30"></div>
-          <!-- Features -->
-          <p class="font-body font-medium text-[13px] leading-none text-white opacity-70">
-            {{ plans[1].features[0] }}
-          </p>
-          <ul class="flex flex-col gap-2 lg:gap-2.5">
-            @for (feature of plans[1].features.slice(1); track feature) {
-            <li class="flex items-start gap-3">
-              <svg viewBox="2 4 12 10" fill="none" class="w-[17px] h-[14px] mt-1 flex-shrink-0 text-[#102076]"
-                xmlns="http://www.w3.org/2000/svg">
-                <path d="M4 9.5L7.5 13L14 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+
+          <!-- Divider + checklist grouped (Hiring | Employment side by side ≥768px) -->
+          <div class="flex flex-col gap-4 lg:gap-5">
+            <div class="w-full border-t border-white/30"></div>
+            <p class="font-body font-medium text-[13px] leading-none text-[#102076] opacity-70">
+              {{ plans[1].featuresLabel }}
+            </p>
+            <div #checklist class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5">
+              @for (group of plans[1].featureGroups; track group.title) {
+              <div class="flex flex-col gap-2.5">
+                <h4 class="font-body font-semibold text-[14px] leading-none uppercase tracking-[0.08em] text-[#102076]">
+                  {{ group.title }}</h4>
+                <ul class="flex flex-col gap-2 lg:gap-[18px]">
+                  @for (feature of group.items; track feature) {
+                  <li class="flex items-start gap-3">
+                    <svg viewBox="2 4 12 10" fill="none" class="w-[17px] h-[14px] mt-1 flex-shrink-0 text-[#102076]"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path d="M4 9.5L7.5 13L14 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    </svg>
+                    <span class="font-body font-light text-[15px] leading-[22px] text-[#102076]">{{ feature }}</span>
+                  </li>
+                  }
+                </ul>
+              </div>
+              }
+            </div>
+          </div>
+
+          <!-- Button (full width) + small gray line -->
+          <div class="flex flex-col gap-2 pt-1 lg:mt-auto">
+            <button type="button" (click)="onStartHiring()"
+              class="font-display font-medium text-[16px] text-white w-full flex items-center justify-center gap-2 cursor-pointer transition-opacity duration-200 hover:opacity-80"
+              style="padding: 10px 15px; border-radius: 7px; background: #102076;">
+              {{ plans[1].cta }}
+              <svg width="16" height="16" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 9H14M14 9L10 5M14 9L10 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                   stroke-linejoin="round" />
               </svg>
-              <span class="font-body font-light text-[15px] leading-[22px] text-white">{{ feature }}</span>
+            </button>
+            <p class="font-body text-[13px] leading-[18px] text-gray-600 text-center">Free 30-minute call · No lock-in</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== Compact cards: EOR (plans[2]) + Recruitment (plans[0]) — 1/3 en desktop ========== -->
+      <div class="flex flex-col gap-6 xl:gap-8">
+        @for (c of compactPlans; track c.key) {
+        <div class="flex flex-col items-start bg-white w-full p-5 lg:p-6 gap-3 lg:flex-1"
+          [style.border]="'2px solid ' + c.borderColor" style="border-radius: 12px;">
+          <!-- Top: eyebrow + headline + line -->
+          <div class="flex flex-col gap-3">
+            <span class="font-body font-semibold text-[12px] leading-none uppercase tracking-[0.08em]"
+              [class]="c.accentClass">{{ c.eyebrow }}</span>
+            <h3 class="font-display font-medium text-[22px] lg:text-[24px] leading-[1.2] text-navy-dark">{{ c.headline }}</h3>
+            <p class="font-body font-light text-[14px] leading-[21px] text-dark-purple">{{ c.line }}</p>
+          </div>
+
+          <!-- First 3 checklist items -->
+          <ul class="flex flex-col gap-2 lg:gap-2.5">
+            @for (feature of plans[c.planIndex].features.slice(0, previewCount); track feature) {
+            <li class="flex items-start gap-3">
+              <img [src]="c.checkIcon" alt="" class="w-[17px] h-[14px] mt-1 flex-shrink-0" loading="lazy">
+              <span class="font-body font-light text-[15px] leading-[22px] text-dark-purple">{{ feature }}</span>
             </li>
             }
           </ul>
-          <button (click)="onStartHiring()"
-            class="font-display font-medium text-[16px] text-white mt-auto w-full flex items-center justify-center gap-2 cursor-pointer transition-opacity duration-200 hover:opacity-80"
-            style="padding: 10px 15px; border-radius: 7px; background: #102076;">
-            {{ plans[1].cta }}
-            <svg width="16" height="16" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M4 9H14M14 9L10 5M14 9L10 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" />
-            </svg>
-          </button>
-        </div>
-      </div>
-    </ng-template>
 
-    <!-- Card 3: Headhunting (Purple border) - plans[0] -->
-    <ng-template #pricingCard3>
-      <div
-        class="flex flex-col items-start bg-white w-full h-full p-[14px_20px_20px_20px] min-[1450px]:p-[18px_30px_30px_30px] gap-[12px] min-[1450px]:gap-[16px]"
-        style="border-radius: 12px; border: 2px solid #E3E1FF;">
-        <!-- Badge + title + subtitle — same spacing relationship across all cards -->
-        <div class="flex flex-col gap-1">
-          <span
-            class="font-body font-semibold text-[12px] leading-none uppercase tracking-[0.08em] text-purple-accent">{{
-            plans[0].badge }}</span>
-          <h3 class="font-display font-medium text-[28px] leading-[34px] text-navy-dark">{{ plans[0].name }}</h3>
-          <p class="font-display font-light text-[18px] leading-[26px] text-navy-dark">{{ plans[0].subtitle }}</p>
-        </div>
-        <!-- Price -->
-        <div>
-          <p class="font-body text-[12px] leading-none text-dark-purple opacity-50 mb-1">{{ plans[0].pricePrefix }}</p>
-          <div class="flex items-baseline gap-1.5">
-            <span class="font-display font-bold text-[44px] lg:text-[48px] leading-none text-navy-dark">{{
-              plans[0].price }}</span>
-            <span class="font-body font-normal text-[13px] leading-none text-dark-purple opacity-70">{{
-              plans[0].priceUnit }}</span>
+          <!-- Bottom (pinned when the card is stretched): price + button -->
+          <div class="mt-auto flex flex-col gap-3 w-full">
+            <p class="font-body text-[13px] leading-none text-dark-purple">
+              <span class="opacity-70">{{ c.pricePrefix }} </span><span
+                class="font-display font-bold text-[28px] leading-none text-navy-dark">{{ c.price }}</span><span
+                class="opacity-70">{{ c.priceSuffix }}</span>
+            </p>
+            <button type="button" (click)="onCompactCta(c.key)"
+              class="font-display font-medium text-[16px] w-full flex items-center justify-center gap-2 cursor-pointer transition-opacity duration-200 hover:opacity-80"
+              [class]="c.accentClass"
+              [style.border]="'1.5px solid ' + c.borderColor"
+              style="padding: 10px 15px; border-radius: 7px; background: white;">
+              {{ plans[c.planIndex].cta }}
+              <svg width="16" height="16" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 9H14M14 9L10 5M14 9L10 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </button>
           </div>
-          <p class="font-body font-light text-[12px] leading-[18px] text-dark-purple opacity-60 italic mt-1">{{
-            plans[0].priceNote }}</p>
         </div>
-        <!-- Description -->
-        <p class="font-body font-light text-[14px] leading-[21px] text-dark-purple">{{ plans[0].tagline }}</p>
-        <!-- Divider + features -->
-        <div class="w-full border-t border-gray-200"></div>
-        <ul class="flex flex-col gap-2 lg:gap-2.5">
-          @for (feature of plans[0].features; track feature) {
-          <li class="flex items-start gap-3">
-            <img src="assets/img/arrowpurple.svg" alt="" class="w-[17px] h-[14px] mt-1 flex-shrink-0" loading="lazy">
-            <span class="font-body font-light text-[15px] leading-[22px] text-dark-purple">{{ feature }}</span>
-          </li>
-          }
-        </ul>
-        <!-- Button anchored to bottom -->
-        <button (click)="onGetAQuote()"
-          class="font-display font-medium text-[16px] text-purple-accent mt-auto w-full flex items-center justify-center gap-2 cursor-pointer transition-opacity duration-200 hover:opacity-80"
-          style="padding: 10px 15px; border-radius: 7px; background: white; border: 1.5px solid #E3E1FF;">
-          {{ plans[0].cta }}
-          <svg width="16" height="16" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 9H14M14 9L10 5M14 9L10 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round" />
-          </svg>
-        </button>
+        }
       </div>
-    </ng-template>
 
-    <!-- ========== Desktop Layout (≥1450px) ========== -->
-    <!-- Cards 1&3 same fixed height; card 2 taller as featured card -->
-    <div class="hidden min-[1450px]:grid gap-4 xl:gap-6 items-center" style="grid-template-columns: 379fr 418fr 379fr;">
-      <div class="h-[576px]">
-        <ng-container *ngTemplateOutlet="pricingCard1"></ng-container>
-      </div>
-      <div class="h-[632px]">
-        <ng-container *ngTemplateOutlet="pricingCard2"></ng-container>
-      </div>
-      <div class="h-[576px]">
-        <ng-container *ngTemplateOutlet="pricingCard3"></ng-container>
-      </div>
-    </div>
-
-    <!-- ========== Mobile Carousel (<1200px) ========== -->
-    <div class="min-[1450px]:hidden">
-      <app-mobile-carousel [totalSlides]="3" [showDots]="true" [peekPercent]="4" [initialIndex]="1">
-        <!-- Card 1 — EOR: same height as card 3 so buttons align -->
-        <div class="w-[78vw] max-w-[340px] mx-2 flex-shrink-0 self-center h-[660px] [&>div]:h-full">
-          <ng-container *ngTemplateOutlet="pricingCard1"></ng-container>
-        </div>
-        <!-- Card 2 — Full-service: most content + badge area -->
-        <div class="w-[78vw] max-w-[340px] mx-2 flex-shrink-0 self-stretch h-[720px] [&>div]:h-full">
-          <ng-container *ngTemplateOutlet="pricingCard2"></ng-container>
-        </div>
-        <!-- Card 3 — Recruitment: has priceNote, needs extra height -->
-        <div class="w-[78vw] max-w-[340px] mx-2 flex-shrink-0 self-center h-[660px] [&>div]:h-full">
-          <ng-container *ngTemplateOutlet="pricingCard3"></ng-container>
-        </div>
-      </app-mobile-carousel>
     </div>
 
     <!-- Footer note -->
@@ -227,6 +153,5 @@ PRICING SECTION - Figma Pixel Perfect
         class="font-medium cursor-pointer hover:opacity-80 transition-opacity duration-200"
         style="color: #2291EA;">Let's talk →</a>
     </p>
-
   </div>
 </section>

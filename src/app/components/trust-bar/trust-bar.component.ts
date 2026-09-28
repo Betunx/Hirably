@@ -28,7 +28,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
           </div>
         </div>
         <p class="text-center font-display font-medium text-[13px] lg:text-[15px] uppercase tracking-[0.12em] text-navy-dark/50 mt-4 lg:mt-5">
-          Trusted by 125+ companies hiring in Mexico
+          Trusted by Engineering, Tax, Legal, and Health Firms in the US
         </p>
       </div>
     </section>

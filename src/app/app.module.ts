@@ -29,6 +29,7 @@ import { AllIncludedPlatformComponent } from '@components/all-included-platform/
 import { TrustBarComponent } from '@components/trust-bar/trust-bar.component';
 import { MobileCarouselComponent } from '@components/shared/mobile-carousel/mobile-carousel.component';
 import { ServicesCarouselComponent } from '@components/shared/services-carousel/services-carousel.component';
+import { RateCalculatorComponent } from '@components/rate-calculator/rate-calculator.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { ServicesCarouselComponent } from '@components/shared/services-carousel/
     AllIncludedPlatformComponent,
     TrustBarComponent,
     MobileCarouselComponent,
-    ServicesCarouselComponent
+    ServicesCarouselComponent,
+    RateCalculatorComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
