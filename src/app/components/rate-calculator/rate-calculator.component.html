@@ -1,0 +1,321 @@
+<!-- Hero rate calculator. Numbers: src/app/data/role-rates.ts. No em dashes in visible text.
+     Phones/tablets: one column. ≥1024px: two panes (inputs left, results right).
+     Starting state (no role yet): only the inputs show. On desktop the full card size is reserved from
+     the start (results pane present but invisible), so choosing a role never changes the page height. -->
+<div class="relative isolate flex flex-col gap-5 lg:grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
+
+  <!-- Card background: always on phones/tablets; on desktop it fades in with the results -->
+  <div aria-hidden="true" class="absolute -inset-6 lg:-inset-10 -z-10 rounded-[22px] bg-white border border-white/60 shadow-[0_30px_70px_rgba(17,31,120,0.28)] lg:transition-opacity lg:duration-[350ms] lg:ease-out motion-reduce:transition-none"
+    [ngClass]="revealed() ? 'lg:opacity-100' : 'lg:opacity-0'"></div>
+
+  <!-- ═════════ LEFT PANE: title + inputs ═════════ -->
+  <!-- Desktop: starts centered in the reserved card (translate), slides to the left when a role is chosen -->
+  <div class="relative flex flex-col gap-5 lg:isolate lg:pr-10 lg:transition-transform lg:duration-[350ms] lg:ease-out motion-reduce:transition-none"
+    [ngClass]="revealed() ? 'lg:translate-x-0 lg:translate-y-0' : 'lg:translate-x-[calc(70%_+_30px)] lg:translate-y-[39px]'">
+
+    <!-- Starting-state card (desktop): the left pane alone reads as one square card -->
+    <div aria-hidden="true"
+      class="hidden lg:block absolute -top-10 -bottom-10 -left-10 right-0 -z-10 rounded-[22px] bg-white border border-white/60 shadow-[0_30px_70px_rgba(17,31,120,0.28)] lg:transition-opacity lg:duration-[350ms] lg:ease-out motion-reduce:transition-none"
+      [ngClass]="revealed() ? 'opacity-0' : 'opacity-100'"></div>
+    <!-- Divider (desktop): appears together with the results -->
+    <div aria-hidden="true"
+      class="hidden lg:block absolute top-0 bottom-0 right-0 w-px bg-gray-neutral/70 lg:transition-opacity lg:duration-[350ms] lg:ease-out motion-reduce:transition-none"
+      [ngClass]="revealed() ? 'opacity-100' : 'opacity-0'"></div>
+
+    <div>
+      <h2
+        class="font-display font-bold text-[24px] lg:text-[36px] leading-[1.2] lg:leading-[1.15] text-navy-dark tracking-[-0.4px] text-center lg:text-left">
+        What will your hire cost?
+      </h2>
+      <!-- Starting-state hint. On desktop it fades out but keeps its space so nothing moves. -->
+      <p class="mt-2 font-body text-[15px] leading-[21px] text-gray-600 text-center lg:text-left transition-opacity duration-300 motion-reduce:transition-none"
+        [ngClass]="revealed() ? 'max-lg:hidden opacity-0' : ''" [attr.aria-hidden]="revealed() ? 'true' : null">
+        Pick a role to see your rate next to a US hire.</p>
+    </div>
+
+    <!-- ── Role: categories first (one open at a time); search shows matches from all ── -->
+    <div class="relative" data-role-picker>
+      <label for="rc-role-trigger" class="block font-body font-bold text-[14px] text-carbon-black mb-2">Role</label>
+      <button #roleTrigger id="rc-role-trigger" type="button" (click)="toggleRoleList()" aria-haspopup="tree"
+        [attr.aria-expanded]="roleListOpen()" aria-controls="rc-role-list"
+        class="w-full flex items-center justify-between gap-3 px-3.5 py-3 lg:py-3.5 rounded-[11px] border-[1.5px] bg-white text-left outline-none transition-all duration-150 focus:border-primary-blue focus:ring-[3px] focus:ring-primary-blue/10"
+        [ngClass]="roleListOpen() ? 'border-primary-blue' : 'border-gray-neutral'">
+        <span class="min-w-0 truncate font-body font-medium text-[15px]"
+          [ngClass]="role() ? 'text-carbon-black' : 'text-gray-500'">{{ role()?.role ?? 'Choose a role' }}</span>
+        <span class="flex items-center gap-2 flex-shrink-0 font-body text-[12px] text-dark-purple/60">
+          <span class="hidden min-[400px]:inline">{{ role()?.category }}</span>
+          <svg class="w-4 h-4 transition-transform duration-200" [class.rotate-180]="roleListOpen()" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+            aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </span>
+      </button>
+
+      @if (roleListOpen()) {
+      <div
+        class="absolute left-0 right-0 top-full mt-2 z-30 bg-white rounded-[12px] border border-gray-neutral shadow-[0_20px_40px_rgba(17,31,120,0.18)] overflow-hidden">
+        <div class="p-2 border-b border-gray-100">
+          <input #roleSearch type="text" role="combobox" aria-label="Search roles" aria-autocomplete="list"
+            aria-haspopup="tree" aria-controls="rc-role-list" aria-expanded="true"
+            [attr.aria-activedescendant]="activeId()" placeholder="Search roles" autocomplete="off"
+            [value]="roleQuery()" (input)="onRoleQuery($event)" (keydown)="onRoleKeydown($event)"
+            class="w-full px-3 py-2 rounded-[8px] bg-floral-white font-body text-[14px] text-carbon-black outline-none placeholder:text-gray-400 focus:ring-[3px] focus:ring-primary-blue/10" />
+        </div>
+        <ul id="rc-role-list" role="tree" aria-label="Roles" class="max-h-[300px] lg:max-h-[340px] overflow-y-auto py-1">
+          @if (!searching()) {
+          <!-- Browse: category rows with counts; clicking one opens its roles underneath -->
+          @for (group of categories; track group.category) {
+          <li role="treeitem" [id]="categoryId(group.category)" aria-selected="false"
+            [attr.aria-expanded]="expandedCategory() === group.category">
+            <div tabindex="-1" (click)="toggleCategory(group.category)" (keydown.enter)="toggleCategory(group.category)"
+              (mouseenter)="activeId.set(categoryId(group.category))"
+              class="flex items-center justify-between gap-3 px-4 py-2.5 cursor-pointer"
+              [ngClass]="{ 'bg-blue-light': isActive(categoryId(group.category)) }">
+              <span class="font-body font-semibold text-[14px] text-navy-dark">{{ group.category }}</span>
+              <span class="flex items-center gap-2 flex-shrink-0 font-body text-[12px] text-dark-purple/60">
+                {{ group.roles.length }} roles
+                <svg class="w-4 h-4 transition-transform duration-200"
+                  [class.rotate-180]="expandedCategory() === group.category" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                  aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </span>
+            </div>
+            @if (expandedCategory() === group.category) {
+            <ul role="group" class="pb-1">
+              @for (r of group.roles; track r.role) {
+              <li role="treeitem" [id]="optionId(r)" [attr.aria-selected]="r === role()" tabindex="-1"
+                (click)="selectRole(r)" (keydown.enter)="selectRole(r)" (mouseenter)="activeId.set(optionId(r))"
+                class="pl-8 pr-4 py-2 cursor-pointer font-body text-[14px] text-carbon-black"
+                [ngClass]="{ 'bg-blue-light': isActive(optionId(r)), 'font-semibold text-navy-dark': r === role() }">
+                {{ r.role }}</li>
+              }
+            </ul>
+            }
+          </li>
+          }
+          } @else {
+          <!-- Search: matching roles from every category -->
+          @for (group of filteredGroups(); track group.category) {
+          <li role="presentation"
+            class="px-4 pt-3 pb-1 font-body font-semibold text-[11px] uppercase tracking-[0.08em] text-dark-purple/50">
+            {{ group.category }}</li>
+          @for (r of group.roles; track r.role) {
+          <li role="treeitem" [id]="optionId(r)" [attr.aria-selected]="r === role()" tabindex="-1"
+            (click)="selectRole(r)" (keydown.enter)="selectRole(r)" (mouseenter)="activeId.set(optionId(r))"
+            class="px-4 py-2 cursor-pointer font-body text-[14px] text-carbon-black"
+            [ngClass]="{ 'bg-blue-light': isActive(optionId(r)), 'font-semibold text-navy-dark': r === role() }">
+            {{ r.role }}</li>
+          }
+          } @empty {
+          <li role="presentation" class="px-4 py-3 font-body text-[14px] text-dark-purple/60">No matching roles</li>
+          }
+          }
+        </ul>
+      </div>
+      }
+    </div>
+
+    <!-- ── Level (only the levels this role offers) ── -->
+    <div>
+      <span id="rc-level-label" class="block font-body font-bold text-[14px] text-carbon-black mb-2">Level</span>
+      <div role="group" aria-labelledby="rc-level-label" class="grid gap-2"
+        [ngClass]="levelOptions().length === 3 ? 'grid-cols-3' : 'grid-cols-2'">
+        @for (l of levelOptions(); track l.key) {
+        <button type="button" (click)="setLevel(l.key)" [attr.aria-pressed]="level() === l.key"
+          class="py-2.5 lg:py-3.5 rounded-[11px] border-[1.5px] font-body font-semibold text-[14px] lg:text-[15px] transition-colors duration-150"
+          [ngClass]="level() === l.key ? 'bg-navy-dark border-navy-dark text-white' : 'bg-white border-gray-neutral text-carbon-black hover:border-navy-dark'">
+          {{ l.label }}</button>
+        }
+      </div>
+    </div>
+
+    <!-- ── Specialized (soft box on desktop) ── -->
+    <div class="flex flex-col gap-3 lg:rounded-[12px] lg:bg-floral-white lg:border lg:border-gray-neutral/70 lg:p-4">
+      <button type="button" role="switch" [attr.aria-checked]="specialized()" (click)="toggleSpecialized()"
+        class="flex items-center justify-between gap-3 text-left cursor-pointer">
+        <span class="font-body font-bold text-[14px] leading-[20px] text-carbon-black">Specialized skills or industry
+          experience</span>
+        <span class="relative inline-flex h-6 w-11 flex-shrink-0 rounded-full transition-colors duration-200"
+          [ngClass]="specialized() ? 'bg-primary-blue' : 'bg-gray-neutral'" aria-hidden="true">
+          <span class="absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform duration-200"
+            [class.translate-x-5]="specialized()"></span>
+        </span>
+      </button>
+      @if (specialized()) {
+      <div>
+        <label for="rc-specialty" class="block font-body font-bold text-[14px] text-carbon-black mb-2">What
+          specialty?</label>
+        <input id="rc-specialty" type="text" maxlength="200" placeholder="e.g., Admin with SaaS marketing experience"
+          [value]="specialty()" (input)="onSpecialty($event)"
+          class="w-full px-3.5 py-3 rounded-[11px] border-[1.5px] border-gray-neutral font-body text-[15px] text-carbon-black bg-white outline-none transition-all duration-150 placeholder:text-gray-400 focus:border-primary-blue focus:ring-[3px] focus:ring-primary-blue/10" />
+      </div>
+      }
+    </div>
+  </div>
+
+  <!-- ═════════ RIGHT PANE: results + actions ═════════ -->
+  <!-- Invisible (not removed) until a role is chosen: reserves the card size on desktop -->
+  <div class="flex flex-col gap-5 lg:gap-4 lg:pl-10 lg:transition-[transform,opacity] lg:duration-[350ms] lg:ease-out motion-reduce:transition-none"
+    [ngClass]="revealed() ? 'lg:opacity-100 lg:translate-x-0 rc-reveal-mobile' : 'max-lg:hidden lg:opacity-0 lg:translate-x-6 lg:pointer-events-none'"
+    [attr.inert]="revealed() ? null : ''" [attr.aria-hidden]="revealed() ? null : 'true'">
+
+    <!-- ── View toggle ── -->
+    <div role="group" aria-label="Show costs"
+      class="grid grid-cols-3 p-1 rounded-[11px] bg-floral-white border border-gray-neutral/70">
+      @for (v of views; track v.key) {
+      <button type="button" (click)="setView(v.key)" [attr.aria-pressed]="view() === v.key"
+        class="py-1.5 rounded-[8px] font-body font-semibold text-[13px] transition-colors duration-150"
+        [ngClass]="view() === v.key ? 'bg-white text-navy-dark shadow-sm' : 'text-dark-purple/60 hover:text-navy-dark'">
+        {{ v.label }}</button>
+      }
+    </div>
+
+    <!-- ── Comparison (side by side ≥640px, stacked on phones) ── -->
+    <div data-rc-compare class="grid grid-cols-1 sm:grid-cols-2 gap-3" aria-live="polite">
+
+      <!-- Hirably -->
+      <div class="flex flex-col gap-1.5 rounded-[12px] p-4 bg-light-sky">
+        <p class="font-body font-semibold text-[12px] leading-none uppercase tracking-[0.08em] text-navy-dark/70">
+          Hirably</p>
+        <!-- <wbr> lets a long range wrap after the hyphen in narrow columns -->
+        <p class="font-display font-bold text-[21px] leading-[1.2] text-navy-dark mt-1"><span
+            class="whitespace-nowrap">{{ hirablyAmount().low }}-</span><wbr><span class="whitespace-nowrap">{{
+            hirablyAmount().high }}</span></p>
+        <p class="font-body text-[12px] leading-[16px] text-navy-dark/70">{{ viewUnit() }}, all-inclusive</p>
+        <!-- "All included" checklist (same check mark and navy as the pricing card) -->
+        <p
+          class="font-body font-semibold text-[11px] leading-none uppercase tracking-[0.08em] text-[#102076]/70 mt-2 pt-2 border-t border-[#102076]/10">
+          All included</p>
+        <ul class="flex flex-col gap-1 flex-1 sm:justify-between">
+          @for (item of includedItems; track item) {
+          <li class="flex items-start gap-2">
+            <svg viewBox="2 4 12 10" fill="none" class="w-[12px] h-[10px] mt-[3px] flex-shrink-0 text-[#102076]"
+              aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 9.5L7.5 13L14 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+            <span class="font-body text-[12px] leading-[16px] text-[#102076]">{{ item }}</span>
+          </li>
+          }
+        </ul>
+      </div>
+
+      <!-- US local hire -->
+      <div class="flex flex-col gap-1.5 rounded-[12px] p-4 bg-floral-white border border-gray-neutral/70">
+        <p class="font-body font-semibold text-[12px] leading-none uppercase tracking-[0.08em] text-dark-purple/70">US
+          local hire</p>
+        <dl class="flex flex-col gap-1.5 mt-1 flex-1 sm:justify-between font-body text-[12px] leading-[16px] text-dark-purple">
+          <div class="flex justify-between gap-2">
+            <dt>Base salary</dt>
+            <dd class="font-semibold text-carbon-black whitespace-nowrap">{{ usLines().base }}</dd>
+          </div>
+          <div class="justify-between gap-2" [ngClass]="showBreakdown() ? 'flex' : 'hidden sm:flex'">
+            <dt>Payroll taxes +{{ payrollTaxPct }}
+              <span class="block text-[12px] leading-[16px] text-dark-purple/80">Social Security, Medicare,
+                unemployment, workers' comp</span>
+            </dt>
+            <dd class="font-semibold text-carbon-black whitespace-nowrap">{{ usLines().payroll }}</dd>
+          </div>
+          <div class="justify-between gap-2" [ngClass]="showBreakdown() ? 'flex' : 'hidden sm:flex'">
+            <dt>Health insurance, retirement &amp; other benefits +{{ benefitsPct }}</dt>
+            <dd class="font-semibold text-carbon-black whitespace-nowrap">{{ usLines().benefits }}</dd>
+          </div>
+          <div class="flex justify-between items-baseline gap-2 border-t border-gray-neutral pt-1.5">
+            <dt class="font-semibold text-carbon-black">{{ totalLabel() }}</dt>
+            <dd class="font-display font-bold text-[18px] leading-none text-navy-dark whitespace-nowrap">{{
+              usLines().total }}</dd>
+          </div>
+        </dl>
+        <p class="font-body text-[12px] leading-[16px] text-dark-purple/80"
+          [ngClass]="showBreakdown() ? 'block' : 'hidden sm:block'">Includes about 5 weeks of paid holidays, vacation,
+          and sick leave.</p>
+        <button type="button" (click)="toggleBreakdown()" [attr.aria-expanded]="showBreakdown()"
+          class="sm:hidden self-start font-body font-semibold text-[12px] text-primary-blue underline underline-offset-2">
+          {{ showBreakdown() ? 'Hide breakdown' : 'See breakdown' }}</button>
+      </div>
+    </div>
+
+    <!-- ── Savings (hidden when Hirably isn't cheaper) ── -->
+    @if (savings(); as s) {
+    <div class="rounded-[12px] px-4 py-3 bg-bright-amber/20 border border-bright-amber/60 text-center">
+      <p class="font-display font-bold text-[18px] leading-[1.25] text-navy-dark">Save up to {{ s.amount }} per year</p>
+      <p class="font-body font-semibold text-[13px] text-dark-purple mt-0.5">up to {{ s.percent }}%</p>
+    </div>
+    }
+
+    <!-- ── Lead capture (buttons side by side ≥1024px while no form is open) ── -->
+    <div class="flex flex-col gap-3">
+      <div class="flex flex-col gap-3"
+        [ngClass]="leadStatus() === 'idle' || leadStatus() === 'sent' ? 'lg:grid lg:grid-cols-2' : ''">
+        @switch (leadStatus()) {
+        @case ('idle') {
+        <button type="button" (click)="openLead()"
+          class="w-full bg-bright-amber text-navy-dark font-body font-bold text-[16px] lg:text-[15px] py-3.5 px-3 rounded-xl cursor-pointer transition-all duration-300 hover:bg-amber-gold hover:-translate-y-px shadow-[0_10px_24px_rgba(231,174,0,0.32)] hover:shadow-[0_14px_30px_rgba(231,174,0,0.42)]">
+          See sample profiles for this role
+        </button>
+        }
+        @case ('sent') {
+        <p role="status"
+          class="flex items-center justify-center rounded-[12px] px-4 py-3 bg-green-soft font-body font-semibold text-[14px] text-navy-dark text-center">
+          Sample profiles on their way within 24-48 hours.
+        </p>
+        }
+        @default {
+        <form [formGroup]="leadForm" (ngSubmit)="submitLead()" novalidate class="flex flex-col gap-3">
+          <!-- Honeypot: hidden from users, bots fill it. Must stay empty. -->
+          <input type="text" formControlName="_honeypot" tabindex="-1" autocomplete="off" class="hidden"
+            aria-hidden="true" />
+          <div>
+            <label for="rc-email" class="block font-body font-bold text-[14px] text-carbon-black mb-2">Work email</label>
+            <input #leadEmail id="rc-email" type="email" formControlName="email" placeholder="jane@acme.com"
+              autocomplete="email"
+              class="w-full px-3.5 py-3 rounded-[11px] border-[1.5px] font-body text-[15px] text-carbon-black bg-white outline-none transition-all duration-150 placeholder:text-gray-400 focus:border-primary-blue focus:ring-[3px] focus:ring-primary-blue/10"
+              [ngClass]="isLeadInvalid('email') ? 'border-red-400 bg-red-50' : 'border-gray-neutral'" />
+            @if (isLeadInvalid('email')) {
+            <span role="alert" class="block mt-1.5 font-body text-[11px] text-red-400">
+              {{ emailErrorMessage() }}
+            </span>
+            }
+          </div>
+          <div>
+            <label for="rc-notes" class="block font-body font-bold text-[14px] text-carbon-black mb-2">Anything
+              specific you need? <span class="font-normal text-dark-purple/50">(optional)</span></label>
+            <textarea id="rc-notes" rows="2" maxlength="500" formControlName="notes"
+              class="w-full px-3.5 py-3 rounded-[11px] border-[1.5px] border-gray-neutral font-body text-[15px] text-carbon-black bg-white outline-none resize-none transition-all duration-150 focus:border-primary-blue focus:ring-[3px] focus:ring-primary-blue/10"></textarea>
+          </div>
+          @if (leadStatus() === 'error') {
+          <p role="alert" class="font-body text-[12px] text-red-500">Something went wrong. Please try again, or book a
+            call below.</p>
+          }
+          <button type="submit" [disabled]="leadStatus() === 'sending'"
+            class="w-full bg-bright-amber text-navy-dark font-body font-bold text-[16px] py-3.5 rounded-xl cursor-pointer transition-all duration-300 hover:bg-amber-gold disabled:opacity-60 disabled:cursor-wait shadow-[0_10px_24px_rgba(231,174,0,0.32)]">
+            {{ leadStatus() === 'sending' ? 'Sending...' : 'Send me sample profiles' }}
+          </button>
+        </form>
+        }
+        }
+
+        <button type="button" (click)="bookCall()"
+          class="w-full bg-white text-navy-dark font-body font-bold text-[16px] lg:text-[15px] py-3.5 rounded-xl border-[1.5px] border-navy-dark cursor-pointer transition-colors duration-200 hover:bg-navy-dark hover:text-white">
+          Book a call
+        </button>
+      </div>
+      <p class="font-body text-[13px] leading-[18px] text-gray-600 text-left">
+        Your exact rate is locked in on a free 30-minute call, before you interview anyone.
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ═════════ SOURCES: full width, bottom of the card ═════════ -->
+  <p
+    class="lg:col-span-2 lg:mt-6 pt-4 border-t border-gray-neutral/70 font-body text-[12px] leading-[17px] text-gray-600 text-left lg:transition-opacity lg:duration-[350ms] lg:ease-out motion-reduce:transition-none"
+    [ngClass]="revealed() ? 'lg:opacity-100 rc-reveal-mobile' : 'max-lg:hidden lg:opacity-0'"
+    [attr.aria-hidden]="revealed() ? null : 'true'">
+    US wages: U.S. Bureau of Labor Statistics, OEWS May 2025. US benefit costs: BLS Employer Costs for Employee
+    Compensation, June 2026.
+  </p>
+</div>

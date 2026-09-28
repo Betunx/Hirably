@@ -47,6 +47,9 @@ src/
 │  │  ├─ contact-form/      ← formularios + embed de Cal.com (/contact/:type)
 │  │  └─ not-found/
 │  ├─ components/           ← secciones de la landing (hero, pricing, roles, etc.)
+│  │  └─ rate-calculator/   ← calculadora de tarifas del hero (reemplazó al form)
+│  ├─ data/
+│  │  └─ role-rates.ts      ← ★ roles, bandas Hirably y salarios US (BLS) de la calculadora
 │  ├─ core/                 ← navbar y footer
 │  ├─ services/
 │  │  └─ data.service.ts    ← ★ TODO el contenido de las secciones y departamentos
@@ -63,6 +66,11 @@ src/
 - **Formularios (títulos, bullets, campos, opciones de selects):**
   [src/app/pages/contact-form/contact-form.config.ts](src/app/pages/contact-form/contact-form.config.ts)
 - **Navbar / Footer:** [src/app/core/navbar/navbar.component.html](src/app/core/navbar/navbar.component.html) y [src/app/core/footer/footer.component.html](src/app/core/footer/footer.component.html)
+- **Calculadora del hero:** tarifas y salarios en [src/app/data/role-rates.ts](src/app/data/role-rates.ts)
+  (refrescar los salarios US una vez al año cuando BLS publica OEWS, cada primavera, y
+  actualizar `RATE_DATA_VINTAGE`); textos en
+  [rate-calculator.component.html](src/app/components/rate-calculator/rate-calculator.component.html).
+  Regla del dueño: **sin em dashes** en el texto visible de la calculadora.
 
 > Regla general: **el contenido vive en archivos `.ts` de datos/config, no en el HTML.**
 > El HTML solo dibuja; los textos casi siempre salen de `data.service.ts` o
@@ -161,14 +169,16 @@ Todo el tracking del sitio pasa por **un solo servicio**:
 
 Eventos que emite el data layer: `page_data`, `cta_click`, `contact_click`,
 `outbound_click`, `form_start`, `generate_lead`, `scroll_depth`,
-`time_on_page`, `section_view`, `page_not_found`.
+`time_on_page`, `section_view`, `page_not_found`, `rate_calculation`.
 
 > Modelo de conversión: en este sitio el formulario solo se envía **al completar una
 > reserva en Cal.com**, así que "form enviado = llamada agendada = lead" son la misma
-> acción. Por eso **`generate_lead` (`lead.source = 'cal_booking'`) es la única conversión
-> de lead**; se eliminaron `form_submit` (duplicaba a `generate_lead`) y `button_click`
-> (no se emitía). La guía de configuración del panel está en
-> [docs/GTM-SETUP.md](docs/GTM-SETUP.md) (reemplaza los Pasos 3–7 del Data Layer.docx).
+> acción. Por eso **`generate_lead` es la única conversión de lead**; se eliminaron
+> `form_submit` (duplicaba a `generate_lead`) y `button_click` (no se emitía). Desde
+> 2026-09 `generate_lead` tiene **dos fuentes**: `lead.source = 'cal_booking'` (reserva) y
+> `'rate_calculator'` (pedido de "sample profiles" en la calculadora del hero). La guía de
+> configuración del panel está en [docs/GTM-SETUP.md](docs/GTM-SETUP.md) (reemplaza los
+> Pasos 3–7 del Data Layer.docx).
 
 Notas para no romper el tracking:
 - Las secciones de la home llevan `data-section="..."` en su `<section>` raíz —
@@ -182,9 +192,12 @@ Notas para no romper el tracking:
 
 ## 7. Estado del proyecto — Pendientes
 
-> Última actualización: **2026-06-19**. Mantén esta sección al día al cerrar tareas.
+> Última actualización: **2026-09-28**. Mantén esta sección al día al cerrar tareas.
 
 **Hecho recientemente**
+- **Calculadora de tarifas en el hero** (reemplaza al form "Let's Talk"): 48 roles, salarios US
+  BLS OEWS May 2025 verificados, lead "sample profiles" a Formspree + `generate_lead`, evento
+  `rate_calculation`. Ver Bitácora §10.
 - **Páginas legales:** `/privacy-policy` y `/terms-of-service` (standalone lazy), enlazadas
   desde el footer, en sitemap; texto boilerplate marcado para revisión legal. Ver Bitácora §10.
 - **Data Layer — modelo de conversión única:** se eliminaron `form_submit` (duplicaba a
@@ -228,7 +241,21 @@ _UI / UX_
       Falta solo **cambiar los placeholders por logos reales** cuando el dueño los entregue
       (subir a `assets/logos/clients/` y mapear en `placeholderLogos[]`).
 
+_Calculadora del hero_
+- [ ] **Prueba real de "See sample profiles"** tras el deploy: enviar con un email de trabajo y
+      confirmar que llega a Formspree `xzdjkqnd` (asunto "Sample profiles request"). En local
+      solo se probó interceptando la petición.
+- [ ] **Panel GTM/GA4:** crear variables/trigger/tag de `rate_calculation` y decidir si
+      `generate_lead` con `lead_source = rate_calculator` se valora distinto en Ads
+      ([docs/GTM-SETUP.md](docs/GTM-SETUP.md)).
+- [ ] **Refresco anual de salarios** (cada primavera, al publicar OEWS): actualizar `usHourly`
+      y `RATE_DATA_VINTAGE` en [role-rates.ts](src/app/data/role-rates.ts); revisar también
+      el ECEC (cargas 9.1% / 21.4%).
+
 _Otros_
+- [ ] **Sección Roles ("World-Class Talent") oculta** desde 2026-09-28 (comentada en
+      [home.component.html](src/app/pages/home/home.component.html)); los 5 departamentos se
+      enlazan desde la columna "Roles" del footer. Reactivar descomentando si se decide.
 - [ ] **Reactivar `all-included-platform`** si se decide volver a mostrarlo:
       descomentar su uso en [home.component.html](src/app/pages/home/home.component.html).
 - [ ] Revisar el flujo de los 4 formularios en móvil tras el cambio a Cal.com.
@@ -274,6 +301,63 @@ _Otros_
 
 Registro cronológico para validar que lo planeado se implementó y dónde quedó.
 Una entrada por bloque de trabajo. Más reciente arriba.
+
+### 2026-09-28 — Calculadora de tarifas en el hero ✅
+
+**Qué se hizo:** el form "Let's Talk About Your Hiring Needs" del hero se reemplazó (mismo
+lugar y tamaño de tarjeta) por `app-rate-calculator`
+([rate-calculator.component.ts](src/app/components/rate-calculator/rate-calculator.component.ts)).
+- **Datos:** [role-rates.ts](src/app/data/role-rates.ts) con 48 roles (bandas Hirably por
+  nivel; niveles no ofrecidos se omiten), SOC y salario US por hora. US: BLS OEWS May 2025
+  nacional; Entry = p25, Mid = mediana, Senior = p75. SDR y BDR usan banda conservadora
+  (p10 / p25 / mediana). Las 30 SOC se verificaron contra api.bls.gov **y** la tabla nacional
+  oficial (coincidencia exacta). Entry $11-13 para Data Entry, Administrative Assistant,
+  Customer Support Rep y Community / Chat Moderator; "Data Engineer (Elasticsearch/K8s)" →
+  "Data Engineer".
+- **Cálculo:** Specialized +15 % en ambos extremos (redondeo a dólar); piso $11/h. Costo US =
+  salario × 1.305 (payroll 9.1 % + beneficios 21.4 %, cargas ECEC junio 2026 Tabla 5
+  reescaladas a salario con PTO). Vista por hora = total anual / 1,859 h trabajadas.
+  Ahorro = 1 − (tope Hirably anual / costo US anual), tope 70 %; se oculta si ≤ 0.
+- **Leads:** "See sample profiles" → email de trabajo (mismo validador del hero) + notas →
+  POST a `environment.formspreeEndpoint` con rol, nivel, Specialized y especialidad +
+  honeypot `_gotcha`; en éxito dispara `generate_lead('rate_calculator', 'sample_profiles')`.
+  "Book a call" → `/contact/book-a-call` (no se tocaron contact-form ni booking).
+- **Tracking:** `AnalyticsService.rateCalculation()` → evento `rate_calculation`
+  (rol, nivel, specialized) tras ~0.8 s sin cambios; nada de lo que escribe el visitante.
+
+**Verificación:** build + lint OK. 828 combinaciones (rol × nivel × specialized × vista) en
+375/640/768/1178/1342 px: sin desbordes, piso y tope respetados, líneas US suman el total,
+sin em dashes. Lead probado interceptando la petición (éxito, error, email personal).
+**Pendiente:** prueba real contra Formspree tras el deploy y config de GTM (ver §7).
+
+**Ajuste (mismo día) — layout desktop + selector de roles:** en ≥1024px el hero va apilado y
+centrado (titular, subtítulo, stats) y la calculadora debajo (~1100px) en dos paneles:
+izquierda = título, Role, Level, Specialized; derecha = vista, comparación, ahorro, letra chica
+y botones (lado a lado). El panel izquierdo reparte su espacio (`justify-between`) para igualar
+alturas. Móvil/tablet sin cambios. El selector abre mostrando solo categorías con su número de
+roles (una abierta a la vez, arranca abierta la del rol elegido); al escribir busca en todas.
+El `overflow-hidden` del hero pasó del `<section>` a la capa de formas decorativas para que el
+desplegable no se corte en el borde inferior del hero.
+
+**Ajuste — estado inicial + revelado:** la calculadora arranca sin rol ("Choose a role", Mid,
+Specialized off, línea "Pick a role to see your rate next to a US hire."). En desktop se reserva
+el tamaño completo desde el inicio: el panel de resultados existe pero es invisible e `inert`
+(con datos sintéticos `LAYOUT_ROLE`, no un rol real), el panel izquierdo se ve como tarjeta
+centrada (`translate`), y al elegir rol se desliza a la izquierda mientras resultados, fondo de
+tarjeta y divisor aparecen (350 ms ease-out, solo transform/opacity; `motion-reduce` lo omite).
+El fondo blanco de la tarjeta vive ahora dentro del componente (no en el wrapper del hero).
+Altura del hero idéntica antes/después (1287.125 px a 1280/1440). Móvil/tablet: resultados
+ocultos hasta elegir rol, luego fade 250 ms y scroll suave a las columnas. `rate_calculation`
+se dispara por primera vez al elegir rol. `DEFAULT_RATE_SELECTION` ya no tiene rol.
+
+**Ajuste — contexto de la calculadora en el lead de Book a Call:** "Book a call" en la
+calculadora guarda en memoria (no en la URL) rol, nivel, specialized, specialty y estimado en
+[calculator-context.service.ts](src/app/services/calculator-context.service.ts). El form de
+`/contact/book-a-call` lo lee una sola vez y lo añade como campos invisibles `calculator_*` al
+payload de Formspree (3 líneas añadidas en
+[contact-form.component.ts](src/app/pages/contact-form/contact-form.component.ts); sin cambios
+en campos visibles, validación, Cal.com ni endpoint). Si se llega a Book a Call sin la
+calculadora, el payload es idéntico al de antes. Probado interceptando la petición.
 
 ### 2026-07-08 — Google Ads (conversiones) vía GTM: solo CSP (no-code) ✅
 

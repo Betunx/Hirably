@@ -22,6 +22,7 @@ import {
 } from './contact-form.config';
 import { workEmailValidator } from './work-email.validator';
 import { BookingStateService } from './booking-state.service';
+import { CalculatorContextService } from '@services/calculator-context.service';
 
 const FORMSPREE_ENDPOINT = environment.formspreeEndpoint;
 
@@ -54,6 +55,8 @@ export class ContactFormComponent implements OnInit, OnDestroy {
   private readonly titleService = inject(Title);
   private readonly analytics = inject(AnalyticsService);
   private readonly bookingState = inject(BookingStateService);
+  /** Hero calculator selection (only when the visitor came from its "Book a call"); null otherwise. */
+  private readonly calculatorContext = inject(CalculatorContextService).take();
 
   ngOnInit(): void {
     this.route.paramMap
@@ -143,6 +146,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
 
     const payload = {
       ...fields,
+      ...(this.config.type === 'book-a-call' ? this.calculatorContext : null),
       _gotcha:    _honeypot ?? '',
       _form_type: this.config.type,
       _name:      name,

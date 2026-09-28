@@ -1,9 +1,10 @@
 <!-- HERO SECTION -->
-<section id="home" data-section="hero" class="relative overflow-hidden min-h-[92svh] flex items-center"
+<section id="home" data-section="hero" class="relative min-h-[92svh] flex items-center"
   style="background: linear-gradient(180deg, #2291ea 0%, #4ba6ee 38%, #bbe2fd 74%, #FFFBF4 100%);">
 
-  <!--  Decorative Shapes (scaled down on mobile) -->
-  <div class="absolute inset-0 pointer-events-none">
+  <!--  Decorative Shapes (scaled down on mobile). Clipping lives here, not on the section, so the
+        calculator's role dropdown can extend past the bottom of the hero. -->
+  <div class="absolute inset-0 pointer-events-none overflow-hidden">
 
     <!-- Shape 1: Arriba izquierda -->
     <svg class="absolute top-0 left-0 w-[160px] h-[124px] md:w-[294px] md:h-[228px]" xmlns="http://www.w3.org/2000/svg"
@@ -34,32 +35,32 @@
 
   <div class="relative z-[5] w-full px-6 md:px-12 pt-[140px] md:pt-[164px] lg:pt-[178px] pb-[60px] lg:pb-[70px]">
 
-    <!-- Hero Content: aligned to the navbar container (max-w-7xl + outer padding) so
-         the left headline starts at the same X as the logo and the form reaches the right edge -->
-    <div
-      class="max-w-7xl mx-auto grid grid-cols-1 min-[1178px]:grid-cols-[minmax(0,1fr)_520px] gap-10 min-[1178px]:gap-12 items-center">
+    <!-- Hero Content: stacked and centered at every width. Headline, subline and stats on top;
+         the rate calculator below (two panes side by side ≥1024px, ~1100px wide). -->
+    <div class="max-w-7xl mx-auto flex flex-col items-center gap-10 lg:gap-12">
 
-      <!-- LEFT: headline -->
-      <div>
+      <!-- TOP: headline -->
+      <div class="w-full">
 
-        <!-- Headline (staggered / staircase lines) -->
+        <!-- Headline (two lines; line 2 keeps ~0.89× line 1). ≥640px sizes are +20% (2026-09-28);
+             phones stay at 52/46px so "Hire Top 1%" keeps to one line. -->
         <h1
-          class="font-display font-bold text-[52px] sm:text-[64px] md:text-[76px] lg:text-[84px] min-[1178px]:text-[90px] leading-[1.05] tracking-[-0.5px] mb-6 text-center min-[1178px]:text-left">
-          <span class="block text-white">Hire Talent</span>
+          class="font-display font-bold text-[52px] sm:text-[72px] md:text-[82px] lg:text-[101px] leading-[1.05] tracking-[-0.5px] mb-6 text-center">
+          <span class="block text-navy-dark">Hire Top 1%</span>
           <span
-            class="block text-primary-blue text-[46px] sm:text-[57px] md:text-[68px] lg:text-[75px] min-[1178px]:text-[80px] mt-2 min-[1178px]:mt-3">In
-            Mexico</span>
+            class="block text-navy-dark text-[46px] sm:text-[64px] md:text-[72px] lg:text-[90px] mt-2 lg:mt-3">Talent
+            in Mexico</span>
         </h1>
 
         <!-- Subtitle -->
         <p
-          class="font-display font-semibold text-[20px] min-[1178px]:text-[28px] leading-[1.25] tracking-[-0.4px] text-navy-dark max-w-[520px] mx-auto min-[1178px]:mx-0 mb-9 text-center min-[1178px]:text-left">
-          Hire your team with <span class="text-primary-blue"><span class="text-navy-dark">Hira</span>bly.</span>
+          class="font-display font-semibold text-[20px] lg:text-[28px] leading-[1.25] tracking-[-0.4px] text-navy-dark max-w-[520px] mx-auto mb-9 text-center">
+          Zero Recruitment Fees. <span class="text-primary-blue">Ever.</span>
         </p>
 
-        <!-- Social proof — pushed down so it lands near the bottom edge of the form card -->
+        <!-- Social proof (centered) -->
         <div
-          class="mt-8 min-[1178px]:mt-16 flex items-center justify-center min-[1178px]:justify-start gap-5 min-[1178px]:gap-7 flex-wrap min-[1178px]:flex-nowrap">
+          class="mt-8 flex items-center justify-center gap-5 lg:gap-7 flex-wrap lg:flex-nowrap">
           <div class="flex items-center gap-3">
             <div class="flex">
               <div class="w-10 h-10 rounded-full border-[2.5px] border-floral-white bg-bright-amber"></div>
@@ -83,57 +84,10 @@
 
       </div>
 
-      <!-- RIGHT: Book-a-call form card -->
-      <div
-        class="w-full max-w-[460px] mx-auto min-[1178px]:max-w-none min-[1178px]:mx-0 bg-white rounded-[22px] p-6 min-[1178px]:p-9 shadow-[0_30px_70px_rgba(17,31,120,0.28)] border border-white/60">
-        <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate class="flex flex-col">
-
-          <h2
-            class="font-display font-bold text-[24px] text-navy-dark tracking-[-0.4px] mb-6 text-center min-[1178px]:whitespace-nowrap">
-            Let's Talk About Your Hiring Needs
-          </h2>
-
-          <!-- First / Last name -->
-          <div class="grid grid-cols-2 gap-4 mb-[18px]">
-            <div>
-              <label for="hero-firstName" class="block font-body font-bold text-[14px] text-carbon-black mb-2">First
-                name</label>
-              <input id="hero-firstName" type="text" formControlName="firstName" placeholder="Jane"
-                class="w-full px-3.5 py-3 rounded-[11px] border-[1.5px] font-body text-[15px] text-carbon-black bg-white outline-none transition-all duration-150 placeholder:text-gray-400 focus:border-primary-blue focus:ring-[3px] focus:ring-primary-blue/10"
-                [ngClass]="isInvalid('firstName') ? 'border-red-400 bg-red-50' : 'border-gray-neutral'" />
-            </div>
-            <div>
-              <label for="hero-lastName" class="block font-body font-bold text-[14px] text-carbon-black mb-2">Last
-                name</label>
-              <input id="hero-lastName" type="text" formControlName="lastName" placeholder="Smith"
-                class="w-full px-3.5 py-3 rounded-[11px] border-[1.5px] font-body text-[15px] text-carbon-black bg-white outline-none transition-all duration-150 placeholder:text-gray-400 focus:border-primary-blue focus:ring-[3px] focus:ring-primary-blue/10"
-                [ngClass]="isInvalid('lastName') ? 'border-red-400 bg-red-50' : 'border-gray-neutral'" />
-            </div>
-          </div>
-
-          <!-- Work email -->
-          <div class="mb-[26px]">
-            <label for="hero-email" class="block font-body font-bold text-[14px] text-carbon-black mb-2">Work
-              email</label>
-            <input id="hero-email" type="email" formControlName="email" placeholder="jane@acme.com"
-              class="w-full px-3.5 py-3 rounded-[11px] border-[1.5px] font-body text-[15px] text-carbon-black bg-white outline-none transition-all duration-150 placeholder:text-gray-400 focus:border-primary-blue focus:ring-[3px] focus:ring-primary-blue/10"
-              [ngClass]="isInvalid('email') ? 'border-red-400 bg-red-50' : 'border-gray-neutral'" />
-            @if (isInvalid('email') && form.get('email')?.errors?.['workEmail']) {
-            <span role="alert" class="block mt-1.5 font-body text-[11px] text-red-400">Please use your work
-              email.</span>
-            }
-          </div>
-
-          <!-- CTA Button -->
-          <button type="submit"
-            class="w-full bg-bright-amber text-navy-dark font-body font-bold text-[17px] py-4 rounded-xl cursor-pointer transition-all duration-300 hover:bg-amber-gold hover:-translate-y-px shadow-[0_10px_24px_rgba(231,174,0,0.32)] hover:shadow-[0_14px_30px_rgba(231,174,0,0.42)]">
-            Book a call
-          </button>
-
-          <p class="text-center font-body font-medium text-[13.5px] text-dark-purple/50 mt-4">
-            Free 30-minute call. No commitment.
-          </p>
-        </form>
+      <!-- BELOW: Rate calculator (460px stacked on phones/tablets; ~1100px with two panes ≥1024px).
+           The white card background is drawn inside app-rate-calculator so it can fade in on desktop. -->
+      <div class="w-full max-w-[460px] lg:max-w-[1100px] mx-auto p-6 lg:p-10">
+        <app-rate-calculator></app-rate-calculator>
       </div>
 
     </div>

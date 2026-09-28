@@ -1,6 +1,6 @@
 <footer class="bg-navy-dark">
   <div
-    class="max-w-[1440px] mx-auto h-auto lg:h-[264px] flex flex-col justify-between px-4 sm:px-6 lg:px-[90px] py-6 lg:py-10">
+    class="max-w-[1440px] mx-auto h-auto lg:min-h-[264px] flex flex-col justify-between lg:gap-8 px-4 sm:px-6 lg:px-[90px] py-6 lg:py-10">
 
     <!-- Main Footer Content -->
     <div class="flex flex-col lg:flex-row justify-between items-start">
@@ -43,10 +43,38 @@
           <a href="mailto:info@hirablystaffing.com" (click)="trackContact('email')"
             class="font-body font-normal text-[12px] text-white underline hover:text-primary-blue transition-colors">Contact</a>
         </div>
+
+        <!-- Mobile: Roles (department pages) -->
+        <nav aria-label="Roles" class="flex lg:hidden flex-col items-center gap-2 mb-4">
+          <p class="font-display font-normal text-[13px] leading-[120%] text-white">Roles</p>
+          <div class="flex flex-wrap justify-center gap-x-4 gap-y-2">
+            @for (dept of departments; track dept.id) {
+            <a [routerLink]="['/roles', dept.id]"
+              class="font-body font-normal text-[12px] text-white underline hover:text-primary-blue transition-colors">{{
+              dept.title }}</a>
+            }
+          </div>
+        </nav>
       </div>
 
-      <!-- Right Side: Contact Info - hidden on mobile -->
-      <div class="hidden lg:flex flex-col items-end gap-3 mt-[20px]">
+      <!-- Right Side (desktop): Roles + Contact columns - hidden on mobile -->
+      <div class="hidden lg:flex items-start gap-16 xl:gap-24">
+
+      <!-- Roles (department pages) -->
+      <nav aria-label="Roles" class="flex flex-col items-start gap-3 mt-[20px]">
+        <p class="font-display font-normal text-[16px] leading-[120%] text-white">
+          Roles
+        </p>
+        @for (dept of departments; track dept.id) {
+        <a [routerLink]="['/roles', dept.id]"
+          class="font-display font-normal text-[15px] leading-[120%] text-white hover:text-primary-blue transition-colors">
+          {{ dept.title }}
+        </a>
+        }
+      </nav>
+
+      <!-- Contact Info -->
+      <div class="flex flex-col items-end gap-3 mt-[20px]">
         <!-- Contact Us - Poppins 16px/500/120% -->
         <p class="font-display font-normal text-[16px] leading-[120%] text-white">
           Contact us
@@ -105,6 +133,7 @@
             </a>
           </li>
         </ul>
+      </div>
       </div>
 
     </div>
