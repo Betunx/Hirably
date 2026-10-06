@@ -1,0 +1,132 @@
+<!-- DESIGN DRAFT B: Software Product. Preview only. Same sections and order as the real homepage + "Done for you". -->
+<div class="hbd">
+  <app-draft-navbar variant="b" />
+
+  <!-- HERO: headline left, product visual right (the live calculator in a browser frame) -->
+  <section id="home" data-section="hero" class="bg-white pt-28 sm:pt-32 lg:pt-36 pb-16 lg:pb-24">
+    <div class="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 grid gap-12 lg:gap-14 xl:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] xl:items-start">
+      <div class="max-w-[620px] xl:sticky xl:top-28 xl:pt-14">
+        <h1 class="font-sans font-tight font-extrabold text-[44px] sm:text-[60px] lg:text-[68px] leading-[1.02] tracking-[-0.035em] text-[#102076]">
+          {{ hero.headline }}</h1>
+        <p class="mt-6 text-[22px] lg:text-[24px] font-bold tracking-[-0.01em] text-[#102076]">{{ hero.fees }}</p>
+        <p class="mt-1.5 text-[20px] lg:text-[22px] leading-[1.4] text-[#4A5068]">{{ hero.approve }}</p>
+
+        <div class="mt-8 flex flex-col min-[420px]:flex-row gap-3">
+          <button type="button" (click)="startHiring()"
+            class="inline-flex items-center justify-center gap-2 rounded-lg bg-[#102076] text-white px-6 py-3.5 text-[16px] font-semibold border-none cursor-pointer transition-opacity hover:opacity-90">
+            Start Hiring <app-draft-icon name="arrow" [stroke]="2" class="w-[18px] h-[18px]" />
+          </button>
+          <button type="button" (click)="scrollToCalculator()"
+            class="inline-flex items-center justify-center rounded-lg bg-white text-[#102076] px-6 py-3.5 text-[16px] font-semibold border-[1.5px] border-[#102076] cursor-pointer transition-colors hover:bg-[#102076] hover:text-white xl:hidden">
+            See your rate
+          </button>
+        </div>
+
+        <ul class="mt-8 flex flex-col gap-2.5 list-none m-0 p-0 text-[15px] text-[#4A5068]">
+          <li class="flex items-center gap-2.5"><app-draft-icon name="tick" [stroke]="2" class="w-[18px] h-[18px] text-[#102076]" />
+            <span><span class="font-semibold text-[#102076]">1000s of verified professionals</span> across Mexico</span></li>
+          <li class="flex items-center gap-2.5"><app-draft-icon name="tick" [stroke]="2" class="w-[18px] h-[18px] text-[#102076]" />
+            <span><span class="font-semibold text-[#102076]">Save up to 70%</span> vs. local hires</span></li>
+        </ul>
+      </div>
+
+      <!-- Browser frame -->
+      <div id="rate-calculator" class="rounded-xl border border-[#E8E8E8] bg-white shadow-[0_24px_64px_rgba(16,32,118,0.10)]">
+        <div class="h-11 px-4 flex items-center gap-4 border-b border-[#E8E8E8] bg-[#F6F7F9] rounded-t-xl" aria-hidden="true">
+          <span class="flex gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#D5D7DE]"></span><span class="w-2.5 h-2.5 rounded-full bg-[#D5D7DE]"></span><span class="w-2.5 h-2.5 rounded-full bg-[#D5D7DE]"></span></span>
+          <span class="flex-1 max-w-[280px] mx-auto h-6 rounded-md bg-white border border-[#E8E8E8]"></span>
+          <span class="w-[42px]"></span>
+        </div>
+        <div class="p-5 sm:p-7 lg:p-8">
+          <app-draft-calculator variant="b" layout="stacked" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST BAR -->
+  <section data-section="trust_bar" class="bg-white border-y border-[#E8E8E8] py-10 lg:py-12">
+    <div class="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-12">
+      <p class="lg:max-w-[220px] text-[14px] font-semibold leading-[1.4] text-[#4A5068]">{{ trustLine }}</p>
+      <ul class="flex-1 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 items-center list-none m-0 p-0">
+        @for (logo of logos; track logo.src) {
+        <li class="h-11 flex items-center justify-center">
+          <img [src]="logo.src" [alt]="logo.alt" loading="lazy" class="max-h-full max-w-[130px] w-auto object-contain grayscale opacity-80" />
+        </li>
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- THE HIRABLY WAY -->
+  <app-draft-steps variant="b" />
+
+  <!-- DONE FOR YOU (new) -->
+  <section id="done-for-you" class="bg-white py-20 lg:py-32">
+    <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+      <div class="max-w-[760px]">
+        <p class="inline-flex items-center rounded-md bg-[#C2E8FF] px-2.5 py-1 text-[13px] font-semibold text-[#102076]">Done for you</p>
+        <h2 class="mt-4 font-sans font-tight font-bold text-[34px] lg:text-[48px] leading-[1.08] tracking-[-0.025em] text-[#102076]">{{ wholeJob }}</h2>
+      </div>
+      <ul class="mt-10 lg:mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 list-none m-0 p-0">
+        @for (item of doneForYou; track item.text) {
+        <li class="rounded-xl border border-[#E8E8E8] bg-white p-6">
+          <span class="w-11 h-11 rounded-lg bg-[#C2E8FF] text-[#102076] flex items-center justify-center">
+            <app-draft-icon [name]="item.icon" class="w-[22px] h-[22px]" /></span>
+          <p class="mt-5 text-[17px] leading-[1.5] font-medium text-[#102076]">{{ item.text }}</p>
+        </li>
+        }
+      </ul>
+      <div class="mt-4 rounded-xl border border-[#102076] bg-white p-6 lg:px-8 flex flex-col sm:flex-row sm:items-center gap-4">
+        <span class="w-11 h-11 rounded-lg bg-[#102076] text-white flex items-center justify-center flex-shrink-0">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="w-[22px] h-[22px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="4" width="18" height="16" rx="2" /><path d="M3 9h18M9 9v11" /></svg></span>
+        <p class="font-sans font-tight font-bold text-[20px] lg:text-[24px] leading-[1.25] tracking-[-0.015em] text-[#102076]">{{ doneForYouClosing }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY YOU'LL LOVE HIRABLY -->
+  <app-draft-love variant="b" />
+
+  <!-- STATS (static row) -->
+  <section class="bg-white py-16 lg:py-20">
+    <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+      <dl class="grid grid-cols-2 lg:grid-cols-4 rounded-xl border border-[#E8E8E8] m-0">
+        @for (s of stats; track s.label; let i = $index) {
+        <div class="flex flex-col-reverse p-6 lg:p-8 border-[#E8E8E8]"
+          [class]="(i % 2 === 0 ? 'border-r ' : '') + (i < 2 ? 'max-lg:border-b ' : '') + (i === 1 ? 'lg:border-r' : '')">
+          <dt class="mt-2 text-[15px] text-[#4A5068]">{{ s.label }}</dt>
+          <dd class="m-0 font-sans font-tight font-extrabold text-[40px] sm:text-[52px] lg:text-[60px] leading-none tracking-[-0.035em] text-[#102076] whitespace-nowrap">{{ s.value }}</dd>
+        </div>
+        }
+      </dl>
+    </div>
+  </section>
+
+  <!-- WHY NEARSHORE -->
+  <section id="key-benefits" data-section="why_nearshore" class="bg-white pb-20 lg:pb-32 pt-4 lg:pt-12">
+    <div class="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8">
+      <div class="max-w-[760px]">
+        <p class="inline-flex items-center rounded-md bg-[#C2E8FF] px-2.5 py-1 text-[13px] font-semibold text-[#102076]">Why nearshore</p>
+        <h2 class="mt-4 font-sans font-tight font-bold text-[34px] lg:text-[48px] leading-[1.08] tracking-[-0.025em] text-[#102076]">{{ nearshoreTitle }}</h2>
+        <p class="mt-4 text-[17px] lg:text-[19px] leading-[1.55] text-[#4A5068]">{{ nearshoreSubtitle }}</p>
+      </div>
+      <div class="mt-10 lg:mt-14 grid gap-4 lg:grid-cols-3">
+        @for (b of nearshore; track b.title) {
+        <div class="rounded-xl border border-[#E8E8E8] bg-white p-6 lg:p-8">
+          <span class="w-11 h-11 rounded-lg bg-[#C2E8FF] text-[#102076] flex items-center justify-center">
+            <app-draft-icon [name]="b.icon" class="w-[22px] h-[22px]" /></span>
+          <h3 class="mt-5 font-sans font-tight font-bold text-[20px] leading-[1.25] tracking-[-0.01em] text-[#102076]">{{ b.title }}</h3>
+          <p class="mt-2.5 text-[16px] leading-[1.6] text-[#4A5068]">{{ b.description }}</p>
+        </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <app-draft-pricing variant="b" />
+
+  <app-draft-footer variant="b" />
+</div>

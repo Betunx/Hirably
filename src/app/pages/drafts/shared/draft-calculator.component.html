@@ -1,0 +1,283 @@
+<!-- DESIGN DRAFTS ONLY. Restyled rate calculator (logic: rate-calculator.component.ts). No em dashes in visible text. -->
+<div class="flex flex-col gap-6" [ngClass]="split ? 'lg:grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-0' : ''">
+
+  <!-- ═════════ INPUTS ═════════ -->
+  <div class="flex flex-col gap-5" [ngClass]="split ? 'lg:pr-10' : ''">
+    <div>
+      <h2 class="text-[24px] sm:text-[26px] lg:text-[28px] leading-[1.15] text-[#102076]" [ngClass]="headingClass">
+        What will your hire cost?</h2>
+      <p class="mt-2 text-[15px] leading-[22px] text-[#4A5068]" [ngClass]="revealed() ? 'max-lg:hidden lg:invisible' : ''"
+        [attr.aria-hidden]="revealed() ? 'true' : null">Pick a role to see your rate next to a US hire.</p>
+    </div>
+
+    <!-- Role -->
+    <div class="relative" data-role-picker>
+      <label for="rc-role-trigger" class="block text-[14px] font-semibold text-[#102076] mb-2">Role</label>
+      <button #roleTrigger id="rc-role-trigger" type="button" (click)="toggleRoleList()" aria-haspopup="tree"
+        [attr.aria-expanded]="roleListOpen()" aria-controls="rc-role-list"
+        class="w-full flex items-center justify-between gap-3 px-4 py-3.5 border bg-white text-left outline-none transition-colors focus:border-[#2291EA]"
+        [ngClass]="[radius, roleListOpen() ? 'border-[#2291EA]' : 'border-[#D5D7DE] hover:border-[#102076]']">
+        <span class="min-w-0 truncate text-[15px] font-medium" [ngClass]="role() ? 'text-[#102076]' : 'text-[#5B6175]'">{{
+          role()?.role ?? 'Choose a role' }}</span>
+        <span class="flex items-center gap-2 flex-shrink-0 text-[12px] text-[#4A5068]">
+          <span class="hidden min-[400px]:inline">{{ role()?.category }}</span>
+          <svg class="w-4 h-4 transition-transform duration-200" [class.rotate-180]="roleListOpen()" viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </span>
+      </button>
+
+      @if (roleListOpen()) {
+      <div class="absolute left-0 right-0 top-full mt-2 z-30 bg-white border border-[#E8E8E8] shadow-[0_16px_40px_rgba(16,32,118,0.14)] overflow-hidden"
+        [ngClass]="radius">
+        <div class="p-2 border-b border-[#E8E8E8]">
+          <input #roleSearch type="text" role="combobox" aria-label="Search roles" aria-autocomplete="list"
+            aria-haspopup="tree" aria-controls="rc-role-list" aria-expanded="true"
+            [attr.aria-activedescendant]="activeId()" placeholder="Search roles" autocomplete="off"
+            [value]="roleQuery()" (input)="onRoleQuery($event)" (keydown)="onRoleKeydown($event)"
+            class="w-full px-3 py-2 rounded-md bg-[#F6F7F9] text-[14px] text-[#1F2433] outline-none placeholder:text-[#5B6175] focus:ring-2 focus:ring-[#2291EA]/30" />
+        </div>
+        <ul id="rc-role-list" role="tree" aria-label="Roles" class="max-h-[300px] lg:max-h-[340px] overflow-y-auto py-1 list-none m-0 p-0">
+          @if (!searching()) {
+          @for (group of categories; track group.category) {
+          <li role="treeitem" [id]="categoryId(group.category)" aria-selected="false"
+            [attr.aria-expanded]="expandedCategory() === group.category">
+            <div tabindex="-1" (click)="toggleCategory(group.category)" (keydown.enter)="toggleCategory(group.category)"
+              (mouseenter)="activeId.set(categoryId(group.category))"
+              class="flex items-center justify-between gap-3 px-4 py-2.5 cursor-pointer"
+              [ngClass]="{ 'bg-[#EEF7FF]': isActive(categoryId(group.category)) }">
+              <span class="text-[14px] font-semibold text-[#102076]">{{ group.category }}</span>
+              <span class="flex items-center gap-2 flex-shrink-0 text-[12px] text-[#4A5068]">
+                {{ group.roles.length }} roles
+                <svg class="w-4 h-4 transition-transform duration-200" [class.rotate-180]="expandedCategory() === group.category"
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </span>
+            </div>
+            @if (expandedCategory() === group.category) {
+            <ul role="group" class="pb-1 list-none m-0 p-0">
+              @for (r of group.roles; track r.role) {
+              <li role="treeitem" [id]="optionId(r)" [attr.aria-selected]="r === role()" tabindex="-1"
+                (click)="selectRole(r)" (keydown.enter)="selectRole(r)" (mouseenter)="activeId.set(optionId(r))"
+                class="pl-8 pr-4 py-2 cursor-pointer text-[14px] text-[#1F2433]"
+                [ngClass]="{ 'bg-[#EEF7FF]': isActive(optionId(r)), 'font-semibold text-[#102076]': r === role() }">
+                {{ r.role }}</li>
+              }
+            </ul>
+            }
+          </li>
+          }
+          } @else {
+          @for (group of filteredGroups(); track group.category) {
+          <li role="presentation" class="px-4 pt-3 pb-1 text-[12px] font-semibold uppercase tracking-[0.08em] text-[#4A5068]">
+            {{ group.category }}</li>
+          @for (r of group.roles; track r.role) {
+          <li role="treeitem" [id]="optionId(r)" [attr.aria-selected]="r === role()" tabindex="-1"
+            (click)="selectRole(r)" (keydown.enter)="selectRole(r)" (mouseenter)="activeId.set(optionId(r))"
+            class="px-4 py-2 cursor-pointer text-[14px] text-[#1F2433]"
+            [ngClass]="{ 'bg-[#EEF7FF]': isActive(optionId(r)), 'font-semibold text-[#102076]': r === role() }">
+            {{ r.role }}</li>
+          }
+          } @empty {
+          <li role="presentation" class="px-4 py-3 text-[14px] text-[#4A5068]">No matching roles</li>
+          }
+          }
+        </ul>
+      </div>
+      }
+    </div>
+
+    <!-- Level -->
+    <div>
+      <span id="rc-level-label" class="block text-[14px] font-semibold text-[#102076] mb-2">Level</span>
+      <div role="group" aria-labelledby="rc-level-label" class="grid gap-2"
+        [ngClass]="levelOptions().length === 3 ? 'grid-cols-3' : 'grid-cols-2'">
+        @for (l of levelOptions(); track l.key) {
+        <button type="button" (click)="setLevel(l.key)" [attr.aria-pressed]="level() === l.key"
+          class="py-3 border text-[15px] font-semibold transition-colors"
+          [ngClass]="[radius, level() === l.key ? 'bg-[#102076] border-[#102076] text-white' : 'bg-white border-[#D5D7DE] text-[#102076] hover:border-[#102076]']">
+          {{ l.label }}</button>
+        }
+      </div>
+    </div>
+
+    <!-- Specialized -->
+    <div class="flex flex-col gap-3 border border-[#E8E8E8] bg-[#FFFCF5] p-4" [ngClass]="radius">
+      <button type="button" role="switch" [attr.aria-checked]="specialized()" (click)="toggleSpecialized()"
+        class="flex items-center justify-between gap-3 text-left cursor-pointer bg-transparent border-none p-0">
+        <span class="text-[14px] leading-[20px] font-semibold text-[#102076]">Specialized skills or industry experience</span>
+        <span class="relative inline-flex h-6 w-11 flex-shrink-0 rounded-full transition-colors duration-200"
+          [ngClass]="specialized() ? 'bg-[#102076]' : 'bg-[#C9CCD5]'" aria-hidden="true">
+          <span class="absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform duration-200"
+            [class.translate-x-5]="specialized()"></span>
+        </span>
+      </button>
+      @if (specialized()) {
+      <div>
+        <label for="rc-specialty" class="block text-[14px] font-semibold text-[#102076] mb-2">What specialty?</label>
+        <input id="rc-specialty" type="text" maxlength="200" placeholder="e.g., Admin with SaaS marketing experience"
+          [value]="specialty()" (input)="onSpecialty($event)"
+          class="w-full px-4 py-3 border border-[#D5D7DE] text-[15px] text-[#1F2433] bg-white outline-none placeholder:text-[#5B6175] focus:border-[#2291EA]"
+          [ngClass]="radius" />
+      </div>
+      }
+    </div>
+  </div>
+
+  <!-- ═════════ RESULTS ═════════ -->
+  <!-- Desktop starting state: visible layout with placeholder bars (inert). Phones/tablets: hidden until a role is chosen. -->
+  <div class="relative flex flex-col gap-4"
+    [ngClass]="[split ? 'lg:pl-10 lg:border-l lg:border-[#E8E8E8]' : 'lg:pt-6 lg:border-t lg:border-[#E8E8E8]', revealed() ? 'dc-reveal' : 'max-lg:hidden']"
+    [attr.inert]="revealed() ? null : ''" [attr.aria-hidden]="revealed() ? null : 'true'">
+
+    <!-- View toggle -->
+    <div role="group" aria-label="Show costs" class="grid grid-cols-3 p-1 bg-[#F6F7F9] border border-[#E8E8E8]" [ngClass]="radius">
+      @for (v of views; track v.key) {
+      <button type="button" (click)="setView(v.key)" [attr.aria-pressed]="view() === v.key"
+        class="py-2 text-[13px] font-semibold transition-colors"
+        [ngClass]="[variant === 'b' ? 'rounded-md' : 'rounded-lg', view() === v.key ? 'bg-white text-[#102076] shadow-sm' : 'text-[#4A5068] hover:text-[#102076]']">
+        {{ v.label }}</button>
+      }
+    </div>
+
+    <!-- Comparison -->
+    <div data-rc-compare class="grid grid-cols-1 sm:grid-cols-2 gap-3" aria-live="polite">
+      <!-- Hirably -->
+      <div class="flex flex-col gap-1.5 p-4 bg-[#C2E8FF]" [ngClass]="radius">
+        <p class="text-[12px] leading-none font-semibold uppercase tracking-[0.08em] text-[#102076]">Hirably</p>
+        <p class="text-[22px] leading-[1.2] font-bold text-[#102076] mt-1 self-start" [ngClass]="[skel(), variant === 'b' ? 'font-tight' : '']">
+          <span class="whitespace-nowrap">{{ hirablyAmount().low }}-</span><wbr><span class="whitespace-nowrap">{{ hirablyAmount().high }}</span></p>
+        <p class="text-[12px] leading-[16px] text-[#102076]">{{ viewUnit() }}, all-inclusive</p>
+        <p class="text-[12px] leading-none font-semibold uppercase tracking-[0.08em] text-[#102076] mt-2 pt-2.5 border-t border-[#102076]/15">
+          All included</p>
+        <ul class="flex flex-col gap-1 flex-1 sm:justify-between list-none m-0 p-0">
+          @for (item of includedList; track item) {
+          <li class="flex items-start gap-2">
+            <svg viewBox="0 0 24 24" fill="none" class="w-3.5 h-3.5 mt-[1px] flex-shrink-0 text-[#102076]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span class="text-[12px] leading-[16px] text-[#102076]">{{ item }}</span>
+          </li>
+          }
+        </ul>
+      </div>
+
+      <!-- US local hire -->
+      <div class="flex flex-col gap-1.5 p-4 bg-white border border-[#E8E8E8]" [ngClass]="radius">
+        <p class="text-[12px] leading-none font-semibold uppercase tracking-[0.08em] text-[#4A5068]">{{ usLabel }}</p>
+        <dl class="flex flex-col gap-1.5 mt-1 flex-1 sm:justify-between text-[12px] leading-[16px] text-[#4A5068] m-0">
+          <div class="flex justify-between gap-2">
+            <dt>Base salary</dt>
+            <dd class="m-0 font-semibold text-[#1F2433] whitespace-nowrap" [ngClass]="skel()">{{ usLines().base }}</dd>
+          </div>
+          <div class="justify-between gap-2" [ngClass]="showBreakdown() ? 'flex' : 'hidden sm:flex'">
+            <dt>Payroll taxes +{{ payrollTaxPct }}
+              <span class="block text-[12px] leading-[16px] text-[#5B6175]">Social Security, Medicare, unemployment, workers' comp</span>
+            </dt>
+            <dd class="m-0 font-semibold text-[#1F2433] whitespace-nowrap self-start" [ngClass]="skel()">{{ usLines().payroll }}</dd>
+          </div>
+          <div class="justify-between gap-2" [ngClass]="showBreakdown() ? 'flex' : 'hidden sm:flex'">
+            <dt>Health insurance, retirement &amp; other benefits +{{ benefitsPct }}</dt>
+            <dd class="m-0 font-semibold text-[#1F2433] whitespace-nowrap self-start" [ngClass]="skel()">{{ usLines().benefits }}</dd>
+          </div>
+          <div class="flex justify-between items-baseline gap-2 border-t border-[#E8E8E8] pt-2">
+            <dt class="font-semibold text-[#1F2433]">{{ totalLabel() }}</dt>
+            <dd class="m-0 text-[18px] leading-none font-bold text-[#102076] whitespace-nowrap" [ngClass]="skel()">{{ usLines().total }}</dd>
+          </div>
+        </dl>
+        <p class="text-[12px] leading-[16px] text-[#5B6175]" [ngClass]="showBreakdown() ? 'block' : 'hidden sm:block'">
+          Includes about 5 weeks of paid holidays, vacation, and sick leave.</p>
+        <button type="button" (click)="toggleBreakdown()" [attr.aria-expanded]="showBreakdown()"
+          class="sm:hidden self-start text-[13px] font-semibold text-[#102076] underline underline-offset-2 bg-transparent border-none p-0">
+          {{ showBreakdown() ? 'Hide breakdown' : 'See breakdown' }}</button>
+      </div>
+    </div>
+
+    <!-- Savings -->
+    @if (!revealed()) {
+    <!-- Starting state: same height as the savings box, carries the prompt -->
+    <div class="h-[72px] px-4 flex items-center justify-center gap-2.5 text-center bg-[#F6F7F9] border border-dashed border-[#C9CCD5]" [ngClass]="radius">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+        class="w-[18px] h-[18px] text-[#102076] flex-shrink-0" [class.rotate-90]="!split" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M19 12H5M11 6l-6 6 6 6" /></svg>
+      <p class="text-[15px] font-semibold text-[#102076]">Choose a role to see your rate</p>
+    </div>
+    } @else {
+    @if (savings(); as s) {
+    <div class="h-[72px] px-4 flex flex-col justify-center text-center bg-[#102076]" [ngClass]="radius">
+      <p class="text-[18px] leading-[1.25] font-bold text-[#FFFCF5]">Save up to {{ s.amount }} per year</p>
+      <p class="text-[13px] font-medium mt-0.5 text-[#FFFCF5]/85">up to {{ s.percent }}%</p>
+    </div>
+    }
+    }
+
+    <!-- Lead capture -->
+    <div class="flex flex-col gap-3" [ngClass]="revealed() ? '' : 'opacity-50'">
+      <div class="flex flex-col gap-3" [ngClass]="leadStatus() === 'idle' || leadStatus() === 'sent' ? 'sm:grid sm:grid-cols-2' : ''">
+        @switch (leadStatus()) {
+        @case ('idle') {
+        <button type="button" (click)="openLead()"
+          class="w-full bg-[#102076] text-white text-[15px] font-semibold py-3.5 px-3 cursor-pointer transition-opacity hover:opacity-90 border-none"
+          [ngClass]="variant === 'b' ? 'rounded-lg' : 'rounded-full'">
+          See sample profiles for this role
+        </button>
+        }
+        @case ('sent') {
+        <p role="status" class="flex items-center justify-center px-4 py-3 bg-[#C2E8FF] text-[14px] font-semibold text-[#102076] text-center" [ngClass]="radius">
+          {{ sentText }}
+        </p>
+        }
+        @default {
+        <form [formGroup]="leadForm" (ngSubmit)="submitLead()" novalidate class="flex flex-col gap-3">
+          <!-- Honeypot: hidden from users, bots fill it. Must stay empty. -->
+          <input type="text" formControlName="_honeypot" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+          <div>
+            <label for="rc-email" class="block text-[14px] font-semibold text-[#102076] mb-2">Work email</label>
+            <input #leadEmail id="rc-email" type="email" formControlName="email" placeholder="jane@acme.com" autocomplete="email"
+              class="w-full px-4 py-3 border text-[15px] text-[#1F2433] bg-white outline-none placeholder:text-[#5B6175] focus:border-[#2291EA]"
+              [ngClass]="[radius, isLeadInvalid('email') ? 'border-red-700 bg-red-50' : 'border-[#D5D7DE]']" />
+            @if (isLeadInvalid('email')) {
+            <span role="alert" class="block mt-1.5 text-[12px] text-red-700">{{ emailErrorMessage() }}</span>
+            }
+          </div>
+          <div>
+            <label for="rc-notes" class="block text-[14px] font-semibold text-[#102076] mb-2">Anything specific you need?
+              <span class="font-normal text-[#4A5068]">(optional)</span></label>
+            <textarea id="rc-notes" rows="2" maxlength="500" formControlName="notes"
+              class="w-full px-4 py-3 border border-[#D5D7DE] text-[15px] text-[#1F2433] bg-white outline-none resize-none focus:border-[#2291EA]"
+              [ngClass]="radius"></textarea>
+          </div>
+          @if (leadStatus() === 'error') {
+          <p role="alert" class="text-[12px] text-red-700">Something went wrong. Please try again, or book a call below.</p>
+          }
+          <button type="submit" [disabled]="leadStatus() === 'sending'"
+            class="w-full bg-[#102076] text-white text-[15px] font-semibold py-3.5 cursor-pointer transition-opacity hover:opacity-90 disabled:opacity-60 disabled:cursor-wait border-none"
+            [ngClass]="variant === 'b' ? 'rounded-lg' : 'rounded-full'">
+            {{ leadStatus() === 'sending' ? 'Sending...' : 'Send me sample profiles' }}
+          </button>
+        </form>
+        }
+        }
+
+        <button type="button" (click)="bookCall()"
+          class="w-full bg-white text-[#102076] text-[15px] font-semibold py-3.5 border-[1.5px] border-[#102076] cursor-pointer transition-colors hover:bg-[#102076] hover:text-white"
+          [ngClass]="variant === 'b' ? 'rounded-lg' : 'rounded-full'">
+          Book a call
+        </button>
+      </div>
+      <p class="text-[13px] leading-[18px] text-[#4A5068]">
+        {{ footnote }}
+      </p>
+    </div>
+  </div>
+
+  <!-- Sources -->
+  <p class="pt-4 border-t border-[#E8E8E8] text-[12px] leading-[17px] text-[#5B6175]"
+    [ngClass]="[split ? 'lg:col-span-2 lg:mt-6' : '', revealed() ? 'dc-reveal' : 'max-lg:hidden']">
+    US wages: U.S. Bureau of Labor Statistics, OEWS May 2025. US benefit costs: BLS Employer Costs for Employee
+    Compensation, June 2026.
+  </p>
+</div>

@@ -52,6 +52,26 @@ const routes: Routes = [
     canActivate: [preprodOnlyGuard],
     title: 'Terms of Service — Hirably'
   },
+  // DESIGN DRAFTS (style exploration, branch Chrystian/style-draft): alternative homepages for review.
+  // preprodOnlyGuard → /404 on the production domain; the pages also set noindex.
+  {
+    path: 'draft-a',
+    loadComponent: () => import('@app/pages/drafts/draft-a/draft-a.component').then(m => m.DraftAComponent),
+    canActivate: [preprodOnlyGuard],
+    title: 'Draft A (Big Type) — Hirably'
+  },
+  {
+    path: 'draft-b',
+    loadComponent: () => import('@app/pages/drafts/draft-b/draft-b.component').then(m => m.DraftBComponent),
+    canActivate: [preprodOnlyGuard],
+    title: 'Draft B (Software Product) — Hirably'
+  },
+  {
+    path: 'draft-c',
+    loadComponent: () => import('@app/pages/drafts/draft-c/draft-c.component').then(m => m.DraftCComponent),
+    canActivate: [preprodOnlyGuard],
+    title: 'Draft C (Bold Blocks) — Hirably'
+  },
   { path: '404', component: NotFoundComponent, title: 'Page Not Found — Hirably' },
   { path: '**',  component: NotFoundComponent, title: 'Page Not Found — Hirably' },
 ];
