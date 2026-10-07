@@ -18,8 +18,8 @@ export class StatsCarouselComponent {
     /** Datos del marquee. El template los renderiza dos veces para un loop continuo. */
     readonly badges: StatBadge[] = [
         { highlight: '97%', suffix: 'retention rate' },
-        { highlight: '20 days', suffix: 'average time to hire' },
+        { highlight: '3-7 days', suffix: 'to first shortlist' },
         { highlight: '100%', suffix: 'compliance' },
-        { highlight: '$0', suffix: 'upfront fees' }
+        { highlight: 'Zero', suffix: 'recruitment fees' }
     ];
 }

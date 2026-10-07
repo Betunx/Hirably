@@ -346,10 +346,10 @@ export const FORM_CONFIGS: Record<ContactFormType, ContactFormConfig> = {
       description: "You have the entity — we have the talent. Tell us what you need and we'll source, vet, and deliver bilingual candidates matched to your requirements.",
       bullets: [
         { text: 'Access 10,000+ pre-vetted candidates' },
-        { text: 'Average hire in 20 business days' },
+        { text: 'First shortlist in 3-7 business days' },
         { text: 'Bilingual candidate profiles included' },
-        { text: 'Background checks on every candidate' },
-        { text: '60-day replacement guarantee' },
+        { text: 'Background check available ($149 add-on)' },
+        { text: '180-day replacement guarantee' },
       ],
       imageSrc: 'assets/img/question.jpg',
       imageAlt: 'Request a custom quote',

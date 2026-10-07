@@ -6,10 +6,23 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   standalone: true,
   imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  styles: [`
+    /* Phones: "Want the top 1% of talent in Mexico?" (~18.3em) must fit on one line so the break falls after "Mexico?".
+       Size it to the screen (column = 100vw - 32px), capped at 20px; 18.9 adds a ~3% margin. */
+    @media (max-width: 639.98px) {
+      .lead-in { font-size: min(20px, calc((100vw - 32px) / 18.9)); }
+    }
+  `],
   template: `
-    <section data-section="trust_bar" class="bg-floral-white pt-8 pb-12 lg:pt-[40px] lg:pb-[72px]">
+    <section data-section="trust_bar" class="bg-floral-white section-y">
       <div class="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-[100px]">
-    
+
+        <!-- Lead-in to the logos (moved from the hero). One line on desktop; if it wraps, only after "Mexico?"
+             (each sentence is nowrap). -->
+        <p class="lead-in font-display sm:text-[24px] lg:text-[30px] leading-[1.25] text-[#102076] text-center section-head">
+          <span class="whitespace-nowrap">Want the top 1% of talent in Mexico?</span>{{ ' ' }}<span class="whitespace-nowrap">Zero recruitment fees. <span class="text-primary-blue">Ever.</span></span>
+        </p>
+
         <!-- Marquee carousel (same pattern as the hero stats carousel). -->
         <div class="flex justify-center">
           <div class="overflow-hidden w-full max-w-[1000px]">

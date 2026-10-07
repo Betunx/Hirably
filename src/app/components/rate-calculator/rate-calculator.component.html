@@ -1,7 +1,8 @@
 <!-- Hero rate calculator. Numbers: src/app/data/role-rates.ts. No em dashes in visible text.
      Phones/tablets: one column. ≥1024px: two panes (inputs left, results right).
      Starting state (no role yet): only the inputs show. On desktop the full card size is reserved from
-     the start (results pane present but invisible), so choosing a role never changes the page height. -->
+     the start (results pane present but invisible), so choosing a role never changes the page height; the
+     visible white card ends right after the inputs and grows into the reserved space when a role is chosen. -->
 <div class="relative isolate flex flex-col gap-5 lg:grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
 
   <!-- Card background: always on phones/tablets; on desktop it fades in with the results -->
@@ -9,9 +10,10 @@
     [ngClass]="revealed() ? 'lg:opacity-100' : 'lg:opacity-0'"></div>
 
   <!-- ═════════ LEFT PANE: title + inputs ═════════ -->
-  <!-- Desktop: starts centered in the reserved card (translate), slides to the left when a role is chosen -->
+  <!-- Desktop: starts centered horizontally (translate) and top-aligned at its own height (self-start), so the
+       starting card ends right after the Specialized switch; slides left and stretches when a role is chosen -->
   <div class="relative flex flex-col gap-5 lg:isolate lg:pr-10 lg:transition-transform lg:duration-[350ms] lg:ease-out motion-reduce:transition-none"
-    [ngClass]="revealed() ? 'lg:translate-x-0 lg:translate-y-0' : 'lg:translate-x-[calc(70%_+_30px)] lg:translate-y-[39px]'">
+    [ngClass]="revealed() ? 'lg:translate-x-0' : 'lg:self-start lg:translate-x-[calc(70%_+_30px)]'">
 
     <!-- Starting-state card (desktop): the left pane alone reads as one square card -->
     <div aria-hidden="true"
