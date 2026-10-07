@@ -40,6 +40,15 @@ export interface PricingPlan {
   cta: string;
 }
 
+/** Done for you: one row of the comparison table. true = check mark, false = dash, string = shown as is. */
+export type ComparisonCell = boolean | string;
+export interface ComparisonRow {
+  label: string;
+  hirably: ComparisonCell;
+  eorPlatforms: ComparisonCell;
+  recruitingAgencies: ComparisonCell;
+}
+
 export interface Step {
   number: number;
   title: string;

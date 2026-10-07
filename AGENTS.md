@@ -302,6 +302,84 @@ _Otros_
 Registro cronológico para validar que lo planeado se implementó y dónde quedó.
 Una entrada por bloque de trabajo. Más reciente arriba.
 
+### 2026-10-06 — Espaciado de la home: una sola regla ✅
+
+- **Entre secciones:** variables y clases compartidas al final de [styles.scss](src/styles.scss).
+  - `--section-pad: clamp(56px, 32px + 5vw, 120px)`: cada sección lleva ese padding arriba y abajo (`.section-y`,
+    `.section-top`, `.section-bottom`). Dos secciones vecinas quedan a 2× = 112px en móvil, ~174px a 1100,
+    208px a 1440 y 240px desde ~1760. Antes iban de 64 a 128px en móvil (promedio 101) y de 110 a 240px en
+    desktop (promedio 190).
+  - Aplica a: hero (solo abajo; el padding de arriba sigue despegando del navbar), trust bar, The Hirably Way,
+    Done for you, Why you'll love, franja de stats, Why Nearshore y Pricing.
+  - Pricing usa `.section-bottom-before-footer`, que resta el padding superior propio del footer (24/40px).
+    El footer no se tocó porque es compartido.
+- **Dentro de cada sección:** gaps fijos y siempre menores que los de entre secciones.
+  - eyebrow → título: `.section-eyebrow`, 12/16px.
+  - título → subtítulo: `.section-title-gap`, 16/20px.
+  - encabezado → contenido: `.section-head`, de 32 a 56px.
+  - El gap interno más grande (56px) nunca llega a la mitad del gap mínimo entre secciones (112px).
+- **Hero:** el wrapper de la calculadora perdió su padding inferior (`pb-0 lg:pb-0`). Era espacio azul vacío, ya
+  que el fondo blanco vive dentro del componente.
+- **Verificación:**
+  - build y lint en verde; sin scroll horizontal (390/1100/1440/2560).
+  - Gaps medidos en el navegador.
+  - Animaciones: el H de The Hirably Way, el corazón y las cards siguen disparando con sus umbrales (35 % / 25 %
+    del bloque visible) y con el título ya en pantalla, en desktop y móvil.
+
+### 2026-10-05 — Hero rotativo + sección Done for you + correcciones de texto ✅
+
+- **Hero:** el titular ahora es rotativo: "Need a [rol]?" / "Try Hirably." (roles en `getHeroRoles()` de
+  [data.service.ts](src/app/services/data.service.ts); "a/an" automático). Momo Trust Display 400. El tamaño se
+  ajusta al ancho de la columna (container query) para que el rol más largo quepa en UNA línea; se reserva
+  exactamente esa altura (sin hueco ni layout shift). En teléfonos (<640px) "Need a" va en su propia línea.
+  Cambio de rol: solo opacidad (sale una línea, entra la otra). `prefers-reduced-motion`: primer rol, estático.
+  Lectores de pantalla: una sola frase (sr-only). El rol va en navy con subrayado acento (el acento sobre el azul
+  del hero da ~1.1:1). "Hire Top 1% Talent in Mexico" pasa a subtítulo.
+  [hero-section.component.ts](src/app/components/hero-section/hero-section.component.ts).
+- **Done for you (nuevo, tras The Hirably Way):** 6 líneas + tabla comparativa (tabla ≥768px, bloques por fila en
+  móvil; Sí/No como check/guion con texto para lectores). `data-section="done_for_you"`. Copy en
+  `getDoneForYou()` / `getComparison()`. [done-for-you](src/app/components/done-for-you/done-for-you.component.ts).
+- **Textos:** "Why you'll love Hirably", tarjetas Lifetime / Zero Recruitment Fees / First Shortlist in 5-7 Days,
+  paso 3 "We Onboard in Days", stats (5-7 days, Zero recruitment fees), Why Nearshore (horarios, "Mexican",
+  "Up to 70%"), tarjeta Recruitment ("Sourcing & Screening"), "30 days' notice", dirección del footer,
+  bullets de Get a Quote (solo config) y meta/og/twitter description (sin "$0 upfront" ni em dash).
+- **Ajuste hero:** "Hire Top 1% Talent in Mexico. Zero Recruitment Fees. Ever." en una sola línea (30px desktop;
+  en móvil corta solo tras "Mexico."), 16px arriba y abajo: el hero baja de 1337 a 1257px (desktop).
+  Calculadora: en el estado inicial la tarjeta blanca termina justo tras el switch "Specialized" (panel
+  `lg:self-start`); el espacio total sigue reservado, así que al elegir rol se expande sin mover la página.
+- **Hero v3:** titular en tres líneas "Need a" / [rol]? / "try hirably." (9 roles; se quitó Guidewire Developer),
+  tamaño máximo con el rol más largo ("Customer Support Rep?") en UNA línea: ~104px a 1440, 28px a 390.
+  "Need a"/"Need an" apilados: solo se desvanecen cuando cambia el artículo. "try hirably." en minúsculas,
+  navy con el punto acento. La línea "Hire Top 1% Talent in Mexico. Zero Recruitment Fees. Ever." pasó del hero
+  a la parte superior del trust bar, como entrada a los logos
+  ([trust-bar.component.ts](src/app/components/trust-bar/trust-bar.component.ts)).
+- **Done for you restyle:** mismo lenguaje que The Hirably Way (borde 2px acento, radio 12px, sombra
+  `2px 2px 8px rgba(0,0,0,.25)`, números pastel grandes 01-06 detrás del borde superior, círculos de ícono
+  teñidos abajo a la derecha; íconos reutilizados de The Hirably Way / Why you'll love, más laptop y personas).
+  Entrada: el slide-in de Why you'll love (el componente extiende `WhyHirablyComponent`; `#heart` es un gancho
+  invisible). Tabla con el mismo marco; encabezado de Hirably = logo; en móvil un bloque enmarcado por fila.
+- **Done for you (2026-10-06):** se quitaron las 6 tarjetas numeradas (y sus datos en data.service.ts); la
+  sección queda en eyebrow + titular + tabla, con el mismo espacio titular→contenido que el resto (64px).
+  Contraste AA: valores de Hirably en navy (10.9:1), encabezados a 24px (acento 3.3:1, texto grande),
+  guiones #8A8A8A (3.45:1 sobre blanco). Ya no extiende `WhyHirablyComponent`.
+- **Roles del hero (2026-10-06):** nueva lista de 10 roles en `getHeroRoles()` (AI Research Engineer … Executive
+  Assistant; "an" automático en AI Research Engineer, Accountant, Electrical Engineer, Executive Assistant). El más
+  largo sigue siendo "Customer Support Rep?" (11.94em), así que el tamaño no cambia (`--hero-fit: 12.3`).
+- **Entrada a los logos (2026-10-06):** "Want the top 1% of talent in Mexico? Zero recruitment fees. Ever." (Ever. en
+  acento). Una línea en desktop (30px); en móvil corta tras "Mexico?", con tamaño fluido (máx. 20px) para que la
+  primera frase quepa en una línea hasta 320px.
+- **The Hirably Way, textos (2026-10-06):** subtítulo "You bring the role. We bring the person." (sin negrita);
+  pasos "We Go Hunting" / "You Pick Your Favorite" / "We Take It From Here" con textos nuevos en
+  `howItWorksStepsData`. Plazo de shortlist unificado a **3-7 días**: paso 02, tarjeta "First Shortlist in 3-7 Days",
+  stats ("3-7 days to first shortlist") y bullet de Get a Quote ("First shortlist in 3-7 business days").
+- **Tipografía grande que escala (2026-10-06, ajustada):** titular del hero dimensionado por el viewport
+  (`min(7.35vw, 84px + 1.458vw, 112px)`, caja de 100vw): "Customer Support Rep?" ocupa ~88% del ancho en teléfonos y
+  laptops, ~70% a 1920px, y deja de crecer en 1920px (112px). Títulos de sección con una regla compartida
+  `.section-title` en [styles.scss](src/styles.scss): `clamp(32px, min(20px + 3.4vw, 36px + 1.9vw), 72.5px)`
+  (~33px móvil, ~55px a 1024, ~63px a 1440, 72.5px desde 1920), caja de 92vw centrada (The Hirably Way, Done for you,
+  Why you'll love, Pricing). Done for you mantiene su corte tras "Agencies find." desde 1024px. El título de Why
+  nearshore conserva su tamaño y lugar originales (26/30/34px).
+
 ### 2026-09-28 — Why teams love Hirably: animación de entrada ✅
 
 Una sola vez al entrar en pantalla (IntersectionObserver, 25 %): un corazón azul (#2291EA,

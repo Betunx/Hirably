@@ -32,12 +32,12 @@ export class WhyHirablyComponent implements AfterViewInit {
   readonly cards: AdvantageCard[] = [
     {
       title: 'Lifetime Protection',
-      description: 'If your employee leaves for any reason\u2014at any time\u2014we recruit their replacement for free. You never pay for the same role twice.',
+      description: 'If your employee leaves for any reason, at any time, we recruit their replacement for free. You never pay for the same role twice.',
       borderColor: '#E3E1FF'
     },
     {
-      title: '$0 Upfront',
-      description: '$0 Onboarding. No recruitment fees. No setup fees. You don\'t pay a single cent until your new team member officially starts working.',
+      title: 'Zero Recruitment Fees',
+      description: 'No recruitment fees. No setup fees. Nothing to pay until you approve a hire.',
       borderColor: '#D1FAE5'
     },
     {
@@ -51,8 +51,8 @@ export class WhyHirablyComponent implements AfterViewInit {
       borderColor: '#FFF1CF'
     },
     {
-      title: 'Candidates in <5 Days',
-      description: 'We move at the speed of your roadmap. Receive a shortlist of qualified, pre-vetted candidates in less than a business week.',
+      title: 'First Shortlist in 3-7 Days',
+      description: 'We move at the speed of your roadmap. A vetted shortlist in your inbox, ready to interview.',
       borderColor: '#E3E1FF'
     },
     {
