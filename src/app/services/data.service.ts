@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Benefit, Service, PricingPlan, Step, RoleCategory, DepartmentDetail } from '@models';
+import { Benefit, Service, PricingPlan, Step, RoleCategory, DepartmentDetail, ComparisonRow } from '@models';
 
 @Injectable({
   providedIn: 'root'
@@ -11,17 +11,17 @@ export class DataService {
     {
       icon: 'clock',
       title: 'No More "Async" Lag',
-      description: 'Forget waiting 24 hours for a reply. Your team works 9-5 on PST/CST. You collaborate on Slack/Zoom in real-time, just like they are in the next room.'
+      description: 'Forget waiting 24 hours for a reply. Your team works your hours: Pacific, Mountain, Central, or Eastern. You collaborate on Slack/Zoom in real-time, just like they are in the next room.'
     },
     {
       icon: 'globe',
       title: 'Culture, Not Just Language',
-      description: 'It\'s not just about speaking English; it\'s about speaking "Business." LATAM professionals share North American work ethics, urgency, and communication styles.'
+      description: 'It\'s not just about speaking English; it\'s about speaking "Business." Mexican professionals share North American work ethics, urgency, and communication styles.'
     },
     {
       icon: 'dollar',
       title: 'Senior Talent, Junior Prices',
-      description: 'Don\'t settle for entry-level. Hire senior professionals and leaders in Mexico for the cost of a junior US employee. 60% savings, 100% quality.'
+      description: 'Don\'t settle for entry-level. Hire senior professionals and leaders in Mexico for the cost of a junior US employee. Up to 70% savings, zero quality drop.'
     }
   ];
 
@@ -62,7 +62,7 @@ export class DataService {
       priceNote: 'Starting rate — tiered based on seniority of the role.',
       tagline: 'For companies that already have a Mexican legal entity and just need the right people.',
       features: [
-        'Sourcing, Screening & Background Checks',
+        'Sourcing & Screening',
         'Bilingual Candidate Profiles',
         'Technical & Cultural Vetting',
         'Salary Benchmarking & Market Data',
@@ -137,27 +137,51 @@ export class DataService {
     {
       number: 1,
       category: 'Step 01',
-      title: 'We Scout & Screen',
-      description: 'We take your requirements and go to market. We recruit and prescreen heavily, filtering out the noise so you only see the candidates worth your time.',
+      title: 'We Go Hunting',
+      description: 'Send us the role. A quick call or a job description is plenty. We headhunt, interview, and verify every candidate, so only the great ones reach you.',
       color: '#c2e7ff',
       icon: 'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
     },
     {
       number: 2,
       category: 'Step 02',
-      title: 'You Interview & Select',
-      description: 'Skip the scheduling mess. We manage the calendars so you can focus on the candidate. You interview the finalists, test their skills, and make the final hire.',
+      title: 'You Pick Your Favorite',
+      description: 'Your shortlist lands in 3-7 days. We book every interview. You meet them, test their skills, and pick your hire.',
       color: '#d1f9e5',
       icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z'
     },
     {
       number: 3,
       category: 'Step 03',
-      title: 'We Onboard Instantly',
-      description: 'Once you say "Yes," we handle the rest. We generate compliant contracts, handle equipment logistics, and set up benefits instantly. Your new hire starts in days, not weeks.',
+      title: 'We Take It From Here',
+      description: "Say yes, and that's it. Contract, payroll, laptop, all handled. First call to first day in about two weeks.",
       color: '#e3e1ff',
       icon: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z'
     }
+  ];
+
+  // Hero: roles that cycle in "Need a [role]?" (in this order). "a"/"an" is chosen automatically.
+  private heroRolesData: string[] = [
+    'AI Research Engineer',
+    'Sales Rep',
+    'Full Stack Developer',
+    'Accountant',
+    'Financial Analyst',
+    'Customer Support Rep',
+    'Marketing Analyst',
+    'Bookkeeper',
+    'Electrical Engineer',
+    'Executive Assistant'
+  ];
+
+  // Done for you: comparison table (no company names)
+  private comparisonData: ComparisonRow[] = [
+    { label: 'Finds and vets the talent', hirably: true, eorPlatforms: false, recruitingAgencies: true },
+    { label: 'Legal employer in Mexico', hirably: true, eorPlatforms: true, recruitingAgencies: false },
+    { label: 'Equipment, setup, and IT support', hirably: true, eorPlatforms: false, recruitingAgencies: false },
+    { label: 'Replacement guarantee', hirably: 'Lifetime', eorPlatforms: false, recruitingAgencies: '90 days' },
+    { label: 'Fees to start', hirably: 'Zero recruitment fees', eorPlatforms: 'Setup fee', recruitingAgencies: '20% of salary' },
+    { label: 'Who answers', hirably: 'Dedicated account manager', eorPlatforms: 'Ticket queue', recruitingAgencies: 'Your recruiter, until day 90' }
   ];
 
   // Roles 
@@ -183,6 +207,14 @@ export class DataService {
 
   getHowItWorksSteps(): Step[] {
     return this.howItWorksStepsData;
+  }
+
+  getHeroRoles(): string[] {
+    return this.heroRolesData;
+  }
+
+  getComparison(): ComparisonRow[] {
+    return this.comparisonData;
   }
 
   getRoleCategories(): RoleCategory[] {

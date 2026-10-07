@@ -27,6 +27,7 @@ import { WhyHirablyComponent } from '@components/why-hirably/why-hirably.compone
 // Standalone components
 import { AllIncludedPlatformComponent } from '@components/all-included-platform/all-included-platform.component';
 import { TrustBarComponent } from '@components/trust-bar/trust-bar.component';
+import { DoneForYouComponent } from '@components/done-for-you/done-for-you.component';
 import { MobileCarouselComponent } from '@components/shared/mobile-carousel/mobile-carousel.component';
 import { ServicesCarouselComponent } from '@components/shared/services-carousel/services-carousel.component';
 import { RateCalculatorComponent } from '@components/rate-calculator/rate-calculator.component';
@@ -54,6 +55,7 @@ import { RateCalculatorComponent } from '@components/rate-calculator/rate-calcul
     HttpClientModule,
     AllIncludedPlatformComponent,
     TrustBarComponent,
+    DoneForYouComponent,
     MobileCarouselComponent,
     ServicesCarouselComponent,
     RateCalculatorComponent

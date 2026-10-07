@@ -62,3 +62,44 @@
 :is(h1, h2, h3, h4, h5, h6):not([class~="font-body"]):not([class~="font-sans"]) {
   font-weight: 400;
 }
+
+/* Section titles (The Hirably Way, Done for you, Why you'll love Hirably, Pricing): one shared size, scaled from
+   the viewport width. ~33px on phones, ~55px at 1024px, ~60px at 1280px, ~63px at 1440px, 72.5px from 1920px up
+   (halfway between the original 54px and the first scaled sizes). Two lines: a steeper one for phones and laptops,
+   a gentler one for large monitors; the smaller wins. The title box is 92vw wide and centered on the screen, so a title can grow past its section's content
+   width; cards, tables and body text keep their own widths. */
+.section-title {
+  font-size: clamp(32px, min(20px + 3.4vw, 36px + 1.9vw), 72.5px);
+  line-height: 1.15;
+  width: 92vw;
+  margin-left: calc(50% - 46vw);
+}
+
+/* Section spacing: one shared rule for the whole home page.
+   Between sections: every section gets --section-pad above and below its content, so two neighbours sit
+   2 × --section-pad apart (112px on phones, ~140px at 768px, ~166px at 1024px, ~208px at 1440px, 240px from
+   1760px up). Inside a section the gaps are fixed and much smaller: eyebrow → title 12px (16px from 1024px),
+   title → subline 16px (20px from 1024px), header → content 32px to 56px. The largest gap inside a section (56px)
+   is always under half the smallest gap between sections (112px). */
+:root {
+  --section-pad: clamp(56px, 32px + 5vw, 120px);
+  --section-gap-eyebrow: 12px;
+  --section-gap-title: 16px;
+  --section-gap-head: clamp(32px, 16px + 2.5vw, 56px);
+  --footer-pad-top: 24px; /* footer.component.html: py-6 lg:py-10 */
+}
+@media (min-width: 1024px) {
+  :root {
+    --section-gap-eyebrow: 16px;
+    --section-gap-title: 20px;
+    --footer-pad-top: 40px;
+  }
+}
+.section-y { padding-top: var(--section-pad); padding-bottom: var(--section-pad); }
+.section-top { padding-top: var(--section-pad); }
+.section-bottom { padding-bottom: var(--section-pad); }
+/* Last section before the footer: the footer's own top padding counts toward the gap. */
+.section-bottom-before-footer { padding-bottom: calc(2 * var(--section-pad) - var(--footer-pad-top)); }
+.section-eyebrow { margin-bottom: var(--section-gap-eyebrow); }
+.section-title-gap { margin-bottom: var(--section-gap-title); }
+.section-head { margin-bottom: var(--section-gap-head); }
