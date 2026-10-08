@@ -8,6 +8,13 @@ const HOP_MS = 600;
 const LAND_AT = 0.85;
 /** Short rest on each card before the next hop. */
 const PAUSE_MS = 150;
+/** The drop onto card 01 (and the jump back off it) starts this far above the card. */
+const DROP_PX = 90;
+/** Scroll trigger: a card counts once CARD_IN of its height is above TRIGGER_LINE of the screen height,
+    and at least STEP_PX of scrolling after the previous card. */
+const TRIGGER_LINE = 0.85;
+const CARD_IN = 0.4;
+const STEP_PX = 120;
 /** How high the arc rises above the higher point: up-hops (desktop staircase) vs. down-hops (phones). */
 const ARC_UP_PX = 70;
 const ARC_DOWN_PX = 36;
@@ -33,7 +40,7 @@ export class HowItWorksStepsComponent implements AfterViewInit {
   // SVG 71×107: path (0,106)→(71,1). container_mt = card_next_center - 1
   readonly arrowOffsets = ['mt-[327px]', 'mt-[222px]'];
 
-  // ── Hopping H (plays once when the steps scroll into view) ────────────────
+  // ── Hopping H (follows the scroll: down = hops forward, up = hops back) ────
   readonly cardShadow = '2px 2px 8px 0 rgba(0,0,0,0.25)';
   readonly cardGlow = '0 0 0 4px rgba(34,145,234,0.18), 0 10px 30px rgba(34,145,234,0.30), 2px 2px 8px 0 rgba(0,0,0,0.25)';
   /** How many cards the H has landed on (cards with index < landed are highlighted). */
@@ -44,63 +51,120 @@ export class HowItWorksStepsComponent implements AfterViewInit {
   @ViewChild('hopBody') private body?: ElementRef<HTMLElement>;
   @ViewChild('hopDot') private dot?: ElementRef<SVGGElement>;
 
-  private started = false;
-  private finished = false;
+  /** Card the H sits on (-1 = not shown) and card the scroll position asks for. */
+  private pos = -1;
+  private goal = -1;
+  private busy = false;
+  private destroyed = false;
   private running: Animation[] = [];
 
   ngAfterViewInit(): void {
     const stage = this.stage?.nativeElement;
-    if (!stage || typeof IntersectionObserver === 'undefined') return;
+    if (!stage) return;
 
     this.zone.runOutsideAngular(() => {
-      // Reduced motion: final state right away (H on card 03, all cards highlighted).
+      let frame = 0;
+      const onScroll = () => {
+        if (frame) return;
+        frame = requestAnimationFrame(() => {
+          frame = 0;
+          this.goal = this.scrollGoal();
+          void this.advance();
+        });
+      };
+      // Reduced motion: final state right away (H on card 03, all cards highlighted), no hops.
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         this.finish();
-        return;
+      } else {
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll, { passive: true });
+        onScroll();
       }
-      const io = new IntersectionObserver(entries => {
-        if (entries.some(e => e.isIntersecting) && !this.started) {
-          this.started = true;
-          io.disconnect();
-          void this.play();
-        }
-      }, { threshold: 0.35 });
-      io.observe(stage);
 
-      // Keep the resting H on card 03 if the layout changes afterwards (resize / rotate).
+      // Keep the resting H on its card if the layout changes (resize / rotate).
       const ro = typeof ResizeObserver !== 'undefined'
-        ? new ResizeObserver(() => { if (this.finished) this.placeAt(2); })
+        ? new ResizeObserver(() => { if (!this.busy && this.pos >= 0) this.placeAt(this.pos); })
         : null;
       ro?.observe(stage);
 
       this.destroyRef.onDestroy(() => {
-        io.disconnect();
+        this.destroyed = true;
+        window.removeEventListener('scroll', onScroll);
+        window.removeEventListener('resize', onScroll);
+        cancelAnimationFrame(frame);
         ro?.disconnect();
         this.running.forEach(a => a.cancel());
       });
     });
   }
 
-  /** Drop onto card 01, then hop to 02 and 03. */
-  private async play(): Promise<void> {
-    const hop = this.hopper?.nativeElement;
-    if (!hop) return;
-    const targets = [0, 1, 2].map(i => this.target(i));
-    if (targets.some(t => !t)) return;
-    const [p1, p2, p3] = targets as { x: number; y: number }[];
-
-    // Fade in while dropping onto card 01.
-    this.running.push(hop.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 180, fill: 'forwards' }));
-    await this.jump({ x: p1.x, y: p1.y - 90 }, p1, 0);
-    await this.wait(PAUSE_MS);
-    await this.jump(p1, p2, 1);
-    await this.wait(PAUSE_MS);
-    await this.jump(p2, p3, 2);
-    this.finished = true;
+  /**
+   * Which card the scroll position asks for (-1 = none yet). A card counts once 40 % of it is above the line at 85 %
+   * of the screen height, and never less than STEP_PX of scrolling after the previous card. On phones the cards are
+   * stacked, so each one counts as it scrolls in; on the desktop staircase (01 lowest) the three hops are spread over
+   * 2 × STEP_PX of scrolling.
+   */
+  private scrollGoal(): number {
+    const cards = this.stage?.nativeElement.querySelectorAll<HTMLElement>('[data-hop-card]') ?? [];
+    const line = window.innerHeight * TRIGGER_LINE;
+    let goal = -1;
+    let prev = -Infinity;
+    cards.forEach((card, i) => {
+      const r = card.getBoundingClientRect();
+      // Scroll still needed (px) before card i counts; <= 0 means it already does.
+      const need = Math.max(r.top + r.height * CARD_IN - line, prev + STEP_PX);
+      prev = need;
+      if (need <= 0) goal = i;
+    });
+    return goal;
   }
 
-  /** One hop from a to b (arc + squash-and-stretch); lights up card `index` on landing. */
-  private jump(a: { x: number; y: number }, b: { x: number; y: number }, index: number): Promise<void> {
+  /** Hop one card at a time toward the goal (forward or back), with the same rest between hops. */
+  private async advance(): Promise<void> {
+    if (this.busy) return;
+    this.busy = true;
+    while (this.pos !== this.goal && !this.destroyed) {
+      if (!(await this.hopTo(this.pos + Math.sign(this.goal - this.pos)))) break;
+      if (this.pos !== this.goal) await this.wait(PAUSE_MS);
+    }
+    this.busy = false;
+  }
+
+  /** One hop from the current card to `to`. -1 → 0 drops in from above; 0 → -1 jumps back up and fades out. */
+  private async hopTo(to: number): Promise<boolean> {
+    const hop = this.hopper?.nativeElement;
+    const a = this.pos >= 0 ? this.target(this.pos) : null;
+    const b = to >= 0 ? this.target(to) : null;
+    if (!hop || (this.pos >= 0 && !a) || (to >= 0 && !b)) return false;
+
+    let end: { x: number; y: number };
+    if (!a) {
+      // Fade in while dropping onto card 01.
+      end = b!;
+      this.running.push(hop.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 180, fill: 'forwards' }));
+      await this.jump({ x: end.x, y: end.y - DROP_PX }, end, () => this.land(to));
+    } else if (!b) {
+      // Leave: jump back up off card 01 and fade out; card 01 loses its highlight.
+      end = { x: a.x, y: a.y - DROP_PX };
+      this.running.push(hop.animate([{ opacity: 1 }, { opacity: 0 }],
+        { duration: 180, delay: HOP_MS - 180, fill: 'forwards' }));
+      await this.jump(a, end, () => this.zone.run(() => this.landed.set(0)));
+    } else {
+      end = b;
+      await this.jump(a, b, () => this.land(to));
+    }
+
+    this.pos = to;
+    // Pin the end state inline, then drop the finished animations so they don't pile up.
+    hop.style.transform = `translate(${end.x}px, ${end.y}px)`;
+    hop.style.opacity = to >= 0 ? '1' : '0';
+    this.running.forEach(x => x.cancel());
+    this.running = [];
+    return true;
+  }
+
+  /** One hop from a to b (arc + squash-and-stretch); `onLand` runs as it touches down. */
+  private jump(a: { x: number; y: number }, b: { x: number; y: number }, onLand: () => void): Promise<void> {
     const hop = this.hopper!.nativeElement;
     const body = this.body!.nativeElement;
     const apexY = Math.min(a.y, b.y) - (b.y > a.y ? ARC_DOWN_PX : ARC_UP_PX);
@@ -123,7 +187,7 @@ export class HowItWorksStepsComponent implements AfterViewInit {
     ], { duration: HOP_MS, easing: 'ease-in-out', fill: 'forwards' });
 
     this.running.push(move, squash);
-    setTimeout(() => this.land(index), HOP_MS * LAND_AT);
+    setTimeout(onLand, HOP_MS * LAND_AT);
     return move.finished.then(() => undefined, () => undefined);
   }
 
@@ -132,20 +196,20 @@ export class HowItWorksStepsComponent implements AfterViewInit {
     this.zone.run(() => this.landed.set(index + 1));
     const dot = this.dot?.nativeElement;
     if (!dot) return;
-    this.running.push(dot.animate([
+    dot.animate([
       { transform: 'translateY(0)' },
       { transform: 'translateY(-14px)', offset: 0.35 },
       { transform: 'translateY(0)', offset: 0.65 },
       { transform: 'translateY(-5px)', offset: 0.82 },
       { transform: 'translateY(0)' },
-    ], { duration: 420, easing: 'ease-out' }));
+    ], { duration: 420, easing: 'ease-out' });
   }
 
   /** Final state without animation. */
   private finish(): void {
     const hop = this.hopper?.nativeElement;
     if (!hop) return;
-    this.finished = true;
+    this.pos = this.goal = 2;
     this.placeAt(2);
     hop.style.opacity = '1';
     this.zone.run(() => this.landed.set(3));

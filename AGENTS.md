@@ -302,6 +302,25 @@ _Otros_
 Registro cronológico para validar que lo planeado se implementó y dónde quedó.
 Una entrada por bloque de trabajo. Más reciente arriba.
 
+### 2026-10-07 — Confirmación de "sample profiles" + H que sigue el scroll ✅
+
+- **Calculadora:** el mensaje tras enviar "See sample profiles" ahora dice "Thanks! A Hirably representative will
+  reach out with candidate confirmation" (solo texto en
+  [rate-calculator.component.html](src/app/components/rate-calculator/rate-calculator.component.html)). Form,
+  payload de Formspree y `generate_lead('rate_calculator', 'sample_profiles')` sin cambios (probado interceptando
+  la petición: mismo payload y mismo evento).
+- **The Hirably Way, H saltando:** ya no se reproduce una sola vez; sigue el scroll en ambos sentidos
+  ([how-it-works-steps.component.ts](src/app/components/how-it-works-steps/how-it-works-steps.component.ts)).
+  - Cada card "cuenta" cuando el 40 % de ella pasa la línea al 85 % de la altura de la pantalla, y nunca antes de
+    120px de scroll tras la anterior (en la escalera de desktop la 01 es la más baja, así que los saltos se reparten
+    en 240px de scroll).
+  - Bajando: cae en la 01 y salta a 02 y 03. Subiendo: vuelve a 02, a 01 y, por encima de la 01, salta hacia arriba y
+    se desvanece (al volver a bajar cae otra vez).
+  - Salta de una card a la vez con la misma animación y tiempos (0.6 s + 0.15 s de pausa), aunque el scroll sea
+    brusco o cambie de sentido a mitad de un salto. El glow sigue al H: se iluminan las cards hasta la que ocupa.
+  - Scroll pasivo + `requestAnimationFrame`, fuera de la zona de Angular.
+  - `prefers-reduced-motion`: igual que antes (H fijo en la 03, las 3 cards iluminadas, sin animación).
+
 ### 2026-10-06 — Espaciado de la home: una sola regla ✅
 
 - **Entre secciones:** variables y clases compartidas al final de [styles.scss](src/styles.scss).
