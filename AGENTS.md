@@ -302,6 +302,106 @@ _Otros_
 Registro cronológico para validar que lo planeado se implementó y dónde quedó.
 Una entrada por bloque de trabajo. Más reciente arriba.
 
+### 2026-10-09 — Calculadora: biblioteca de roles de 48 a 100 ✅
+
+- **[role-rates.ts](src/app/data/role-rates.ts):** 52 roles nuevos, 10 por categoría. Los 48 existentes, la lógica y el
+  layout no cambian.
+  - Categorías renombradas: "Admin" → "Admin & Operations" y "Engineering (Design)" → "Engineering & Architecture" (solo
+    se usaban en este archivo).
+  - Los roles nuevos van al final de su categoría.
+- **US:** BLS OEWS May 2025 nacional, mismo método (Entry = p25, Mid = mediana, Senior = p75).
+  - "BDC Representative (Automotive)" usa la banda conservadora `usBand: 'lower'` como SDR/BDR (p10 / p25 / mediana).
+  - Verificado con dos fuentes oficiales: api.bls.gov (series OEUN…, 38 SOC × 4 percentiles = 152 valores) y la tabla
+    nacional de data.bls.gov/oes (2025). Coincidencia exacta en los 152.
+  - Los 32 roles existentes que comparten SOC siguen coincidiendo al centavo.
+- **Bandas Hirably:** tal cual las dio el dueño, salvo Enterprise Account Executive Senior: $32-38 (era $30-36, empezaba
+  por debajo del tope de Mid). Cost Estimator tiene un salto Entry $18 → Mid $19 (se dejó así).
+- **Ahorro:** los 52 roles × nivel × Specialized (284 combinaciones) muestran ahorro. El más bajo: BDC Representative,
+  Entry, 41 % (32 % con Specialized). Nada bajo $11 y ningún tope de rango llega al costo US.
+- **Picker:** 10 categorías × 10 roles, colapsadas con su conteo; la búsqueda encuentra los 100. Build y lint en verde.
+
+**Ajuste (mismo día) — bandas de Engineering & Architecture** (solo `hirably`, nada más):
+- Civil / Structural Designer, BIM / Revit Specialist, MEP / HVAC Designer y Mechanical Engineer: $20-24 / $24-29 /
+  $29-35.
+- Electrical Engineer: $21-25 / $25-30 / $30-35.
+- CAD Drafter: $16-20 / $20-26 / $26-32.
+- Cost Estimator: $16-19 / $19-24 / $24-30 (se cerró el salto Entry → Mid).
+- Los 21 niveles muestran la línea de ahorro con Specialized apagado y encendido. El más bajo: Civil / BIM Mid con
+  Specialized, 32 %.
+
+### 2026-10-09 — Titular del hero en crema + sombra navy suave ✅
+
+- **Cambio:** el titular rotativo ("Need a/an", rol, "try hirably") pasa a crema #FFFCF5 y el punto final a navy
+  #102076. Se quitó el subrayado del rol (se eliminó la clase `.hero-role` de
+  [hero-section.component.ts](src/app/components/hero-section/hero-section.component.ts)).
+  Fondo, stats y calculadora sin cambios.
+- **Contraste:** crema sobre el azul del hero da solo 2.2:1 a 3.0:1 (medido con los píxeles reales, 360 a 2560px), por
+  debajo del 3:1 de AA para texto grande.
+  - El dueño eligió una sombra navy suave en vez de tocar el fondo:
+    `text-shadow: 0 0 0.05em rgba(16,32,118,.6), 0 0.02em 0.2em rgba(16,32,118,.35)` en `.hero-rotator`. Va en em,
+    así escala con la letra.
+  - El punto lleva `[text-shadow:none]` (navy sobre navy).
+  - Medido en un anillo de 2px alrededor de las letras: mediana 3.5:1 a 4.8:1 (antes 2.4 a 3.0). Al menos el 90 % de los
+    píxeles del borde está en ≥3:1 en todos los anchos. En teléfonos queda más justo (la sombra escala con la letra
+    más chica).
+  - Es una mejora, no un aprobado garantizado como lo sería oscurecer la parte alta del degradado.
+
+### 2026-10-08 — Calculadora: panel de resultados rediseñado ✅
+
+Feedback de un prospecto: no vio los números de Hirably (azul sobre azul) y, como los dos lados se armaban distinto,
+su vista se fue al total de EE. UU. Cambios en
+[rate-calculator.component.html](src/app/components/rate-calculator/rate-calculator.component.html):
+- **Misma estructura en las dos tarjetas:** etiqueta, número grande, leyenda y luego detalles.
+  - Las tarjetas son *subgrids* (`[grid-template-rows:subgrid]`), así que las 4 filas se alinean entre ambas aunque
+    una etiqueta se parta en dos líneas.
+  - Lado a lado ≥1024px; apiladas debajo (Hirably primero).
+  - Números grandes en Momo 400: 32px, o `clamp(28px, 2.6vw, 32px)` entre 1024 y ~1230px para que quepan los anuales
+    senior.
+- **Hirably:** fondo blanco, borde 2px #2291EA, texto navy #102076.
+  - Logo + "Your hire with Hirably"; "Up to $X" (tope del rango); leyenda "per hour/month/year, all-inclusive";
+    lista "All included".
+- **EE. UU.:** fondo #F5F5F5 con borde transparente de 2px (mantiene los números en la misma línea), texto #1C1C1C.
+  - "Same hire in the US", el total como número grande, leyenda "total cost per hour worked / per month / per year".
+  - Debajo: salario base, payroll taxes, beneficios y la nota de días pagados. La fila de total del final se quitó.
+- **"See breakdown" en móvil:** pasa de acento a #1C1C1C subrayado (el acento sobre gris no llegaba a AA).
+- **Ahorro:** misma lógica (tope del rango de Hirably, tope 70 %); ahora dice "Save at least $X per year" /
+  "at least Z%".
+- **En el .ts** solo cambiaron los textos de `totalLabel`. Cálculos, toggle, selector, botones, forms, payload de
+  Formspree (`hirably_estimate` sigue enviando el rango) y tracking sin cambios.
+- **Verificación:** build y lint en verde.
+  - 828 combinaciones × 9 anchos (320 a 2560): sin desbordes, números en la misma línea y tarjetas de igual altura
+    cuando van lado a lado.
+  - Contraste del panel: mínimo 4.57:1 y nada de texto azul sobre fondo azul.
+
+**Ajuste (mismo día) — totales abajo + precio desde el mínimo:**
+- **Orden en cada tarjeta, como un recibo:** etiqueta, detalles, divisor, total grande y leyenda.
+  - Las tarjetas comparten 5 filas de subgrid, así que el divisor y los dos totales quedan en la misma línea abajo.
+  - En EE. UU. la fila del divisor va sin texto (`aria-hidden`).
+- **Hirably:** muestra el **mínimo** del rango con "Starting at" pequeño encima (p. ej. "Starting at $13", "per hour,
+  all-inclusive").
+- **Ahorro:** vuelve a calcularse desde el mínimo de Hirably (`band().min` en `savings`, tope 70 %) y dice
+  "Save up to $X per year" / "up to Z%".
+- **Verificación:** build, lint y el mismo barrido (828 × 9 anchos, ahora también la alineación del divisor) en verde;
+  contraste igual (mín. 4.57:1).
+
+**Ajuste (2026-10-09) — orden de las tarjetas:**
+- "Same hire in the US" a la izquierda y "Your hire with Hirably" a la derecha.
+- En móvil se apilan US primero y Hirably después, así el total de Hirably queda justo encima de la barra de ahorro.
+- Se cambió el orden en el HTML (no con CSS), así que lectores de pantalla y teclado siguen el mismo orden.
+- Barrido 828 × 9 anchos y contraste sin cambios.
+
+**Ajuste (2026-10-09) — fee de reclutamiento + etiqueta de Hirably:**
+- **Tarjeta US, última línea del desglose** (antes del divisor): "Recruiting fee" / "Not included", con la nota
+  "Agencies charge about 20% of first-year salary, one time."
+  - Mismo estilo que las demás líneas. No suma al total.
+  - En móvil se ve siempre (no queda detrás de "See breakdown").
+- **Etiqueta de Hirably:** "Same hire with Hirably", como espejo de "Same hire in the US".
+  - Primero se probó el wordmark *hirably.* en línea. Después el dueño pidió quitar el logo: queda texto, con solo la
+    palabra "Hirably" en Momo Trust Display 400 (`font-display`).
+  - "Same hire with" sigue en DM Sans 600; todo navy a 14px.
+  - Se borró el asset recortado `hirably-wordmark.svg`, que quedó sin uso.
+- **Verificación:** barrido 828 × 9 anchos sin problemas; la etiqueta cabe en una línea en todos los anchos.
+
 ### 2026-10-07 — Confirmación de "sample profiles" + H que sigue el scroll ✅
 
 - **Calculadora:** el mensaje tras enviar "See sample profiles" ahora dice "Thanks! A Hirably representative will

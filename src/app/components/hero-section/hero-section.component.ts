@@ -26,14 +26,9 @@ const articleFor = (role: string): 'a' | 'an' => (/^[aeiou]/i.test(role) ? 'an' 
       font-size: min(7.35vw, calc(84px + 1.458vw), 112px);
       line-height: 1.04;
       letter-spacing: -0.5px;
-    }
-    /* The role: navy with an accent underline (accent text on this blue hero is ~1.1:1). */
-    .hero-role {
-      color: #102076;
-      text-decoration-line: underline;
-      text-decoration-color: var(--hero-role-line, #2291EA);
-      text-decoration-thickness: max(3px, 0.06em);
-      text-underline-offset: 0.14em;
+      /* Cream text on the light hero blue: a soft navy shadow (in em, so it scales with the type) darkens the blue
+         right around each letter so the cream reads clearly. The background itself is unchanged. */
+      text-shadow: 0 0 0.05em rgba(16, 32, 118, 0.6), 0 0.02em 0.2em rgba(16, 32, 118, 0.35);
     }
     /* Only opacity changes, and every line keeps its own place: the old one fades out, then the new one fades
        in. "Need a" / "Need an" only fade when the article actually changes. */

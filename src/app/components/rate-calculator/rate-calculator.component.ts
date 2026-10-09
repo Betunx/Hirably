@@ -197,14 +197,14 @@ export class RateCalculatorComponent {
   });
 
   readonly totalLabel = computed(() =>
-    this.view() === 'hourly' ? 'Total cost per hour worked'
-      : this.view() === 'monthly' ? 'Total monthly cost' : 'Total yearly cost');
+    this.view() === 'hourly' ? 'total cost per hour worked'
+      : this.view() === 'monthly' ? 'total cost per month' : 'total cost per year');
 
-  /** Yearly savings at the top of the Hirably range, capped. Null when Hirably isn't cheaper. */
+  /** Yearly savings at the low end of the Hirably range ("up to"), capped. Null when Hirably isn't cheaper. */
   readonly savings = computed(() => {
     const us = this.usYearly().total;
-    const hirablyTop = this.band().max * A.hoursPaidPerYear;
-    const share = 1 - hirablyTop / us;
+    const hirablyLow = this.band().min * A.hoursPaidPerYear;
+    const share = 1 - hirablyLow / us;
     if (!(share > 0)) return null;
     const capped = Math.min(share, A.maxSavingsShare);
     return {

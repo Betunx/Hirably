@@ -46,7 +46,7 @@
              longest role fits one line of the text column at every width; each line is one line tall for every
              role, so nothing shifts. Screen readers get one full sentence; the visual lines are aria-hidden. -->
         <div class="hero-headline-box">
-          <h1 #rotator class="hero-rotator font-display text-center text-[#102076]">
+          <h1 #rotator class="hero-rotator font-display text-center text-[#FFFCF5]">
             <span class="sr-only">{{ spokenHeadline }}</span>
             <span aria-hidden="true" class="block">
               <!-- "Need a" / "Need an": stacked; only fades when the article changes -->
@@ -56,11 +56,11 @@
               </span>
               <span class="grid">
                 @for (role of roles; track role; let i = $index) {
-                <span class="hero-line [grid-area:1/1] whitespace-nowrap" [class.is-active]="i === index()"><span class="hero-role">{{ role }}</span>?</span>
+                <span class="hero-line [grid-area:1/1] whitespace-nowrap" [class.is-active]="i === index()">{{ role }}?</span>
                 }
               </span>
-              <!-- Like the logo wordmark: lowercase, navy, accent period -->
-              <span class="block">try hirably<span class="text-primary-blue">.</span></span>
+              <!-- Like the logo wordmark: lowercase; cream like the rest of the headline, navy period (no shadow: navy on navy) -->
+              <span class="block">try hirably<span class="text-[#102076] [text-shadow:none]">.</span></span>
             </span>
           </h1>
         </div>
