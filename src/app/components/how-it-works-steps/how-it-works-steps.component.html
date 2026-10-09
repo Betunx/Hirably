@@ -131,8 +131,8 @@
 
       </div>
 
-      <!-- Hopping H (Hirably logomark, ~48px tall). Hidden until the steps scroll into view;
-           then it drops onto 01 and hops to 02 and 03 (see component). Decorative only. -->
+      <!-- Hopping H (Hirably logomark, ~48px tall). Follows the scroll: drops onto 01 and hops to 02 and 03 going down,
+           hops back 02, 01 (then off) going up (see component). Decorative only. -->
       <div #hopper aria-hidden="true" class="absolute left-0 top-0 z-20 pointer-events-none opacity-0"
         style="width: 51px; height: 48px; will-change: transform;">
         <div #hopBody class="w-full h-full" style="transform-origin: 50% 100%;">

@@ -175,68 +175,85 @@
       }
     </div>
 
-    <!-- ── Comparison (side by side ≥640px, stacked on phones) ── -->
-    <div data-rc-compare class="grid grid-cols-1 sm:grid-cols-2 gap-3" aria-live="polite">
-
-      <!-- Hirably -->
-      <div class="flex flex-col gap-1.5 rounded-[12px] p-4 bg-light-sky">
-        <p class="font-body font-semibold text-[12px] leading-none uppercase tracking-[0.08em] text-navy-dark/70">
-          Hirably</p>
-        <!-- <wbr> lets a long range wrap after the hyphen in narrow columns -->
-        <p class="font-display font-bold text-[21px] leading-[1.2] text-navy-dark mt-1"><span
-            class="whitespace-nowrap">{{ hirablyAmount().low }}-</span><wbr><span class="whitespace-nowrap">{{
-            hirablyAmount().high }}</span></p>
-        <p class="font-body text-[12px] leading-[16px] text-navy-dark/70">{{ viewUnit() }}, all-inclusive</p>
-        <!-- "All included" checklist (same check mark and navy as the pricing card) -->
-        <p
-          class="font-body font-semibold text-[11px] leading-none uppercase tracking-[0.08em] text-[#102076]/70 mt-2 pt-2 border-t border-[#102076]/10">
-          All included</p>
-        <ul class="flex flex-col gap-1 flex-1 sm:justify-between">
-          @for (item of includedItems; track item) {
-          <li class="flex items-start gap-2">
-            <svg viewBox="2 4 12 10" fill="none" class="w-[12px] h-[10px] mt-[3px] flex-shrink-0 text-[#102076]"
-              aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-              <path d="M4 9.5L7.5 13L14 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" />
-            </svg>
-            <span class="font-body text-[12px] leading-[16px] text-[#102076]">{{ item }}</span>
-          </li>
-          }
-        </ul>
-      </div>
+    <!-- ── Comparison: two cards with the same structure, like a receipt: label at the top, details in the middle, a
+         divider, then the big total (small "Starting at" above it on the Hirably side) and its caption. US on the left,
+         Hirably on the right (≥1024px); stacked below with US first, so the Hirably total sits right above the savings bar. The cards are subgrids sharing 5 rows (label / details / divider /
+         total / caption), so the divider and both totals sit on the same line at the bottom, same size.
+         Hirably = white card, accent border, navy text; US = light gray card, no border (transparent 2px border keeps
+         the rows aligned), #1C1C1C text. ── -->
+    <div data-rc-compare class="grid grid-cols-1 lg:grid-cols-2 gap-3" aria-live="polite">
 
       <!-- US local hire -->
-      <div class="flex flex-col gap-1.5 rounded-[12px] p-4 bg-floral-white border border-gray-neutral/70">
-        <p class="font-body font-semibold text-[12px] leading-none uppercase tracking-[0.08em] text-dark-purple/70">US
-          local hire</p>
-        <dl class="flex flex-col gap-1.5 mt-1 flex-1 sm:justify-between font-body text-[12px] leading-[16px] text-dark-purple">
-          <div class="flex justify-between gap-2">
-            <dt>Base salary</dt>
-            <dd class="font-semibold text-carbon-black whitespace-nowrap">{{ usLines().base }}</dd>
-          </div>
-          <div class="justify-between gap-2" [ngClass]="showBreakdown() ? 'flex' : 'hidden sm:flex'">
-            <dt>Payroll taxes +{{ payrollTaxPct }}
-              <span class="block text-[12px] leading-[16px] text-dark-purple/80">Social Security, Medicare,
-                unemployment, workers' comp</span>
-            </dt>
-            <dd class="font-semibold text-carbon-black whitespace-nowrap">{{ usLines().payroll }}</dd>
-          </div>
-          <div class="justify-between gap-2" [ngClass]="showBreakdown() ? 'flex' : 'hidden sm:flex'">
-            <dt>Health insurance, retirement &amp; other benefits +{{ benefitsPct }}</dt>
-            <dd class="font-semibold text-carbon-black whitespace-nowrap">{{ usLines().benefits }}</dd>
-          </div>
-          <div class="flex justify-between items-baseline gap-2 border-t border-gray-neutral pt-1.5">
-            <dt class="font-semibold text-carbon-black">{{ totalLabel() }}</dt>
-            <dd class="font-display font-bold text-[18px] leading-none text-navy-dark whitespace-nowrap">{{
-              usLines().total }}</dd>
-          </div>
-        </dl>
-        <p class="font-body text-[12px] leading-[16px] text-dark-purple/80"
-          [ngClass]="showBreakdown() ? 'block' : 'hidden sm:block'">Includes about 5 weeks of paid holidays, vacation,
-          and sick leave.</p>
-        <button type="button" (click)="toggleBreakdown()" [attr.aria-expanded]="showBreakdown()"
-          class="sm:hidden self-start font-body font-semibold text-[12px] text-primary-blue underline underline-offset-2">
-          {{ showBreakdown() ? 'Hide breakdown' : 'See breakdown' }}</button>
+      <div class="grid row-span-5 [grid-template-rows:subgrid] gap-0 rounded-[12px] p-4 lg:p-5 bg-[#F5F5F5] border-2 border-transparent text-[#1C1C1C]">
+        <p class="flex items-center min-h-[22px] font-body font-semibold text-[14px] leading-[18px]">Same hire in the US</p>
+        <div class="mt-4">
+          <dl class="flex flex-col gap-2 font-body text-[13px] leading-[18px]">
+            <div class="flex justify-between gap-2">
+              <dt>Base salary</dt>
+              <dd class="font-semibold whitespace-nowrap">{{ usLines().base }}</dd>
+            </div>
+            <div class="justify-between gap-2" [ngClass]="showBreakdown() ? 'flex' : 'hidden sm:flex'">
+              <dt>Payroll taxes +{{ payrollTaxPct }}
+                <span class="block text-[12px] leading-[16px] text-[#1C1C1C]/75">Social Security, Medicare,
+                  unemployment, workers' comp</span>
+              </dt>
+              <dd class="font-semibold whitespace-nowrap">{{ usLines().payroll }}</dd>
+            </div>
+            <div class="justify-between gap-2" [ngClass]="showBreakdown() ? 'flex' : 'hidden sm:flex'">
+              <dt>Health insurance, retirement &amp; other benefits +{{ benefitsPct }}</dt>
+              <dd class="font-semibold whitespace-nowrap">{{ usLines().benefits }}</dd>
+            </div>
+          </dl>
+          <p class="mt-3 font-body text-[12px] leading-[16px] text-[#1C1C1C]/75"
+            [ngClass]="showBreakdown() ? 'block' : 'hidden sm:block'">Includes about 5 weeks of paid holidays, vacation,
+            and sick leave.</p>
+          <!-- Last breakdown line: shown for comparison only, not part of the total -->
+          <dl class="mt-3 font-body text-[13px] leading-[18px]">
+            <div class="flex justify-between gap-2">
+              <dt>Recruiting fee
+                <span class="block text-[12px] leading-[16px] text-[#1C1C1C]/75">Agencies charge about 20% of first-year
+                  salary, one time.</span>
+              </dt>
+              <dd class="font-semibold whitespace-nowrap">Not included</dd>
+            </div>
+          </dl>
+          <button type="button" (click)="toggleBreakdown()" [attr.aria-expanded]="showBreakdown()"
+            class="sm:hidden mt-2 font-body font-semibold text-[13px] text-[#1C1C1C] underline underline-offset-2">
+            {{ showBreakdown() ? 'Hide breakdown' : 'See breakdown' }}</button>
+        </div>
+        <!-- Divider row: no label on this side, but it keeps the total on the same line as Hirably's -->
+        <div class="mt-4 pt-4 border-t border-[#1C1C1C]/15" aria-hidden="true"></div>
+        <p class="whitespace-nowrap font-display font-normal text-[32px] lg:text-[clamp(28px,2.6vw,32px)] leading-[1.1]">{{
+          usLines().total }}</p>
+        <p class="mt-1 font-body text-[13px] leading-[18px] text-[#1C1C1C]/80">{{ totalLabel() }}</p>
+      </div>
+
+      <!-- Hirably -->
+      <div class="grid row-span-5 [grid-template-rows:subgrid] gap-0 rounded-[12px] p-4 lg:p-5 bg-white border-2 border-primary-blue text-[#102076]">
+        <!-- "Same hire with Hirably", mirroring "Same hire in the US". Only the word Hirably is in Momo Trust Display. -->
+        <p class="flex items-center min-h-[22px] font-body font-semibold text-[14px] leading-[18px]">
+          <span>Same hire with <span class="font-display">Hirably</span></span>
+        </p>
+        <div class="mt-4">
+          <p class="font-body font-semibold text-[11px] leading-none uppercase tracking-[0.08em] text-[#102076]/75">
+            All included</p>
+          <ul class="mt-2.5 flex flex-col gap-1.5">
+            @for (item of includedItems; track item) {
+            <li class="flex items-start gap-2">
+              <svg viewBox="2 4 12 10" fill="none" class="w-[12px] h-[10px] mt-[4px] flex-shrink-0" aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 9.5L7.5 13L14 5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+              <span class="font-body text-[13px] leading-[18px]">{{ item }}</span>
+            </li>
+            }
+          </ul>
+        </div>
+        <p class="mt-4 pt-4 border-t border-[#102076]/15 font-body font-semibold text-[13px] leading-[18px]">Starting at</p>
+        <p class="whitespace-nowrap font-display font-normal text-[32px] lg:text-[clamp(28px,2.6vw,32px)] leading-[1.1]">{{
+          hirablyAmount().low }}</p>
+        <p class="mt-1 font-body text-[13px] leading-[18px] text-[#102076]/80">{{ viewUnit() }}, all-inclusive</p>
       </div>
     </div>
 
@@ -262,7 +279,7 @@
         @case ('sent') {
         <p role="status"
           class="flex items-center justify-center rounded-[12px] px-4 py-3 bg-green-soft font-body font-semibold text-[14px] text-navy-dark text-center">
-          Sample profiles on their way within 5 business days.
+          Thanks! A Hirably representative will reach out with candidate confirmation
         </p>
         }
         @default {
