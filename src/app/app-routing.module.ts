@@ -37,6 +37,11 @@ const routes: Routes = [
     loadComponent: () => import('@app/pages/careers/careers-apply.component').then(m => m.CareersApplyComponent),
     title: 'Apply — Hirably'
   },
+  {
+    path: 'mexico-calculator',
+    loadComponent: () => import('@app/pages/mexico-calculator/mexico-calculator-page.component').then(m => m.MexicoCalculatorPageComponent),
+    title: 'What will a hire in Mexico actually cost? | Hirably'
+  },
   // Legal pages are visible only on preproduction/local (preprodOnlyGuard → /404
   // on the production domain) until legal counsel approves publishing them. They
   // are also kept out of sitemap.xml so production does not advertise them.
