@@ -35,12 +35,18 @@ const TAGS = [
     .mc-headline { text-shadow: 0 0 0.05em rgba(16, 32, 118, 0.6), 0 0.02em 0.2em rgba(16, 32, 118, 0.35); text-wrap: balance; }
     /* The page headline replaces the calculator card title on this page only */
     :host ::ng-deep app-rate-calculator h2 { display: none; }
+    /* With the title gone, the starting hint leads the card: bold, on one line. Its size follows the card width
+       (15px max, 12px min); only below ~360px does it fall back to two even lines. */
+    :host ::ng-deep app-rate-calculator div:has(> h2) { container-type: inline-size; }
+    :host ::ng-deep app-rate-calculator h2 + p { font-weight: 700; font-size: clamp(12px, 4.5cqi, 15px); text-wrap: balance; }
     /* Once a role is picked the calculator fades its hint out but keeps its space; with no title above it, drop
        the whole block so the inputs line up with the top of the results */
     :host ::ng-deep app-rate-calculator div:has(> h2):has(> p.opacity-0) { display: none; }
   `],
   template: `
-    <section data-section="mexico_calculator" class="relative min-h-[92svh]"
+    <!-- z-10: global styles give every <img> a 3D transform (styles.scss), which puts the footer logo on its own
+         layer above earlier content; a z-index here keeps the open role list above the footer (navbar is z-1000) -->
+    <section data-section="mexico_calculator" class="relative z-10 min-h-[92svh]"
       style="background: linear-gradient(180deg, #2291ea 0%, #4ba6ee 38%, #bbe2fd 74%, #FFFBF4 100%);">
       <div class="relative w-full px-6 md:px-12 pt-[140px] md:pt-[164px] lg:pt-[178px] section-bottom">
         <div class="max-w-7xl mx-auto flex flex-col items-center gap-10 lg:gap-12">
@@ -48,8 +54,10 @@ const TAGS = [
             <h1 class="mc-headline section-title font-display text-center text-[#FFFCF5]">
               What will a hire in Mexico actually cost?</h1>
           </div>
-          <!-- Same wrapper as the hero: 460px stacked on phones/tablets, ~1100px with two panes ≥1024px -->
-          <div class="w-full max-w-[460px] lg:max-w-[1100px] mx-auto p-6 lg:p-10 pb-0 lg:pb-0">
+          <!-- Same wrapper as the hero: 460px stacked on phones/tablets, ~1100px with two panes ≥1024px.
+               Phones/tablets: min height so the open role list (ends ~515-536px below this box's top) never reaches
+               the footer. Desktop needs none: the card reserves its full height and the list fits inside it. -->
+          <div class="w-full max-w-[460px] lg:max-w-[1100px] mx-auto p-6 lg:p-10 pb-0 lg:pb-0 max-lg:min-h-[560px]">
             <app-rate-calculator></app-rate-calculator>
           </div>
         </div>
