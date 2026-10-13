@@ -229,7 +229,7 @@
       </div>
 
       <!-- Hirably -->
-      <div class="grid row-span-5 [grid-template-rows:subgrid] gap-0 rounded-[12px] p-4 lg:p-5 bg-white border-2 border-primary-blue text-[#102076]">
+      <div class="relative grid row-span-5 [grid-template-rows:subgrid] gap-0 rounded-[12px] p-4 lg:p-5 bg-white border-2 border-primary-blue text-[#102076]">
         <!-- "Same hire with Hirably", mirroring "Same hire in the US". Only the word Hirably is in Momo Trust Display. -->
         <p class="flex items-center min-h-[22px] font-body font-semibold text-[14px] leading-[18px]">
           <span>Same hire with <span class="font-display">Hirably</span></span>
@@ -254,6 +254,12 @@
         <p class="whitespace-nowrap font-display font-normal text-[32px] lg:text-[clamp(28px,2.6vw,32px)] leading-[1.1]">{{
           hirablyAmount().low }}</p>
         <p class="mt-1 font-body text-[13px] leading-[18px] text-[#102076]/80">{{ viewUnit() }}, all-inclusive</p>
+        <!-- "VS" badge joining the two cards (decorative). Lives in this card, centered on the 12px gap: the gap's middle
+             is 8px outside this card's padding box (6px half-gap + 2px border), so -8px - 20px (half the circle) = -28px.
+             Stacked: on the gap above this card, centered. Side by side (≥1024px): on the gap to its left, centered on
+             the card height (both cards are the same height). It reaches 14px into each card, inside their padding. -->
+        <span aria-hidden="true"
+          class="absolute z-10 flex items-center justify-center w-10 h-10 rounded-full bg-white border border-[#E8E8E8] font-display font-normal text-[14px] leading-none text-[#102076] left-1/2 -top-[28px] -translate-x-1/2 lg:left-[-28px] lg:top-1/2 lg:translate-x-0 lg:-translate-y-1/2">VS</span>
       </div>
     </div>
 

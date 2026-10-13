@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "ng build --configuration production --base-href /",
+  "buildCommand": "ng build --configuration production --base-href / && node scripts/og-pages.mjs",
   "outputDirectory": "dist/hirably/browser",
   "headers": [
     {

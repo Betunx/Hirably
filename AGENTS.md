@@ -242,6 +242,8 @@ _UI / UX_
       (subir a `assets/logos/clients/` y mapear en `placeholderLogos[]`).
 
 _Calculadora del hero_
+- [ ] **/mexico-calculator tras el deploy:** confirmar con `curl -s https://hirablystaffing.com/mexico-calculator | grep og:`
+      que llegan los tags propios y pasar la URL por el LinkedIn Post Inspector (refresca su caché).
 - [ ] **Prueba real de "See sample profiles"** tras el deploy: enviar con un email de trabajo y
       confirmar que llega a Formspree `xzdjkqnd` (asunto "Sample profiles request"). En local
       solo se probó interceptando la petición.
@@ -301,6 +303,29 @@ _Otros_
 
 Registro cronológico para validar que lo planeado se implementó y dónde quedó.
 Una entrada por bloque de trabajo. Más reciente arriba.
+
+### 2026-10-12 — Página standalone /mexico-calculator ✅
+
+- **Ruta nueva** `mexico-calculator` (lazy) en [app-routing.module.ts](src/app/app-routing.module.ts); el resto de rutas igual.
+- **[mexico-calculator-page.component.ts](src/app/pages/mexico-calculator/mexico-calculator-page.component.ts):** navbar y
+  footer del sitio; en medio el titular "What will a hire in Mexico actually cost?" (crema #FFFCF5, `.section-title`,
+  misma sombra navy del hero) y `app-rate-calculator` (mismo componente, sin cambios) sobre el degradado azul del hero.
+  `data-section="mexico_calculator"`.
+  - El título de la tarjeta ("What will your hire cost?") se oculta **solo en esta página** con CSS del componente de
+    página (`::ng-deep`); al elegir rol también se quita el hueco de la pista para alinear los inputs arriba.
+- **Head:** title, description, og:*, twitter:* y canonical propios; se restauran al salir de la página.
+  Imagen: [og-mexico-calculator.png](src/assets/img/og-mexico-calculator.png) (1200×627: titular + calculadora con
+  Full Stack Developer, Mid).
+- **Enlace directo:** el rewrite de [vercel.json](vercel.json) `/((?!api/).*)` → `/index.html` ya lo cubría.
+- **Preview de LinkedIn (no ejecuta JS):** [scripts/og-pages.mjs](scripts/og-pages.mjs) corre después de `ng build` y escribe
+  `dist/hirably/browser/mexico-calculator/index.html`: el mismo index.html con title, description, canonical, og:* y
+  twitter:* de la página. Vercel sirve ese archivo antes del rewrite; la app carga igual.
+  - Conectado en `build` de package.json y en `buildCommand` de vercel.json (headers y CSP sin cambios).
+  - El build falla si falta un tag en index.html o si los textos difieren de la constante del componente.
+  - Para otra página con preview propio: agregarla a `PAGES` en el script.
+- **Sitemap:** añadida `/mexico-calculator`.
+- **Verificación:** build (también con el `buildCommand` exacto de Vercel) y lint en verde. Sin JS, `/mexico-calculator`
+  devuelve 200 con los tags propios; `/` sigue con los de la home. Titular centrado y sin scroll horizontal de 320 a 2560px.
 
 ### 2026-10-09 — Calculadora: biblioteca de roles de 48 a 100 ✅
 
@@ -401,6 +426,17 @@ su vista se fue al total de EE. UU. Cambios en
   - "Same hire with" sigue en DM Sans 600; todo navy a 14px.
   - Se borró el asset recortado `hirably-wordmark.svg`, que quedó sin uso.
 - **Verificación:** barrido 828 × 9 anchos sin problemas; la etiqueta cabe en una línea en todos los anchos.
+
+**Ajuste (2026-10-09) — insignia "VS" entre las tarjetas:**
+- **Forma:** círculo de 40px, fondo blanco, borde 1px #E8E8E8, "VS" en Momo Trust Display 400, 14px, navy.
+  `aria-hidden`.
+- **Posición:** va dentro de la tarjeta de Hirably (`relative`), centrada en el hueco de 12px entre tarjetas:
+  `-28px` = mitad del hueco + borde de 2px + mitad del círculo.
+  - Lado a lado (≥1024px): a la izquierda de Hirably, centrada en la altura de la tarjeta.
+  - Apiladas: encima de Hirably, centrada en el ancho.
+  - Entra 14px en cada tarjeta, siempre dentro de su padding.
+- **Medido** (todos los roles × Hourly/Yearly × desglose abierto/cerrado, 9 anchos de 320 a 2560): centrada al 0.0px,
+  no toca ningún texto ni número y no hay scroll horizontal.
 
 ### 2026-10-07 — Confirmación de "sample profiles" + H que sigue el scroll ✅
 
