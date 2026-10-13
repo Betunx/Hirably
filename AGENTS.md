@@ -313,6 +313,8 @@ Una entrada por bloque de trabajo. Más reciente arriba.
   `data-section="mexico_calculator"`.
   - El título de la tarjeta ("What will your hire cost?") se oculta **solo en esta página** con CSS del componente de
     página (`::ng-deep`); al elegir rol también se quita el hueco de la pista para alinear los inputs arriba.
+  - La pista "Pick a role to see your rate next to a US hire." va en negrita y en una línea: tamaño según el ancho de
+    la tarjeta (`clamp(12px, 4.5cqi, 15px)`); solo bajo ~360px pasa a dos líneas parejas. La home no cambia.
 - **Head:** title, description, og:*, twitter:* y canonical propios; se restauran al salir de la página.
   Imagen: [og-mexico-calculator.png](src/assets/img/og-mexico-calculator.png) (1200×627: titular + calculadora con
   Full Stack Developer, Mid).
@@ -324,6 +326,11 @@ Una entrada por bloque de trabajo. Más reciente arriba.
   - El build falla si falta un tag en index.html o si los textos difieren de la constante del componente.
   - Para otra página con preview propio: agregarla a `PAGES` en el script.
 - **Sitemap:** añadida `/mexico-calculator`.
+- **Bug móvil (lista de roles bajo el footer):** el `img { translate3d(0,0,0) }` global de [styles.scss](src/styles.scss)
+  pone cada imagen en su propia capa, así que el logo del footer (posterior en el DOM) se pintaba sobre la lista abierta, que
+  además invadía el footer hasta 172px. Arreglo solo en esta página: `z-10` en la sección (navbar z-1000 sigue arriba) y
+  `max-lg:min-h-[560px]` en el contenedor de la calculadora; la lista abierta termina 81-129px antes del footer de 320 a
+  1023px. El footer y la regla global no se tocaron (la home usa `z-[5]` en el hero y no tenía el problema).
 - **Verificación:** build (también con el `buildCommand` exacto de Vercel) y lint en verde. Sin JS, `/mexico-calculator`
   devuelve 200 con los tags propios; `/` sigue con los de la home. Titular centrado y sin scroll horizontal de 320 a 2560px.
 
