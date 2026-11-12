@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ElementRef, AfterViewInit, OnInit, OnDestroy, inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ElementRef, AfterViewInit, OnInit, OnDestroy, inject, signal } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subject, filter, takeUntil } from 'rxjs';
 import { AnalyticsService, PageType } from '@services/analytics.service';
@@ -7,11 +7,15 @@ import { EngagementTrackerService } from '@services/engagement-tracker.service';
 @Component({
   selector: 'app-root',
   template: `
-    <app-navbar></app-navbar>
+    @if (!ownChrome()) {
+      <app-navbar></app-navbar>
+    }
     <main>
       <router-outlet></router-outlet>
     </main>
-    <app-footer></app-footer>
+    @if (!ownChrome()) {
+      <app-footer></app-footer>
+    }
   `,
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -22,6 +26,8 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   private readonly analytics = inject(AnalyticsService);
   private readonly engagement = inject(EngagementTrackerService);
   private readonly destroy$ = new Subject<void>();
+  /** Pages with their own top bar (the rebrand Book a call page): hide the old navbar and footer. */
+  readonly ownChrome = signal(this.hasOwnChrome(window.location.pathname));
 
   ngOnInit(): void {
     // On every route change (incl. the initial load): emit a virtual pageview and
@@ -30,6 +36,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
       filter((e): e is NavigationEnd => e instanceof NavigationEnd),
       takeUntil(this.destroy$)
     ).subscribe(e => {
+      this.ownChrome.set(this.hasOwnChrome(e.urlAfterRedirects));
       this.analytics.pageData(this.pageTypeFor(e.urlAfterRedirects));
       this.engagement.startPage();
     });
@@ -42,6 +49,10 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  private hasOwnChrome(url: string): boolean {
+    return url.split('?')[0].split('#')[0].startsWith('/contact/book-a-call');
   }
 
   private pageTypeFor(url: string): PageType {

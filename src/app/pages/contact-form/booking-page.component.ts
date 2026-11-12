@@ -11,7 +11,8 @@ import { Title } from '@angular/platform-browser';
 import { AnalyticsService } from '@services/analytics.service';
 import { ContactFormType, ContactFormConfig, VALID_TYPES, FORM_CONFIGS } from './contact-form.config';
 import { BookingStateService, BookingState } from './booking-state.service';
-import { BookingEmbedComponent } from './booking-embed.component';
+import { BookingEmbedComponent, CalBooking } from './booking-embed.component';
+import { BookCallLayoutComponent } from './book-call-layout.component';
 
 /**
  * Dedicated scheduling step (/contact/:type/agendar). Reached after the form
@@ -22,7 +23,7 @@ import { BookingEmbedComponent } from './booking-embed.component';
 @Component({
   selector: 'app-booking-page',
   standalone: true,
-  imports: [CommonModule, BookingEmbedComponent],
+  imports: [CommonModule, BookingEmbedComponent, BookCallLayoutComponent],
   templateUrl: './booking-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -30,6 +31,10 @@ export class BookingPageComponent implements OnInit {
   config!: ContactFormConfig;
   state!: BookingState;
   booked = false;
+  /** Book a call: when the booked call is, in the visitor's time zone (e.g. "Friday, November 13 at 9:00 AM"). */
+  bookedWhen = '';
+  /** Book a call: the email the invite went to (shown after booking, when the stored state is cleared). */
+  bookedEmail = '';
 
   private type!: ContactFormType;
 
@@ -55,16 +60,32 @@ export class BookingPageComponent implements OnInit {
     this.type = type;
     this.config = FORM_CONFIGS[type];
     this.state = state;
-    this.titleService.setTitle(`Schedule — ${this.config.right.formTitle} — Hirably`);
+    this.titleService.setTitle(type === 'book-a-call' ? 'Pick a time | Hirably' : `Schedule — ${this.config.right.formTitle} — Hirably`);
   }
 
-  onBookingConfirmed(): void {
+  onBookingConfirmed(booking?: CalBooking): void {
     if (this.booked) return;
     this.booked = true;
+    this.bookedEmail = this.state.email;
+    this.bookedWhen = this.formatWhen(booking?.startTime);
     // The booking IS the conversion (the lead was already captured on the form step).
     this.analytics.generateLead('cal_booking', this.type);
     this.bookingState.clear(this.type);
     this.cdr.markForCheck();
+  }
+
+  /** Book a call: back to step 1 (the form refills from the stored details). */
+  backToDetails(): void {
+    this.router.navigate(['/contact', this.type]);
+  }
+
+  private formatWhen(iso?: string): string {
+    if (!iso) return '';
+    const d = new Date(iso);
+    if (isNaN(d.getTime())) return '';
+    const day = d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+    const time = d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    return `${day} at ${time}`;
   }
 
   goHome(): void {

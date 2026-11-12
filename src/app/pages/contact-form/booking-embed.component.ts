@@ -42,6 +42,10 @@ export class BookingEmbedComponent implements AfterViewInit, OnDestroy {
   @Input() name = '';
   @Input() email = '';
   @Input() notes = '';
+  /** Cal.com layout: column_view (default) or month_view (fits a narrower panel). */
+  @Input() layout: 'column_view' | 'month_view' | 'week_view' = 'column_view';
+  /** Optional brand color for the calendar (selected day, buttons). */
+  @Input() brandColor = '';
   @Output() bookingConfirmed = new EventEmitter<CalBooking>();
 
   @ViewChild('calContainer', { static: true }) private container!: ElementRef<HTMLElement>;
@@ -72,7 +76,7 @@ export class BookingEmbedComponent implements AfterViewInit, OnDestroy {
       elementOrSelector: this.container.nativeElement,
       calLink: BookingEmbedComponent.CAL_LINK,
       config: {
-        layout: 'column_view',
+        layout: this.layout,
         hideEventTypeDetails: true,
         theme: 'light',
         name: this.name,
@@ -80,6 +84,14 @@ export class BookingEmbedComponent implements AfterViewInit, OnDestroy {
         notes: this.notes,
       },
     });
+    if (this.brandColor) {
+      window.Cal('ui', {
+        theme: 'light',
+        hideEventTypeDetails: true,
+        layout: this.layout,
+        cssVarsPerTheme: { light: { 'cal-brand': this.brandColor }, dark: { 'cal-brand': this.brandColor } },
+      });
+    }
   }
 
   private registerEvents(): void {
