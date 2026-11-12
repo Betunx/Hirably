@@ -322,7 +322,8 @@ Una entrada por bloque de trabajo. Más reciente arriba.
 - **Start Hiring** (calculadora) → mismo Formspree (`_form_type: start-hiring`) + `generate_lead` (`source: rate_calculator`,
   `service_type: start_hiring`). También `page_data`, `cta_click` y `contact_click` (tel/mailto). Falta `scroll_depth`,
   `time_on_page` y `section_view` en la home nueva.
-- Careers → `/careers`; Privacy/Terms → rutas legales (en producción siguen en 404 hasta aprobación legal).
+- Careers → `/careers`. **Sign in, Privacy y Terms se quitaron** de la home (menú y footer) hasta que tengan destino real
+  (Sign in: portal; Privacy/Terms: aprobación legal).
 - Pendiente: destino de "Sign in", formularios con el diseño nuevo, URLs propias para About / Hub / calculadora,
   vista de tablet (hoy usa la versión de teléfono, centrada, por debajo de 1000px).
 
