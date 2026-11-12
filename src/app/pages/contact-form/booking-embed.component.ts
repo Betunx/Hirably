@@ -18,10 +18,18 @@ declare global {
   }
 }
 
-/** Booking details surfaced by Cal.com when a slot is confirmed. */
+/**
+ * Booking details from Cal.com's `bookingSuccessfulV2` embed event (e.detail.data). Fields as documented at
+ * https://cal.com/help/embedding/embed-events (V2 replaces the deprecated `bookingSuccessful`).
+ */
 export interface CalBooking {
-  startTime?: string;
   uid?: string;
+  title?: string;
+  startTime?: string;
+  endTime?: string;
+  status?: string;
+  /** URL of the video call (Google Meet), when Cal.com provides it. */
+  videoCallUrl?: string;
 }
 
 /**
@@ -101,7 +109,7 @@ export class BookingEmbedComponent implements AfterViewInit, OnDestroy {
       return;
     }
     window.Cal('on', {
-      action: 'bookingSuccessful',
+      action: 'bookingSuccessfulV2',
       callback: (e: unknown) => this.ngZone.run(() => this.onConfirmed(e)),
     });
   }
@@ -109,7 +117,7 @@ export class BookingEmbedComponent implements AfterViewInit, OnDestroy {
   private onConfirmed(e: unknown): void {
     if (this.confirmed || this.destroyed) return;
     this.confirmed = true;
-    const booking = (e as { detail?: { data?: { booking?: CalBooking } } })?.detail?.data?.booking;
+    const booking = (e as { detail?: { data?: CalBooking } })?.detail?.data;
     this.bookingConfirmed.emit(booking ?? {});
   }
 }

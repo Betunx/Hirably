@@ -12,6 +12,8 @@ export interface BookingState {
   /** Book a call: first and last name, to refill the form when they go Back from "Pick a time". */
   firstName?: string;
   lastName?: string;
+  /** Book a call: the Formspree lead from the form, sent only when Cal.com confirms the booking. */
+  lead?: Record<string, unknown>;
 }
 
 const PREFIX = 'hirably:booking:';

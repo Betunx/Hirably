@@ -164,6 +164,16 @@ export class ContactFormComponent implements OnInit, OnDestroy {
       _replyto:   email,
     };
 
+    // Book a call: nothing is sent yet. The lead goes to Formspree (with the meeting time) and
+    // generate_lead fires only when Cal.com confirms the booking, on the booking page.
+    if (this.config.type === 'book-a-call') {
+      this.bookingState.set(this.config.type, {
+        name, email, notes: '', firstName: v.firstName, lastName: v.lastName, lead: payload,
+      });
+      this.router.navigate(['/contact', this.config.type, 'agendar']);
+      return;
+    }
+
     // Fire-and-forget, intentionally OFF the component lifecycle: we navigate to
     // the Cal page on the next line, which destroys this component. A
     // takeUntil(destroy$) here would abort the in-flight request before Formspree
@@ -174,7 +184,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
 
     this.analytics.generateLead('contact_form', this.config.type);
 
-    this.bookingState.set(this.config.type, { name, email, notes: v.notes ?? '', firstName: v.firstName, lastName: v.lastName });
+    this.bookingState.set(this.config.type, { name, email, notes: v.notes ?? '' });
     this.router.navigate(['/contact', this.config.type, 'agendar']);
   }
 
