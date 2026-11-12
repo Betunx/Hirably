@@ -314,7 +314,22 @@ _Otros_
 Registro cronológico para validar que lo planeado se implementó y dónde quedó.
 Una entrada por bloque de trabajo. Más reciente arriba.
 
-### 2026-11-12: Book a call con el diseño del rebrand (rama `Chrystian/book-a-call`) 🔄
+### 2026-11-12: Book a call, el lead sale solo al reservar (rama `Chrystian/booking-lead`) ✅
+
+- **Bug (PR #20):** el lead de Book a call se mandaba a Formspree al pulsar "Choose a time", sin reserva y sin hora.
+- **Ahora:** "Choose a time" no envía nada; el payload del form se guarda en `BookingStateService` (`lead`) y
+  [booking-page.component.ts](src/app/pages/contact-form/booking-page.component.ts) lo manda cuando Cal.com confirma
+  (`bookingSuccessfulV2`, el evento documentado en cal.com/help/embedding/embed-events; `bookingSuccessful` está
+  deprecado). Datos planos en `e.detail.data`: `uid`, `startTime`, `endTime`, `status`, `videoCallUrl`.
+- Campos nuevos en el email: `meeting_time_visitor`, `meeting_time_hermosillo`, `visitor_time_zone`, `meeting_link`,
+  `cal_booking_id`, `cal_booking_status`. Asunto: "Hirably: New call booked, <nombre>, <fecha y hora Hermosillo>".
+  POST con `fetch` + `keepalive` (sobrevive si el visitante sale de la página al instante).
+- `generate_lead` solo en la reserva (`cal_booking`); ya no hay `contact_form` en Book a call. Los otros 3 formularios
+  siguen igual (mandan al pulsar Continue).
+- **Probado de punta a punta** (localhost, build de producción): reserva real → Formspree 200 → email con hora y link de
+  Meet → reserva cancelada en Cal.com. Nombre y email llegan prellenados a Cal.com.
+
+### 2026-11-12: Book a call con el diseño del rebrand (rama `Chrystian/book-a-call`) ✅
 
 - `/contact/book-a-call` y su paso `/agendar` usan el diseño aprobado (bookcall-design-reference): barra superior como
   la home (sin Sign in), "Let's talk." + pills + foto a la izquierda, tarjeta naranja con pasos 1 Your details / 2 Pick a
