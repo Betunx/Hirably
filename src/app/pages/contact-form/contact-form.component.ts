@@ -23,6 +23,7 @@ import {
 import { workEmailValidator } from './work-email.validator';
 import { BookingStateService } from './booking-state.service';
 import { CalculatorContextService } from '@services/calculator-context.service';
+import { BookCallLayoutComponent } from './book-call-layout.component';
 
 const FORMSPREE_ENDPOINT = environment.formspreeEndpoint;
 
@@ -36,7 +37,7 @@ const FORMSPREE_ENDPOINT = environment.formspreeEndpoint;
   selector: 'app-contact-form',
   templateUrl: './contact-form.component.html',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule, BookCallLayoutComponent],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContactFormComponent implements OnInit, OnDestroy {
@@ -46,6 +47,8 @@ export class ContactFormComponent implements OnInit, OnDestroy {
 
   private readonly destroy$ = new Subject<void>();
   private formStarted = false;
+  /** Book a call: show the field errors only after "Choose a time" was clicked (as in the design). */
+  submitted = false;
 
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
@@ -69,7 +72,8 @@ export class ContactFormComponent implements OnInit, OnDestroy {
         }
         this.config      = FORM_CONFIGS[type];
         this.formStarted = false;
-        this.titleService.setTitle(`${this.config.right.formTitle} — Hirably`);
+        this.submitted   = false;
+        this.titleService.setTitle(type === 'book-a-call' ? 'Book a call | Hirably' : `${this.config.right.formTitle} — Hirably`);
         this.buildForm();
         this.applyPrefill();
         this.cdr.markForCheck();
@@ -108,6 +112,11 @@ export class ContactFormComponent implements OnInit, OnDestroy {
       if (value) patch[field.key] = value;
     }
     if (Object.keys(patch).length > 0) this.form.patchValue(patch);
+    // Book a call: coming back from "Pick a time" (Back), keep what they typed.
+    else if (this.config.type === 'book-a-call') {
+      const s = this.bookingState.get('book-a-call');
+      if (s) this.form.patchValue({ firstName: s.firstName ?? '', lastName: s.lastName ?? '', email: s.email });
+    }
   }
 
   /** Full name for Cal.com prefill / Formspree, handling both field layouts. */
@@ -130,6 +139,7 @@ export class ContactFormComponent implements OnInit, OnDestroy {
    * safety net.
    */
   onContinue(): void {
+    this.submitted = true;
     this.form.markAllAsTouched();
     if (this.form.invalid) {
       this.cdr.markForCheck();
@@ -154,6 +164,16 @@ export class ContactFormComponent implements OnInit, OnDestroy {
       _replyto:   email,
     };
 
+    // Book a call: nothing is sent yet. The lead goes to Formspree (with the meeting time) and
+    // generate_lead fires only when Cal.com confirms the booking, on the booking page.
+    if (this.config.type === 'book-a-call') {
+      this.bookingState.set(this.config.type, {
+        name, email, notes: '', firstName: v.firstName, lastName: v.lastName, lead: payload,
+      });
+      this.router.navigate(['/contact', this.config.type, 'agendar']);
+      return;
+    }
+
     // Fire-and-forget, intentionally OFF the component lifecycle: we navigate to
     // the Cal page on the next line, which destroys this component. A
     // takeUntil(destroy$) here would abort the in-flight request before Formspree
@@ -166,6 +186,21 @@ export class ContactFormComponent implements OnInit, OnDestroy {
 
     this.bookingState.set(this.config.type, { name, email, notes: v.notes ?? '' });
     this.router.navigate(['/contact', this.config.type, 'agendar']);
+  }
+
+  /** Book a call: thick border on a field that is wrong, after "Choose a time" was clicked. */
+  showBad(key: string): boolean {
+    return this.submitted && !!this.form.get(key)?.invalid;
+  }
+
+  /** Book a call: one message under the fields, in the order the design asks. */
+  get bookCallError(): string {
+    if (!this.submitted) return '';
+    if (this.form.get('firstName')?.invalid || this.form.get('lastName')?.invalid) return 'Add your first and last name.';
+    const email = this.form.get('email');
+    if (email?.errors?.['workEmail']) return 'Please use your work email.';
+    if (email?.invalid) return 'Enter a work email, like jane@company.com.';
+    return '';
   }
 
   isInvalid(key: string): boolean {

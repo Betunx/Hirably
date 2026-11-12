@@ -1,5 +1,38 @@
 <!-- BOOKING PAGE — dedicated scheduling step (/contact/:type/agendar) -->
-@if (config) {
+@if (config && config.type === 'book-a-call') {
+  <!-- Book a call: approved rebrand design, step 2 (pick a time) and the booked screen. -->
+  <app-book-call-layout>
+    @if (!booked) {
+      <div class="stp"><span class="sn">1</span><span class="sl dim">Your details</span><i class="sx"></i><span class="sn on">2</span><span class="sl">Pick a time</span></div>
+      <h2 class="fh">Pick a time.</h2>
+      <div class="st">
+        <div class="calw">
+          <app-booking-embed
+            [name]="state.name"
+            [email]="state.email"
+            [notes]="state.notes"
+            layout="month_view"
+            brandColor="#1C1C1C"
+            (bookingConfirmed)="onBookingConfirmed($event)" />
+        </div>
+        <div class="acts">
+          <button type="button" class="go wh" (click)="backToDetails()">Back</button>
+          <p class="fp l">Pick a day and a time above. You&#8217;ll get the invite by email.</p>
+        </div>
+      </div>
+    } @else {
+      <div class="done" role="status">
+        <i class="bigck" aria-hidden="true"></i>
+        <h2 class="fh">You&#8217;re booked.</h2>
+        @if (bookedWhen) {
+          <p class="when">{{ bookedWhen }}</p>
+        }
+        <p class="dtx">We sent the invite to {{ bookedEmail }}. It has the Google Meet link.</p>
+        <a class="lk" href="/">Back to the homepage</a>
+      </div>
+    }
+  </app-book-call-layout>
+} @else if (config) {
   <div class="min-h-screen bg-floral-white pt-[72px]">
     <!-- ── BACK TO HOME ────────────────────────────────────────────────────── -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">

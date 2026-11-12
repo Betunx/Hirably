@@ -1,5 +1,28 @@
 <!-- CONTACT FORM PAGE — split layout, per-type theme, OnPush safe -->
-@if (config) {
+@if (config && config.type === 'book-a-call') {
+  <!-- Book a call: approved rebrand design, step 1 (your details). Layout in book-call-layout.component. -->
+  <app-book-call-layout [phoneIntro]="true">
+    <div class="stp"><span class="sn on">1</span><span class="sl">Your details</span><i class="sx"></i><span class="sn">2</span><span class="sl dim">Pick a time</span></div>
+    <h2 class="fh">Who are we meeting?</h2>
+    <form class="st" [formGroup]="form" novalidate (focusin)="onFormStart()" (ngSubmit)="onContinue()">
+      <!-- Honeypot: hidden from users, bots fill it. Must stay empty. -->
+      <input type="text" formControlName="_honeypot" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true" />
+      <div class="row2">
+        <label class="f"><span class="fl">First name</span>
+          <input class="in" [class.bad]="showBad('firstName')" type="text" formControlName="firstName" autocomplete="given-name" placeholder="Jane" /></label>
+        <label class="f"><span class="fl">Last name</span>
+          <input class="in" [class.bad]="showBad('lastName')" type="text" formControlName="lastName" autocomplete="family-name" placeholder="Smith" /></label>
+      </div>
+      <label class="f"><span class="fl">Work email</span>
+        <input class="in" [class.bad]="showBad('email')" type="email" formControlName="email" autocomplete="email" placeholder="jane@company.com" /></label>
+      @if (bookCallError) {
+        <p class="er" role="alert">{{ bookCallError }}</p>
+      }
+      <button type="submit" class="go">Choose a time</button>
+      <p class="fp">Free 30-minute call. No commitment.</p>
+    </form>
+  </app-book-call-layout>
+} @else if (config) {
   <div class="min-h-screen bg-floral-white pt-[72px]">
     <!-- ── BACK TO HOME ────────────────────────────────────────────────────── -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5">
