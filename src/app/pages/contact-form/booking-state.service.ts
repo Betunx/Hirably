@@ -9,6 +9,9 @@ export interface BookingState {
   email: string;
   /** Optional notes prefilled into Cal.com. */
   notes: string;
+  /** Book a call: first and last name, to refill the form when they go Back from "Pick a time". */
+  firstName?: string;
+  lastName?: string;
 }
 
 const PREFIX = 'hirably:booking:';

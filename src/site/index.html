@@ -58,7 +58,12 @@
     }, true);
     // One of the two pages, by screen width. Crossing the line (turning a tablet, resizing a window) loads the other one.
     var phone = function () { return (document.documentElement.clientWidth || window.innerWidth) < 1000; }, mode = phone();
-    var s = document.createElement('script'); s.src = mode ? '/homepage/phone.js?v=463bd658da' : '/homepage/desktop.js?v=463bd658da'; document.body.appendChild(s);
+    var s = document.createElement('script'); s.src = mode ? '/homepage/phone.js?v=463bd658da' : '/homepage/desktop.js?v=463bd658da';
+    // Links from other pages (e.g. the Book a call top bar) arrive as /#how, /#cost, /#hub, /#about: once the page
+    // is drawn, open that section the same way its own menu link does.
+    var want = /^#(how|cost|hub|about)$/.test(window.location.hash) ? window.location.hash : '';
+    if (want) s.onload = function () { var n = 0; (function go() { var a = document.querySelector('a[href="' + want + '"]'); if (a) a.click(); else if (n++ < 40) setTimeout(go, 100); })(); };
+    document.body.appendChild(s);
     var t; window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(function () { if (phone() !== mode) window.location.reload(); }, 250); });
   })();
   </script>
