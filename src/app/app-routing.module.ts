@@ -5,10 +5,13 @@ import { NotFoundComponent } from '@app/pages/not-found/not-found.component';
 import { preprodOnlyGuard } from '@core/preprod-only.guard';
 
 const routes: Routes = [
+  // The homepage is not part of the Angular app: it is src/site/index.html (built from the approved design), served at "/".
+  // A link to "/" inside the app (logo, Home) loads that page for real instead of drawing the old homepage.
   {
     path: '',
-    component: HomeComponent,
-    title: 'Hirably — Hire World-Class Talent in Mexico'
+    pathMatch: 'full',
+    canActivate: [() => { window.location.assign('/'); return false; }],
+    component: HomeComponent
   },
   {
     path: 'contact/:type',

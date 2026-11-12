@@ -35,7 +35,8 @@ function replaceOnce(html, pattern, replacement, label) {
 
 const meta = (attr, key) => new RegExp(`<meta\\s+${attr}="${key}"\\s+content="[^"]*"\\s*/?>`);
 
-const index = readFileSync(join(DIST, 'index.html'), 'utf8');
+// The Angular shell is app.html (angular.json index.output); index.html at the site root is the new homepage (src/site).
+const index = readFileSync(join(DIST, 'app.html'), 'utf8');
 
 for (const page of PAGES) {
   const source = readFileSync(join(ROOT, page.source), 'utf8');

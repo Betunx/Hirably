@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Hirably | Hire in Mexico. We do the rest.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="We find, hire and pay your team in Mexico, on your hours. Starting at $11/hr, up to 70% savings. Shortlist in 3-5 days.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#FCFAF6">
+  <link rel="canonical" href="https://hirablystaffing.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://hirablystaffing.com/">
+  <meta property="og:title" content="Hirably | Hire in Mexico. We do the rest.">
+  <meta property="og:description" content="We find, hire and pay your team in Mexico, on your hours. Starting at $11/hr, up to 70% savings. Shortlist in 3-5 days.">
+  <meta property="og:image" content="https://hirablystaffing.com/assets/logos/H-logo.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hirably | Hire in Mexico. We do the rest.">
+  <meta name="twitter:description" content="We find, hire and pay your team in Mexico, on your hours. Starting at $11/hr, up to 70% savings. Shortlist in 3-5 days.">
+  <meta name="twitter:image" content="https://hirablystaffing.com/assets/logos/H-logo.png">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" href="/assets/logos/H-logo.png">
+  <link rel="apple-touch-icon" href="/assets/logos/H-logo.png">
+  <!-- Google Tag Manager (same container as the rest of the site) -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-57R63H9H');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400&amp;family=Figtree:wght@500;600&amp;family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&amp;family=Instrument+Sans:wght@400;500;600;700&amp;display=swap">
+  <style>html,body{margin:0;background:#FCFAF6;color:#1C1C1C}#hs{min-height:100vh}.nojs{font:18px/1.5 Figtree,system-ui,sans-serif;max-width:640px;margin:15vh auto;padding:0 24px}</style>
+</head>
+<body>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-57R63H9H" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    <div class="nojs"><h1>Hire in Mexico. We do the rest.</h1><p>We find, hire and pay your team in Mexico, on your hours.</p><p><a href="/contact/book-a-call">Book a call</a></p></div></noscript>
+  <div id="hs"></div>
+  <script>
+  (function () {
+    // The site's analytics events (same names and shapes as src/app/services/analytics.service.ts) and its lead form.
+    var dl = window.dataLayer = window.dataLayer || [];
+    var path = function () { return window.location.pathname; };
+    var utm = function () { var p = new URLSearchParams(window.location.search); return { utm_source: p.get('utm_source') || '', utm_medium: p.get('utm_medium') || '', utm_campaign: p.get('utm_campaign') || '' }; };
+    dl.push({ event: 'page_data', page: { type: 'home', path: path() } });
+    window.__hirably = {
+      lead: function (p) {
+        var body = Object.assign({}, p, { _form_type: 'start-hiring', _subject: 'Hirably Form: Start Hiring (' + p.role + ', ' + p.level + ')', _replyto: p.email });
+        return fetch('https://formspree.io/f/xzdjkqnd', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(body) })
+          .then(function (r) { if (!r.ok) throw new Error('lead ' + r.status); dl.push({ event: 'generate_lead', lead: { source: 'rate_calculator', service_type: 'start_hiring' }, user: utm() }); });
+      }
+    };
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest ? e.target.closest('a') : null; if (!a) return;
+      var h = a.getAttribute('href') || '';
+      if (a.hasAttribute('data-cta')) dl.push({ event: 'cta_click', cta: { text: a.getAttribute('data-cta'), type: 'homepage' }, page: { path: path() } });
+      else if (h.indexOf('tel:') === 0) dl.push({ event: 'contact_click', contact: { method: 'phone' }, page: { path: path() } });
+      else if (h.indexOf('mailto:') === 0) dl.push({ event: 'contact_click', contact: { method: 'email' }, page: { path: path() } });
+    }, true);
+    // One of the two pages, by screen width. Crossing the line (turning a tablet, resizing a window) loads the other one.
+    var phone = function () { return (document.documentElement.clientWidth || window.innerWidth) < 1000; }, mode = phone();
+    var s = document.createElement('script'); s.src = mode ? '/homepage/phone.js?v=463bd658da' : '/homepage/desktop.js?v=463bd658da'; document.body.appendChild(s);
+    var t; window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(function () { if (phone() !== mode) window.location.reload(); }, 250); });
+  })();
+  </script>
+</body>
+</html>
