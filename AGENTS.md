@@ -38,6 +38,16 @@ Requisitos: Node 20+ y `pnpm` (`npm i -g pnpm`). No hay tests automatizados (ver
 
 ## 3. Mapa del código (dónde tocar qué)
 
+> **Home nueva (rebrand, 2026-11):** la página `/` ya **no** es Angular. Vive en
+> [src/site/](src/site/) y se copia tal cual a la raíz del build (`angular.json` → `assets`).
+> - `src/site/index.html`: cabecera (title, meta, GTM), fuentes y un cargador que elige
+>   `homepage/desktop.js` (pantallas de 1000px o más) o `homepage/phone.js` (menos de 1000px).
+> - `src/site/homepage/*.js` y `img/`: **archivos generados** desde el diseño aprobado (canvas de diseño
+>   de Chrystian). No se editan a mano: un cambio de texto o diseño se hace en el diseño y se regenera.
+> - El shell de Angular ahora sale como `app.html` (`angular.json` → `index.output`); `vercel.json` reescribe
+>   todo lo demás a `/app.html`. La ruta `''` de Angular solo redirige (carga real) a `/`.
+> - Los componentes de la home vieja (`pages/home`, `components/*`) siguen en el código pero ya no se muestran.
+
 ```
 src/
 ├─ app/
@@ -303,6 +313,18 @@ _Otros_
 
 Registro cronológico para validar que lo planeado se implementó y dónde quedó.
 Una entrada por bloque de trabajo. Más reciente arriba.
+
+### 2026-11-12: Home nueva del rebrand (rama `Chrystian/new-site`) 🔄
+
+- `/` sirve [src/site/index.html](src/site/index.html): la home aprobada (escritorio + teléfono), con About, Hirably Hub,
+  Contact y la vista de calculadora como capas dentro de la misma página.
+- **Book a call** → `/contact/book-a-call` (form actual con Cal.com + Formspree) hasta rediseñar los formularios.
+- **Start Hiring** (calculadora) → mismo Formspree (`_form_type: start-hiring`) + `generate_lead` (`source: rate_calculator`,
+  `service_type: start_hiring`). También `page_data`, `cta_click` y `contact_click` (tel/mailto). Falta `scroll_depth`,
+  `time_on_page` y `section_view` en la home nueva.
+- Careers → `/careers`; Privacy/Terms → rutas legales (en producción siguen en 404 hasta aprobación legal).
+- Pendiente: destino de "Sign in", formularios con el diseño nuevo, URLs propias para About / Hub / calculadora,
+  vista de tablet (hoy usa la versión de teléfono, centrada, por debajo de 1000px).
 
 ### 2026-10-12 — Página standalone /mexico-calculator ✅
 
