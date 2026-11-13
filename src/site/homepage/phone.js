@@ -130,7 +130,21 @@ function calcVals(self, st) {
     hbW: (Math.round((1 - share) * 1000) / 10) + '%'
   };
 }
-const ZONES = [{ key: 'you' }, { key: 'mx', tz: 'America/Mexico_City', city: 'Mexico City' }, { key: 'mnl', tz: 'Asia/Manila', city: 'Manila', dim: true }, { key: 'bom', tz: 'Asia/Kolkata', city: 'Mumbai', dim: true }];
+// Second clock: the Mexican city on (or nearest to) the visitor's time: Pacific -> Tijuana, Arizona and Mountain -> Hermosillo,
+// Central -> Guadalajara, everyone else (Eastern, outside North America, unknown) -> Mexico City. Read once, on load.
+const MX_PACIFIC = ['America/Los_Angeles', 'America/Vancouver', 'America/Tijuana', 'America/Ensenada', 'America/Santa_Isabel', 'US/Pacific', 'Canada/Pacific', 'Mexico/BajaNorte', 'PST8PDT'];
+const MX_MOUNTAIN = ['America/Phoenix', 'America/Denver', 'America/Boise', 'America/Edmonton', 'America/Hermosillo', 'America/Mazatlan', 'America/Creston', 'America/Dawson_Creek', 'America/Fort_Nelson', 'America/Yellowknife', 'America/Cambridge_Bay', 'America/Inuvik', 'America/Ciudad_Juarez', 'America/Whitehorse', 'America/Dawson', 'America/Shiprock', 'Navajo', 'US/Arizona', 'US/Mountain', 'Canada/Mountain', 'Canada/Yukon', 'Mexico/BajaSur', 'MST', 'MST7MDT'];
+const MX_CENTRAL = ['America/Chicago', 'America/Winnipeg', 'America/Mexico_City', 'America/Monterrey', 'America/Merida', 'America/Matamoros', 'America/Bahia_Banderas', 'America/Chihuahua', 'America/Ojinaga', 'America/Regina', 'America/Swift_Current', 'America/Rainy_River', 'America/Rankin_Inlet', 'America/Resolute', 'America/Menominee', 'America/Indiana/Knox', 'America/Indiana/Tell_City', 'America/Knox_IN', 'America/North_Dakota/Center', 'America/North_Dakota/New_Salem', 'America/North_Dakota/Beulah', 'US/Central', 'US/Indiana-Starke', 'Canada/Central', 'Canada/Saskatchewan', 'Mexico/General', 'CST6CDT'];
+function mxZone() {
+  let tz = '';
+  try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+  if (MX_PACIFIC.indexOf(tz) >= 0) return { tz: 'America/Tijuana', city: 'Tijuana' };
+  if (MX_MOUNTAIN.indexOf(tz) >= 0) return { tz: 'America/Hermosillo', city: 'Hermosillo' };
+  if (MX_CENTRAL.indexOf(tz) >= 0) return { tz: 'America/Mexico_City', city: 'Guadalajara' };
+  return { tz: 'America/Mexico_City', city: 'Mexico City' };
+}
+const MX = mxZone();
+const ZONES = [{ key: 'you' }, { key: 'mx', tz: MX.tz, city: MX.city }, { key: 'mnl', tz: 'Asia/Manila', city: 'Manila', dim: true }, { key: 'bom', tz: 'Asia/Kolkata', city: 'Mumbai', dim: true }];
 function two(n) { return (n < 10 ? '0' : '') + n; }
 function wall(tz, now) {
   try {
