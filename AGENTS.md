@@ -322,11 +322,11 @@ Una entrada por bloque de trabajo. Más reciente arriba.
   (que usan `clockVals()` y `targets()`): Pacífico → Tijuana (`America/Tijuana`), Arizona y Montaña → Hermosillo
   (`America/Hermosillo`), Centro → Guadalajara (`America/Mexico_City`), el resto → Mexico City. Listas `MX_PACIFIC`,
   `MX_MOUNTAIN`, `MX_CENTRAL`. Chip, "Where your hire works", flaps y formato de 24 h sin cambios.
-- Versión de los scripts en [src/site/index.html](src/site/index.html): `?v=4542444f45`.
+- Versión de los scripts en [src/site/index.html](src/site/index.html): `?v=1c3f72102b` (ya con el arreglo de los flaps).
 - Probado con Los Angeles, Phoenix, Denver, Chicago y New York (escritorio y teléfono): Tijuana, Hermosillo, Hermosillo,
   Guadalajara, Mexico City, con hora y chip correctos.
-- **Visto de paso (no es de este cambio):** a veces los flaps se quedan a medio girar y no llegan a la hora (también con el
-  código de `main` sin tocar). `_sync` no corre mientras `self._iv` está puesto; parece quedar puesto sin timer activo.
+- **Flaps congelados: arreglado** con `bfc1816` (fusionado en la rama): un segundo helper `bump` (el de los signos +) tapaba al de
+  los relojes, así que los flaps nunca redibujaban. Ahora se llama `nudge`, y los flaps redibujan solo los dos bloques de relojes.
 
 ### 2026-11-12: Book a call, el lead sale solo al reservar (rama `Chrystian/booking-lead`) ✅
 
