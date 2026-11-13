@@ -314,6 +314,20 @@ _Otros_
 Registro cronológico para validar que lo planeado se implementó y dónde quedó.
 Una entrada por bloque de trabajo. Más reciente arriba.
 
+### 2026-11-12: Why Mexico, el segundo reloj según la zona del visitante (rama `Chrystian/new-site`) ✅
+
+- Base: `d3ecab3` (relojes de 24 horas) fusionado en la rama.
+- [desktop.js](src/site/homepage/desktop.js) y [phone.js](src/site/homepage/phone.js), mismo cambio en los dos:
+  `mxZone()` lee `Intl.DateTimeFormat().resolvedOptions().timeZone` una vez y elige la ciudad del reloj `mx` en `ZONES`
+  (que usan `clockVals()` y `targets()`): Pacífico → Tijuana (`America/Tijuana`), Arizona y Montaña → Hermosillo
+  (`America/Hermosillo`), Centro → Guadalajara (`America/Mexico_City`), el resto → Mexico City. Listas `MX_PACIFIC`,
+  `MX_MOUNTAIN`, `MX_CENTRAL`. Chip, "Where your hire works", flaps y formato de 24 h sin cambios.
+- Versión de los scripts en [src/site/index.html](src/site/index.html): `?v=1c3f72102b` (ya con el arreglo de los flaps).
+- Probado con Los Angeles, Phoenix, Denver, Chicago y New York (escritorio y teléfono): Tijuana, Hermosillo, Hermosillo,
+  Guadalajara, Mexico City, con hora y chip correctos.
+- **Flaps congelados: arreglado** con `bfc1816` (fusionado en la rama): un segundo helper `bump` (el de los signos +) tapaba al de
+  los relojes, así que los flaps nunca redibujaban. Ahora se llama `nudge`, y los flaps redibujan solo los dos bloques de relojes.
+
 ### 2026-11-12: Book a call, el lead sale solo al reservar (rama `Chrystian/booking-lead`) ✅
 
 - **Bug (PR #20):** el lead de Book a call se mandaba a Formspree al pulsar "Choose a time", sin reserva y sin hora.
